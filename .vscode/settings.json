@@ -1,1 +1,4 @@
-{}
+{
+    "cmake.sourceDirectory": "/Users/petchauisui/Desktop/Dev/Week-11-MQTT-Cloud-Communication-and-control/Example_project/Lab11-2_MQTT_Client",
+    "idf.currentSetup": "/Users/petchauisui/.espressif/v6.0.2/esp-idf"
+}
