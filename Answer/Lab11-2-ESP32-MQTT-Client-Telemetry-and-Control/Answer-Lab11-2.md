@@ -19,7 +19,7 @@ Build และ flash โปรเจกต์สำเร็จ โดยกำ
 *รูปที่ Serial monitor*: บอร์ดเชื่อมต่อ Wi-Fi SSID `Bismarck .` สำเร็จ ได้ IP `10.131.32.203` จากนั้นขึ้น `MQTT_EVENT_CONNECTED: Connected to Broker!` และ `Subscribed to: iot/node01/cmd/led` แล้วเริ่มส่ง `Telemetry Published` ทุก 4 วินาที (มี `Wi-Fi disconnected (reason=5)` ช่วงแรก 1 ครั้ง ซึ่งโค้ดเชื่อมต่อใหม่เองสำเร็จ)
 
 ### 11-2.3 Telemetry (mosquitto_sub)
-![JSON telemetry](../Image/Lab11-2/telemetry.png)
+![JSON telemetry](../Image/Lab11-2/b.png)
 
 *รูปที่ JSON telemetry*: `mosquitto_sub` subscribe topic `iot/node01/telemetry` ได้รับ JSON ทุก 4 วินาที (ค่า `uptime_ms` เพิ่มขึ้นทีละประมาณ 4,010 ms) ประกอบด้วย `node_id`, `adc_raw`, `voltage_v`, `led_state` และ `uptime_ms`
 
@@ -40,15 +40,15 @@ Build และ flash โปรเจกต์สำเร็จ โดยกำ
 
 **ส่งคำสั่ง `ON`**
 
-![ส่งคำสั่ง ON LED ติด](../Image/Lab11-2/1000199760.jpg)
+![ส่งคำสั่ง ON LED ติด](../Image/Lab11-2/c.jpg)
 
 **ส่งคำสั่ง `OFF`**
 
-![ส่งคำสั่ง OFF LED ดับ](../Image/Lab11-2/1000199762.jpg)
+![ส่งคำสั่ง OFF LED ดับ](../Image/Lab11-2/d.jpg)
 
 **ส่งคำสั่ง `{"state": 1}`**
 
-![ส่งคำสั่ง JSON LED ติด](../Image/Lab11-2/1000199763.jpg)
+![ส่งคำสั่ง JSON LED ติด](../Image/Lab11-2/e.jpg)
 
 *รูปที่ ผลการสั่ง LED*: ESP32 Subscribe topic `iot/node01/cmd/led` และถอดรหัสคำสั่ง `ON`/`OFF` รวมถึง JSON `{"state": 1}` แล้วสั่ง GPIO 2 ให้ LED ติด/ดับตามคำสั่ง จากภาพถ่ายบอร์ดจริง
 

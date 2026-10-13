@@ -16,14 +16,14 @@
 > หมายเหตุ: ต้องใช้ตารางพาร์ติชันที่มี `fctry` (`partitions.csv`) มิฉะนั้นจะเกิด `esp_rmaker_fctry: NVS Flash init failed`
 
 ### 11-4.3 Build / Flash และ QR Code
-![QR Code ใน serial log](../Image/Lab11-4/Screenshot%202026-10-13%20164639.png)
+![QR Code ใน serial log](../Image/Lab11-4/a.png)
 
 *รูปที่ QR Code ใน serial log*: หลัง flash บอร์ดเริ่ม BLE provisioning ด้วย service name `PROV_02529c` พิมพ์ QR Code แบบ ASCII พร้อม URL สำหรับเปิดรูป QR (`transport":"ble"`) และแจ้งว่า provisioning จะหยุดอัตโนมัติหลัง 30 นาที
 
 ### 11-4.4 Provisioning และ Claiming
-![Provisioning สำเร็จ](../Image/Lab11-4/1000199764.jpg)
+![Provisioning สำเร็จ](../Image/Lab11-4/b.jpg)
 
-![การ์ดอุปกรณ์ Living Room Light ในแอป](../Image/Lab11-4/1000199765.jpg)
+![การ์ดอุปกรณ์ Living Room Light ในแอป](../Image/Lab11-4/c.jpg)
 
 *รูปที่ ขั้นตอน provisioning ในแอป*: สแกน QR ในแอป ESP RainMaker แล้วแอปทำ `Confirming Node Association`, `Confirming Wi-Fi connection` และ `Setting up the Node` ผ่านครบ ขึ้น `Device Added Successfully!!` จากนั้นหน้า Devices แสดงการ์ด **Living Room Light**
 
@@ -36,18 +36,18 @@
 
 **Serial Monitor: MQTT เชื่อมต่อและรับคำสั่งจากคลาวด์**
 
-![Serial: รับคำสั่ง Power จาก Cloud](../Image/Lab11-4/Screenshot%202026-10-13%20164809.png)
+![Serial: รับคำสั่ง Power จาก Cloud](../Image/Lab11-4/d.png)
 
 *รูปที่ ควบคุมผ่านแอป*: บอร์ดแสดง `MQTT Connected`, รายงานค่าเริ่มต้น `{"Power":false,"Brightness":100}`, ซิงก์เวลา SNTP และตั้ง timezone `Asia/Bangkok` เมื่อกดสวิตช์ในแอปจะได้ `Received params: {"Living Room Light":{"Power":true}}` ผ่าน `write_cb` แล้ว LED เปลี่ยนสถานะและรายงานค่ากลับขึ้นคลาวด์
 
 ### 4.2 Remote Test ผ่านเครือข่ายมือถือ
 **LED ดับ (Power OFF)**
 
-![ควบคุมผ่านแอป: LED ดับ](../Image/Lab11-4/IMG_0475.jpeg)
+![ควบคุมผ่านแอป: LED ดับ](../Image/Lab11-4/e.jpg)
 
 **LED ติด (Power ON)**
 
-![ควบคุมผ่านแอป: LED ติด](../Image/Lab11-4/IMG_0476.jpeg)
+![ควบคุมผ่านแอป: LED ติด](../Image/Lab11-4/f.jpg)
 
 *รูปที่ ทดสอบผ่านเครือข่ายมือถือ*: ภาพถ่ายแสดงมือถือ (แถบสถานะเป็น 4G) กดสวิตช์ในแอป แล้วหลอด LED บนบอร์ดติด/ดับตาม และ Serial ขึ้น `Request received via: Cloud` แสดงว่าคำสั่งส่งผ่าน RainMaker Cloud ไม่ได้ส่งตรงเข้าบอร์ดผ่าน LAN/BLE
 

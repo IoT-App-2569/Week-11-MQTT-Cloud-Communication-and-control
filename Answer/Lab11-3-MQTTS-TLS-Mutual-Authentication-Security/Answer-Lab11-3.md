@@ -22,7 +22,7 @@
 *รูปที่ ไฟล์ cert และ key ที่สร้าง*: รัน `.\lab11-3.ps1 certs` สร้าง Root CA (`CN=IoT Root CA`), Server (`CN=10.131.32.114` พร้อม SAN IP เดียวกัน) และ Client (`CN=esp32-secure-node`) อายุ 3650 วัน (13/10/2026 ถึง 10/10/2036) แล้ว `.\lab11-3.ps1 show` ยืนยันว่า `server.crt` และ `client.crt` ผ่านการตรวจ chain (`OK`) กับ `ca.crt`
 
 ### 11-3.2 Mosquitto MQTTS (8883)
-![Broker เปิดพอร์ต 8883](../Image/Lab11-3/f.png)
+![Broker เปิดพอร์ต 8883](../Image/Lab11-3/b.png)
 
 *รูปที่ Broker เปิดพอร์ต 8883*: รัน `.\lab11-3.ps1 broker` โหลดคอนฟิก `certs\mosquitto_ssl.conf` และขึ้น `Opening ipv4 listen socket on port 8883.` กับ `mosquitto version 2.1.2 running` (เปิดเฉพาะพอร์ต 8883) ใน log ยังเห็นการเชื่อมต่อของ `mosquitto_sub` (`10.131.32.114`) ที่ negotiate `TLSv1.3` สำเร็จ และ client ที่ใช้ใบรับรองไม่ถูกต้อง/ไม่มีใบรับรองถูกตัดด้วย `protocol error`
 
@@ -35,7 +35,7 @@
 
 **Subscriber (Terminal 2)**
 
-![Subscriber รับข้อความผ่าน TLS](../Image/Lab11-3/b.png)
+![Subscriber รับข้อความผ่าน TLS](../Image/Lab11-3/c.png)
 
 **Publisher: pub / attack / plain (Terminal 3)**
 
@@ -48,7 +48,7 @@
 
 *รูปที่ Serial monitor: TLS handshake*: ESP32 เชื่อมต่อ Wi-Fi `Bismarck .` ได้ IP `10.131.32.203` (มี `reason=202` ที่ต่อครั้งแรก แล้วต่อใหม่สำเร็จเอง) จากนั้นเริ่ม `Initializing Secure MQTTS Client with mTLS...` และขึ้น `MQTTS TLS Handshake Successful! Connected to Secure Broker.` แสดงว่าบอร์ดตรวจใบรับรอง Broker ด้วย `ca.crt` ผ่าน และ Broker ยอมรับ `client.crt` ของบอร์ด
 
-![Broker log: Peer certificate verified](../Image/Lab11-3/g.png)
+![Broker log: Peer certificate verified](../Image/Lab11-3/f.png)
 
 *รูปที่ Broker log: Peer certificate verified*: Broker รับการเชื่อมต่อจากบอร์ด `10.131.32.203` พอร์ต 8883 และขึ้น `New client connected ... as esp32_mtls_client_node (..., u'esp32-secure-node')` แสดงว่า Broker ตรวจใบรับรองของบอร์ดผ่านและนำ CN `esp32-secure-node` มาเป็น username ต่อด้วย `negotiated TLSv1.2 cipher ECDHE-RSA-AES256-GCM-SHA384`, `Sending CONNACK (0, 0)`, `Received PUBLISH ... 'secure/esp32/status' (18 bytes)` (`SECURE_ONLINE_MTLS`) และ `SUBSCRIBE secure/esp32/cmd (QoS 1)` จากนั้นมี `PINGREQ/PINGRESP` ต่อเนื่องเพื่อรักษาการเชื่อมต่อ
 
