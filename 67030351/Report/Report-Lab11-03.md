@@ -15,7 +15,7 @@
   * เริ่มต้นกระบวนการเชื่อมต่อและทำ TLS Handshake `Connecting to 192.168.1.36:8883...`
   * หน้าจอรายงานสถานะสำเร็จ `MQTTS TLS Handshake Successful! Connected to Secure Broker.`
   * ทำการส่งสถานะ `secure/esp32/status = SECURE_ONLINE_MTLS` และ Subscribe หัวข้อ `secure/esp32/cmd`
-* **ภาพหน้าจอ Serial Monitor (ESP-IDF Monitor):**
+* **ภาพหน้าจอ Serial Monitor (ESP-IDF Monitor)**
   ![alt text](image-5.png)
 
 ---
