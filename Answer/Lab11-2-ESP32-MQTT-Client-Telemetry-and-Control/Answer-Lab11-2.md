@@ -3,7 +3,7 @@
 - ชื่อ-สกุล: 
 - รหัสนักศึกษา: 67030098
 - วันที่ทำการทดลอง: 
-- โค้ด: [Code/Lab11-2](../../Code/Lab11-2)
+- โค้ด: [Code/Lab11-2](../../Code/Lab11-2-ESP32-MQTT-Client-Telemetry-and-Control)
 - รูปภาพ: [Answer/Image/Lab11-2](../Image/Lab11-2)
 
 ---
