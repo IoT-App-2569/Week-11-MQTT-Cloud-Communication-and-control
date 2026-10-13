@@ -15,10 +15,12 @@
   ![alt text](image-7.png)
 
 * **ภาพหน้าจอ Mobile App ขณะทำการเคลมอุปกรณ์สำเร็จ (Assisted Claiming)**
-  ![alt text](image-8.png)
-  
+
+![alt text](image-8.png)
+
 * **ภาพหน้าจอ Mobile App ขณะตั้งค่า Wi-Fi Provisioning**
-  ![alt text](image-8-wifi.png)
+
+![alt text](image-8-wifi.png)
 
 ---
 
