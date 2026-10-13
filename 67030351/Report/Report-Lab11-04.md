@@ -13,8 +13,10 @@
   * เลือก Wi-Fi 2.4 GHz และกรอกรหัสผ่านเพื่อให้อุปกรณ์เชื่อมต่อออกสู่อินเทอร์เน็ต
 * **ภาพหน้าจอ Serial Monitor (QR Code & BLE Advertising)**
   ![alt text](image-7.png)
+
 * **ภาพหน้าจอ Mobile App ขณะทำการเคลมอุปกรณ์สำเร็จ (Assisted Claiming)**
   ![alt text](image-8.png)
+  
 * **ภาพหน้าจอ Mobile App ขณะตั้งค่า Wi-Fi Provisioning**
   ![alt text](image-8-wifi.png)
 
