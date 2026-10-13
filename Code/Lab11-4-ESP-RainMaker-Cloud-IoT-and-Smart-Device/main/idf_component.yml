@@ -1,0 +1,8 @@
+## IDF Component Manager Manifest File
+dependencies:
+  idf:
+    version: ">=5.0.0"
+  # ESP RainMaker agent (registry name is "esp_rainmaker", not "esp-rainmaker")
+  espressif/esp_rainmaker: "*"
+  # Wi-Fi provisioning helper (BLE) used by examples as app_wifi / app_network
+  espressif/rmaker_app_network: "*"
