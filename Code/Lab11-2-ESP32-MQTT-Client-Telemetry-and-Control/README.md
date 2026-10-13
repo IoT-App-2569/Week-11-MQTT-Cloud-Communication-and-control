@@ -27,9 +27,9 @@
 ค่าทั้งหมดอยู่ในไฟล์ `.env` (โฟลเดอร์เดียวกับ README นี้) ไม่ต้องแก้โค้ด C:
 
 ```env
-WIFI_SSID=Bismarck .
-WIFI_PASS=jobshare
-MQTT_BROKER_URI=mqtt://10.131.32.114:1883
+WIFI_SSID=YOUR_WIFI_SSID
+WIFI_PASS=YOUR_WIFI_PASSWORD
+MQTT_BROKER_URI=mqtt://192.168.1.100:1883
 ```
 
 - `MQTT_BROKER_URI` = IP ของคอมพิวเตอร์ที่รัน Broker (`ipconfig` → IPv4 Address ของ Wi-Fi); ถ้า IP เปลี่ยนต้องแก้ไฟล์นี้แล้ว build ใหม่

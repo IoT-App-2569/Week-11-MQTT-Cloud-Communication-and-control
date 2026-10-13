@@ -16,9 +16,9 @@
 #include "mqtt_client.h"
 #include "cJSON.h"
 
-#define WIFI_SSID           "AIS 4G Hi-Speed Home WiFi_769475"
-#define WIFI_PASS           "50769475"
-#define MQTT_BROKER_URI     "mqtt://192.168.1.111:1883" // เปลี่ยนเป็น IP คอมพิวเตอร์ของท่าน
+#define WIFI_SSID           "YOUR_WIFI_SSID"
+#define WIFI_PASS           "YOUR_WIFI_PASSWORD"
+#define MQTT_BROKER_URI     "mqtt://192.168.1.100:1883" // เปลี่ยนเป็น IP คอมพิวเตอร์ของท่าน
 
 
 #if CONFIG_IDF_TARGET_ESP32C3
