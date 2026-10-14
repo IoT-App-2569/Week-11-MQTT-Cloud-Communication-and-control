@@ -1,15 +1,93 @@
-*.bkp
-~$**
-.vscode/settings.json
-Ref/**
-.pytest_cache/
-__pycache__/
-
-# esp-idf built binaries
+# ==========================================
+# ESP-IDF Build Artifacts & Binaries
+# ==========================================
 build/
+**/build/
 build_*_*/
+**/build_*_*/
 
-dependencies.lock
-managed_components/
-*.old
+*.bin
+*.elf
+*.map
+*.o
+*.obj
+*.a
+*.d
+*.out
+*.hex
+
+flasher_args.json
+flash_project_args
+bootloader.bin
+partition-table.bin
+
+# ESP-IDF Configuration & Components
 sdkconfig
+**/sdkconfig
+sdkconfig.old
+**/sdkconfig.old
+sdkconfig.ci
+**/sdkconfig.ci
+*.old
+
+managed_components/
+**/managed_components/
+dependencies.lock
+**/dependencies.lock
+
+# CMake & Ninja Temporary Files
+CMakeFiles/
+**/CMakeFiles/
+CMakeCache.txt
+**/CMakeCache.txt
+cmake_install.cmake
+**/cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+.ninja_deps
+.ninja_log
+.cache/
+**/.cache/
+
+# ==========================================
+# Python & Environment
+# ==========================================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+venv/
+.venv/
+env/
+
+# ==========================================
+# Editors & IDEs
+# ==========================================
+.vscode/settings.json
+.vscode/launch.json
+.vscode/*.log
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+*.bak
+*.bkp
+*.tmp
+~$**
+
+# ==========================================
+# Operating System Files
+# ==========================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================================
+# Project Specific Exclusions
+# ==========================================
+Ref/**
