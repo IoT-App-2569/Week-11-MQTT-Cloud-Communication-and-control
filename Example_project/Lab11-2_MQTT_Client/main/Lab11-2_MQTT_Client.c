@@ -16,9 +16,9 @@
 #include "mqtt_client.h"
 #include "cJSON.h"
 
-#define WIFI_SSID           "AIS 4G Hi-Speed Home WiFi_769475"
-#define WIFI_PASS           "50769475"
-#define MQTT_BROKER_URI     "mqtt://192.168.1.111:1883" // เปลี่ยนเป็น IP คอมพิวเตอร์ของท่าน
+#define WIFI_SSID           "1234_2.4G"
+#define WIFI_PASS           "123456789"
+#define MQTT_BROKER_URI     "mqtt://192.168.1.37:1883" // เปลี่ยนเป็น IP คอมพิวเตอร์ของท่าน
 
 
 #if CONFIG_IDF_TARGET_ESP32C3
@@ -36,6 +36,8 @@ static EventGroupHandle_t s_wifi_event_group;
 static esp_mqtt_client_handle_t s_mqtt_client = NULL;
 static adc_oneshot_unit_handle_t s_adc_handle = NULL;
 static bool s_led_state = false;
+int s_simulated_adc = 1000;
+bool s_use_manual_adc = false;
 
 /* ========================================================
  * 1. ระบบเชื่อมต่อ Wi-Fi Station
@@ -110,6 +112,10 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         // บอกรับหัวข้อคำสั่งควบคุม LED
         esp_mqtt_client_subscribe(client, "iot/node01/cmd/led", 1);
         ESP_LOGI(TAG, "Subscribed to: iot/node01/cmd/led");
+
+        // บอกรับหัวข้อปรับค่าจำลอง ADC (กรณีไม่มี Potentiometer จริง)
+        esp_mqtt_client_subscribe(client, "iot/node01/cmd/adc", 1);
+        ESP_LOGI(TAG, "Subscribed to: iot/node01/cmd/adc");
         break;
 
     case MQTT_EVENT_DISCONNECTED:
@@ -121,7 +127,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "TOPIC=%.*s", event->topic_len, event->topic);
         ESP_LOGI(TAG, "DATA=%.*s", event->data_len, event->data);
 
-        // ตรวจสอบหัวข้อควบคุม
+        // ตรวจสอบหัวข้อควบคุม LED
         if (strncmp(event->topic, "iot/node01/cmd/led", event->topic_len) == 0) {
             char buf[64] = {0};
             int len = event->data_len < sizeof(buf) - 1 ? event->data_len : sizeof(buf) - 1;
@@ -143,6 +149,20 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
             snprintf(ack_msg, sizeof(ack_msg), "{\"led_state\": %s}", s_led_state ? "true" : "false");
             esp_mqtt_client_publish(client, "iot/node01/state/led", ack_msg, 0, 1, 0);
         }
+        // ตรวจสอบหัวข้อปรับค่า ADC จำลอง (เช่น ส่ง 2048 หรือ 4095)
+        else if (strncmp(event->topic, "iot/node01/cmd/adc", event->topic_len) == 0) {
+            char buf[32] = {0};
+            int len = event->data_len < sizeof(buf) - 1 ? event->data_len : sizeof(buf) - 1;
+            memcpy(buf, event->data, len);
+            int val = atoi(buf);
+            if (val >= 0 && val <= 4095) {
+                extern int s_simulated_adc;
+                extern bool s_use_manual_adc;
+                s_simulated_adc = val;
+                s_use_manual_adc = true;
+                ESP_LOGI(TAG, "Manual Simulated ADC set to: %d", s_simulated_adc);
+            }
+        }
         break;
 
     default:
@@ -163,6 +183,17 @@ static void telemetry_task(void *pvParameters)
             if (s_adc_handle != NULL) {
                 adc_oneshot_read(s_adc_handle, ADC_CHANNEL, &adc_raw);
             }
+            
+            // กรณีไม่มี Potentiometer ต่ออยู่ หรือต้องการจำลองค่า:
+            // หากได้รับคำสั่งจำลองค่าผ่าน iot/node01/cmd/adc ให้ใช้ค่านั้น
+            if (s_use_manual_adc) {
+                adc_raw = s_simulated_adc;
+            } else if (adc_raw < 100) {
+                // หากไม่มี Potentiometer ต่อจริง (ค่าดิบเป็น 0) ให้ปรับค่าขึ้นทีละ 350 อัตโนมัติ (0 - 4095)
+                s_simulated_adc = (s_simulated_adc + 350) % 4096;
+                adc_raw = s_simulated_adc;
+            }
+
             // แปลงค่า ADC เป็นแรงดันไฟฟ้าโดยประมาณ (0 - 3300 mV)
             float voltage = ((float)adc_raw / 4095.0f) * 3.3f;
 
