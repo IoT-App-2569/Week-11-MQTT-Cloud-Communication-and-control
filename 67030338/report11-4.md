@@ -8,28 +8,34 @@
 ### 1. ภาพหน้าจอ Serial Monitor ขณะสร้าง QR Code และเริ่ม BLE Provisioning
 * บอร์ด ESP32 เริ่มต้นทำงาน ทำการอ่านค่า NVS และสร้าง QR Code (ASCII Art) พร้อม URL ทาง Serial Monitor เพื่อรอรับการจับคู่ผ่านสัญญาณ Bluetooth Low Energy (BLE Advertising)
 
-*(แนบรูปภาพหน้าจอ Serial Monitor ที่ปรากฏ ASCII QR Code และลิงก์ URL)*
+*<img width="1256" height="557" alt="11-4-1" src="https://github.com/user-attachments/assets/3ee497e5-e974-41dc-a402-1afa27cc3eb5" />
 
 ---
 
 ### 2. ภาพหน้าจอการทำ Assisted Claiming และเชื่อมต่อ Wi-Fi บนแอป ESP RainMaker
 * หน้าจอโทรศัพท์มือถือขณะสแกน QR Code, ระบบถามยืนยันการรับ Certificate ผ่าน Assisted Claiming, การเลือกเครือข่าย Wi-Fi 2.4 GHz และหน้า Dashboard ที่ปรากฏการ์ดอุปกรณ์ **"Living Room Light"**
 
-*(แนบรูปภาพหน้าจอโทรศัพท์มือถือแอป ESP RainMaker)*
+<img width="1080" height="2400" alt="Screenshot_20261016_222923" src="https://github.com/user-attachments/assets/2983c8ee-213b-4986-9d1d-750a41f31803" />
+<img width="1080" height="2400" alt="Screenshot_20261016_222416" src="https://github.com/user-attachments/assets/0481cf34-fc7c-4904-ad76-e455d805c90d" />
 
 ---
 
 ### 3. ภาพการทดสอบควบคุมหลอดไฟ LED บนบอร์ด และปรับความสว่าง (Power & Brightness)
 * ภาพหลอดไฟ LED (GPIO 2) สว่างขึ้นเมื่อกดสวิตช์ Power ON ในแอปมือถือ และภาพ Serial Monitor ที่แสดง Callback Log การปรับค่า `Power` และ `Brightness`
 
-*(แนบรูปภาพฮาร์ดแวร์บอร์ด ESP32 คู่กับ Log บนคอมพิวเตอร์)*
+
+<img width="1080" height="2400" alt="Screenshot_20261016_222947" src="https://github.com/user-attachments/assets/35f00283-498b-41ea-90f1-b6bf38656147" />
+<img width="3072" height="4096" alt="IMG_20261016_222953" src="https://github.com/user-attachments/assets/dfa06ba3-3d53-4cef-846b-bee43a83e8fd" />
+
 
 ---
 
 ### 4. ภาพหน้าจอการทดสอบควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
 * หน้าจอโทรศัพท์มือถือที่ **ปิด Wi-Fi แล้วเปิดเฉพาะสัญญาณ 4G/5G** และสั่งเปิด-ปิดหลอดไฟได้สำเร็จแบบ Real-time แสดงถึงการทำงานของ Cloud Backend ผ่าน AWS IoT Core
 
-*(แนบรูปภาพแอปมือถือที่ทำงานผ่านเครือข่ายเซลลูลาร์ 4G/5G)*
+<img width="1080" height="2400" alt="Screenshot_20261016_222947" src="https://github.com/user-attachments/assets/f67fd996-1a4a-4d7a-9825-085701ebcf6a" />
+<img width="1080" height="2400" alt="Screenshot_20261016_223019" src="https://github.com/user-attachments/assets/1c0969fb-6262-49db-898c-e57e6027ef0b" />
+
 
 ---
 
