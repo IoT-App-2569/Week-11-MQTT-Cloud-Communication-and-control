@@ -8,21 +8,24 @@
 ### 1. ภาพหน้าจอการทดสอบ mTLS สำเร็จผ่าน Mosquitto CLI (Sub/Pub พร้อม Certificate)
 * แสดงผลลัพธ์ในหน้าต่าง Subscriber ที่ได้รับข้อความ `"Hello Secure World!"` พร้อม Log ฝั่ง Mosquitto Broker ที่แสดงการ Handshake และยืนยันใบรับรอง Client
 
-![การทดสอบ mTLS สำเร็จผ่าน Mosquitto CLI](image-5.png)
+<img width="832" height="285" alt="11-3-2" src="https://github.com/user-attachments/assets/17e3bad9-893e-4015-bcaf-bce0a198a829" />
+
 
 ---
 
 ### 2. ภาพหน้าจอการทดสอบปฏิเสธ Client ที่ไม่ได้รับอนุญาต (Unauthorized Client Attack)
 * แสดงผลลัพธ์เมื่อส่ง Publish โดยไม่แนบ Client Certificate แล้ว Broker แจ้งปฏิเสธการเชื่อมต่อ `Connection refused: Not authorised` หรือ `peer did not return a certificate`
 
-![การทดสอบปฏิเสธ Client ที่ไม่ได้รับอนุญาต](image-6.png)
+<img width="830" height="157" alt="11-3-3" src="https://github.com/user-attachments/assets/b83887fb-f51a-4049-884d-6e7737cd6d00" />
+
 
 ---
 
 ### 3. ภาพหน้าจอ ESP32 เชื่อมต่อ MQTTS แบบ mTLS สำเร็จ
 * แสดงผลหน้าจอ Serial Monitor ของ ESP32 ขณะทำ TLS Handshake สำเร็จ และ Broker Log แสดงการยืนยันใบรับรองของ ESP32 (`Peer certificate verified: ... CN=esp32-secure-node`)
 
-![ESP32 เชื่อมต่อ MQTTS แบบ mTLS สำเร็จ](image-7.png)
+<img width="1792" height="372" alt="11-3-1" src="https://github.com/user-attachments/assets/29856f08-6d82-4d43-8f94-a3c41c6cd786" />
+
 
 ---
 
