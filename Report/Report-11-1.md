@@ -10,7 +10,7 @@
 
 - **ข้อความที่ปรากฏใน Subscriber:** home/livingroom/light ON และ home/kitchen/light OFF
 
-![alt text](image.png)
+![alt text](/Report/img/image.png)
 
 - **ข้อความที่ไม่ปรากฏใน Subscriber:** home/bedroom/balcony/light ON
 
@@ -19,7 +19,7 @@
 
 ### 1.2 ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะเชื่อมต่อและ Subscribe
 
-![alt text](image-2.png)
+![alt text](/Report/img/image-2.png)
 
 ### 1.3 ตารางเปรียบเทียบลำดับแพ็กเก็ตระดับคุณภาพการส่งข้อมูล (QoS)
 
@@ -31,7 +31,7 @@
 
 ### 1.4 ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
-![alt text](image-1.png)
+![alt text](/Report/img/image-1.png)
 
 ---
 
