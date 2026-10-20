@@ -1,0 +1,6 @@
+$ mosquitto_pub -h 172.20.10.2 -p 1883 -t "iot/node01/cmd/led" -m 'ON' -q 1
+$ mosquitto_pub -h 172.20.10.2 -p 1883 -t "iot/node01/cmd/led" -m 'OFF' -q 1
+$ mosquitto_pub -h 172.20.10.2 -p 1883 -t "iot/node01/cmd/led" -m '{"state": 1}' -q 1
+$ mosquitto_pub -h 172.20.10.2 -p 1883 -t "iot/node01/cmd/led" -m '{"state": 0}' -q 1
+$ mosquitto_pub -h 172.20.10.2 -p 1883 -t "iot/node01/cmd/led" -m 'BLINK' -q 1
+$ mosquitto_pub -h 172.20.10.2 -p 1883 -t "iot/node01/cmd/led" -m 'ON' -q 1

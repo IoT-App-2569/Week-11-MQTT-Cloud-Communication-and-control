@@ -1,0 +1,25 @@
+# UART log จาก /dev/cu.usbserial-0001 @ 115200 baud (ข้อความเดียวกับที่ idf.py monitor แสดง)
+# ... หยุด Broker 08:51:15 แล้วเปิดใหม่ 08:51:27 ...
+I (2060) LAB11_MQTT: MQTT_EVENT_CONNECTED: Connected to Broker!
+I (2070) LAB11_MQTT: Subscribed to: iot/node01/cmd/led
+I (2280) LAB11_MQTT: MQTT_EVENT_SUBSCRIBED, msg_id=21357
+I (6020) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":1935,"voltage_v":1.711,"led_state":false,"uptime_ms":6020}
+I (10030) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2661,"voltage_v":2.299,"led_state":false,"uptime_ms":10030}
+I (14040) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2794,"voltage_v":2.407,"led_state":false,"uptime_ms":14040}
+I (18050) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2763,"voltage_v":2.382,"led_state":false,"uptime_ms":18050}
+E (20530) mqtt_client: esp_mqtt_handle_transport_read_error: transport_read(): EOF
+E (20530) mqtt_client: esp_mqtt_handle_transport_read_error: transport_read() error: errno=128
+E (20540) LAB11_MQTT: MQTT_EVENT_ERROR
+E (20540) LAB11_MQTT: Transport error: esp_err=0x8008, socket errno=0
+E (20550) mqtt_client: mqtt_process_receive: mqtt_message_receive() returned -2
+W (20560) LAB11_MQTT: MQTT_EVENT_DISCONNECTED (esp-mqtt จะเชื่อมต่อใหม่เองอัตโนมัติ)
+W (22060) LAB11_MQTT: MQTT not connected, skip telemetry
+W (26060) LAB11_MQTT: MQTT not connected, skip telemetry
+W (30060) LAB11_MQTT: MQTT not connected, skip telemetry
+W (34060) LAB11_MQTT: MQTT not connected, skip telemetry
+I (35600) LAB11_MQTT: MQTT_EVENT_CONNECTED: Connected to Broker!
+I (35600) LAB11_MQTT: Subscribed to: iot/node01/cmd/led
+I (35820) LAB11_MQTT: MQTT_EVENT_SUBSCRIBED, msg_id=57101
+I (38060) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":4095,"voltage_v":3.139,"led_state":false,"uptime_ms":38060}
+I (42070) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":3488,"voltage_v":2.859,"led_state":false,"uptime_ms":42070}
+I (46080) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2689,"voltage_v":2.322,"led_state":false,"uptime_ms":46080}

@@ -1,0 +1,1065 @@
+$ mosquitto -c mosquitto.conf -v
+08:25:32: mosquitto version 2.0.22 starting
+08:25:32: Config loaded from mosquitto.conf.
+08:25:32: Opening ipv4 listen socket on port 1883.
+08:25:32: mosquitto version 2.0.22 running
+08:26:13: New connection from 172.20.10.2:60321 on port 1883.
+08:26:13: New client connected from 172.20.10.2:60321 as auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (p2, c1, k60).
+08:26:13: No will message specified.
+08:26:13: Sending CONNACK to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (0, 0)
+08:26:13: Received SUBSCRIBE from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:26:13: 	iot/node01/# (QoS 0)
+08:26:13: auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 0 iot/node01/#
+08:26:13: Sending SUBACK to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:27:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:27:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:27:39: New connection from 172.20.10.6:51411 on port 1883.
+08:27:39: New client connected from 172.20.10.6:51411 as esp32-node01 (p2, c1, k60).
+08:27:39: Will message specified (7 bytes) (r1, q1).
+08:27:39: 	iot/node01/status
+08:27:39: Sending CONNACK to esp32-node01 (0, 0)
+08:27:39: Received PUBLISH from esp32-node01 (d0, q1, r1, m40308, 'iot/node01/status', ... (6 bytes))
+08:27:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:27:39: Sending PUBACK to esp32-node01 (m40308, rc0)
+08:27:39: Received SUBSCRIBE from esp32-node01
+08:27:39: 	iot/node01/cmd/led (QoS 1)
+08:27:39: esp32-node01 1 iot/node01/cmd/led
+08:27:39: Sending SUBACK to esp32-node01
+08:27:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:27:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:27:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:27:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:09: Received PINGREQ from esp32-node01
+08:28:09: Sending PINGRESP to esp32-node01
+08:28:11: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:28:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:28:15: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:15: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:19: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:23: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:23: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:24: New connection from 172.20.10.2:60499 on port 1883.
+08:28:24: New client connected from 172.20.10.2:60499 as auto-7E56F395-14B9-D36F-C8D6-CDE522993F46 (p2, c1, k60).
+08:28:24: No will message specified.
+08:28:24: Sending CONNACK to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46 (0, 0)
+08:28:24: Received SUBSCRIBE from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:28:24: 	iot/node01/state/led (QoS 0)
+08:28:24: auto-7E56F395-14B9-D36F-C8D6-CDE522993F46 0 iot/node01/state/led
+08:28:24: Sending SUBACK to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:28:24: New connection from 172.20.10.2:60498 on port 1883.
+08:28:24: New client connected from 172.20.10.2:60498 as auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (p2, c1, k60).
+08:28:24: No will message specified.
+08:28:24: Sending CONNACK to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (0, 0)
+08:28:24: Received SUBSCRIBE from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:28:24: 	iot/node01/telemetry (QoS 0)
+08:28:24: auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 0 iot/node01/telemetry
+08:28:24: Sending SUBACK to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:28:25: New connection from 172.20.10.2:60500 on port 1883.
+08:28:25: New client connected from 172.20.10.2:60500 as auto-0A2213DA-DC12-65B2-BBA0-453AA19B7A78 (p2, c1, k60).
+08:28:25: No will message specified.
+08:28:25: Sending CONNACK to auto-0A2213DA-DC12-65B2-BBA0-453AA19B7A78 (0, 0)
+08:28:25: Received PUBLISH from auto-0A2213DA-DC12-65B2-BBA0-453AA19B7A78 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (2 bytes))
+08:28:25: Sending PUBLISH to esp32-node01 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (2 bytes))
+08:28:25: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (2 bytes))
+08:28:25: Sending PUBACK to auto-0A2213DA-DC12-65B2-BBA0-453AA19B7A78 (m1, rc0)
+08:28:25: Received DISCONNECT from auto-0A2213DA-DC12-65B2-BBA0-453AA19B7A78
+08:28:25: Client auto-0A2213DA-DC12-65B2-BBA0-453AA19B7A78 disconnected.
+08:28:26: Received PUBLISH from esp32-node01 (d0, q1, r0, m26511, 'iot/node01/state/led', ... (19 bytes))
+08:28:26: Sending PUBLISH to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:28:26: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:28:26: Sending PUBACK to esp32-node01 (m26511, rc0)
+08:28:26: Received PUBACK from esp32-node01 (Mid: 1, RC:0)
+08:28:27: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:27: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:31: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:31: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:31: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:35: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:35: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:39: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:39: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:40: Received PINGREQ from esp32-node01
+08:28:40: Sending PINGRESP to esp32-node01
+08:28:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:43: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:47: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:51: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:55: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:59: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:28:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:03: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:07: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:10: Received PINGREQ from esp32-node01
+08:29:10: Sending PINGRESP to esp32-node01
+08:29:11: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:11: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:29:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:29:15: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:15: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:15: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:19: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:19: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:23: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:23: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:23: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:29:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:29:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:29:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:29:27: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:27: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:31: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:31: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:31: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:35: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:35: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:39: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:39: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:40: Received PINGREQ from esp32-node01
+08:29:40: Sending PINGRESP to esp32-node01
+08:29:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:43: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:47: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:51: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:55: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:59: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:29:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:03: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:07: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:11: Received PINGREQ from esp32-node01
+08:30:11: Sending PINGRESP to esp32-node01
+08:30:11: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:11: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:30:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:30:15: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:15: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:15: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:19: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:19: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:23: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:23: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:23: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:30:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:30:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:30:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:30:27: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:27: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:31: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:31: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:31: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:35: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:35: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:39: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:39: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:41: Received PINGREQ from esp32-node01
+08:30:41: Sending PINGRESP to esp32-node01
+08:30:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:43: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:47: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:51: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:55: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:59: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:30:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:03: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:07: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:11: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:11: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:11: Received PINGREQ from esp32-node01
+08:31:11: Sending PINGRESP to esp32-node01
+08:31:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:31:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:31:15: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:15: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:15: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:19: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:19: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:23: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:23: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:23: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:31:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:31:24: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:31:24: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:31:27: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:27: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:31: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:31: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:31: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:35: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:35: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:39: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:39: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:42: Received PINGREQ from esp32-node01
+08:31:42: Sending PINGRESP to esp32-node01
+08:31:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:43: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:47: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:51: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:55: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:59: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:31:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:03: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:07: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:11: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:11: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:12: Received PINGREQ from esp32-node01
+08:32:12: Sending PINGRESP to esp32-node01
+08:32:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:32:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:32:15: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:15: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:15: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:19: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:19: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:23: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:23: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:23: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:32:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:32:24: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:32:24: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:32:27: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:27: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:31: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:31: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:31: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:35: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:35: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:39: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:39: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:42: Received PINGREQ from esp32-node01
+08:32:42: Sending PINGRESP to esp32-node01
+08:32:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:43: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:47: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:51: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:55: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:59: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:32:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:03: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:07: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:11: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:11: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:13: Received PINGREQ from esp32-node01
+08:33:13: Sending PINGRESP to esp32-node01
+08:33:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:33:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:33:16: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:16: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:16: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:20: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:20: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:20: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:23: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:23: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:23: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:33:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:33:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:33:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:33:27: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:27: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:31: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:31: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:31: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:35: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:35: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:40: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:40: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:43: Received PINGREQ from esp32-node01
+08:33:43: Sending PINGRESP to esp32-node01
+08:33:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:44: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:44: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:34:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:34:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:34:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:34:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:34:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:34:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:35:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:35:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:35:14: Client esp32-node01 has exceeded timeout, disconnecting.
+08:35:14: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))
+08:35:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:35:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:35:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:35:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:36:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:36:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:36:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:36:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:36:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:36:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:37:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:37:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:37:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:37:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:37:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:37:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:38:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:38:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:38:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:38:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:38:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:38:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:39:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:39:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:39:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:39:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:39:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:39:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:40:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:40:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:40:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:40:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:40:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:40:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:41:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:41:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:41:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:41:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:41:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:41:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:42:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:42:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:42:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:42:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:42:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:42:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:43:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:43:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:43:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:43:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:43:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:43:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:44:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:44:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:44:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:44:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:44:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:44:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:45:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:45:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:45:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:45:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:45:25: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:45:25: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:46:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:46:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:46:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:46:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:46:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:46:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:47:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:47:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:47:24: New connection from 172.20.10.6:63980 on port 1883.
+08:47:24: New client connected from 172.20.10.6:63980 as esp32-node01 (p2, c1, k60).
+08:47:24: Will message specified (7 bytes) (r1, q1).
+08:47:24: 	iot/node01/status
+08:47:24: Sending CONNACK to esp32-node01 (0, 0)
+08:47:24: Received PUBLISH from esp32-node01 (d0, q1, r1, m59825, 'iot/node01/status', ... (6 bytes))
+08:47:24: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:47:24: Sending PUBACK to esp32-node01 (m59825, rc0)
+08:47:24: Received SUBSCRIBE from esp32-node01
+08:47:24: 	iot/node01/cmd/led (QoS 1)
+08:47:24: esp32-node01 1 iot/node01/cmd/led
+08:47:24: Sending SUBACK to esp32-node01
+08:47:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:47:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:47:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:47:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:47:28: New connection from 172.20.10.6:62601 on port 1883.
+08:47:28: Client esp32-node01 already connected, closing old connection.
+08:47:28: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))
+08:47:28: New client connected from 172.20.10.6:62601 as esp32-node01 (p2, c1, k60).
+08:47:28: Will message specified (7 bytes) (r1, q1).
+08:47:28: 	iot/node01/status
+08:47:28: Sending CONNACK to esp32-node01 (0, 0)
+08:47:28: Received PUBLISH from esp32-node01 (d0, q1, r1, m34013, 'iot/node01/status', ... (6 bytes))
+08:47:28: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:47:28: Sending PUBACK to esp32-node01 (m34013, rc0)
+08:47:28: Received SUBSCRIBE from esp32-node01
+08:47:28: 	iot/node01/cmd/led (QoS 1)
+08:47:28: esp32-node01 1 iot/node01/cmd/led
+08:47:28: Sending SUBACK to esp32-node01
+08:47:32: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:47:32: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:47:32: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:47:36: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:36: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:36: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:47:40: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:47:40: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:47:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:44: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:44: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:48: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:48: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:48: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:52: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:47:52: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:47:52: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:47:56: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:56: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:56: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:47:58: Received PINGREQ from esp32-node01
+08:47:58: Sending PINGRESP to esp32-node01
+08:48:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:00: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:00: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:04: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:04: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:08: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:08: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:08: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:12: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:12: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:12: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:48:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:48:16: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:16: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:16: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:20: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:48:20: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:48:20: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:48:24: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:48:24: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:48:24: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:48:25: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:48:25: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:48:26: Received PINGREQ from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:48:26: Sending PINGRESP to auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:48:28: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:28: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:28: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:29: Received PINGREQ from esp32-node01
+08:48:29: Sending PINGRESP to esp32-node01
+08:48:32: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:32: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:32: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:36: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:36: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:36: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:40: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:40: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:48:44: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:48:44: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:48:48: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:48: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:48: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:52: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:52: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:52: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:56: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:56: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:56: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:48:59: Received PINGREQ from esp32-node01
+08:48:59: Sending PINGRESP to esp32-node01
+08:49:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:00: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:00: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:04: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:04: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:08: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:08: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:08: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:10: Received DISCONNECT from auto-7E56F395-14B9-D36F-C8D6-CDE522993F46
+08:49:10: Client auto-7E56F395-14B9-D36F-C8D6-CDE522993F46 disconnected.
+08:49:11: New connection from 172.20.10.2:61818 on port 1883.
+08:49:11: New client connected from 172.20.10.2:61818 as auto-0422329A-CEB6-DB66-E386-889184DE72D1 (p2, c1, k60).
+08:49:11: No will message specified.
+08:49:11: Sending CONNACK to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (0, 0)
+08:49:11: Received SUBSCRIBE from auto-0422329A-CEB6-DB66-E386-889184DE72D1
+08:49:11: 	iot/node01/state/led (QoS 0)
+08:49:11: auto-0422329A-CEB6-DB66-E386-889184DE72D1 0 iot/node01/state/led
+08:49:11: Sending SUBACK to auto-0422329A-CEB6-DB66-E386-889184DE72D1
+08:49:11: New connection from 172.20.10.2:61819 on port 1883.
+08:49:11: New client connected from 172.20.10.2:61819 as auto-72870D15-D1B6-C76C-32FB-73BDA3AFDC19 (p2, c1, k60).
+08:49:11: No will message specified.
+08:49:11: Sending CONNACK to auto-72870D15-D1B6-C76C-32FB-73BDA3AFDC19 (0, 0)
+08:49:11: Received PUBLISH from auto-72870D15-D1B6-C76C-32FB-73BDA3AFDC19 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (2 bytes))
+08:49:11: Sending PUBLISH to esp32-node01 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (2 bytes))
+08:49:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (2 bytes))
+08:49:11: Sending PUBACK to auto-72870D15-D1B6-C76C-32FB-73BDA3AFDC19 (m1, rc0)
+08:49:11: Received DISCONNECT from auto-72870D15-D1B6-C76C-32FB-73BDA3AFDC19
+08:49:11: Client auto-72870D15-D1B6-C76C-32FB-73BDA3AFDC19 disconnected.
+08:49:11: Received PUBLISH from esp32-node01 (d0, q1, r0, m60757, 'iot/node01/state/led', ... (19 bytes))
+08:49:11: Sending PUBLISH to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:49:11: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:49:11: Sending PUBACK to esp32-node01 (m60757, rc0)
+08:49:11: Received PUBACK from esp32-node01 (Mid: 1, RC:0)
+08:49:12: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:12: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:12: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:14: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:49:14: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:49:16: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:16: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:16: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:19: New connection from 172.20.10.2:61826 on port 1883.
+08:49:19: New client connected from 172.20.10.2:61826 as auto-A03B2E69-C63F-4225-A38A-0238EBFEA391 (p2, c1, k60).
+08:49:19: No will message specified.
+08:49:19: Sending CONNACK to auto-A03B2E69-C63F-4225-A38A-0238EBFEA391 (0, 0)
+08:49:19: Received PUBLISH from auto-A03B2E69-C63F-4225-A38A-0238EBFEA391 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (3 bytes))
+08:49:19: Sending PUBLISH to esp32-node01 (d0, q1, r0, m2, 'iot/node01/cmd/led', ... (3 bytes))
+08:49:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (3 bytes))
+08:49:19: Sending PUBACK to auto-A03B2E69-C63F-4225-A38A-0238EBFEA391 (m1, rc0)
+08:49:19: Received DISCONNECT from auto-A03B2E69-C63F-4225-A38A-0238EBFEA391
+08:49:19: Client auto-A03B2E69-C63F-4225-A38A-0238EBFEA391 disconnected.
+08:49:19: Received PUBLISH from esp32-node01 (d0, q1, r0, m56784, 'iot/node01/state/led', ... (20 bytes))
+08:49:19: Sending PUBLISH to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (d0, q0, r0, m0, 'iot/node01/state/led', ... (20 bytes))
+08:49:19: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (20 bytes))
+08:49:19: Sending PUBACK to esp32-node01 (m56784, rc0)
+08:49:19: Received PUBACK from esp32-node01 (Mid: 2, RC:0)
+08:49:20: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:20: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:20: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:24: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:24: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:24: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:49:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:49:27: New connection from 172.20.10.2:61833 on port 1883.
+08:49:27: New client connected from 172.20.10.2:61833 as auto-161F0F9E-FA73-21BE-1A56-F1E6BDD71AD0 (p2, c1, k60).
+08:49:27: No will message specified.
+08:49:27: Sending CONNACK to auto-161F0F9E-FA73-21BE-1A56-F1E6BDD71AD0 (0, 0)
+08:49:27: Received PUBLISH from auto-161F0F9E-FA73-21BE-1A56-F1E6BDD71AD0 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (12 bytes))
+08:49:27: Sending PUBLISH to esp32-node01 (d0, q1, r0, m3, 'iot/node01/cmd/led', ... (12 bytes))
+08:49:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (12 bytes))
+08:49:27: Sending PUBACK to auto-161F0F9E-FA73-21BE-1A56-F1E6BDD71AD0 (m1, rc0)
+08:49:27: Received DISCONNECT from auto-161F0F9E-FA73-21BE-1A56-F1E6BDD71AD0
+08:49:27: Client auto-161F0F9E-FA73-21BE-1A56-F1E6BDD71AD0 disconnected.
+08:49:27: Received PUBLISH from esp32-node01 (d0, q1, r0, m40780, 'iot/node01/state/led', ... (19 bytes))
+08:49:27: Sending PUBLISH to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:49:27: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:49:27: Sending PUBACK to esp32-node01 (m40780, rc0)
+08:49:27: Received PUBACK from esp32-node01 (Mid: 3, RC:0)
+08:49:28: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:49:28: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:49:28: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:49:29: Received PINGREQ from esp32-node01
+08:49:29: Sending PINGRESP to esp32-node01
+08:49:32: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:32: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:32: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:35: New connection from 172.20.10.2:61842 on port 1883.
+08:49:35: New client connected from 172.20.10.2:61842 as auto-0186198E-35DA-1072-9E0D-66B6880EBC59 (p2, c1, k60).
+08:49:35: No will message specified.
+08:49:35: Sending CONNACK to auto-0186198E-35DA-1072-9E0D-66B6880EBC59 (0, 0)
+08:49:35: Received PUBLISH from auto-0186198E-35DA-1072-9E0D-66B6880EBC59 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (12 bytes))
+08:49:35: Sending PUBLISH to esp32-node01 (d0, q1, r0, m4, 'iot/node01/cmd/led', ... (12 bytes))
+08:49:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (12 bytes))
+08:49:35: Sending PUBACK to auto-0186198E-35DA-1072-9E0D-66B6880EBC59 (m1, rc0)
+08:49:35: Received DISCONNECT from auto-0186198E-35DA-1072-9E0D-66B6880EBC59
+08:49:35: Client auto-0186198E-35DA-1072-9E0D-66B6880EBC59 disconnected.
+08:49:35: Received PUBLISH from esp32-node01 (d0, q1, r0, m62974, 'iot/node01/state/led', ... (20 bytes))
+08:49:35: Sending PUBLISH to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (d0, q0, r0, m0, 'iot/node01/state/led', ... (20 bytes))
+08:49:35: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (20 bytes))
+08:49:35: Sending PUBACK to esp32-node01 (m62974, rc0)
+08:49:36: Received PUBACK from esp32-node01 (Mid: 4, RC:0)
+08:49:36: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:36: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:36: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:40: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:40: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:49:40: New connection from 172.20.10.2:61845 on port 1883.
+08:49:40: New client connected from 172.20.10.2:61845 as auto-95BC78EE-4B18-15B2-DF1C-6BC33A9AEF36 (p2, c1, k60).
+08:49:40: No will message specified.
+08:49:40: Sending CONNACK to auto-95BC78EE-4B18-15B2-DF1C-6BC33A9AEF36 (0, 0)
+08:49:40: Received PUBLISH from auto-95BC78EE-4B18-15B2-DF1C-6BC33A9AEF36 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (5 bytes))
+08:49:40: Sending PUBLISH to esp32-node01 (d0, q1, r0, m5, 'iot/node01/cmd/led', ... (5 bytes))
+08:49:40: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (5 bytes))
+08:49:40: Sending PUBACK to auto-95BC78EE-4B18-15B2-DF1C-6BC33A9AEF36 (m1, rc0)
+08:49:40: Received DISCONNECT from auto-95BC78EE-4B18-15B2-DF1C-6BC33A9AEF36
+08:49:40: Client auto-95BC78EE-4B18-15B2-DF1C-6BC33A9AEF36 disconnected.
+08:49:40: Received PUBLISH from esp32-node01 (d0, q1, r0, m22036, 'iot/node01/state/led', ... (20 bytes))
+08:49:40: Sending PUBLISH to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (d0, q0, r0, m0, 'iot/node01/state/led', ... (20 bytes))
+08:49:40: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (20 bytes))
+08:49:40: Sending PUBACK to esp32-node01 (m22036, rc0)
+08:49:40: Received PUBACK from esp32-node01 (Mid: 5, RC:0)
+08:49:43: New connection from 172.20.10.2:61848 on port 1883.
+08:49:43: New client connected from 172.20.10.2:61848 as auto-B501B34B-F858-A85D-3329-E9D741B97FF2 (p2, c1, k60).
+08:49:43: No will message specified.
+08:49:43: Sending CONNACK to auto-B501B34B-F858-A85D-3329-E9D741B97FF2 (0, 0)
+08:49:43: Received PUBLISH from auto-B501B34B-F858-A85D-3329-E9D741B97FF2 (d0, q1, r0, m1, 'iot/node01/cmd/led', ... (2 bytes))
+08:49:43: Sending PUBLISH to esp32-node01 (d0, q1, r0, m6, 'iot/node01/cmd/led', ... (2 bytes))
+08:49:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/cmd/led', ... (2 bytes))
+08:49:43: Sending PUBACK to auto-B501B34B-F858-A85D-3329-E9D741B97FF2 (m1, rc0)
+08:49:43: Received DISCONNECT from auto-B501B34B-F858-A85D-3329-E9D741B97FF2
+08:49:43: Client auto-B501B34B-F858-A85D-3329-E9D741B97FF2 disconnected.
+08:49:43: Received PUBLISH from esp32-node01 (d0, q1, r0, m18571, 'iot/node01/state/led', ... (19 bytes))
+08:49:43: Sending PUBLISH to auto-0422329A-CEB6-DB66-E386-889184DE72D1 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:49:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/state/led', ... (19 bytes))
+08:49:43: Sending PUBACK to esp32-node01 (m18571, rc0)
+08:49:43: Received PUBACK from esp32-node01 (Mid: 6, RC:0)
+08:49:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:44: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:44: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:49:48: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:48: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:48: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:52: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:52: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:52: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:56: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:56: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:49:56: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:00: Received PINGREQ from esp32-node01
+08:50:00: Sending PINGRESP to esp32-node01
+08:50:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:00: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:00: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:50:04: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:50:04: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:50:08: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:08: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:08: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:11: Received PINGREQ from auto-0422329A-CEB6-DB66-E386-889184DE72D1
+08:50:11: Sending PINGRESP to auto-0422329A-CEB6-DB66-E386-889184DE72D1
+08:50:12: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:12: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:12: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:13: Received PINGREQ from auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:50:13: Sending PINGRESP to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5
+08:50:16: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:16: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:16: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:20: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:20: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:20: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:24: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:24: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:24: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:24: Received PINGREQ from auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:50:24: Sending PINGRESP to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8
+08:50:28: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:28: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:50:28: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+^C   [หยุด Broker 08:50:30 เพื่อทดสอบ Auto-Reconnect ของ esp-mqtt]
+08:50:30: mosquitto version 2.0.22 terminating
+08:50:30: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))
+$ mosquitto -c mosquitto.conf -v   [เปิด Broker ใหม่ 08:50:42]
+08:50:42: mosquitto version 2.0.22 starting
+08:50:42: Config loaded from mosquitto.conf.
+08:50:42: Opening ipv4 listen socket on port 1883.
+08:50:42: mosquitto version 2.0.22 running
+08:50:43: New connection from 172.20.10.2:61978 on port 1883.
+08:50:43: New client connected from 172.20.10.2:61978 as auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 (p2, c1, k60).
+08:50:43: No will message specified.
+08:50:43: Sending CONNACK to auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 (0, 0)
+08:50:43: New connection from 172.20.10.2:61977 on port 1883.
+08:50:43: New client connected from 172.20.10.2:61977 as auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (p2, c1, k60).
+08:50:43: No will message specified.
+08:50:43: Sending CONNACK to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (0, 0)
+08:50:43: Received SUBSCRIBE from auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3
+08:50:43: 	iot/node01/telemetry (QoS 0)
+08:50:43: auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 0 iot/node01/telemetry
+08:50:43: Sending SUBACK to auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3
+08:50:43: Received SUBSCRIBE from auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD
+08:50:43: 	iot/node01/# (QoS 0)
+08:50:43: auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD 0 iot/node01/#
+08:50:43: Sending SUBACK to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD
+08:50:43: New connection from 172.20.10.2:61979 on port 1883.
+08:50:43: New client connected from 172.20.10.2:61979 as auto-EBFDD99B-BD9B-2A2A-BFE3-0A6AEC9431F6 (p2, c1, k60).
+08:50:43: No will message specified.
+08:50:43: Sending CONNACK to auto-EBFDD99B-BD9B-2A2A-BFE3-0A6AEC9431F6 (0, 0)
+08:50:43: Received SUBSCRIBE from auto-EBFDD99B-BD9B-2A2A-BFE3-0A6AEC9431F6
+08:50:43: 	iot/node01/state/led (QoS 0)
+08:50:43: auto-EBFDD99B-BD9B-2A2A-BFE3-0A6AEC9431F6 0 iot/node01/state/led
+08:50:43: Sending SUBACK to auto-EBFDD99B-BD9B-2A2A-BFE3-0A6AEC9431F6
+08:50:48: New connection from 172.20.10.6:50351 on port 1883.
+08:50:48: New client connected from 172.20.10.6:50351 as esp32-node01 (p2, c1, k60).
+08:50:48: Will message specified (7 bytes) (r1, q1).
+08:50:48: 	iot/node01/status
+08:50:48: Sending CONNACK to esp32-node01 (0, 0)
+08:50:48: Received PUBLISH from esp32-node01 (d0, q1, r1, m6664, 'iot/node01/status', ... (6 bytes))
+08:50:48: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:50:48: Sending PUBACK to esp32-node01 (m6664, rc0)
+08:50:48: Received SUBSCRIBE from esp32-node01
+08:50:48: 	iot/node01/cmd/led (QoS 1)
+08:50:48: esp32-node01 1 iot/node01/cmd/led
+08:50:48: Sending SUBACK to esp32-node01
+08:50:56: New connection from 172.20.10.6:53184 on port 1883.
+08:50:56: Client esp32-node01 already connected, closing old connection.
+08:50:56: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))
+08:50:56: New client connected from 172.20.10.6:53184 as esp32-node01 (p2, c1, k60).
+08:50:56: Will message specified (7 bytes) (r1, q1).
+08:50:56: 	iot/node01/status
+08:50:56: Sending CONNACK to esp32-node01 (0, 0)
+08:50:56: Received PUBLISH from esp32-node01 (d0, q1, r1, m12558, 'iot/node01/status', ... (6 bytes))
+08:50:56: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:50:56: Sending PUBACK to esp32-node01 (m12558, rc0)
+08:50:56: Received SUBSCRIBE from esp32-node01
+08:50:56: 	iot/node01/cmd/led (QoS 1)
+08:50:56: esp32-node01 1 iot/node01/cmd/led
+08:50:56: Sending SUBACK to esp32-node01
+08:51:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:51:00: Sending PUBLISH to auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:51:00: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:51:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:04: Sending PUBLISH to auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:04: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:08: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:08: Sending PUBLISH to auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:08: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:12: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:12: Sending PUBLISH to auto-EF428FA1-CDBF-B2C7-CBBD-B324C5076FC3 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:12: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:15: mosquitto version 2.0.22 terminating
+08:51:15: Sending PUBLISH to auto-69ACBC70-C7DF-4B0E-85D7-C5665A36D4CD (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))
+^C   [ทดสอบ Auto-Reconnect ครั้งที่ 2: หยุด Broker 08:51:15]
+$ mosquitto -c mosquitto.conf -v   [เปิด Broker ใหม่ 08:51:27]
+08:51:27: mosquitto version 2.0.22 starting
+08:51:27: Config loaded from mosquitto.conf.
+08:51:27: Opening ipv4 listen socket on port 1883.
+08:51:27: mosquitto version 2.0.22 running
+08:51:28: New connection from 172.20.10.2:62080 on port 1883.
+08:51:28: New client connected from 172.20.10.2:62080 as auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (p2, c1, k60).
+08:51:28: No will message specified.
+08:51:28: Sending CONNACK to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (0, 0)
+08:51:28: Received SUBSCRIBE from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:51:28: 	iot/node01/telemetry (QoS 0)
+08:51:28: auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF 0 iot/node01/telemetry
+08:51:28: Sending SUBACK to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:51:28: New connection from 172.20.10.2:62079 on port 1883.
+08:51:28: New client connected from 172.20.10.2:62079 as auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (p2, c1, k60).
+08:51:28: No will message specified.
+08:51:28: Sending CONNACK to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (0, 0)
+08:51:28: Received SUBSCRIBE from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:51:28: 	iot/node01/# (QoS 0)
+08:51:28: auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 0 iot/node01/#
+08:51:28: Sending SUBACK to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:51:28: New connection from 172.20.10.2:62081 on port 1883.
+08:51:28: New client connected from 172.20.10.2:62081 as auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC (p2, c1, k60).
+08:51:28: No will message specified.
+08:51:28: Sending CONNACK to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC (0, 0)
+08:51:28: Received SUBSCRIBE from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:51:28: 	iot/node01/state/led (QoS 0)
+08:51:28: auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC 0 iot/node01/state/led
+08:51:28: Sending SUBACK to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:51:30: New connection from 172.20.10.6:53185 on port 1883.
+08:51:30: New client connected from 172.20.10.6:53185 as esp32-node01 (p2, c1, k60).
+08:51:30: Will message specified (7 bytes) (r1, q1).
+08:51:30: 	iot/node01/status
+08:51:30: Sending CONNACK to esp32-node01 (0, 0)
+08:51:30: Received PUBLISH from esp32-node01 (d0, q1, r1, m51331, 'iot/node01/status', ... (6 bytes))
+08:51:30: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:51:30: Sending PUBACK to esp32-node01 (m51331, rc0)
+08:51:30: Received SUBSCRIBE from esp32-node01
+08:51:30: 	iot/node01/cmd/led (QoS 1)
+08:51:30: esp32-node01 1 iot/node01/cmd/led
+08:51:30: Sending SUBACK to esp32-node01
+08:51:32: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:32: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:32: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:36: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:36: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:36: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:40: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:40: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:44: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:44: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:48: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:51:48: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:51:48: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:51:52: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:52: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:52: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:56: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:56: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:51:56: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:00: Received PINGREQ from esp32-node01
+08:52:00: Sending PINGRESP to esp32-node01
+08:52:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:00: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:00: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:52:04: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:52:04: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:52:08: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:08: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:08: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:12: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:12: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:12: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:16: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:16: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:16: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:20: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:20: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:20: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:24: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:24: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:24: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:27: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:52:27: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:52:27: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:52:27: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:52:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:52:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:52:28: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:28: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:28: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:52:30: Received PINGREQ from esp32-node01
+08:52:30: Sending PINGRESP to esp32-node01
+08:52:32: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:52:32: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:52:32: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (118 bytes))
+08:52:36: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:36: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:36: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:40: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:40: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:44: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:44: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:48: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:48: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:48: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:52: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:52: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:52: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:56: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:56: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:52:56: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:00: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:00: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:01: Received PINGREQ from esp32-node01
+08:53:01: Sending PINGRESP to esp32-node01
+08:53:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:04: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:04: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:08: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:08: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:08: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:12: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:12: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:12: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:16: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:16: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:16: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:20: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:20: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:20: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:24: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:24: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:24: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:27: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:53:27: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:53:27: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:53:27: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:53:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:53:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:53:28: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:28: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:28: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:31: Received PINGREQ from esp32-node01
+08:53:31: Sending PINGRESP to esp32-node01
+08:53:32: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:32: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:32: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:36: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:36: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:36: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:40: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:40: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:40: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:44: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:44: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:48: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:48: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:48: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:52: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:52: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:52: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:56: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:56: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:53:56: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:54:00: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:54:00: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:54:00: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (119 bytes))
+08:54:01: Received PINGREQ from esp32-node01
+08:54:01: Sending PINGRESP to esp32-node01
+08:54:04: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:54:04: Sending PUBLISH to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:54:04: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (120 bytes))
+08:54:27: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:54:27: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:54:28: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:54:28: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:54:28: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:54:28: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:55:27: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:55:27: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:55:28: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:55:28: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:55:28: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:55:28: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:55:35: Client esp32-node01 has exceeded timeout, disconnecting.
+08:55:35: Sending PUBLISH to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))
+08:56:27: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:56:27: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:56:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:56:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:56:28: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:56:28: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:57:27: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:57:27: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:57:28: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:57:28: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:57:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:57:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:58:27: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:58:27: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:58:27: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:58:27: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:58:28: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:58:28: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:59:27: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:59:27: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+08:59:28: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:59:28: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+08:59:28: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+08:59:28: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:00:27: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:00:27: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:00:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:00:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:00:28: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:00:28: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:01:27: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:01:27: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:01:27: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:01:27: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:01:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:01:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:02:27: Received PINGREQ from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:02:27: Sending PINGRESP to auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:02:28: Received PINGREQ from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:02:28: Sending PINGRESP to auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:02:28: Received PINGREQ from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:02:28: Sending PINGRESP to auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:02:39: Received DISCONNECT from auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF
+09:02:39: Client auto-4D7A08AC-A885-4FFD-EDE5-54BF25F5A5CF disconnected.
+09:02:39: Received DISCONNECT from auto-74A96404-084D-4B37-3EB8-4B3B6903CA12
+09:02:39: Client auto-74A96404-084D-4B37-3EB8-4B3B6903CA12 disconnected.
+09:02:39: Received DISCONNECT from auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC
+09:02:39: Client auto-FA50B67D-492B-4F08-FD08-F6FE8CE200CC disconnected.
+09:02:40: mosquitto version 2.0.22 terminating

@@ -1,0 +1,4 @@
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t node/esp32/status -v
+node/esp32/status ONLINE
+node/esp32/status LOST_CONNECTION_OFFLINE
+^C

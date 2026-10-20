@@ -1,0 +1,7 @@
+# ... ถอดสาย USB บอร์ด (ไฟดับ) ข้อมูลสุดท้ายจากบอร์ดเวลา 08:33:44 ...
+08:33:43: Sending PINGRESP to esp32-node01
+08:33:44: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:44: Sending PUBLISH to auto-D65C818F-7B39-EDC2-A023-E288C1F2E3D8 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:33:44: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:35:14: Client esp32-node01 has exceeded timeout, disconnecting.
+08:35:14: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (7 bytes))

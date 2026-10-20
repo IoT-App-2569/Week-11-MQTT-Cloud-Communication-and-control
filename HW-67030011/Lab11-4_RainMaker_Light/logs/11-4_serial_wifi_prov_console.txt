@@ -1,0 +1,19 @@
+I (806) rmaker_console: Initialising UART on port 0
+I (856) esp_rmaker_commands: Registering command: add-user
+I (866) esp_rmaker_commands: Registering command: wifi-prov
+I (1016) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (1056) app_wifi: Starting provisioning
+I (1436) network_prov_mgr: Provisioning started with service name : PROV_56e8ce 
+I (1436) app_wifi: Provisioning started
+>> wifi-prov KBBK-IPHONE ********
+I (3566) app_wifi: Received Wi-Fi credentials
+I (4676) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (5906) esp_netif_handlers: sta ip: 172.20.10.6, mask: 255.255.255.240, gw: 172.20.10.1
+I (5906) app_network: Connected with IP Address:172.20.10.6
+I (5906) network_prov_mgr: STA Got IP
+I (5906) app_wifi: Provisioning successful
+I (5906) RMAKER_LIGHT: Node ID: UE8xRB8zb33cRLRySRcdEW
+I (9316) esp_mqtt_glue: MQTT Connected
+I (9336) esp_rmaker_core: User node mapping done, initializing MQTT parameters.
+I (9346) esp_rmaker_param: Params MQTT Init done.
+I (36926) network_prov_mgr: Provisioning stopped

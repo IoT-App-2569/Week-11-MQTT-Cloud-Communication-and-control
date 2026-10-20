@@ -1,0 +1,2 @@
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t home/livingroom/temp -m 26.4
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -t home/bedroom/balcony/light -m ON

@@ -1,0 +1,17 @@
+# Q1: เชื่อมต่อด้วยชื่อที่ไม่ตรงกับ CN ของ server.crt (CN=172.20.10.2)
+$ mosquitto_pub -h 127.0.0.1 -p 8883 -t "secure/test" -m "test" --cafile ca.crt --cert client.crt --key client.key -d
+Error: Protocol error
+Client null sending CONNECT
+Error: host name verification failed.
+OpenSSL Error[0]: error:0A000086:SSL routines::certificate verify failed
+(exit code = 14)
+
+$ mosquitto_pub -h localhost -p 8883 -t "secure/test" -m "test" --cafile ca.crt --cert client.crt --key client.key -d
+Error: Protocol error
+Client null sending CONNECT
+Error: host name verification failed.
+OpenSSL Error[0]: error:0A000086:SSL routines::certificate verify failed
+(exit code = 14)
+
+$ openssl x509 -in server.crt -noout -subject
+subject=C=TH, ST=Bangkok, O=IoT Broker, CN=172.20.10.2

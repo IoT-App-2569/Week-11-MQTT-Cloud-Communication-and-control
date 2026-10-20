@@ -1,0 +1,7 @@
+# ส่วนขยาย X.509 v3 ของ Root CA
+# OpenSSL >= 3.2 ใส่ Subject Key Identifier ให้อัตโนมัติ ใบรับรองจึงเป็น v3 และต้องประกาศ CA:TRUE ชัดเจน
+# ถ้าไม่ใส่ ทั้ง OpenSSL/Mosquitto และ mbedTLS บน ESP32 จะไม่ยอมใช้ ca.crt เป็นผู้รับรอง (invalid CA certificate)
+[v3_ca]
+basicConstraints = critical, CA:TRUE
+keyUsage = critical, keyCertSign, cRLSign
+subjectKeyIdentifier = hash

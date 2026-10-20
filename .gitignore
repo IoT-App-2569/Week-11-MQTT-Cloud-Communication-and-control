@@ -13,3 +13,11 @@ dependencies.lock
 managed_components/
 *.old
 sdkconfig
+
+# Wi-Fi credentials
+**/wifi_credentials.h
+
+# Private keys / CSR ของใบงาน 11.3 (สร้างใหม่ด้วย HW-67030011/Lab11-3_MQTTS_Secure/mqtt_certs/gen_certs.sh)
+*.key
+*.csr
+*.srl

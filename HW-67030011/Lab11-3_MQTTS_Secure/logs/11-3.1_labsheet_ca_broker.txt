@@ -1,0 +1,8 @@
+08:48:28: mosquitto version 2.0.22 starting
+08:48:28: Config loaded from mosquitto_ssl.conf.
+08:48:28: Opening ipv4 listen socket on port 8883.
+08:48:28: mosquitto version 2.0.22 running
+08:48:29: New connection from 172.20.10.2:61763 on port 8883.
+08:48:29: OpenSSL Error[0]: error:0A000418:SSL routines::tlsv1 alert unknown ca
+08:48:29: Client <unknown> disconnected: Protocol error.
+08:48:30: mosquitto version 2.0.22 terminating

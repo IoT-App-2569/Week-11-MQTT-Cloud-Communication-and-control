@@ -1,0 +1,22 @@
+$ xtensa-esp32-elf-addr2line -pfiaC -e build/Lab11-4_RainMaker_Light.elf 0x40090fc9 0x40090f91 0x40090ba1 0x40093530 0x40092f0e 0x40082269 0x40082395 0x400823cd 0x40081fa8 0x40081fe1 0x40090bb1 0x400da762 0x400d8c61 0x400e5e7d 0x400e4769 0x400e4d5f 0x400e4f89 0x400f2ce3 0x400f58be
+0x40090fc9: panic_abort at components/esp_system/panic.c:464
+0x40090f91: esp_system_abort at components/esp_system/port/esp_system_chip.c:87
+0x40090ba1: __assert_func at components/esp_libc/src/assert.c:81
+0x40093530: block_locate_free at components/heap/tlsf/tlsf_control_functions.h:618 (discriminator 3)
+ (inlined by) tlsf_malloc at components/heap/tlsf/tlsf.c:444 (discriminator 3)
+0x40092f0e: multi_heap_malloc_impl at components/heap/multi_heap.c:216
+0x40082269: aligned_or_unaligned_alloc at components/heap/heap_caps_base.c:93
+0x40082395: heap_caps_aligned_alloc_base at components/heap/heap_caps_base.c:180
+0x400823cd: heap_caps_malloc_base at components/heap/heap_caps_base.c:207
+0x40081fa8: heap_caps_malloc at components/heap/heap_caps.c:84
+0x40081fe1: heap_caps_malloc_default at components/heap/heap_caps.c:110
+0x40090bb1: malloc at components/esp_libc/src/heap.c:24
+0x400da762: ExceptionlessAllocatable::operator new(unsigned int, std::nothrow_t const&) at components/nvs_flash/src/nvs_memory_management.hpp:61
+ (inlined by) nvs::NVSPartitionManager::open_handle(char const*, char const*, nvs_open_mode_t, nvs::NVSHandleSimple**) at components/nvs_flash/src/nvs_partition_manager.cpp:210
+0x400d8c61: nvs_open_from_partition at components/nvs_flash/src/nvs_api.cpp:305 (discriminator 1)
+0x400e5e7d: esp_rmaker_factory_set at managed_components/espressif__rmaker_common/src/factory.c:100
+0x400e4769: handle_assisted_claim_init_response at managed_components/espressif__esp_rainmaker/src/core/esp_rmaker_claim.c:666 (discriminator 1)
+0x400e4d5f: esp_rmaker_assisted_claim_handle_init at managed_components/espressif__esp_rainmaker/src/core/esp_rmaker_claim.c:783
+0x400e4f89: esp_rmaker_claiming_handler at managed_components/espressif__esp_rainmaker/src/core/esp_rmaker_claim.c:902
+0x400f2ce3: protocomm_req_handle at components/protocomm/src/common/protocomm.c:214
+0x400f58be: gatt_svr_chr_access at components/protocomm/src/transports/protocomm_nimble.c:409 (discriminator 1)

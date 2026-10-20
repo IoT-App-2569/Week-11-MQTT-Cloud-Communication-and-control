@@ -1,0 +1,1569 @@
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entro�$���������Ғ�Ң�j
+
+rst:0x1 (POWERON_RESET),boot:0x13ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=4f364h (324452) map
+I (230) esp_image: segment 1: paddr=0006f38c vaddr=3ffbdb60 size=00c8ch (  3212) load
+I (231) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=eb030h (962608) map
+I (577) esp_image: segment 3: paddr=0015b058 vaddr=3ffbe7ec size=05348h ( 21320) load
+I (585) esp_image: segment 4: paddr=001603a8 vaddr=40080000 size=1d514h (120084) load
+I (635) esp_image: segment 5: paddr=0017d8c4 vaddr=50000000 size=00028h (    40) load
+I (650) boot: Loaded app from partition at offset 0x20000
+I (650) boot: Disabling RNG early entropy source...
+I (660) cpu_start: Multicore app
+I (668) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (669) cpu_start: Pro cpu start user code
+I (669) cpu_start: cpu freq: 160000000 Hz
+I (671) app_init: Application information:
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (680) app_init: App version:      1be07a1-dirty
+I (684) app_init: Compile time:     Oct 20 2026 09:01:35
+I (689) app_init: ELF file SHA256:  21edb72c3...
+I (693) app_init: ESP-IDF:          v6.0.2
+I (697) efuse_init: Min chip rev:     v0.0
+I (701) efuse_init: Max chip rev:     v3.99 
+I (705) efuse_init: Chip rev:         v3.1
+I (709) heap_init: Initializing. RAM available for dynamic allocation:
+I (715) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (720) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (725) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (731) heap_init: At 3FFC98B0 len 00016750 (89 KiB): DRAM
+I (736) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (741) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (747) heap_init: At 4009D514 len 00002AEC (10 KiB): IRAM
+I (754) spi_flash: detected chip: generic
+I (756) spi_flash: flash io: dio
+I (760) coexist: coex firmware version: 6f3d08c
+I (764) main_task: Started on CPU0
+I (764) main_task: Calling app_main()
+I (794) wifi:wifi driver task: 3ffcdcac, prio:23, stack:6656, core=0
+I (794) wifi:wifi firmware version: 00ad238
+I (794) wifi:wifi certification version: v7.0
+I (794) wifi:config NVS flash: enabled
+I (794) wifi:config nano formatting: disabled
+I (804) wifi:Init data frame dynamic rx buffer num: 32
+I (804) wifi:Init static rx mgmt buffer num: 5
+I (814) wifi:Init management short buffer num: 32
+I (814) wifi:Init dynamic tx buffer num: 32
+I (814) wifi:Init static rx buffer size: 1600
+I (824) wifi:Init static rx buffer num: 10
+I (824) wifi:Init dynamic rx buffer num: 32
+I (834) wifi_init: rx ba win: 6
+I (834) wifi_init: accept mbox: 6
+I (834) wifi_init: tcpip mbox: 32
+I (834) wifi_init: udp mbox: 6
+I (844) wifi_init: tcp mbox: 6
+I (844) wifi_init: tcp tx win: 5760
+I (844) wifi_init: tcp rx win: 5760
+I (854) wifi_init: tcp mss: 1440
+I (854) wifi_init: WiFi IRAM OP enabled
+I (854) wifi_init: WiFi RX IRAM OP enabled
+I (874) esp_rmaker_work_queue: Work Queue created.
+E (874) esp_rmaker_client_data: Failed to get client cert
+I (874) esp_claim: Initialising Assisted Claiming. This may take time.
+I (894) esp_claim: Private key already exists with matching type. No need to re-initialise it.
+I (894) esp_rmaker_node: Node ID ----- 14335C0E7AA8
+I (904) esp_rmaker_time_service: Time service enabled
+I (904) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (914) esp_rmaker_time: SNTP already initialized.
+I (914) esp_rmaker_core: Starting RainMaker Work Queue task
+I (914) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (924) esp_claim: Waiting for assisted claim to finish.
+I (934) app_network: Reusing cached sec2 salt-verifier from NVS
+I (934) network_prov_scheme_ble: BT memory released
+I (944) app_wifi: Starting provisioning
+I (944) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1024) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1024) wifi:enable tsf
+W (1034) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1034) BTDM_INIT: BT controller compile version [e02a38e]
+I (1034) BTDM_INIT: Using main XTAL as clock source
+I (1044) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1294) protocomm_nimble: BLE Host Task Started
+I (1314) network_prov_mgr: Provisioning started with service name : PROV_5c3a36 
+I (1314) app_wifi: Provisioning started
+I (1314) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1324) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1324) QRCODE: {"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1344) NimBLE: GAP procedure initiated: advertise; 
+I (1344) NimBLE: disc_mode=2
+I (1344) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1354) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ███ ▀▄▀▀▀  ▄▀▄▀▀▄▄▀▀  █▀▀▀▀▀█   
+  █ ███ █ █▄▀█ ▄▄▄█▀▀ ▀▀▀█▄▄ ▄█ █ ███ █   
+  █ ▀▀▀ █ ▄  ▄▄█▀▀▀  ▄▄█▄▀ ▀█▀  █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ ▀▄▀ █ █ █▄▀▄█▄▀▄▀ ▀ ▀ ▀▀▀▀▀▀▀   
+  ██  ▀█▀▄▄ ▄▀▄▄█▄ ▀█▀▀▀██▀▄ ▄▀▄ █▄▀▀▀▀   
+   █▄█▀█▀▀█▀ █▀▀ ▀█▄  ▀▄▄▀▄ █▀▄██ ▀█▄█▄   
+  █▄▄▀█▀▀▄█▀▀ ▀  █▀██▀▄▀ ▄▀▄ ▄▀ ▀█▄▀█▄▀   
+   ▄▄▀ ▀▀▄ ▄█ ▄ █▀██▀▄ ▄██▀▀▄█▄█▄█ █▄     
+  ▄▄▀██▄▀▄▀█▀▀▄▀█▄ ▀█▀▄█ █▀▄▄▄▄██▀▄ ▀▀▀   
+  ▀ ██ █▀▄█▄▄█▀█▀█▀▄ ▄▄█▄▀█ █▀▄█ █▄▀▄▄▄   
+   █▀  ▄▀▀▄ ▀ ▀█▄▄█▀ ▀▀▀ ▄ ▄ ▄▀██▀▄█▀█▀   
+  ██▀▄▀ ▀▄▄▀▄ ▄ ▄▀██▀ █▄█▀ ▀ ▀▄█▄▀ █▄▄▄   
+  ▄█ ▀▄▀▀▀▄  ▀▄▀▀▄█▀ ▀▄▀█▄█ ▄▄▄▀█▀▄▀▀ ▀   
+     █▀▀▀▀█▄▄█▀█▀▀ ▄ ▄ ██▀ ▀▀█  █▄█▄█▀▄   
+  ▀▀▀▀ ▀▀ ▄▄▀ ▀█▄█▄▀▄▀██▀█▄▄▄▄█▀▀▀█ ▀▄    
+  █▀▀▀▀▀█ ▄▀▀ ▄ ▄███▄▄ ▄ ▀  ▄▄█ ▀ ██▄▄▄   
+  █ ███ █ ▀▀▀▀▄▀▀▄██▄ ▄▀█▄█ ▄▄████▀▄█▄▄   
+  █ ▀▀▀ █ ▄▀ █▀█▀▀▄▄▀▄ ████ █ ▄  ▀▄██▄    
+  ▀▀▀▀▀▀▀ ▀▀  ▀▀  ▀▀ ▀▀▀  ▀  ▀   ▀▀ ▀▀▀   
+                                          
+
+I (1624) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1644) app_network: Provisioning will auto stop after 30 minute(s).
+I (283824) protocomm_nimble: mtu update event; conn_handle=0 cid=4 mtu=256
+I (285324) security2: Using salt and verifier to generate public key...
+I (285894) app_network: Secured session established!
+I (286044) esp_claim: Assisted Claiming Started.
+I (288474) esp_rmaker_core: New Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (293814) esp_claim: Storing received MQTT Host: a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (293814) esp_claim: Storing received MQTT Cred Host: c10yordfvrjdjb.credentials.iot.us-east-1.amazonaws.com
+I (293834) esp_claim: Assisted Claiming was Successful.
+W (293834) wifi:Haven't to connect to a suitable AP now!
+I (302544) NimBLE: GAP procedure initiated: advertise; 
+I (302544) NimBLE: disc_mode=2
+I (302544) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (302554) NimBLE: 
+
+I (410334) protocomm_nimble: mtu update event; conn_handle=0 cid=4 mtu=256
+I (411074) security2: Using salt and verifier to generate public key...
+I (411654) app_network: Secured session established!
+I (411774) esp_claim: Assisted Claiming Started.
+
+assert failed: block_locate_free tlsf_control_functions.h:618 (block_size(block) >= *size)
+
+
+Backtrace: 0x40090fc9:0x3ffe1e50 0x40090f91:0x3ffe1e70 0x40090ba1:0x3ffe1e90 0x40093530:0x3ffe1fb0 0x40092f0e:0x3ffe1fd0 0x40082269:0x3ffe1ff0 0x40082395:0x3ffe2010 0x400823cd:0x3ffe2040 0x40081fa8:0x3ffe2060 0x40081fe1:0x3ffe2080 0x40090bb1:0x3ffe20a0 0x400da762:0x3ffe20c0 0x400d8c61:0x3ffe20f0 0x400e5e7d:0x3ffe2120 0x400e4769:0x3ffe2160 0x400e4d5f:0x3ffe2200 0x400e4f89:0x3ffe2220 0x400f2ce3:0x3ffe2290 0x400f58be:0x3ffe22f0 0x400fdcb5:0x3ffe2330 0x400fdd19:0x3ffe2370 0x40106695:0x3ffe23b0 0x40107049:0x3ffe23e0 0x40107ace:0x3ffe2410 0x400f8c91:0x3ffe2450 0x400f8d17:0x3ffe2490 0x400fd16a:0x3ffe24c0 0x400f89f1:0x3ffe24f0 0x400f7c02:0x3ffe2530 0x400f7c1b:0x3ffe2550 0x401adf1b:0x3ffe2570 0x400838a5:0x3ffe2590 0x400f513a:0x3ffe25b0 0x401b6b62:0x3ffe25d0
+
+
+
+
+ELF file SHA256: 21edb72c3
+
+Rebooting...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=4f364h (324452) map
+I (230) esp_image: segment 1: paddr=0006f38c vaddr=3ffbdb60 size=00c8ch (  3212) load
+I (231) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=eb030h (962608) map
+I (576) esp_image: segment 3: paddr=0015b058 vaddr=3ffbe7ec size=05348h ( 21320) load
+I (585) esp_image: segment 4: paddr=001603a8 vaddr=40080000 size=1d514h (120084) load
+I (635) esp_image: segment 5: paddr=0017d8c4 vaddr=50000000 size=00028h (    40) load
+I (649) boot: Loaded app from partition at offset 0x20000
+I (650) boot: Disabling RNG early entropy source...
+I (660) cpu_start: Multicore app
+I (668) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (669) cpu_start: Pro cpu start user code
+I (669) cpu_start: cpu freq: 160000000 Hz
+I (671) app_init: Application information:
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (680) app_init: App version:      1be07a1-dirty
+I (684) app_init: Compile time:     Oct 20 2026 09:01:35
+I (689) app_init: ELF file SHA256:  21edb72c3...
+I (693) app_init: ESP-IDF:          v6.0.2
+I (697) efuse_init: Min chip rev:     v0.0
+I (701) efuse_init: Max chip rev:     v3.99 
+I (705) efuse_init: Chip rev:         v3.1
+I (709) heap_init: Initializing. RAM available for dynamic allocation:
+I (715) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (720) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (725) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (731) heap_init: At 3FFC98B0 len 00016750 (89 KiB): DRAM
+I (736) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (741) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (747) heap_init: At 4009D514 len 00002AEC (10 KiB): IRAM
+I (753) spi_flash: detected chip: generic
+I (756) spi_flash: flash io: dio
+I (760) coexist: coex firmware version: 6f3d08c
+I (764) main_task: Started on CPU0
+I (764) main_task: Calling app_main()
+I (794) wifi:wifi driver task: 3ffcdcac, prio:23, stack:6656, core=0
+I (794) wifi:wifi firmware version: 00ad238
+I (794) wifi:wifi certification version: v7.0
+I (794) wifi:config NVS flash: enabled
+I (794) wifi:config nano formatting: disabled
+I (804) wifi:Init data frame dynamic rx buffer num: 32
+I (804) wifi:Init static rx mgmt buffer num: 5
+I (814) wifi:Init management short buffer num: 32
+I (814) wifi:Init dynamic tx buffer num: 32
+I (814) wifi:Init static rx buffer size: 1600
+I (824) wifi:Init static rx buffer num: 10
+I (824) wifi:Init dynamic rx buffer num: 32
+I (834) wifi_init: rx ba win: 6
+I (834) wifi_init: accept mbox: 6
+I (834) wifi_init: tcpip mbox: 32
+I (834) wifi_init: udp mbox: 6
+I (844) wifi_init: tcp mbox: 6
+I (844) wifi_init: tcp tx win: 5760
+I (844) wifi_init: tcp rx win: 5760
+I (854) wifi_init: tcp mss: 1440
+I (854) wifi_init: WiFi IRAM OP enabled
+I (854) wifi_init: WiFi RX IRAM OP enabled
+I (884) esp_rmaker_work_queue: Work Queue created.
+I (894) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|14335C0E7AA8
+I (894) esp_mqtt_glue: Initialising MQTT
+I (894) esp_mqtt_glue: MQTT LWT not configured
+I (894) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (904) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (914) esp_rmaker_time_service: Time service enabled
+I (914) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (924) esp_rmaker_time: SNTP already initialized.
+I (924) esp_rmaker_core: Starting RainMaker Work Queue task
+I (934) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (944) app_network: Reusing cached sec2 salt-verifier from NVS
+I (944) network_prov_scheme_ble: BT memory released
+I (954) app_wifi: Starting provisioning
+I (954) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1034) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1034) wifi:enable tsf
+W (1044) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1044) BTDM_INIT: BT controller compile version [e02a38e]
+I (1044) BTDM_INIT: Using main XTAL as clock source
+I (1054) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1304) protocomm_nimble: BLE Host Task Started
+I (1314) network_prov_mgr: Provisioning started with service name : PROV_5c3a36 
+I (1314) app_wifi: Provisioning started
+I (1324) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1324) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1334) QRCODE: {"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1354) NimBLE: GAP procedure initiated: advertise; 
+I (1354) NimBLE: disc_mode=2
+I (1354) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1364) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ███ ▀▄▀▀▀  ▄▀▄▀▀▄▄▀▀  █▀▀▀▀▀█   
+  █ ███ █ █▄▀█ ▄▄▄█▀▀ ▀▀▀█▄▄ ▄█ █ ███ █   
+  █ ▀▀▀ █ ▄  ▄▄█▀▀▀  ▄▄█▄▀ ▀█▀  █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ ▀▄▀ █ █ █▄▀▄█▄▀▄▀ ▀ ▀ ▀▀▀▀▀▀▀   
+  ██  ▀█▀▄▄ ▄▀▄▄█▄ ▀█▀▀▀██▀▄ ▄▀▄ █▄▀▀▀▀   
+   █▄█▀█▀▀█▀ █▀▀ ▀█▄  ▀▄▄▀▄ █▀▄██ ▀█▄█▄   
+  █▄▄▀█▀▀▄█▀▀ ▀  █▀██▀▄▀ ▄▀▄ ▄▀ ▀█▄▀█▄▀   
+   ▄▄▀ ▀▀▄ ▄█ ▄ █▀██▀▄ ▄██▀▀▄█▄█▄█ █▄     
+  ▄▄▀██▄▀▄▀█▀▀▄▀█▄ ▀█▀▄█ █▀▄▄▄▄██▀▄ ▀▀▀   
+  ▀ ██ █▀▄█▄▄█▀█▀█▀▄ ▄▄█▄▀█ █▀▄█ █▄▀▄▄▄   
+   █▀  ▄▀▀▄ ▀ ▀█▄▄█▀ ▀▀▀ ▄ ▄ ▄▀██▀▄█▀█▀   
+  ██▀▄▀ ▀▄▄▀▄ ▄ ▄▀██▀ █▄█▀ ▀ ▀▄█▄▀ █▄▄▄   
+  ▄█ ▀▄▀▀▀▄  ▀▄▀▀▄█▀ ▀▄▀█▄█ ▄▄▄▀█▀▄▀▀ ▀   
+     █▀▀▀▀█▄▄█▀█▀▀ ▄ ▄ ██▀ ▀▀█  █▄█▄█▀▄   
+  ▀▀▀▀ ▀▀ ▄▄▀ ▀█▄█▄▀▄▀██▀█▄▄▄▄█▀▀▀█ ▀▄    
+  █▀▀▀▀▀█ ▄▀▀ ▄ ▄███▄▄ ▄ ▀  ▄▄█ ▀ ██▄▄▄   
+  █ ███ █ ▀▀▀▀▄▀▀▄██▄ ▄▀█▄█ ▄▄████▀▄█▄▄   
+  █ ▀▀▀ █ ▄▀ █▀█▀▀▄▄▀▄ ████ █ ▄  ▀▄██▄    
+  ▀▀▀▀▀▀▀ ▀▀  ▀▀  ▀▀ ▀▀▀  ▀  ▀   ▀▀ ▀▀▀   
+                                          
+
+I (1624) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1644) app_network: Provisioning will auto stop after 30 minute(s).
+I (113824) protocomm_nimble: mtu update event; conn_handle=0 cid=4 mtu=256
+I (114304) NimBLE: ATT read: invalid handle; conn_handle=0x0000 attr_handle=0x001e
+
+I (114664) security2: Using salt and verifier to generate public key...
+I (115234) app_network: Secured session established!
+I (167224) NimBLE: ATT write: invalid handle; conn_handle=0x0000 attr_handle=0x001d
+
+I (167324) NimBLE: GAP procedure initiated: advertise; 
+I (167324) NimBLE: disc_mode=2
+I (167324) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (167324) NimBLE: 
+
+
+===== [reset board 09:28:26] =====
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entro𒪱�29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=4f364h (324452) map
+I (230) esp_image: segment 1: paddr=0006f38c vaddr=3ffbdb60 size=00c8ch (  3212) load
+I (231) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=eb030h (962608) map
+I (577) esp_image: segment 3: paddr=0015b058 vaddr=3ffbe7ec size=05348h ( 21320) load
+I (585) esp_image: segment 4: paddr=001603a8 vaddr=40080000 size=1d514h (120084) load
+I (635) esp_image: segment 5: paddr=0017d8c4 vaddr=50000000 size=00028h (    40) load
+I (650) boot: Loaded app from partition at offset 0x20000
+I (650) boot: Disabling RNG early entropy source...
+I (660) cpu_start: Multicore app
+I (668) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (669) cpu_start: Pro cpu start user code
+I (669) cpu_start: cpu freq: 160000000 Hz
+I (671) app_init: Application information:
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (680) app_init: App version:      1be07a1-dirty
+I (684) app_init: Compile time:     Oct 20 2026 09:01:35
+I (689) app_init: ELF file SHA256:  21edb72c3...
+I (693) app_init: ESP-IDF:          v6.0.2
+I (697) efuse_init: Min chip rev:     v0.0
+I (701) efuse_init: Max chip rev:     v3.99 
+I (705) efuse_init: Chip rev:         v3.1
+I (709) heap_init: Initializing. RAM available for dynamic allocation:
+I (715) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (720) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (725) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (731) heap_init: At 3FFC98B0 len 00016750 (89 KiB): DRAM
+I (736) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (741) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (747) heap_init: At 4009D514 len 00002AEC (10 KiB): IRAM
+I (754) spi_flash: detected chip: generic
+I (756) spi_flash: flash io: dio
+I (760) coexist: coex firmware version: 6f3d08c
+I (764) main_task: Started on CPU0
+I (764) main_task: Calling app_main()
+I (794) wifi:wifi driver task: 3ffcdcac, prio:23, stack:6656, core=0
+I (794) wifi:wifi firmware version: 00ad238
+I (794) wifi:wifi certification version: v7.0
+I (794) wifi:config NVS flash: enabled
+I (794) wifi:config nano formatting: disabled
+I (804) wifi:Init data frame dynamic rx buffer num: 32
+I (804) wifi:Init static rx mgmt buffer num: 5
+I (814) wifi:Init management short buffer num: 32
+I (814) wifi:Init dynamic tx buffer num: 32
+I (814) wifi:Init static rx buffer size: 1600
+I (824) wifi:Init static rx buffer num: 10
+I (824) wifi:Init dynamic rx buffer num: 32
+I (834) wifi_init: rx ba win: 6
+I (834) wifi_init: accept mbox: 6
+I (834) wifi_init: tcpip mbox: 32
+I (834) wifi_init: udp mbox: 6
+I (844) wifi_init: tcp mbox: 6
+I (844) wifi_init: tcp tx win: 5760
+I (844) wifi_init: tcp rx win: 5760
+I (854) wifi_init: tcp mss: 1440
+I (854) wifi_init: WiFi IRAM OP enabled
+I (854) wifi_init: WiFi RX IRAM OP enabled
+I (884) esp_rmaker_work_queue: Work Queue created.
+I (894) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|14335C0E7AA8
+I (894) esp_mqtt_glue: Initialising MQTT
+I (894) esp_mqtt_glue: MQTT LWT not configured
+I (894) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (904) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (914) esp_rmaker_time_service: Time service enabled
+I (914) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (924) esp_rmaker_time: SNTP already initialized.
+I (924) esp_rmaker_core: Starting RainMaker Work Queue task
+I (934) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (944) app_network: Reusing cached sec2 salt-verifier from NVS
+I (944) network_prov_scheme_ble: BT memory released
+I (954) app_wifi: Starting provisioning
+I (954) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1034) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1044) wifi:enable tsf
+W (1044) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1044) BTDM_INIT: BT controller compile version [e02a38e]
+I (1054) BTDM_INIT: Using main XTAL as clock source
+I (1054) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1304) protocomm_nimble: BLE Host Task Started
+I (1314) network_prov_mgr: Provisioning started with service name : PROV_5c3a36 
+I (1324) app_wifi: Provisioning started
+I (1324) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1334) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1334) QRCODE: {"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1354) NimBLE: GAP procedure initiated: advertise; 
+I (1354) NimBLE: disc_mode=2
+I (1354) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1364) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ███ ▀▄▀▀▀  ▄▀▄▀▀▄▄▀▀  █▀▀▀▀▀█   
+  █ ███ █ █▄▀█ ▄▄▄█▀▀ ▀▀▀█▄▄ ▄█ █ ███ █   
+  █ ▀▀▀ █ ▄  ▄▄█▀▀▀  ▄▄█▄▀ ▀█▀  █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ ▀▄▀ █ █ █▄▀▄█▄▀▄▀ ▀ ▀ ▀▀▀▀▀▀▀   
+  ██  ▀█▀▄▄ ▄▀▄▄█▄ ▀█▀▀▀██▀▄ ▄▀▄ █▄▀▀▀▀   
+   █▄█▀█▀▀█▀ █▀▀ ▀█▄  ▀▄▄▀▄ █▀▄██ ▀█▄█▄   
+  █▄▄▀█▀▀▄█▀▀ ▀  █▀██▀▄▀ ▄▀▄ ▄▀ ▀█▄▀█▄▀   
+   ▄▄▀ ▀▀▄ ▄█ ▄ █▀██▀▄ ▄██▀▀▄█▄█▄█ █▄     
+  ▄▄▀██▄▀▄▀█▀▀▄▀█▄ ▀█▀▄█ █▀▄▄▄▄██▀▄ ▀▀▀   
+  ▀ ██ █▀▄█▄▄█▀█▀█▀▄ ▄▄█▄▀█ █▀▄█ █▄▀▄▄▄   
+   █▀  ▄▀▀▄ ▀ ▀█▄▄█▀ ▀▀▀ ▄ ▄ ▄▀██▀▄█▀█▀   
+  ██▀▄▀ ▀▄▄▀▄ ▄ ▄▀██▀ █▄█▀ ▀ ▀▄█▄▀ █▄▄▄   
+  ▄█ ▀▄▀▀▀▄  ▀▄▀▀▄█▀ ▀▄▀█▄█ ▄▄▄▀█▀▄▀▀ ▀   
+     █▀▀▀▀█▄▄█▀█▀▀ ▄ ▄ ██▀ ▀▀█  █▄█▄█▀▄   
+  ▀▀▀▀ ▀▀ ▄▄▀ ▀█▄█▄▀▄▀██▀█▄▄▄▄█▀▀▀█ ▀▄    
+  █▀▀▀▀▀█ ▄▀▀ ▄ ▄███▄▄ ▄ ▀  ▄▄█ ▀ ██▄▄▄   
+  █ ███ █ ▀▀▀▀▄▀▀▄██▄ ▄▀█▄█ ▄▄████▀▄█▄▄   
+  █ ▀▀▀ █ ▄▀ █▀█▀▀▄▄▀▄ ████ █ ▄  ▀▄██▄    
+  ▀▀▀▀▀▀▀ ▀▀  ▀▀  ▀▀ ▀▀▀  ▀  ▀   ▀▀ ▀▀▀   
+                                          
+
+I (1634) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1654) app_network: Provisioning will auto stop after 30 minute(s).
+I (39624) protocomm_nimble: mtu update event; conn_handle=0 cid=4 mtu=256
+I (40044) NimBLE: ATT read: invalid handle; conn_handle=0x0000 attr_handle=0x001e
+
+I (40404) security2: Using salt and verifier to generate public key...
+I (40974) app_network: Secured session established!
+I (81024) NimBLE: ATT write: invalid handle; conn_handle=0x0000 attr_handle=0x001d
+
+I (81154) NimBLE: GAP procedure initiated: advertise; 
+I (81154) NimBLE: disc_mode=2
+I (81154) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (81154) NimBLE: 
+
+
+===== [erase-flash + flash 09:30:57] =====
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entro𒪱�29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=4f364h (324452) map
+I (230) esp_image: segment 1: paddr=0006f38c vaddr=3ffbdb60 size=00c8ch (  3212) load
+I (231) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=eb030h (962608) map
+I (577) esp_image: segment 3: paddr=0015b058 vaddr=3ffbe7ec size=05348h ( 21320) load
+I (585) esp_image: segment 4: paddr=001603a8 vaddr=40080000 size=1d514h (120084) load
+I (635) esp_image: segment 5: paddr=0017d8c4 vaddr=50000000 size=00028h (    40) load
+I (650) boot: Loaded app from partition at offset 0x20000
+I (650) boot: Disabling RNG early entropy source...
+I (660) cpu_start: Multicore app
+I (668) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (669) cpu_start: Pro cpu start user code
+I (669) cpu_start: cpu freq: 160000000 Hz
+I (671) app_init: Application information:
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (680) app_init: App version:      1be07a1-dirty
+I (684) app_init: Compile time:     Oct 20 2026 09:01:35
+I (689) app_init: ELF file SHA256:  21edb72c3...
+I (693) app_init: ESP-IDF:          v6.0.2
+I (697) efuse_init: Min chip rev:     v0.0
+I (701) efuse_init: Max chip rev:     v3.99 
+I (705) efuse_init: Chip rev:         v3.1
+I (709) heap_init: Initializing. RAM available for dynamic allocation:
+I (715) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (720) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (725) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (731) heap_init: At 3FFC98B0 len 00016750 (89 KiB): DRAM
+I (736) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (741) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (747) heap_init: At 4009D514 len 00002AEC (10 KiB): IRAM
+I (754) spi_flash: detected chip: generic
+I (756) spi_flash: flash io: dio
+I (760) coexist: coex firmware version: 6f3d08c
+I (764) main_task: Started on CPU0
+I (764) main_task: Calling app_main()
+I (794) wifi:wifi driver task: 3ffcdcac, prio:23, stack:6656, core=0
+I (794) wifi:wifi firmware version: 00ad238
+I (794) wifi:wifi certification version: v7.0
+I (794) wifi:config NVS flash: enabled
+I (794) wifi:config nano formatting: disabled
+I (804) wifi:Init data frame dynamic rx buffer num: 32
+I (804) wifi:Init static rx mgmt buffer num: 5
+I (814) wifi:Init management short buffer num: 32
+I (814) wifi:Init dynamic tx buffer num: 32
+I (814) wifi:Init static rx buffer size: 1600
+I (824) wifi:Init static rx buffer num: 10
+I (824) wifi:Init dynamic rx buffer num: 32
+I (834) wifi_init: rx ba win: 6
+I (834) wifi_init: accept mbox: 6
+I (834) wifi_init: tcpip mbox: 32
+I (834) wifi_init: udp mbox: 6
+I (844) wifi_init: tcp mbox: 6
+I (844) wifi_init: tcp tx win: 5760
+I (844) wifi_init: tcp rx win: 5760
+I (854) wifi_init: tcp mss: 1440
+I (854) wifi_init: WiFi IRAM OP enabled
+I (854) wifi_init: WiFi RX IRAM OP enabled
+I (874) esp_rmaker_work_queue: Work Queue created.
+E (874) esp_rmaker_client_data: Failed to get client cert
+I (874) esp_claim: Initialising Assisted Claiming. This may take time.
+I (894) esp_claim: Private key already exists with matching type. No need to re-initialise it.
+I (894) esp_rmaker_node: Node ID ----- 14335C0E7AA8
+I (904) esp_rmaker_time_service: Time service enabled
+I (904) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (914) esp_rmaker_time: SNTP already initialized.
+I (914) esp_rmaker_core: Starting RainMaker Work Queue task
+I (914) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (924) esp_claim: Waiting for assisted claim to finish.
+I (934) app_network: Reusing cached sec2 salt-verifier from NVS
+I (934) network_prov_scheme_ble: BT memory released
+I (944) app_wifi: Starting provisioning
+I (944) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1024) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1034) wifi:enable tsf
+W (1034) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1034) BTDM_INIT: BT controller compile version [e02a38e]
+I (1044) BTDM_INIT: Using main XTAL as clock source
+I (1044) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1284) protocomm_nimble: BLE Host Task Started
+I (1294) network_prov_mgr: Provisioning started with service name : PROV_56e8ce 
+I (1304) app_wifi: Provisioning started
+I (1304) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1304) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1314) QRCODE: {"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1334) NimBLE: GAP procedure initiated: advertise; 
+I (1334) NimBLE: disc_mode=2
+I (1334) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1344) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ▄▀ ▄█▀██▄█ ▀█ ▄█ ▀███ █▀▀▀▀▀█   
+  █ ███ █ ▀███▀ ▄█▀▀▀ ▄ ███  █▀ █ ███ █   
+  █ ▀▀▀ █ █▄ ▄ █▀█▀▄▄▄█▀▄▀▄▀██▄ █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ █▄▀ █ █ █▄█▄█▄▀▄▀ ▀▄▀ ▀▀▀▀▀▀▀   
+  █▀▄█▄▄▀█▄▄█▄ █  ▀▄▀ ▀█▄ ███ █ ██▀▄▀█▄   
+  ▀ █▀█ ▀▀▀█   ▄█  ▀▀█▀█▀▄██  ▀ ▄█▄▄▀ █   
+   ▄▄█ █▀ ▀  ▄██▄▀▄▀▀▄ ██ █▀▄ ▀▄█  █  █   
+  ▀▀█ ▄▀▀█▄ ▀ █▄█ ▀█   █▀█ █▄▄▀██▀ ▄  ▀   
+  ▄█ ▀ ▄▀██ █▀ ▀█  ▀▀▀▄▀ ██▄▄▀▀█▀▀▄▄▀▀█   
+  ▄▀ █▀█▀▀▄ ▄▄ █ ▄▀█▀▄ ▄▄ ▄ ▄▄ ▄▀██ ▄██   
+  █▀█▄  ▀▄█▀███▄▀ ▄▄▄ ▄█▀▀▄██ █ ▀ ▀▀  █   
+  ▀▄▀ ▀▀▀▀ █▄███▀    ███ ▄▀▄█ ▄ █▄█▄▀▀█   
+  ▀▀█▄█▄▀▀▀█▀█ ▄█  █▄█ █  ▀█  ▄█▀▄ █▄▄█   
+  ▀▄ ▄▄ ▀▀▄ ▄█ ▀▀ ▄▄▀  ▄▀▀▀█▀▄▄ ▄ ██▀▀█   
+  ▀▀▀ ▀▀▀▀██▀ ██▄▀▄▀ ▀█▀▀█ ▄▄ █▀▀▀█▄▀▄▄   
+  █▀▀▀▀▀█ ▀▄▀▀█ █▄█▄█▄▀█  ▀ ███ ▀ █▄▄██   
+  █ ███ █ ▄ ▄▄  ▄ ▄  ▀▀█▄▀▀▀▀ █▀▀██ ▄▀    
+  █ ▀▀▀ █ ▄ ▀   ▄ ▀▀ ▀█▄  ▄█ ▀▀█▀▄▀▄ ▀▀   
+  ▀▀▀▀▀▀▀ ▀   ▀    ▀  ▀▀▀ ▀▀ ▀▀   ▀  ▀▀   
+                                          
+
+I (1604) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1624) app_network: Provisioning will auto stop after 30 minute(s).
+I (21134) protocomm_nimble: mtu update event; conn_handle=0 cid=4 mtu=256
+I (21884) security2: Using salt and verifier to generate public key...
+I (22484) app_network: Secured session established!
+I (22604) esp_claim: Assisted Claiming Started.
+I (24524) esp_rmaker_core: New Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (29114) esp_claim: Storing received MQTT Host: a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (29124) esp_claim: Storing received MQTT Cred Host: c10yordfvrjdjb.credentials.iot.us-east-1.amazonaws.com
+I (29134) esp_claim: Assisted Claiming was Successful.
+W (29134) wifi:Haven't to connect to a suitable AP now!
+I (52544) esp_rmaker_chal_resp: Challenge-Response handler invoked
+I (52544) esp_rmaker_chal_resp: Challenge payload length: 64
+I (52554) esp_rmaker_user_node_auth: ECDSA key found
+I (52874) esp_rmaker_chal_resp: Setting up response with node_id: UE8xRB8zb33cRLRySRcdEW, binary signature len: 72
+I (52874) esp_rmaker_chal_resp: Challenge-Response handler completed successfully
+W (54284) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2
+I (54344) app_wifi: Received Wi-Fi credentials
+	SSID     : KBBK-IPHONE
+	Password : ********
+I (60434) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0
+I (60434) wifi:state: init -> auth (0xb0)
+I (60454) wifi:state: auth -> assoc (0x0)
+I (60464) wifi:state: assoc -> run (0x10)
+I (60504) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (60504) wifi:security: WPA2-PSK, phy: bgn, rssi: -47, cipher(pairwise:0x3, group:0x3), pmf:0
+I (60524) wifi:pm start, type: 1
+
+I (60524) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (60534) wifi:state: run -> init (0x3c0)
+I (60534) wifi:pm stop, total sleep time: 0 us / 8501 us
+
+I (65374) wifi:state: init -> auth (0xb0)
+I (65394) wifi:state: auth -> assoc (0x0)
+I (65404) wifi:state: assoc -> run (0x10)
+I (65434) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (65444) wifi:security: WPA2-PSK, phy: bgn, rssi: -39, cipher(pairwise:0x3, group:0x3), pmf:0
+I (65454) wifi:pm start, type: 1
+
+I (65454) wifi:state: run -> init (0x3c0)
+I (65464) wifi:pm stop, total sleep time: 0 us / 10290 us
+
+I (70304) wifi:state: init -> auth (0xb0)
+I (70324) wifi:state: auth -> assoc (0x0)
+I (70334) wifi:state: assoc -> run (0x10)
+I (70384) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (70384) wifi:security: WPA2-PSK, phy: bgn, rssi: -39, cipher(pairwise:0x3, group:0x3), pmf:0
+I (70394) wifi:pm start, type: 1
+
+I (70394) wifi:state: run -> init (0x3c0)
+I (70404) wifi:pm stop, total sleep time: 0 us / 7764 us
+
+E (70404) network_prov_mgr: STA Disconnected
+E (70404) network_prov_mgr: Disconnect reason : 3
+E (70404) app_wifi: Provisioning failed!
+	Reason : Wi-Fi station authentication failed
+	Please reset to factory and retry provisioning
+I (70424) app_wifi: Failed to connect with provisioned AP, reseting provisioned credentials
+W (80354) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2
+I (80394) app_wifi: Received Wi-Fi credentials
+	SSID     : KBBK-IPHONE
+	Password : ********
+I (86224) wifi:state: init -> auth (0xb0)
+I (86244) wifi:state: auth -> assoc (0x0)
+I (86254) wifi:state: assoc -> run (0x10)
+I (86314) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (86314) wifi:security: WPA2-PSK, phy: bgn, rssi: -48, cipher(pairwise:0x3, group:0x3), pmf:0
+I (86334) wifi:pm start, type: 1
+
+I (86334) wifi:state: run -> init (0x3c0)
+I (86334) wifi:pm stop, total sleep time: 0 us / 4493 us
+
+I (91174) wifi:state: init -> auth (0xb0)
+I (91204) wifi:state: auth -> assoc (0x0)
+I (91214) wifi:state: assoc -> run (0x10)
+I (91254) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (91264) wifi:security: WPA2-PSK, phy: bgn, rssi: -54, cipher(pairwise:0x3, group:0x3), pmf:0
+I (91274) wifi:pm start, type: 1
+
+I (91274) wifi:state: run -> init (0x3c0)
+I (91284) wifi:pm stop, total sleep time: 0 us / 10426 us
+
+I (96124) wifi:state: init -> auth (0xb0)
+I (96144) wifi:state: auth -> assoc (0x0)
+I (96154) wifi:state: assoc -> run (0x10)
+I (96224) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (96224) wifi:security: WPA2-PSK, phy: bgn, rssi: -59, cipher(pairwise:0x3, group:0x3), pmf:0
+I (96234) wifi:pm start, type: 1
+
+I (96244) wifi:state: run -> init (0x3c0)
+I (96254) wifi:pm stop, total sleep time: 0 us / 11955 us
+
+E (96254) network_prov_mgr: STA Disconnected
+E (96254) network_prov_mgr: Disconnect reason : 3
+E (96254) app_wifi: Provisioning failed!
+	Reason : Wi-Fi station authentication failed
+	Please reset to factory and retry provisioning
+I (96264) app_wifi: Failed to connect with provisioned AP, reseting provisioned credentials
+I (141174) NimBLE: GAP procedure initiated: advertise; 
+I (141174) NimBLE: disc_mode=2
+I (141174) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (141174) NimBLE: 
+
+
+===== [console wifi-prov 09:36:19] =====
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entrop�����29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=4f364h (324452) map
+I (230) esp_image: segment 1: paddr=0006f38c vaddr=3ffbdb60 size=00c8ch (  3212) load
+I (231) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=eb030h (962608) map
+I (577) esp_image: segment 3: paddr=0015b058 vaddr=3ffbe7ec size=05348h ( 21320) load
+I (585) esp_image: segment 4: paddr=001603a8 vaddr=40080000 size=1d514h (120084) load
+I (635) esp_image: segment 5: paddr=0017d8c4 vaddr=50000000 size=00028h (    40) load
+I (650) boot: Loaded app from partition at offset 0x20000
+I (650) boot: Disabling RNG early entropy source...
+I (660) cpu_start: Multicore app
+I (668) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (669) cpu_start: Pro cpu start user code
+I (669) cpu_start: cpu freq: 160000000 Hz
+I (671) app_init: Application information:
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (680) app_init: App version:      1be07a1-dirty
+I (684) app_init: Compile time:     Oct 20 2026 09:01:35
+I (689) app_init: ELF file SHA256:  21edb72c3...
+I (693) app_init: ESP-IDF:          v6.0.2
+I (697) efuse_init: Min chip rev:     v0.0
+I (701) efuse_init: Max chip rev:     v3.99 
+I (705) efuse_init: Chip rev:         v3.1
+I (709) heap_init: Initializing. RAM available for dynamic allocation:
+I (715) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (720) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (725) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (731) heap_init: At 3FFC98B0 len 00016750 (89 KiB): DRAM
+I (736) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (741) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (747) heap_init: At 4009D514 len 00002AEC (10 KiB): IRAM
+I (754) spi_flash: detected chip: generic
+I (756) spi_flash: flash io: dio
+I (760) coexist: coex firmware version: 6f3d08c
+I (764) main_task: Started on CPU0
+I (764) main_task: Calling app_main()
+I (804) wifi:wifi driver task: 3ffcde38, prio:23, stack:6656, core=0
+I (814) wifi:wifi firmware version: 00ad238
+I (814) wifi:wifi certification version: v7.0
+I (814) wifi:config NVS flash: enabled
+I (814) wifi:config nano formatting: disabled
+I (824) wifi:Init data frame dynamic rx buffer num: 32
+I (824) wifi:Init static rx mgmt buffer num: 5
+I (824) wifi:Init management short buffer num: 32
+I (834) wifi:Init dynamic tx buffer num: 32
+I (834) wifi:Init static rx buffer size: 1600
+I (844) wifi:Init static rx buffer num: 10
+I (844) wifi:Init dynamic rx buffer num: 32
+I (854) wifi_init: rx ba win: 6
+I (854) wifi_init: accept mbox: 6
+I (854) wifi_init: tcpip mbox: 32
+I (854) wifi_init: udp mbox: 6
+I (864) wifi_init: tcp mbox: 6
+I (864) wifi_init: tcp tx win: 5760
+I (864) wifi_init: tcp rx win: 5760
+I (874) wifi_init: tcp mss: 1440
+I (874) wifi_init: WiFi IRAM OP enabled
+I (874) wifi_init: WiFi RX IRAM OP enabled
+I (904) esp_rmaker_work_queue: Work Queue created.
+I (914) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|14335C0E7AA8
+I (914) esp_mqtt_glue: Initialising MQTT
+I (914) esp_mqtt_glue: MQTT LWT not configured
+I (914) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (924) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (934) esp_rmaker_time_service: Time service enabled
+I (934) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (944) esp_rmaker_time: SNTP already initialized.
+I (944) esp_rmaker_core: Starting RainMaker Work Queue task
+I (954) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (964) app_network: Reusing cached sec2 salt-verifier from NVS
+I (964) network_prov_scheme_ble: BT memory released
+I (964) app_wifi: Starting provisioning
+I (974) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1054) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1054) wifi:enable tsf
+W (1064) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1064) BTDM_INIT: BT controller compile version [e02a38e]
+I (1064) BTDM_INIT: Using main XTAL as clock source
+I (1074) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1324) protocomm_nimble: BLE Host Task Started
+I (1344) network_prov_mgr: Provisioning started with service name : PROV_56e8ce 
+I (1344) app_wifi: Provisioning started
+I (1344) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1354) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1354) QRCODE: {"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1374) NimBLE: GAP procedure initiated: advertise; 
+I (1374) NimBLE: disc_mode=2
+I (1384) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1384) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ▄▀ ▄█▀██▄█ ▀█ ▄█ ▀███ █▀▀▀▀▀█   
+  █ ███ █ ▀███▀ ▄█▀▀▀ ▄ ███  █▀ █ ███ █   
+  █ ▀▀▀ █ █▄ ▄ █▀█▀▄▄▄█▀▄▀▄▀██▄ █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ █▄▀ █ █ █▄█▄█▄▀▄▀ ▀▄▀ ▀▀▀▀▀▀▀   
+  █▀▄█▄▄▀█▄▄█▄ █  ▀▄▀ ▀█▄ ███ █ ██▀▄▀█▄   
+  ▀ █▀█ ▀▀▀█   ▄█  ▀▀█▀█▀▄██  ▀ ▄█▄▄▀ █   
+   ▄▄█ █▀ ▀  ▄██▄▀▄▀▀▄ ██ █▀▄ ▀▄█  █  █   
+  ▀▀█ ▄▀▀█▄ ▀ █▄█ ▀█   █▀█ █▄▄▀██▀ ▄  ▀   
+  ▄█ ▀ ▄▀██ █▀ ▀█  ▀▀▀▄▀ ██▄▄▀▀█▀▀▄▄▀▀█   
+  ▄▀ █▀█▀▀▄ ▄▄ █ ▄▀█▀▄ ▄▄ ▄ ▄▄ ▄▀██ ▄██   
+  █▀█▄  ▀▄█▀███▄▀ ▄▄▄ ▄█▀▀▄██ █ ▀ ▀▀  █   
+  ▀▄▀ ▀▀▀▀ █▄███▀    ███ ▄▀▄█ ▄ █▄█▄▀▀█   
+  ▀▀█▄█▄▀▀▀█▀█ ▄█  █▄█ █  ▀█  ▄█▀▄ █▄▄█   
+  ▀▄ ▄▄ ▀▀▄ ▄█ ▀▀ ▄▄▀  ▄▀▀▀█▀▄▄ ▄ ██▀▀█   
+  ▀▀▀ ▀▀▀▀██▀ ██▄▀▄▀ ▀█▀▀█ ▄▄ █▀▀▀█▄▀▄▄   
+  █▀▀▀▀▀█ ▀▄▀▀█ █▄█▄█▄▀█  ▀ ███ ▀ █▄▄██   
+  █ ███ █ ▄ ▄▄  ▄ ▄  ▀▀█▄▀▀▀▀ █▀▀██ ▄▀    
+  █ ▀▀▀ █ ▄ ▀   ▄ ▀▀ ▀█▄  ▄█ ▀▀█▀▄▀▄ ▀▀   
+  ▀▀▀▀▀▀▀ ▀   ▀    ▀  ▀▀▀ ▀▀ ▀▀   ▀  ▀▀   
+                                          
+
+I (1644) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1664) app_network: Provisioning will auto stop after 30 minute(s).
+
+===== [console wifi-prov retry 09:37:43] =====
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entrop����29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=4f364h (324452) map
+I (230) esp_image: segment 1: paddr=0006f38c vaddr=3ffbdb60 size=00c8ch (  3212) load
+I (231) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=eb030h (962608) map
+I (577) esp_image: segment 3: paddr=0015b058 vaddr=3ffbe7ec size=05348h ( 21320) load
+I (585) esp_image: segment 4: paddr=001603a8 vaddr=40080000 size=1d514h (120084) load
+I (635) esp_image: segment 5: paddr=0017d8c4 vaddr=50000000 size=00028h (    40) load
+I (650) boot: Loaded app from partition at offset 0x20000
+I (650) boot: Disabling RNG early entropy source...
+I (660) cpu_start: Multicore app
+I (668) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (669) cpu_start: Pro cpu start user code
+I (669) cpu_start: cpu freq: 160000000 Hz
+I (671) app_init: Application information:
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (680) app_init: App version:      1be07a1-dirty
+I (684) app_init: Compile time:     Oct 20 2026 09:01:35
+I (689) app_init: ELF file SHA256:  21edb72c3...
+I (693) app_init: ESP-IDF:          v6.0.2
+I (697) efuse_init: Min chip rev:     v0.0
+I (701) efuse_init: Max chip rev:     v3.99 
+I (705) efuse_init: Chip rev:         v3.1
+I (709) heap_init: Initializing. RAM available for dynamic allocation:
+I (715) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (720) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (725) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (731) heap_init: At 3FFC98B0 len 00016750 (89 KiB): DRAM
+I (736) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (741) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (747) heap_init: At 4009D514 len 00002AEC (10 KiB): IRAM
+I (754) spi_flash: detected chip: generic
+I (756) spi_flash: flash io: dio
+I (760) coexist: coex firmware version: 6f3d08c
+I (764) main_task: Started on CPU0
+I (764) main_task: Calling app_main()
+I (804) wifi:wifi driver task: 3ffcde38, prio:23, stack:6656, core=0
+I (814) wifi:wifi firmware version: 00ad238
+I (814) wifi:wifi certification version: v7.0
+I (814) wifi:config NVS flash: enabled
+I (814) wifi:config nano formatting: disabled
+I (824) wifi:Init data frame dynamic rx buffer num: 32
+I (824) wifi:Init static rx mgmt buffer num: 5
+I (824) wifi:Init management short buffer num: 32
+I (834) wifi:Init dynamic tx buffer num: 32
+I (834) wifi:Init static rx buffer size: 1600
+I (844) wifi:Init static rx buffer num: 10
+I (844) wifi:Init dynamic rx buffer num: 32
+I (854) wifi_init: rx ba win: 6
+I (854) wifi_init: accept mbox: 6
+I (854) wifi_init: tcpip mbox: 32
+I (854) wifi_init: udp mbox: 6
+I (864) wifi_init: tcp mbox: 6
+I (864) wifi_init: tcp tx win: 5760
+I (864) wifi_init: tcp rx win: 5760
+I (874) wifi_init: tcp mss: 1440
+I (874) wifi_init: WiFi IRAM OP enabled
+I (874) wifi_init: WiFi RX IRAM OP enabled
+I (904) esp_rmaker_work_queue: Work Queue created.
+I (914) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|14335C0E7AA8
+I (914) esp_mqtt_glue: Initialising MQTT
+I (914) esp_mqtt_glue: MQTT LWT not configured
+I (914) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (924) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (934) esp_rmaker_time_service: Time service enabled
+I (934) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (944) esp_rmaker_time: SNTP already initialized.
+I (944) esp_rmaker_core: Starting RainMaker Work Queue task
+I (954) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (964) app_network: Reusing cached sec2 salt-verifier from NVS
+I (964) network_prov_scheme_ble: BT memory released
+I (964) app_wifi: Starting provisioning
+I (974) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1054) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1054) wifi:enable tsf
+W (1064) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1064) BTDM_INIT: BT controller compile version [e02a38e]
+I (1064) BTDM_INIT: Using main XTAL as clock source
+I (1074) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1324) protocomm_nimble: BLE Host Task Started
+I (1334) network_prov_mgr: Provisioning started with service name : PROV_56e8ce 
+I (1334) app_wifi: Provisioning started
+I (1344) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1344) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1354) QRCODE: {"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1374) NimBLE: GAP procedure initiated: advertise; 
+I (1374) NimBLE: disc_mode=2
+I (1374) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1374) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ▄▀ ▄█▀██▄█ ▀█ ▄█ ▀███ █▀▀▀▀▀█   
+  █ ███ █ ▀███▀ ▄█▀▀▀ ▄ ███  █▀ █ ███ █   
+  █ ▀▀▀ █ █▄ ▄ █▀█▀▄▄▄█▀▄▀▄▀██▄ █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ █▄▀ █ █ █▄█▄█▄▀▄▀ ▀▄▀ ▀▀▀▀▀▀▀   
+  █▀▄█▄▄▀█▄▄█▄ █  ▀▄▀ ▀█▄ ███ █ ██▀▄▀█▄   
+  ▀ █▀█ ▀▀▀█   ▄█  ▀▀█▀█▀▄██  ▀ ▄█▄▄▀ █   
+   ▄▄█ █▀ ▀  ▄██▄▀▄▀▀▄ ██ █▀▄ ▀▄█  █  █   
+  ▀▀█ ▄▀▀█▄ ▀ █▄█ ▀█   █▀█ █▄▄▀██▀ ▄  ▀   
+  ▄█ ▀ ▄▀██ █▀ ▀█  ▀▀▀▄▀ ██▄▄▀▀█▀▀▄▄▀▀█   
+  ▄▀ █▀█▀▀▄ ▄▄ █ ▄▀█▀▄ ▄▄ ▄ ▄▄ ▄▀██ ▄██   
+  █▀█▄  ▀▄█▀███▄▀ ▄▄▄ ▄█▀▀▄██ █ ▀ ▀▀  █   
+  ▀▄▀ ▀▀▀▀ █▄███▀    ███ ▄▀▄█ ▄ █▄█▄▀▀█   
+  ▀▀█▄█▄▀▀▀█▀█ ▄█  █▄█ █  ▀█  ▄█▀▄ █▄▄█   
+  ▀▄ ▄▄ ▀▀▄ ▄█ ▀▀ ▄▄▀  ▄▀▀▀█▀▄▄ ▄ ██▀▀█   
+  ▀▀▀ ▀▀▀▀██▀ ██▄▀▄▀ ▀█▀▀█ ▄▄ █▀▀▀█▄▀▄▄   
+  █▀▀▀▀▀█ ▀▄▀▀█ █▄█▄█▄▀█  ▀ ███ ▀ █▄▄██   
+  █ ███ █ ▄ ▄▄  ▄ ▄  ▀▀█▄▀▀▀▀ █▀▀██ ▄▀    
+  █ ▀▀▀ █ ▄ ▀   ▄ ▀▀ ▀█▄  ▄█ ▀▀█▀▄▀▄ ▀▀   
+  ▀▀▀▀▀▀▀ ▀   ▀    ▀  ▀▀▀ ▀▀ ▀▀   ▀  ▀▀   
+                                          
+
+I (1644) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1664) app_network: Provisioning will auto stop after 30 minute(s).
+
+===== [app-flash with console 09:38:52] =====
+
+===== [console wifi-prov 09:39:53] =====
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entro𒪱�29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=512c4h (332484) map
+I (233) esp_image: segment 1: paddr=000712ec vaddr=3ffbdb60 size=06004h ( 24580) load
+I (242) esp_image: segment 2: paddr=000772f8 vaddr=40080000 size=08d20h ( 36128) load
+I (258) esp_image: segment 3: paddr=00080020 vaddr=400d0020 size=f13b0h (988080) map
+I (610) esp_image: segment 4: paddr=001713d8 vaddr=40088d20 size=15390h ( 86928) load
+I (646) esp_image: segment 5: paddr=00186770 vaddr=50000000 size=00028h (    40) load
+I (661) boot: Loaded app from partition at offset 0x20000
+I (661) boot: Disabling RNG early entropy source...
+I (672) cpu_start: Multicore app
+I (680) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (680) cpu_start: Pro cpu start user code
+I (680) cpu_start: cpu freq: 160000000 Hz
+I (682) app_init: Application information:
+I (686) app_init: Project name:     Lab11-4_RainMaker_Light
+I (691) app_init: App version:      1be07a1-dirty
+I (696) app_init: Compile time:     Oct 20 2026 09:01:35
+I (701) app_init: ELF file SHA256:  e783c86f9...
+I (705) app_init: ESP-IDF:          v6.0.2
+I (709) efuse_init: Min chip rev:     v0.0
+I (713) efuse_init: Max chip rev:     v3.99 
+I (717) efuse_init: Chip rev:         v3.1
+I (721) heap_init: Initializing. RAM available for dynamic allocation:
+I (727) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (732) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (737) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (742) heap_init: At 3FFC9920 len 000166E0 (89 KiB): DRAM
+I (747) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (753) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (758) heap_init: At 4009E0B0 len 00001F50 (7 KiB): IRAM
+I (765) spi_flash: detected chip: generic
+I (767) spi_flash: flash io: dio
+I (772) coexist: coex firmware version: 6f3d08c
+I (776) main_task: Started on CPU0
+I (776) main_task: Calling app_main()
+I (806) rmaker_console: Initialising UART on port 0
+I (806) uart: queue free spaces: 8
+I (806) rmaker_common_cmds: Registering command: reboot
+I (806) rmaker_common_cmds: Registering command: up-time
+I (816) rmaker_common_cmds: Registering command: mem-dump
+I (816) rmaker_common_cmds: Registering command: task-dump
+I (826) rmaker_common_cmds: Registering command: cpu-dump
+I (826) rmaker_common_cmds: Registering command: sock-dump
+I (836) rmaker_common_cmds: Registering command: heap-trace
+I (836) rmaker_common_cmds: Registering command: reset-to-factory
+I (846) rmaker_common_cmds: Registering command: local-time
+I (846) rmaker_common_cmds: Registering command: tz-set
+I (856) esp_rmaker_commands: Registering command: add-user
+I (856) esp_rmaker_commands: Registering command: get-node-id
+I (866) esp_rmaker_commands: Registering command: wifi-prov
+I (866) esp_rmaker_commands: Registering command: cmd
+I (876) esp_rmaker_commands: Registering command: sign-data
+I (876) esp_rmaker_commands: Registering command: clear-claim-data
+I (896) wifi:wifi driver task: 3ffcfaa0, prio:23, stack:6656, core=0
+I (906) wifi:wifi firmware version: 00ad238
+I (906) wifi:wifi certification version: v7.0
+I (906) wifi:config NVS flash: enabled
+I (906) wifi:config nano formatting: disabled
+I (916) wifi:Init data frame dynamic rx buffer num: 32
+I (916) wifi:Init static rx mgmt buffer num: 5
+I (916) wifi:Init management short buffer num: 32
+I (926) wifi:Init dynamic tx buffer num: 32
+I (926) wifi:Init static rx buffer size: 1600
+I (936) wifi:Init static rx buffer num: 10
+I (936) wifi:Init dynamic rx buffer num: 32
+I (946) wifi_init: rx ba win: 6
+I (946) wifi_init: accept mbox: 6
+I (946) wifi_init: tcpip mbox: 32
+I (946) wifi_init: udp mbox: 6
+I (956) wifi_init: tcp mbox: 6
+I (956) wifi_init: tcp tx win: 5760
+I (956) wifi_init: tcp rx win: 5760
+I (966) wifi_init: tcp mss: 1440
+I (966) wifi_init: WiFi IRAM OP enabled
+I (966) wifi_init: WiFi RX IRAM OP enabled
+I (996) esp_rmaker_work_queue: Work Queue created.
+I (1006) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|14335C0E7AA8
+I (1006) esp_mqtt_glue: Initialising MQTT
+I (1006) esp_mqtt_glue: MQTT LWT not configured
+I (1006) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (1016) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (1026) esp_rmaker_time_service: Time service enabled
+I (1026) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (1036) esp_rmaker_time: SNTP already initialized.
+I (1036) esp_rmaker_core: Starting RainMaker Work Queue task
+I (1046) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (1056) app_network: Reusing cached sec2 salt-verifier from NVS
+I (1056) network_prov_scheme_ble: BT memory released
+I (1056) app_wifi: Starting provisioning
+I (1066) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1146) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1146) wifi:enable tsf
+W (1156) BTDM_INIT: esp_bt_controller_rom_mem_release already released, mode 2
+I (1156) BTDM_INIT: BT controller compile version [e02a38e]
+I (1156) BTDM_INIT: Using main XTAL as clock source
+I (1166) BTDM_INIT: Bluetooth MAC: 14:33:5c:0e:7a:aa
+I (1416) protocomm_nimble: BLE Host Task Started
+I (1436) network_prov_mgr: Provisioning started with service name : PROV_56e8ce 
+I (1436) app_wifi: Provisioning started
+I (1436) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1446) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1446) QRCODE: {"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1466) NimBLE: GAP procedure initiated: advertise; 
+I (1466) NimBLE: disc_mode=2
+I (1466) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=256 adv_itvl_max=256
+I (1476) NimBLE: 
+
+                                          
+  █▀▀▀▀▀█ ▄▀ ▄█▀██▄█ ▀█ ▄█ ▀███ █▀▀▀▀▀█   
+  █ ███ █ ▀███▀ ▄█▀▀▀ ▄ ███  █▀ █ ███ █   
+  █ ▀▀▀ █ █▄ ▄ █▀█▀▄▄▄█▀▄▀▄▀██▄ █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ █▄▀ █ █ █▄█▄█▄▀▄▀ ▀▄▀ ▀▀▀▀▀▀▀   
+  █▀▄█▄▄▀█▄▄█▄ █  ▀▄▀ ▀█▄ ███ █ ██▀▄▀█▄   
+  ▀ █▀█ ▀▀▀█   ▄█  ▀▀█▀█▀▄██  ▀ ▄█▄▄▀ █   
+   ▄▄█ █▀ ▀  ▄██▄▀▄▀▀▄ ██ █▀▄ ▀▄█  █  █   
+  ▀▀█ ▄▀▀█▄ ▀ █▄█ ▀█   █▀█ █▄▄▀██▀ ▄  ▀   
+  ▄█ ▀ ▄▀██ █▀ ▀█  ▀▀▀▄▀ ██▄▄▀▀█▀▀▄▄▀▀█   
+  ▄▀ █▀█▀▀▄ ▄▄ █ ▄▀█▀▄ ▄▄ ▄ ▄▄ ▄▀██ ▄██   
+  █▀█▄  ▀▄█▀███▄▀ ▄▄▄ ▄█▀▀▄██ █ ▀ ▀▀  █   
+  ▀▄▀ ▀▀▀▀ █▄███▀    ███ ▄▀▄█ ▄ █▄█▄▀▀█   
+  ▀▀█▄█▄▀▀▀█▀█ ▄█  █▄█ █  ▀█  ▄█▀▄ █▄▄█   
+  ▀▄ ▄▄ ▀▀▄ ▄█ ▀▀ ▄▄▀  ▄▀▀▀█▀▄▄ ▄ ██▀▀█   
+  ▀▀▀ ▀▀▀▀██▀ ██▄▀▄▀ ▀█▀▀█ ▄▄ █▀▀▀█▄▀▄▄   
+  █▀▀▀▀▀█ ▀▄▀▀█ █▄█▄█▄▀█  ▀ ███ ▀ █▄▄██   
+  █ ███ █ ▄ ▄▄  ▄ ▄  ▀▀█▄▀▀▀▀ █▀▀██ ▄▀    
+  █ ▀▀▀ █ ▄ ▀   ▄ ▀▀ ▀█▄  ▄█ ▀▀█▀▄▀▄ ▀▀   
+  ▀▀▀▀▀▀▀ ▀   ▀    ▀  ▀▀▀ ▀▀ ▀▀   ▀  ▀▀   
+                                          
+
+I (1736) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_56e8ce","username":"wifiprov","pop":"8c246987","transport":"ble"}
+I (1756) app_network: Provisioning will auto stop after 30 minute(s).
+
+
+
+>> 
+
+
+>> wifi-prov KBBK-IPHONE ********
+
+W (3536) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2
+
+>> 
+I (3566) app_wifi: Received Wi-Fi credentials
+	SSID     : KBBK-IPHONE
+	Password : ********
+
+
+>> I (4586) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0
+I (4586) wifi:state: init -> auth (0xb0)
+I (4606) wifi:state: auth -> assoc (0x0)
+I (4626) wifi:state: assoc -> run (0x10)
+I (4676) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (4676) wifi:security: WPA2-PSK, phy: bgn, rssi: -45, cipher(pairwise:0x3, group:0x3), pmf:0
+I (4696) wifi:pm start, type: 1
+
+I (4696) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (4696) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (4706) wifi:<ba-add>idx:0 (ifx:0, 1a:7d:42:98:ad:f9), tid:0, ssn:3294, winSize:64
+I (4706) wifi:<ba-add>idx:1 (ifx:0, 1a:7d:42:98:ad:f9), tid:2, ssn:3775, winSize:64
+I (5906) esp_netif_handlers: sta ip: 172.20.10.6, mask: 255.255.255.240, gw: 172.20.10.1
+I (5906) app_network: Connected with IP Address:172.20.10.6
+I (5906) network_prov_mgr: STA Got IP
+I (5906) app_wifi: Provisioning successful
+I (5906) RMAKER_LIGHT: Node ID: UE8xRB8zb33cRLRySRcdEW
+I (5916) esp_rmaker_cmd_resp: Enabling Command-Response Module.
+I (5926) esp_rmaker_node: Node attribute cmd-resp created
+I (5926) esp_rmaker_param_cmd_resp: Enabling parameter command-response functionality
+I (5926) main_task: Returned from app_main()
+I (5936) esp_rmaker_param_cmd_resp: Allocated 2048 bytes for command response buffer
+I (5946) esp_rmaker_common_cmd_resp: Registered command: cmd=1, access=7
+I (5956) esp_rmaker_param_cmd_resp: Registered standard set params command handler (id=1)
+I (5956) esp_mqtt_glue: Connecting to a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (5966) esp_rmaker_core: Waiting for MQTT connection
+I (6996) esp-x509-crt-bundle: Certificate validated
+I (9316) esp_mqtt_glue: MQTT Connected
+I (9316) esp_rmaker_cmd_resp: Checking for pending commands.
+I (9316) esp_rmaker_node_config: Generated Node config of length 1253
+I (9336) esp_rmaker_core: User node mapping done, initializing MQTT parameters.
+I (9346) esp_rmaker_param: Params MQTT Init done.
+I (9346) esp_rmaker_param: Reporting params (init): {"Living Room Light":{"Name":"Living Room Light","Power":false,"Brightness":100},"Time":{"TZ":"","TZ-POSIX":""},"Schedule":{"Schedules":[]}}
+I (33776) esp_rmaker_time: SNTP Synchronised.
+I (33786) esp_rmaker_time: The current time is: Tue Oct 20 10:40:27 2026 +0800[CST], DST: No.
+I (36906) NimBLE: GAP procedure initiated: stop advertising.
+
+I (36916) NimBLE: GAP procedure initiated: stop advertising.
+
+I (36926) network_prov_mgr: Provisioning stopped
+I (36926) network_prov_scheme_ble: BTDM memory released
+
+===== [logger restart 09:40:51] =====
+) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entro�����29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0040,len:6272
+load:0x40078000,len:15892
+ho 0 tail 12 room 4
+load:0x40080400,len:3920
+entry 0x40080644
+I (29) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (29) boot: compile time Oct 20 2026 09:01:44
+I (29) boot: Multicore bootloader
+I (31) boot: chip revision: v3.1
+I (33) boot.esp32: SPI Speed      : 40MHz
+I (37) boot.esp32: SPI Mode       : DIO
+I (41) boot.esp32: SPI Flash Size : 4MB
+I (44) boot: Enabling RNG early entropy source...
+I (49) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (58) boot:  0 esp_secure_cert  unknown          3f 06 0000d000 00002000
+I (64) boot:  1 nvs              WiFi data        01 02 00010000 00006000
+I (71) boot:  2 otadata          OTA data         01 00 00016000 00002000
+I (77) boot:  3 phy_init         RF data          01 01 00018000 00001000
+I (84) boot:  4 ota_0            OTA app          00 10 00020000 00190000
+I (90) boot:  5 ota_1            OTA app          00 11 001b0000 00190000
+I (97) boot:  6 fctry            WiFi data        01 02 00340000 00006000
+I (103) boot: End of partition table
+I (107) esp_image: segment 0: paddr=00020020 vaddr=3f400020 size=512c4h (332484) map
+I (233) esp_image: segment 1: paddr=000712ec vaddr=3ffbdb60 size=06004h ( 24580) load
+I (242) esp_image: segment 2: paddr=000772f8 vaddr=40080000 size=08d20h ( 36128) load
+I (258) esp_image: segment 3: paddr=00080020 vaddr=400d0020 size=f13b0h (988080) map
+I (610) esp_image: segment 4: paddr=001713d8 vaddr=40088d20 size=15390h ( 86928) load
+I (646) esp_image: segment 5: paddr=00186770 vaddr=50000000 size=00028h (    40) load
+I (661) boot: Loaded app from partition at offset 0x20000
+I (661) boot: Disabling RNG early entropy source...
+I (672) cpu_start: Multicore app
+I (680) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (680) cpu_start: Pro cpu start user code
+I (680) cpu_start: cpu freq: 160000000 Hz
+I (682) app_init: Application information:
+I (686) app_init: Project name:     Lab11-4_RainMaker_Light
+I (691) app_init: App version:      1be07a1-dirty
+I (696) app_init: Compile time:     Oct 20 2026 09:01:35
+I (701) app_init: ELF file SHA256:  e783c86f9...
+I (705) app_init: ESP-IDF:          v6.0.2
+I (709) efuse_init: Min chip rev:     v0.0
+I (713) efuse_init: Max chip rev:     v3.99 
+I (717) efuse_init: Chip rev:         v3.1
+I (721) heap_init: Initializing. RAM available for dynamic allocation:
+I (727) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (732) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (737) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (742) heap_init: At 3FFC9920 len 000166E0 (89 KiB): DRAM
+I (747) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (753) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (758) heap_init: At 4009E0B0 len 00001F50 (7 KiB): IRAM
+I (765) spi_flash: detected chip: generic
+I (767) spi_flash: flash io: dio
+I (772) coexist: coex firmware version: 6f3d08c
+I (776) main_task: Started on CPU0
+I (776) main_task: Calling app_main()
+I (806) rmaker_console: Initialising UART on port 0
+I (806) uart: queue free spaces: 8
+I (806) rmaker_common_cmds: Registering command: reboot
+I (806) rmaker_common_cmds: Registering command: up-time
+I (816) rmaker_common_cmds: Registering command: mem-dump
+I (816) rmaker_common_cmds: Registering command: task-dump
+I (826) rmaker_common_cmds: Registering command: cpu-dump
+I (826) rmaker_common_cmds: Registering command: sock-dump
+I (836) rmaker_common_cmds: Registering command: heap-trace
+I (836) rmaker_common_cmds: Registering command: reset-to-factory
+I (846) rmaker_common_cmds: Registering command: local-time
+I (846) rmaker_common_cmds: Registering command: tz-set
+I (856) esp_rmaker_commands: Registering command: add-user
+I (856) esp_rmaker_commands: Registering command: get-node-id
+I (866) esp_rmaker_commands: Registering command: wifi-prov
+I (866) esp_rmaker_commands: Registering command: cmd
+I (876) esp_rmaker_commands: Registering command: sign-data
+I (876) esp_rmaker_commands: Registering command: clear-claim-data
+I (906) wifi:wifi driver task: 3ffcfaa0, prio:23, stack:6656, core=0
+I (916) wifi:wifi firmware version: 00ad238
+I (916) wifi:wifi certification version: v7.0
+I (916) wifi:config NVS flash: enabled
+I (916) wifi:config nano formatting: disabled
+I (916) wifi:Init data frame dynamic rx buffer num: 32
+I (926) wifi:Init static rx mgmt buffer num: 5
+I (926) wifi:Init management short buffer num: 32
+I (936) wifi:Init dynamic tx buffer num: 32
+I (936) wifi:Init static rx buffer size: 1600
+I (946) wifi:Init static rx buffer num: 10
+I (946) wifi:Init dynamic rx buffer num: 32
+I (956) wifi_init: rx ba win: 6
+I (956) wifi_init: accept mbox: 6
+I (956) wifi_init: tcpip mbox: 32
+I (956) wifi_init: udp mbox: 6
+I (966) wifi_init: tcp mbox: 6
+I (966) wifi_init: tcp tx win: 5760
+I (966) wifi_init: tcp rx win: 5760
+I (966) wifi_init: tcp mss: 1440
+I (976) wifi_init: WiFi IRAM OP enabled
+I (976) wifi_init: WiFi RX IRAM OP enabled
+I (996) esp_rmaker_work_queue: Work Queue created.
+I (1006) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|14335C0E7AA8
+I (1006) esp_mqtt_glue: Initialising MQTT
+I (1016) esp_mqtt_glue: MQTT LWT not configured
+I (1016) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (1026) esp_rmaker_node: Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (1036) esp_rmaker_time_service: Time service enabled
+I (1036) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (1046) esp_rmaker_time: SNTP already initialized.
+I (1046) esp_rmaker_core: Starting RainMaker Work Queue task
+I (1056) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (1066) app_network: Reusing cached sec2 salt-verifier from NVS
+I (1066) network_prov_scheme_ble: BT memory released
+I (1066) app_wifi: Already provisioned, starting Wi-Fi STA
+I (1076) network_prov_scheme_ble: BTDM memory released
+I (1076) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1166) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (1166) wifi:enable tsf
+I (1276) wifi:new:<6,0>, old:<1,0>, ap:<255,255>, sta:<6,0>, prof:1, snd_ch_cfg:0x0
+I (1276) wifi:state: init -> auth (0xb0)
+I (2286) wifi:state: auth -> init (0x200)
+I (2296) app_wifi: Disconnected. Connecting to the AP again...
+I (4606) wifi:state: init -> auth (0xb0)
+I (4626) wifi:state: auth -> assoc (0x0)
+I (4636) wifi:state: assoc -> run (0x10)
+I (4676) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (4676) wifi:security: WPA2-PSK, phy: bgn, rssi: -47, cipher(pairwise:0x3, group:0x3), pmf:0
+I (4686) wifi:pm start, type: 1
+
+I (4686) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (4696) wifi:<ba-add>idx:0 (ifx:0, 1a:7d:42:98:ad:f9), tid:0, ssn:2011, winSize:64
+I (4706) wifi:<ba-add>idx:1 (ifx:0, 1a:7d:42:98:ad:f9), tid:2, ssn:632, winSize:64
+I (4756) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (5776) esp_netif_handlers: sta ip: 172.20.10.6, mask: 255.255.255.240, gw: 172.20.10.1
+I (5776) app_network: Connected with IP Address:172.20.10.6
+I (5776) RMAKER_LIGHT: Node ID: UE8xRB8zb33cRLRySRcdEW
+I (5776) esp_rmaker_cmd_resp: Enabling Command-Response Module.
+I (5786) esp_rmaker_node: Node attribute cmd-resp created
+I (5796) esp_rmaker_param_cmd_resp: Enabling parameter command-response functionality
+I (5796) main_task: Returned from app_main()
+I (5796) esp_rmaker_param_cmd_resp: Allocated 2048 bytes for command response buffer
+I (5806) esp_rmaker_common_cmd_resp: Registered command: cmd=1, access=7
+I (5816) esp_rmaker_param_cmd_resp: Registered standard set params command handler (id=1)
+I (5826) esp_mqtt_glue: Connecting to a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (5836) esp_rmaker_core: Waiting for MQTT connection
+I (6726) esp_rmaker_time: SNTP Synchronised.
+I (6736) esp_rmaker_time: The current time is: Tue Oct 20 10:40:58 2026 +0800[CST], DST: No.
+I (6846) esp-x509-crt-bundle: Certificate validated
+I (9076) esp_mqtt_glue: MQTT Connected
+I (9076) esp_rmaker_cmd_resp: Checking for pending commands.
+I (9076) esp_rmaker_node_config: Generated Node config of length 1253
+I (9096) esp_rmaker_core: User node mapping done, initializing MQTT parameters.
+I (9106) esp_rmaker_param: Params MQTT Init done.
+I (9106) esp_rmaker_param: Reporting params (init): {"Living Room Light":{"Name":"Living Room Light","Power":false,"Brightness":100},"Time":{"TZ":"","TZ-POSIX":""},"Schedule":{"Schedules":[]}}
+I (38656) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (38656) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (38666) RMAKER_LIGHT: Request received via: Cloud
+I (38666) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (38676) RMAKER_LIGHT: Changing LED state to: ON
+I (38676) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (38686) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
+I (39506) esp_rmaker_param: Received params: {"Living Room Light":{"Power":false}}
+I (39516) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (39516) RMAKER_LIGHT: Request received via: Cloud
+I (39516) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (39526) RMAKER_LIGHT: Changing LED state to: OFF
+I (39526) RMAKER_LIGHT: LED output: power=OFF brightness=100% (duty 0/8191)
+I (39536) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":false}}
+I (40006) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (40006) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (40016) RMAKER_LIGHT: Request received via: Cloud
+I (40016) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (40026) RMAKER_LIGHT: Changing LED state to: ON
+I (40026) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (40036) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
+I (40716) esp_rmaker_param: Received params: {"Living Room Light":{"Power":false}}
+I (40716) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (40716) RMAKER_LIGHT: Request received via: Cloud
+I (40726) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (40726) RMAKER_LIGHT: Changing LED state to: OFF
+I (40736) RMAKER_LIGHT: LED output: power=OFF brightness=100% (duty 0/8191)
+I (40736) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":false}}
+I (41636) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (41636) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (41636) RMAKER_LIGHT: Request received via: Cloud
+I (41646) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (41646) RMAKER_LIGHT: Changing LED state to: ON
+I (41656) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (41656) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
+I (42056) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":96}}
+I (42056) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (42066) RMAKER_LIGHT: Request received via: Cloud
+I (42066) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (42076) RMAKER_LIGHT: Changing Brightness to: 96%
+I (42076) RMAKER_LIGHT: LED output: power=ON brightness=96% (duty 7863/8191)
+I (42086) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":96}}
+I (42916) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":42}}
+I (42916) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (42916) RMAKER_LIGHT: Request received via: Cloud
+I (42926) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (42926) RMAKER_LIGHT: Changing Brightness to: 42%
+I (42936) RMAKER_LIGHT: LED output: power=ON brightness=42% (duty 3440/8191)
+I (42936) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":42}}
+I (43676) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":12}}
+I (43676) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (43686) RMAKER_LIGHT: Request received via: Cloud
+I (43686) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (43696) RMAKER_LIGHT: Changing Brightness to: 12%
+I (43696) RMAKER_LIGHT: LED output: power=ON brightness=12% (duty 982/8191)
+I (43706) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":12}}
+I (43766) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":44}}
+I (43766) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (43766) RMAKER_LIGHT: Request received via: Cloud
+I (43766) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (43776) RMAKER_LIGHT: Changing Brightness to: 44%
+I (43786) RMAKER_LIGHT: LED output: power=ON brightness=44% (duty 3604/8191)
+I (43786) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":44}}
+I (44496) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":15}}
+I (44506) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (44506) RMAKER_LIGHT: Request received via: Cloud
+I (44506) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (44516) RMAKER_LIGHT: Changing Brightness to: 15%
+I (44516) RMAKER_LIGHT: LED output: power=ON brightness=15% (duty 1228/8191)
+I (44526) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":15}}
+I (44916) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":56}}
+I (44916) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (44926) RMAKER_LIGHT: Request received via: Cloud
+I (44926) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (44936) RMAKER_LIGHT: Changing Brightness to: 56%
+I (44936) RMAKER_LIGHT: LED output: power=ON brightness=56% (duty 4586/8191)
+I (44946) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":56}}
+I (46446) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":60}}
+I (46446) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (46456) RMAKER_LIGHT: Request received via: Cloud
+I (46456) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (46466) RMAKER_LIGHT: Changing Brightness to: 60%
+I (46466) RMAKER_LIGHT: LED output: power=ON brightness=60% (duty 4914/8191)
+I (46476) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":60}}
+I (46746) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":100}}
+I (46746) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (46756) RMAKER_LIGHT: Request received via: Cloud
+I (46756) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (46766) RMAKER_LIGHT: Changing Brightness to: 100%
+I (46766) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (46776) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":100}}
+I (61176) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":95}}
+I (61176) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (61176) RMAKER_LIGHT: Request received via: Cloud
+I (61176) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (61186) RMAKER_LIGHT: Changing Brightness to: 95%
+I (61196) RMAKER_LIGHT: LED output: power=ON brightness=95% (duty 7781/8191)
+I (61196) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":95}}
+I (62106) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":91}}
+I (62106) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (62116) RMAKER_LIGHT: Request received via: Cloud
+I (62116) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (62126) RMAKER_LIGHT: Changing Brightness to: 91%
+I (62126) RMAKER_LIGHT: LED output: power=ON brightness=91% (duty 7453/8191)
+I (62136) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":91}}
+I (62516) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":29}}
+I (62526) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (62526) RMAKER_LIGHT: Request received via: Cloud
+I (62526) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (62536) RMAKER_LIGHT: Changing Brightness to: 29%
+I (62536) RMAKER_LIGHT: LED output: power=ON brightness=29% (duty 2375/8191)
+I (62546) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":29}}
+I (62926) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":15}}
+I (62926) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (62936) RMAKER_LIGHT: Request received via: Cloud
+I (62936) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (62946) RMAKER_LIGHT: Changing Brightness to: 15%
+I (62946) RMAKER_LIGHT: LED output: power=ON brightness=15% (duty 1228/8191)
+I (62956) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":15}}
+I (64466) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":0}}
+I (64466) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (64466) RMAKER_LIGHT: Request received via: Cloud
+I (64476) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (64476) RMAKER_LIGHT: Changing Brightness to: 0%
+I (64486) RMAKER_LIGHT: LED output: power=ON brightness=0% (duty 0/8191)
+I (64486) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":0}}
+I (64666) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":11}}
+I (64666) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (64676) RMAKER_LIGHT: Request received via: Cloud
+I (64676) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (64686) RMAKER_LIGHT: Changing Brightness to: 11%
+I (64686) RMAKER_LIGHT: LED output: power=ON brightness=11% (duty 901/8191)
+I (64696) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":11}}
+I (65796) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":4}}
+I (65796) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (65796) RMAKER_LIGHT: Request received via: Cloud
+I (65806) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (65806) RMAKER_LIGHT: Changing Brightness to: 4%
+I (65816) RMAKER_LIGHT: LED output: power=ON brightness=4% (duty 327/8191)
+I (65826) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":4}}
+I (66106) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":100}}
+I (66106) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (66106) RMAKER_LIGHT: Request received via: Cloud
+I (66116) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (66116) RMAKER_LIGHT: Changing Brightness to: 100%
+I (66126) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (66136) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":100}}
+I (66146) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":70}}
+I (66146) esp_rmaker_param: Found 1 params in write request for Living Room Light
+I (66156) RMAKER_LIGHT: Request received via: Cloud
+I (66156) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (66166) RMAKER_LIGHT: Changing Brightness to: 70%
+I (66166) RMAKER_LIGHT: LED output: power=ON brightness=70% (duty 5733/8191)
+I (66176) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":70}}

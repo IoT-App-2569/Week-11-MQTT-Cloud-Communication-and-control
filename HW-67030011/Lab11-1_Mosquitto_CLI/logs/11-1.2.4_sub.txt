@@ -1,0 +1,5 @@
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t "home/#/light" -v
+Error: Invalid subscription topic 'home/#/light', are all '+' and '#' wildcards correct?
+
+Use 'mosquitto_sub --help' to see usage.
+(exit code = 1)

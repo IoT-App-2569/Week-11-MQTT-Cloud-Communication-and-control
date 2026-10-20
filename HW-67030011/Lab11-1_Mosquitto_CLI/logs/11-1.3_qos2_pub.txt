@@ -1,0 +1,8 @@
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -i pub-qos2 -t test/qos -m "QoS 2 Message" -q 2 -d
+Client pub-qos2 sending CONNECT
+Client pub-qos2 received CONNACK (0)
+Client pub-qos2 sending PUBLISH (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+Client pub-qos2 received PUBREC (Mid: 1)
+Client pub-qos2 sending PUBREL (m1)
+Client pub-qos2 received PUBCOMP (Mid: 1, RC:0)
+Client pub-qos2 sending DISCONNECT

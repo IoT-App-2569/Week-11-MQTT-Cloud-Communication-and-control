@@ -1,0 +1,31 @@
+# UART log จาก /dev/cu.usbserial-0001 @ 115200 baud (ข้อความเดียวกับที่ idf.py monitor แสดง)
+# ... (boot log ตัดออก) ...
+I (457) app_init: Project name:     Lab11-2_MQTT_Client
+I (584) LAB11_MQTT: ADC calibration enabled
+I (754) wifi:mode : sta (14:33:5c:0e:7a:a8)
+I (754) wifi:enable tsf
+I (764) LAB11_MQTT: Wi-Fi Initialization finished. SSID: KBBK-IPHONE
+I (834) wifi:state: init -> auth (0xb0)
+I (864) wifi:state: auth -> assoc (0x0)
+I (884) wifi:state: assoc -> run (0x10)
+I (914) wifi:connected with KBBK-IPHONE, aid = 16, channel 1, BW20, bssid = 1a:7d:42:98:ad:f9
+I (914) wifi:security: WPA2-PSK, phy: bgn, rssi: -38, cipher(pairwise:0x3, group:0x3), pmf:0
+I (924) wifi:pm start, type: 1
+I (924) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (934) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (934) wifi:<ba-add>idx:0 (ifx:0, 1a:7d:42:98:ad:f9), tid:0, ssn:3525, winSize:64
+I (944) wifi:<ba-add>idx:1 (ifx:0, 1a:7d:42:98:ad:f9), tid:2, ssn:794, winSize:64
+I (1994) esp_netif_handlers: sta ip: 172.20.10.6, mask: 255.255.255.240, gw: 172.20.10.1
+I (1994) LAB11_MQTT: Got IP Address: 172.20.10.6
+I (2004) LAB11_MQTT: MQTT client started, broker: mqtt://172.20.10.2:1883
+I (2004) main_task: Returned from app_main()
+I (2174) LAB11_MQTT: MQTT_EVENT_CONNECTED: Connected to Broker!
+I (2174) LAB11_MQTT: Subscribed to: iot/node01/cmd/led
+I (2254) LAB11_MQTT: MQTT_EVENT_SUBSCRIBED, msg_id=46993
+I (6004) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":1655,"voltage_v":1.484,"led_state":false,"uptime_ms":6004}
+I (10014) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":3194,"voltage_v":2.686,"led_state":false,"uptime_ms":10014}
+I (14024) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":0,"voltage_v":0.142,"led_state":false,"uptime_ms":14024}
+I (18034) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":1128,"voltage_v":1.057,"led_state":false,"uptime_ms":18034}
+I (22044) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":4095,"voltage_v":3.139,"led_state":false,"uptime_ms":22044}
+I (26054) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":148,"voltage_v":0.262,"led_state":false,"uptime_ms":26054}
+I (30064) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":4095,"voltage_v":3.139,"led_state":false,"uptime_ms":30064}

@@ -1,0 +1,9 @@
+$ python -m espefuse --port /dev/cu.usbserial-0001 summary | grep -E '^(FLASH_CRYPT_CNT|ABS_DONE_0|ABS_DONE_1|JTAG_DISABLE|DISABLE_DL_ENCRYPT|DISABLE_DL_DECRYPT|CONSOLE_DEBUG_DISABLE|RD_DIS) '
+RD_DIS (BLOCK0)                                    Disable reading from BlOCK1-3                      = 0 R/W (0x0)
+CONSOLE_DEBUG_DISABLE (BLOCK0)                     Disable ROM BASIC interpreter fallback             = True R/W (0b1)
+FLASH_CRYPT_CNT (BLOCK0)                           Flash encryption is enabled if this field has an o = 0 R/W (0b0000000)
+JTAG_DISABLE (BLOCK0)                              Disable JTAG                                       = False R/W (0b0)
+ABS_DONE_0 (BLOCK0)                                Secure boot V1 is enabled for bootloader image     = False R/W (0b0)
+ABS_DONE_1 (BLOCK0)                                Secure boot V2 is enabled for bootloader image     = False R/W (0b0)
+DISABLE_DL_ENCRYPT (BLOCK0)                        Disable flash encryption in UART bootloader        = False R/W (0b0)
+DISABLE_DL_DECRYPT (BLOCK0)                        Disable flash decryption in UART bootloader        = False R/W (0b0)

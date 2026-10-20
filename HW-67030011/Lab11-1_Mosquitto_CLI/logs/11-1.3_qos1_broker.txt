@@ -1,0 +1,20 @@
+08:22:01: New connection from 127.0.0.1:59997 on port 1883.
+08:22:01: New client connected from 127.0.0.1:59997 as sub-qos1 (p2, c1, k60).
+08:22:01: No will message specified.
+08:22:01: Sending CONNACK to sub-qos1 (0, 0)
+08:22:01: Received SUBSCRIBE from sub-qos1
+08:22:01: 	test/qos (QoS 1)
+08:22:01: sub-qos1 1 test/qos
+08:22:01: Sending SUBACK to sub-qos1
+08:22:02: New connection from 127.0.0.1:59998 on port 1883.
+08:22:02: New client connected from 127.0.0.1:59998 as pub-qos1 (p2, c1, k60).
+08:22:02: No will message specified.
+08:22:02: Sending CONNACK to pub-qos1 (0, 0)
+08:22:02: Received PUBLISH from pub-qos1 (d0, q1, r0, m1, 'test/qos', ... (13 bytes))
+08:22:02: Sending PUBLISH to sub-qos1 (d0, q1, r0, m1, 'test/qos', ... (13 bytes))
+08:22:02: Sending PUBACK to pub-qos1 (m1, rc0)
+08:22:02: Received PUBACK from sub-qos1 (Mid: 1, RC:0)
+08:22:02: Received DISCONNECT from pub-qos1
+08:22:02: Client pub-qos1 disconnected.
+08:22:03: Received DISCONNECT from sub-qos1
+08:22:03: Client sub-qos1 disconnected.

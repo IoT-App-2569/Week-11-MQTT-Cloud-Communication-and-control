@@ -1,0 +1,5 @@
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/test" -m "Hello Secure World!" --cafile ca.crt --cert client.crt --key client.key -d
+Error: Protocol error
+Client null sending CONNECT
+OpenSSL Error[0]: error:0A000086:SSL routines::certificate verify failed
+(exit code = 14)

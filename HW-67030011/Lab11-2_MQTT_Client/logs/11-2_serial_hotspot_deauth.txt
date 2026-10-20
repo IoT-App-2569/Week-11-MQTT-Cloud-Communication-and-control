@@ -1,0 +1,17 @@
+# UART log จาก /dev/cu.usbserial-0001 @ 115200 baud (ข้อความเดียวกับที่ idf.py monitor แสดง)
+# ... ก่อนเปิดหน้า Personal Hotspot บน iPhone: AP ส่ง Deauth (reason 3) ทันทีหลัง associate ...
+I (764) LAB11_MQTT: Wi-Fi Initialization finished. SSID: KBBK-IPHONE
+I (774) wifi:state: init -> auth (0xb0)
+I (794) wifi:state: auth -> assoc (0x0)
+I (804) wifi:state: assoc -> run (0x10)
+I (834) wifi:connected with KBBK-IPHONE, aid = 16, channel 1, BW20, bssid = 1a:7d:42:98:ad:f9
+I (834) wifi:security: WPA2-PSK, phy: bgn, rssi: -43, cipher(pairwise:0x3, group:0x3), pmf:0
+I (844) wifi:pm start, type: 1
+I (844) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (854) wifi:state: run -> init (0x3c0)
+I (864) wifi:pm stop, total sleep time: 0 us / 17734 us
+W (864) LAB11_MQTT: Wi-Fi disconnected (reason 3), reconnecting...
+I (884) wifi:state: init -> auth (0xb0)
+I (894) wifi:state: auth -> assoc (0x0)
+I (904) wifi:state: assoc -> run (0x10)
+I (944) wifi:connected with KBBK-IPHONE, aid = 16, channel 1, BW20, bssid = 1a:7d:42:98:ad:f9

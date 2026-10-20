@@ -1,0 +1,12 @@
+$ ls -l build/Lab11-3_MQTTS_Secure.bin
+-rw-r--r--@ 894464 build/Lab11-3_MQTTS_Secure.bin
+$ grep -abo -- "-----BEGIN PRIVATE KEY-----" build/Lab11-3_MQTTS_Secure.bin
+63968:-----BEGIN PRIVATE KEY-----
+77577:-----BEGIN PRIVATE KEY-----
+$ grep -abo -- "-----END PRIVATE KEY-----" build/Lab11-3_MQTTS_Secure.bin
+63942:-----END PRIVATE KEY-----
+79255:-----END PRIVATE KEY-----
+$ dd if=build/Lab11-3_MQTTS_Secure.bin bs=1 skip=77577 count=1704 2>/dev/null | shasum -a 256
+aa8574e2e515031511a87a982b1fc0e3a3f9779456f04dd8d4df98be036c8645  -
+$ shasum -a 256 mqtt_certs/client.key
+aa8574e2e515031511a87a982b1fc0e3a3f9779456f04dd8d4df98be036c8645  mqtt_certs/client.key

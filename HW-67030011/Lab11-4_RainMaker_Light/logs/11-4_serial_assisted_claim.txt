@@ -1,0 +1,9 @@
+I (283824) protocomm_nimble: mtu update event; conn_handle=0 cid=4 mtu=256
+I (285324) security2: Using salt and verifier to generate public key...
+I (285894) app_network: Secured session established!
+I (286044) esp_claim: Assisted Claiming Started.
+I (288474) esp_rmaker_core: New Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (293814) esp_claim: Storing received MQTT Host: a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (293814) esp_claim: Storing received MQTT Cred Host: c10yordfvrjdjb.credentials.iot.us-east-1.amazonaws.com
+I (293834) esp_claim: Assisted Claiming was Successful.
+W (293834) wifi:Haven't to connect to a suitable AP now!

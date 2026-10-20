@@ -1,0 +1,26 @@
+08:21:57: New connection from 127.0.0.1:59990 on port 1883.
+08:21:57: New client connected from 127.0.0.1:59990 as auto-DEFDD92F-5307-4C97-8244-D4083BAF1437 (p2, c1, k60).
+08:21:57: No will message specified.
+08:21:57: Sending CONNACK to auto-DEFDD92F-5307-4C97-8244-D4083BAF1437 (0, 0)
+08:21:57: Received SUBSCRIBE from auto-DEFDD92F-5307-4C97-8244-D4083BAF1437
+08:21:57: 	home/# (QoS 0)
+08:21:57: auto-DEFDD92F-5307-4C97-8244-D4083BAF1437 0 home/#
+08:21:57: Sending SUBACK to auto-DEFDD92F-5307-4C97-8244-D4083BAF1437
+08:21:58: New connection from 127.0.0.1:59991 on port 1883.
+08:21:58: New client connected from 127.0.0.1:59991 as auto-DC6F90AD-652F-9889-728B-A3CFEFB0A81D (p2, c1, k60).
+08:21:58: No will message specified.
+08:21:58: Sending CONNACK to auto-DC6F90AD-652F-9889-728B-A3CFEFB0A81D (0, 0)
+08:21:58: Received PUBLISH from auto-DC6F90AD-652F-9889-728B-A3CFEFB0A81D (d0, q0, r0, m0, 'home/livingroom/temp', ... (4 bytes))
+08:21:58: Sending PUBLISH to auto-DEFDD92F-5307-4C97-8244-D4083BAF1437 (d0, q0, r0, m0, 'home/livingroom/temp', ... (4 bytes))
+08:21:58: Received DISCONNECT from auto-DC6F90AD-652F-9889-728B-A3CFEFB0A81D
+08:21:58: Client auto-DC6F90AD-652F-9889-728B-A3CFEFB0A81D disconnected.
+08:21:58: New connection from 127.0.0.1:59992 on port 1883.
+08:21:58: New client connected from 127.0.0.1:59992 as auto-BF4A1C9E-DAE4-5DD9-32C0-34CB3CE483EB (p2, c1, k60).
+08:21:58: No will message specified.
+08:21:58: Sending CONNACK to auto-BF4A1C9E-DAE4-5DD9-32C0-34CB3CE483EB (0, 0)
+08:21:58: Received PUBLISH from auto-BF4A1C9E-DAE4-5DD9-32C0-34CB3CE483EB (d0, q0, r0, m0, 'home/bedroom/balcony/light', ... (2 bytes))
+08:21:58: Sending PUBLISH to auto-DEFDD92F-5307-4C97-8244-D4083BAF1437 (d0, q0, r0, m0, 'home/bedroom/balcony/light', ... (2 bytes))
+08:21:58: Received DISCONNECT from auto-BF4A1C9E-DAE4-5DD9-32C0-34CB3CE483EB
+08:21:58: Client auto-BF4A1C9E-DAE4-5DD9-32C0-34CB3CE483EB disconnected.
+08:21:59: Received DISCONNECT from auto-DEFDD92F-5307-4C97-8244-D4083BAF1437
+08:21:59: Client auto-DEFDD92F-5307-4C97-8244-D4083BAF1437 disconnected.

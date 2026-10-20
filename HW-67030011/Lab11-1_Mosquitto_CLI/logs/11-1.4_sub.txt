@@ -1,0 +1,12 @@
+# --- (1) เปิด Subscriber หลังส่งข้อความธรรมดา: ไม่ควรได้รับอะไร ---
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t sensor/state -v
+# --- (2) Subscriber ยังเปิดอยู่ แล้ว Publish พร้อม -r ---
+sensor/state CRITICAL_ALERT
+^C
+# --- (3) เปิด Subscriber ใหม่ (ไม่มีการ Publish ใหม่) ---
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t sensor/state -v -F "%t %p   [retain flag=%r]"
+sensor/state CRITICAL_ALERT   [retain flag=1]
+^C
+# --- (4) ลบ Retained Message ด้วย Empty Payload + -r แล้วเปิด Subscriber อีกครั้ง ---
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t sensor/state -v
+^C

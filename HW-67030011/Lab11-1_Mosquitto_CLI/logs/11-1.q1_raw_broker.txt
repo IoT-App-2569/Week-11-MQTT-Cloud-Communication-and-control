@@ -1,0 +1,16 @@
+09:12:13: New connection from 127.0.0.1:63963 on port 1883.
+09:12:13: New client connected from 127.0.0.1:63963 as raw-wildcard-test (p2, c1, k60).
+09:12:13: No will message specified.
+09:12:13: Sending CONNACK to raw-wildcard-test (0, 0)
+09:12:13: Received SUBSCRIBE from raw-wildcard-test
+09:12:13: Invalid subscription string from 127.0.0.1, disconnecting.
+09:12:13: Client raw-wildcard-test disconnected due to malformed packet.
+09:12:13: New connection from 127.0.0.1:63964 on port 1883.
+09:12:13: New client connected from 127.0.0.1:63964 as raw-wildcard-test (p2, c1, k60).
+09:12:13: No will message specified.
+09:12:13: Sending CONNACK to raw-wildcard-test (0, 0)
+09:12:13: Received SUBSCRIBE from raw-wildcard-test
+09:12:13: 	home/+/light (QoS 0)
+09:12:13: raw-wildcard-test 0 home/+/light
+09:12:13: Sending SUBACK to raw-wildcard-test
+09:12:13: Client raw-wildcard-test closed its connection.

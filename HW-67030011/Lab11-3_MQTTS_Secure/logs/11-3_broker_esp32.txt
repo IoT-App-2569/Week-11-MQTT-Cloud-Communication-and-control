@@ -1,0 +1,48 @@
+08:55:39: Sending SUBACK to auto-D93B6D1A-6826-14F3-B97A-F744C27A8EC7
+08:55:47: Received PINGREQ from esp32_mtls_client_node
+08:55:47: Sending PINGRESP to esp32_mtls_client_node
+08:55:55: New connection from 172.20.10.6:57726 on port 8883.
+08:55:57: Client esp32_mtls_client_node already connected, closing old connection.
+08:55:57: New client connected from 172.20.10.6:57726 as esp32_mtls_client_node (p2, c1, k120).
+08:55:57: No will message specified.
+08:55:57: Sending CONNACK to esp32_mtls_client_node (0, 0)
+08:55:57: Received PUBLISH from esp32_mtls_client_node (d0, q1, r0, m65398, 'secure/esp32/status', ... (18 bytes))
+08:55:57: Sending PUBLISH to auto-D93B6D1A-6826-14F3-B97A-F744C27A8EC7 (d0, q0, r0, m0, 'secure/esp32/status', ... (18 bytes))
+08:55:57: Sending PUBACK to esp32_mtls_client_node (m65398, rc0)
+08:55:57: Received SUBSCRIBE from esp32_mtls_client_node
+08:55:57: 	secure/esp32/cmd (QoS 1)
+08:55:57: esp32_mtls_client_node 1 secure/esp32/cmd
+08:55:57: Sending SUBACK to esp32_mtls_client_node
+08:55:57: New connection from 172.20.10.2:62415 on port 8883.
+08:55:57: New client connected from 172.20.10.2:62415 as auto-6574A1AE-65D9-9B21-E2D8-EF465B4AB62E (p2, c1, k60).
+08:55:57: No will message specified.
+08:55:57: Sending CONNACK to auto-6574A1AE-65D9-9B21-E2D8-EF465B4AB62E (0, 0)
+08:55:57: Received PUBLISH from auto-6574A1AE-65D9-9B21-E2D8-EF465B4AB62E (d0, q1, r0, m1, 'secure/esp32/cmd', ... (2 bytes))
+08:55:57: Sending PUBLISH to esp32_mtls_client_node (d0, q1, r0, m1, 'secure/esp32/cmd', ... (2 bytes))
+08:55:57: Sending PUBLISH to auto-D93B6D1A-6826-14F3-B97A-F744C27A8EC7 (d0, q0, r0, m0, 'secure/esp32/cmd', ... (2 bytes))
+08:55:57: Sending PUBACK to auto-6574A1AE-65D9-9B21-E2D8-EF465B4AB62E (m1, rc0)
+08:55:57: Received DISCONNECT from auto-6574A1AE-65D9-9B21-E2D8-EF465B4AB62E
+08:55:57: Client auto-6574A1AE-65D9-9B21-E2D8-EF465B4AB62E disconnected.
+08:55:57: Received PUBACK from esp32_mtls_client_node (Mid: 1, RC:0)
+08:56:00: New connection from 172.20.10.2:62418 on port 8883.
+08:56:00: New client connected from 172.20.10.2:62418 as auto-ACEB98F8-087C-A25C-78C9-7A058E17B8FB (p2, c1, k60).
+08:56:00: No will message specified.
+08:56:00: Sending CONNACK to auto-ACEB98F8-087C-A25C-78C9-7A058E17B8FB (0, 0)
+08:56:00: Received PUBLISH from auto-ACEB98F8-087C-A25C-78C9-7A058E17B8FB (d0, q1, r0, m1, 'secure/esp32/cmd', ... (3 bytes))
+08:56:00: Sending PUBLISH to esp32_mtls_client_node (d0, q1, r0, m2, 'secure/esp32/cmd', ... (3 bytes))
+08:56:00: Sending PUBLISH to auto-D93B6D1A-6826-14F3-B97A-F744C27A8EC7 (d0, q0, r0, m0, 'secure/esp32/cmd', ... (3 bytes))
+08:56:00: Sending PUBACK to auto-ACEB98F8-087C-A25C-78C9-7A058E17B8FB (m1, rc0)
+08:56:00: Received DISCONNECT from auto-ACEB98F8-087C-A25C-78C9-7A058E17B8FB
+08:56:00: Client auto-ACEB98F8-087C-A25C-78C9-7A058E17B8FB disconnected.
+08:56:00: Received PUBACK from esp32_mtls_client_node (Mid: 2, RC:0)
+08:56:03: New connection from 172.20.10.2:62421 on port 8883.
+08:56:03: New client connected from 172.20.10.2:62421 as auto-0C12BB29-4308-FD98-F7E6-6AB0D64B1AB9 (p2, c1, k60).
+08:56:03: No will message specified.
+08:56:03: Sending CONNACK to auto-0C12BB29-4308-FD98-F7E6-6AB0D64B1AB9 (0, 0)
+08:56:03: Received PUBLISH from auto-0C12BB29-4308-FD98-F7E6-6AB0D64B1AB9 (d0, q1, r0, m1, 'secure/esp32/cmd', ... (2 bytes))
+08:56:03: Sending PUBLISH to esp32_mtls_client_node (d0, q1, r0, m3, 'secure/esp32/cmd', ... (2 bytes))
+08:56:03: Sending PUBLISH to auto-D93B6D1A-6826-14F3-B97A-F744C27A8EC7 (d0, q0, r0, m0, 'secure/esp32/cmd', ... (2 bytes))
+08:56:03: Sending PUBACK to auto-0C12BB29-4308-FD98-F7E6-6AB0D64B1AB9 (m1, rc0)
+08:56:03: Received DISCONNECT from auto-0C12BB29-4308-FD98-F7E6-6AB0D64B1AB9
+08:56:03: Client auto-0C12BB29-4308-FD98-F7E6-6AB0D64B1AB9 disconnected.
+08:56:04: Received PUBACK from esp32_mtls_client_node (Mid: 3, RC:0)

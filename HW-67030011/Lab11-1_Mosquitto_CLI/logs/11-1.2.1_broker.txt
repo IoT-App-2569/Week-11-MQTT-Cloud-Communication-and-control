@@ -1,0 +1,18 @@
+08:21:52: New connection from 127.0.0.1:59975 on port 1883.
+08:21:52: New client connected from 127.0.0.1:59975 as auto-A47B45DA-F598-D021-B0B3-8750395D7952 (p2, c1, k60).
+08:21:52: No will message specified.
+08:21:52: Sending CONNACK to auto-A47B45DA-F598-D021-B0B3-8750395D7952 (0, 0)
+08:21:52: Received SUBSCRIBE from auto-A47B45DA-F598-D021-B0B3-8750395D7952
+08:21:52: 	home/livingroom/light (QoS 0)
+08:21:52: auto-A47B45DA-F598-D021-B0B3-8750395D7952 0 home/livingroom/light
+08:21:52: Sending SUBACK to auto-A47B45DA-F598-D021-B0B3-8750395D7952
+08:21:53: New connection from 127.0.0.1:59976 on port 1883.
+08:21:53: New client connected from 127.0.0.1:59976 as auto-4BE35290-0CB7-64A2-5DD9-FD4DB96A3885 (p2, c1, k60).
+08:21:53: No will message specified.
+08:21:53: Sending CONNACK to auto-4BE35290-0CB7-64A2-5DD9-FD4DB96A3885 (0, 0)
+08:21:53: Received PUBLISH from auto-4BE35290-0CB7-64A2-5DD9-FD4DB96A3885 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+08:21:53: Sending PUBLISH to auto-A47B45DA-F598-D021-B0B3-8750395D7952 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+08:21:53: Received DISCONNECT from auto-4BE35290-0CB7-64A2-5DD9-FD4DB96A3885
+08:21:53: Client auto-4BE35290-0CB7-64A2-5DD9-FD4DB96A3885 disconnected.
+08:21:54: Received DISCONNECT from auto-A47B45DA-F598-D021-B0B3-8750395D7952
+08:21:54: Client auto-A47B45DA-F598-D021-B0B3-8750395D7952 disconnected.
