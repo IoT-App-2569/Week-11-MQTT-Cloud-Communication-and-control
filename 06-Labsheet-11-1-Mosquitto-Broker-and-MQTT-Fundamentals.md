@@ -16,16 +16,15 @@
 ---
 
 ## 2. อุปกรณ์และเครื่องมือที่ใช้
-* เครื่องคอมพิวเตอร์ระบบปฏิบัติการ Windows หรือ Linux/macOS
-* ซอฟต์แวร์ **Eclipse Mosquitto** (พร้อมเครื่องมือ Client CLI) หรือ Docker Engine โดยโปรแกรมที่จะเรียกใช้ในใบงานนี้คือ 
-  - mosquitto.exe   ทำหน้าที่เป็น broker
-  - mosquitto_sub.exe   ทำหน้าที่เป็น subscriber
-  - mosquitto_pub.exe   ทำหน้าที่เป็น publisher
-* ซอฟต์แวร์ MQTTExplorer หรือ Thinksboard หรือ any other MQTT client เพื่อใช้ในการตรวจสอบการทำงานของ MQTT Broker โดยจะใช้ client ใด client หนึ่งก็ได้ 
-  - ศึกษาวิธีการใช้โปรแกรม MQTTExplorer ได้จาก  [ภาคผนวก 1 MQTTExplorer_user_guide](10-Appendix-1-MQTTExplorer_user_guide.md)
+- เครื่องคอมพิวเตอร์ระบบปฏิบัติการ Windows หรือ Linux/macOS
+- ซอฟต์แวร์ **Eclipse Mosquitto** (พร้อมเครื่องมือ Client CLI) หรือ Docker Engine โดยโปรแกรมที่จะเรียกใช้ในใบงานนี้คือ
+  - mosquitto.exe ทำหน้าที่เป็น broker
+  - mosquitto_sub.exe ทำหน้าที่เป็น subscriber
+  - mosquitto_pub.exe ทำหน้าที่เป็น publisher
+- ซอฟต์แวร์ MQTTExplorer หรือ Thinksboard หรือ any other MQTT client เพื่อใช้ในการตรวจสอบการทำงานของ MQTT Broker โดยจะใช้ client ใด client หนึ่งก็ได้
+  - ศึกษาวิธีการใช้โปรแกรม MQTTExplorer ได้จาก [ภาคผนวก 1 MQTTExplorer_user_guide](10-Appendix-1-MQTTExplorer_user_guide.md)
   - เว็บ Thingsboard สามารถเข้าถึงได้ที่ [thingsboard web client](https://test.thingsboard.io/login)
-* หน้าต่างเทอร์มินัล (PowerShell หรือ Bash Terminal) อย่างน้อย 3 หน้าต่าง
-
+- หน้าต่างเทอร์มินัล (PowerShell หรือ Bash Terminal) อย่างน้อย 3 หน้าต่าง
 
 <p align="center">
 <img src="Images/Lab11_01_01.svg" >
@@ -42,23 +41,23 @@
 ### กิจกรรมที่ 11-1.1: การติดตั้งและเริ่มต้น Mosquitto Broker
 
 #### 1. การติดตั้งโปรแกรม
-* **สำหรับ Windows** ให้ดาวน์โหลดตัวติดตั้ง `mosquitto-2.x.x-install-windows-x64.exe` จาก [mosquitto.org](https://mosquitto.org/download/) และติดตั้งลงในเครื่อง
+- **สำหรับ Windows** ให้ดาวน์โหลดตัวติดตั้ง `mosquitto-2.x.x-install-windows-x64.exe` จาก [mosquitto.org](https://mosquitto.org/download/) และติดตั้งลงในเครื่อง
 
-ให้จดบันทึกไว้ด้วยว่า installer ติดตั้งไว้ที่ folder ใด 
+ให้จดบันทึกไว้ด้วยว่า installer ติดตั้งไว้ที่ folder ใด
 เนื่องจากใน Lab จะมีการเรียกใช้โปรแกรมผ่าน `&` ซึ่งเป็น **Call Operator** ใน PowerShell ดังนั้นหากติดตั้งที่อื่น หรือใช้ชื่ออื่น ต้องแก้ไขคำสั่งในใบงานให้ถูกต้อง
+
 > ในใบงานนี้ ใช้ค่า default คือ `"C:\Program Files\mosquitto\mosquitto.exe"` หรือเรียกโดยไม่ต้องใส่ path เป็น `mosquitto.exe` ก็ได้
 
-
-* **สำหรับ Linux (Ubuntu/Debian)**
+- **สำหรับ Linux (Ubuntu/Debian)**
   ```bash
   sudo apt update && sudo apt install -y mosquitto mosquitto-clients
   ```
-* **หรือรันผ่าน Docker**
+- **หรือรันผ่าน Docker**
   ```bash
   docker run -d --name mosquitto-test -p 1883:1883 eclipse-mosquitto:2
   ```
 
-การเรียกคำสั่ง ให้เรียกตามวิธีการที่เหมาะสมของ Linux  หรือ Mac 
+การเรียกคำสั่ง ให้เรียกตามวิธีการที่เหมาะสมของ Linux หรือ Mac
 
 **Linux/Mac**
 ```bash
@@ -79,31 +78,29 @@ allow_anonymous true
 log_type all
 ```
 
-
 #### 3. เปิด Terminal (Powershell) จำนวน 4 หน้าต่าง
 
 #### 3.1 กรณีใช้ powershell windows
 
-- หน้าต่างที่ 1  สำหรับรัน Mosquitto Broker  ตั้งชื่อหน้าต่างว่า "Mosquitto Broker"
-- หน้าต่างที่ 2  สำหรับรัน mosquitto_sub  ตั้งชื่อหน้าต่างว่า "Subscriber"
-- หน้าต่างที่ 3  สำหรับรัน mosquitto_pub  ตั้งชื่อหน้าต่างว่า "Publisher"
-- หน้าต่างที่ 4  สำหรับรัน mosquitto_pub  ตั้งชื่อหน้าต่างว่า "Publisher 2"
+- หน้าต่างที่ 1 สำหรับรัน Mosquitto Broker ตั้งชื่อหน้าต่างว่า "Mosquitto Broker"
+- หน้าต่างที่ 2 สำหรับรัน mosquitto_sub ตั้งชื่อหน้าต่างว่า "Subscriber"
+- หน้าต่างที่ 3 สำหรับรัน mosquitto_pub ตั้งชื่อหน้าต่างว่า "Publisher"
+- หน้าต่างที่ 4 สำหรับรัน mosquitto_pub ตั้งชื่อหน้าต่างว่า "Publisher 2"
 
 วิธีการตั้งชื่อหน้าต่าง ให้คลิกขวาที่ไอคอนที่แถบหัวข้อ > คลิก "Properties" > คลิก "Options" > ที่ช่อง "Window Title" พิมพ์ชื่อหน้าต่างที่ต้องการ
 
 #### 3.2 กรณีใช้ vsc terminal
 
-เปิด Terminal (Powershell) ใน VSCode  จำนวน 4 หน้าต่าง
+เปิด Terminal (Powershell) ใน VSCode จำนวน 4 หน้าต่าง
 เปลี่ยนชื่อโดยการคลิกขวาที่ชื่อ terminal แล้วเลือก `Rename...`
 
-- หน้าต่างที่ 1  สำหรับรัน Mosquitto Broker  ตั้งชื่อหน้าต่างว่า "Mosquitto Broker"
-- หน้าต่างที่ 2  สำหรับรัน mosquitto_sub  ตั้งชื่อหน้าต่างว่า "Subscriber"
-- หน้าต่างที่ 3  สำหรับรัน mosquitto_pub  ตั้งชื่อหน้าต่างว่า "Publisher"
-- หน้าต่างที่ 4  สำหรับรัน mosquitto_pub  ตั้งชื่อหน้าต่างว่า "Publisher 2"
-
+- หน้าต่างที่ 1 สำหรับรัน Mosquitto Broker ตั้งชื่อหน้าต่างว่า "Mosquitto Broker"
+- หน้าต่างที่ 2 สำหรับรัน mosquitto_sub ตั้งชื่อหน้าต่างว่า "Subscriber"
+- หน้าต่างที่ 3 สำหรับรัน mosquitto_pub ตั้งชื่อหน้าต่างว่า "Publisher"
+- หน้าต่างที่ 4 สำหรับรัน mosquitto_pub ตั้งชื่อหน้าต่างว่า "Publisher 2"
 
 #### 4. เริ่มต้นการทำงานของ Mosquitto Broker
-ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)**  สั่งรัน Broker ในโหมดแสดงผลละเอียด (Verbose)
+ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)** สั่งรัน Broker ในโหมดแสดงผลละเอียด (Verbose)
 
 ```powershell
 # บน Windows (ระบุ Path ไฟล์คอนฟิกที่สร้างไว้)
@@ -113,17 +110,18 @@ log_type all
 mosquitto -c ~/mqtt_lab/mosquitto.conf -v
 ```
 
-**หมายเหตุ** 
-1. ถ้ารัน mosquitto.exe บนวินโดวส์ไม่ได้ ให้ตรวจสอบ path ในตัวแปรระบบ โดยเพิ่มเส้นทางการค้นหา "c:\Program Files\Mosquitto\" เข้าไป แล้วเรียก Powershell ใหม่อีกครั้ง 
-2. `C:\mqtt_lab\mosquitto.conf` คือไฟล์ที่เก็บ configuration ของ mqtt broker ให้ใส่เส้นทางที่อยู่ของไฟล์จริง ๆ 
+**หมายเหตุ**
+1. ถ้ารัน mosquitto.exe บนวินโดวส์ไม่ได้ ให้ตรวจสอบ path ในตัวแปรระบบ โดยเพิ่มเส้นทางการค้นหา "c:\Program Files\Mosquitto\" เข้าไป แล้วเรียก Powershell ใหม่อีกครั้ง
+2. `C:\mqtt_lab\mosquitto.conf` คือไฟล์ที่เก็บ configuration ของ mqtt broker ให้ใส่เส้นทางที่อยู่ของไฟล์จริง ๆ
 
 > [!WARNING] **ข้อควรระวังสำคัญมากสำหรับ Windows (ปัญหา Mosquitto Service ซ้ำซ้อน / Split-Brain Broker)**
-> ตัวติดตั้ง Mosquitto บน Windows จะทำการติดตั้งและเปิดใช้งาน **Windows Service** ชื่อ `mosquitto` ให้รันอยู่เบื้องหลังอัตโนมัติตลอดเวลา ซึ่ง Service ตัวนี้จะผูกกับ `127.0.0.1:1883` 
+> ตัวติดตั้ง Mosquitto บน Windows จะทำการติดตั้งและเปิดใช้งาน **Windows Service** ชื่อ `mosquitto` ให้รันอยู่เบื้องหลังอัตโนมัติตลอดเวลา ซึ่ง Service ตัวนี้จะผูกกับ `127.0.0.1:1883`
 > หากเปิด Terminal มารัน `mosquitto.exe -c mosquitto.conf -v` อีกตัว จะทำให้เกิด **Broker ทำงานซ้อนกัน 2 ตัวในเครื่องเดียว**:
 > * `127.0.0.1` จะวิ่งไปหา Windows Service
 > * `0.0.0.0` (IP ของบอร์ด ESP32 วงแลน เช่น `192.168.1.xxx`) จะวิ่งไปหา Terminal Mosquitto
+>
 > ส่งผลให้อุปกรณ์ ESP32 และคำสั่ง CLI คุยกันคนละตัวและไม่ส่งข้อมูลถึงกัน!
-> 
+>
 > **แนวทางปฏิบัติที่ถูกต้อง:** ให้เปิด PowerShell (Run as Administrator) แล้วปิด Service นี้ก่อนเสมอ:
 > ```powershell
 > Stop-Service mosquitto
@@ -139,7 +137,7 @@ mosquitto version 2.0.18 running
 ```
 
 #### 5. หยุดการทำงานของ Mosquitto Broker
-ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)**  ให้กด Ctrl+C เพื่อหยุดการทำงานของ Mosquitto Broker
+ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)** ให้กด Ctrl+C เพื่อหยุดการทำงานของ Mosquitto Broker
 ในหน้าต่างแสดงผลของ Mosquitto Broker จะปรากฏ Log แสดงการปิดการเชื่อมต่อและหยุดการทำงานของ Broker
 ```text
 
@@ -150,30 +148,30 @@ mosquitto version 2.1.2 terminating
 
 ---
 
-### กิจกรรมที่ 11-1.2  การทดสอบ Publish / Subscribe พื้นฐาน และการใช้ Wildcards
+### กิจกรรมที่ 11-1.2 การทดสอบ Publish / Subscribe พื้นฐาน และการใช้ Wildcards
 
 #### 1. การ Subscribe หัวข้อเฉพาะเจาะจง
-ใน **เทอร์มินัลที่ 2 (Subscriber)**  สั่งรันคำสั่งต่อไปนี้
+ใน **เทอร์มินัลที่ 2 (Subscriber)** สั่งรันคำสั่งต่อไปนี้
 ```powershell
 & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "home/livingroom/light" -v
 ```
 
-เปิด **เทอร์มินัลที่ 3 (Publisher)**  ส่งข้อความสั่งงานดังนี้
+เปิด **เทอร์มินัลที่ 3 (Publisher)** ส่งข้อความสั่งงานดังนี้
 ```powershell
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/livingroom/light" -m "ON"
 ```
 
-*สังเกตผล*  ในเทอร์มินัลที่ 2  (Subscriber) จะได้รับข้อความ `home/livingroom/light ON`
-ถ้าไม่ได้ ให้ตรวจสอบว่าทั้งสอง terminal   รันอยู่ที่  IP Address  และ  Port  เดียวกันหรือไม่
+*สังเกตผล* ในเทอร์มินัลที่ 2 (Subscriber) จะได้รับข้อความ `home/livingroom/light ON`
+ถ้าไม่ได้ ให้ตรวจสอบว่าทั้งสอง terminal รันอยู่ที่ IP Address และ Port เดียวกันหรือไม่
 เพราะนี่คือจุดเริ่มต้นของการทำงานพื้นฐานที่ต้องรันได้อย่างถูกต้อง
 
 #### 2. การทดสอบไวลด์การ์ดระดับเดียว (Single-Level Wildcard: `+`)
-ใน **เทอร์มินัลที่ 2 (Subscriber)**  กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
+ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
 ```powershell
 & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "home/+/light" -v
 ```
 
-ใน **เทอร์มินัลที่ 3 (Publisher)**  ทดลอง Publish ข้อความ 3 ครั้ง
+ใน **เทอร์มินัลที่ 3 (Publisher)** ทดลอง Publish ข้อความ 3 ครั้ง
 ```powershell
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/livingroom/light" -m "ON"
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/kitchen/light" -m "OFF"
@@ -182,6 +180,10 @@ mosquitto version 2.1.2 terminating
 
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
+
+<img width="1569" height="371" alt="image" src="https://github.com/user-attachments/assets/c7bf0e4f-76e7-47f0-9787-64e8eb997208" />
+
+<img width="1570" height="366" alt="image" src="https://github.com/user-attachments/assets/4c7490f5-1656-42ec-91b6-343aaed4815e" />
 
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
@@ -204,22 +206,20 @@ mosquitto version 2.1.2 terminating
 ในกิจกรรมนี้ ให้สังเกตข้อความ Log ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)** ควบคู่กับคำสั่งในเทอร์มินัลที่ 2 และ 3
 
 #### 1. ทดสอบ QoS 0 (At Most Once)
-* ในเทอร์มินัลที่ 2 (Subscriber)  `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 0 -v`
-* ในเทอร์มินัลที่ 3 (Publisher)  `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 0 Message" -q 0`
-* *หมายเหตุ* การรันโปรแกรมทั้ง subscriber และ publisher จะทำให้หน้าต่างค้างและรอแสดงข้อความที่ publisher ส่งมาให้ ดังนั้นการเปลี่ยนคำสั่ง ต้องกด  `Ctrl+C`  ทุกครั้งเพื่อออกจาก  โปรแกรม subscriber ก่อนเสมอ แล้วเปลี่ยนคำสั่ง subscriber ใหม่ จากนั้นจึงรันคำสั่ง publisher ใหม่
-* *สังเกต Log ฝั่ง Broker*  มีเพียงแพ็กเก็ต `PUBLISH` ส่งผ่านไปโดยไม่มีแพ็กเก็ตตอบรับใดๆ
-
-
+- ในเทอร์มินัลที่ 2 (Subscriber) `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 0 -v`
+- ในเทอร์มินัลที่ 3 (Publisher) `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 0 Message" -q 0`
+- *หมายเหตุ* การรันโปรแกรมทั้ง subscriber และ publisher จะทำให้หน้าต่างค้างและรอแสดงข้อความที่ publisher ส่งมาให้ ดังนั้นการเปลี่ยนคำสั่ง ต้องกด `Ctrl+C` ทุกครั้งเพื่อออกจากโปรแกรม subscriber ก่อนเสมอ แล้วเปลี่ยนคำสั่ง subscriber ใหม่ จากนั้นจึงรันคำสั่ง publisher ใหม่
+- *สังเกต Log ฝั่ง Broker* มีเพียงแพ็กเก็ต `PUBLISH` ส่งผ่านไปโดยไม่มีแพ็กเก็ตตอบรับใดๆ
 
 #### 2. ทดสอบ QoS 1 (At Least Once)
-* ในเทอร์มินัลที่ 2 (Subscriber)  `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 1 -v`
-* ในเทอร์มินัลที่ 3 (Publisher)  `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 1 Message" -q 1`
-* *สังเกต Log ฝั่ง Broker*  จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
+- ในเทอร์มินัลที่ 2 (Subscriber) `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 1 -v`
+- ในเทอร์มินัลที่ 3 (Publisher) `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 1 Message" -q 1`
+- *สังเกต Log ฝั่ง Broker* จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
 
 #### 3. ทดสอบ QoS 2 (Exactly Once)
-* ในเทอร์มินัลที่ 2 (Subscriber)  `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
-* ในเทอร์มินัลที่ 3 (Publisher)  `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "test/qos" -m "QoS 2 Message" -q 2`
-* *สังเกต Log ฝั่ง Broker*  จะปรากฏกระบวนการ 4-way Handshake อย่างชัดเจน
+- ในเทอร์มินัลที่ 2 (Subscriber) `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
+- ในเทอร์มินัลที่ 3 (Publisher) `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "test/qos" -m "QoS 2 Message" -q 2`
+- *สังเกต Log ฝั่ง Broker* จะปรากฏกระบวนการ 4-way Handshake อย่างชัดเจน
   1. `Received PUBLISH ... q2`
   2. `Sending PUBREC`
   3. `Received PUBREL`
@@ -239,13 +239,13 @@ mosquitto version 2.1.2 terminating
    ```powershell
    & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -v
    ```
-   *ผลที่ได้*  หน้าจอว่างเปล่า ไม่ได้รับข้อความใดๆ เพราะข้อความถูกส่งผ่านไปแล้วก่อนหน้านี้
+   *ผลที่ได้* หน้าจอว่างเปล่า ไม่ได้รับข้อความใดๆ เพราะข้อความถูกส่งผ่านไปแล้วก่อนหน้านี้
 
 4. ใน **เทอร์มินัลที่ 3 (Publisher)** สั่ง Publish โดยเพิ่มพารามิเตอร์ **`-r` (Retain)**
    ```powershell
    & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -m "CRITICAL_ALERT" -r
    ```
-   *ผลที่ได้* ในเทอร์มินัลที่ 2 (Subscriber)ได้รับข้อความ `sensor/state CRITICAL_ALERT` ทันที
+   *ผลที่ได้* ในเทอร์มินัลที่ 2 (Subscriber) ได้รับข้อความ `sensor/state CRITICAL_ALERT` ทันที
 
 5. ปิดเทอร์มินัลที่ 2 (Subscriber) (`Ctrl + C`) แล้วรัน subscriber ใหม่อีกครั้ง
    ```powershell
@@ -254,7 +254,7 @@ mosquitto version 2.1.2 terminating
    *ผลที่ได้* ทันทีที่เชื่อมต่อสำเร็จ เทอร์มินัลที่ 2 (Subscriber) จะได้รับข้อความ `CRITICAL_ALERT` ในทันที แม้ Publisher จะไม่ได้ส่งข้อความใหม่เลยก็ตาม
 
 > [!TIP]
-> **วิธีลบ Retained Message ออกจาก Broker**  ส่งข้อความที่มีเนื้อหาว่างเปล่า (Empty Payload) พร้อมเปิดแฟล็ก `-r`
+> **วิธีลบ Retained Message ออกจาก Broker** ส่งข้อความที่มีเนื้อหาว่างเปล่า (Empty Payload) พร้อมเปิดแฟล็ก `-r`
 > ```powershell
 > & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -n -r
 > ```
@@ -275,9 +275,9 @@ mosquitto version 2.1.2 terminating
    (เปิดเทอร์มินัลที่ 4 (Publisher 2) แล้วพิมพ์ `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "node/esp32/status" -m "ONLINE"`)
    *สังเกตผล* เทอร์มินัลที่ 2 แสดงสถานะ `ONLINE`
 
-4. **จำลองเหตุการณ์ไฟดับหรือเครือข่ายหลุดกะทันหัน**  
+4. **จำลองเหตุการณ์ไฟดับหรือเครือข่ายหลุดกะทันหัน**
    ในเทอร์มินัลที่ 3 ให้ทำการ **บังคับปิดหน้าต่างเทอร์มินัลทันที** หรือกดปิดโปรเซส เพื่อไม่ให้ Client ส่งแพ็กเก็ต `DISCONNECT`
-5. *สังเกตผลในเทอร์มินัลที่ 2*  
+5. *สังเกตผลในเทอร์มินัลที่ 2*
    เมื่อ Broker ตรวจพบว่า TCP Connection ขาดหาย Broker จะเป็นผู้ส่งข้อความ
    ```text
    node/esp32/status LOST_CONNECTION_OFFLINE
@@ -289,14 +289,74 @@ mosquitto version 2.1.2 terminating
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
-1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
-2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
-3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+### 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="634" height="195" alt="image" src="https://github.com/user-attachments/assets/9d4707e6-b338-4648-a2b4-9b5ee6dcc280" />
+
+<img width="777" height="39" alt="image" src="https://github.com/user-attachments/assets/eb384adc-eef9-46ee-969c-fafa49dbbf8b" />
+
+### 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+**QoS 0**
+
+<img width="663" height="37" alt="image" src="https://github.com/user-attachments/assets/6aa3000c-2721-42bb-a5f7-5320e1ed4f4b" />
+
+<img width="772" height="25" alt="image" src="https://github.com/user-attachments/assets/9a679c7b-6523-4239-b4eb-b8e57ec3fb4e" />
+
+<img width="854" height="256" alt="image" src="https://github.com/user-attachments/assets/c97f092a-399f-46ac-92c9-91f23d8cd917" />
+
+**QoS 1**
+
+<img width="658" height="37" alt="image" src="https://github.com/user-attachments/assets/6f27b60e-e63b-4493-8eca-0dc594902c6b" />
+
+<img width="771" height="24" alt="image" src="https://github.com/user-attachments/assets/b2252901-3ce8-41b0-9759-4049ea395944" />
+
+<img width="860" height="289" alt="image" src="https://github.com/user-attachments/assets/edde08ea-e54d-4c07-8e4a-af6a9cb7a821" />
+
+**QoS 2**
+
+<img width="659" height="38" alt="image" src="https://github.com/user-attachments/assets/47e357dc-36db-4dac-ac3b-6335d8103c8f" />
+
+<img width="830" height="24" alt="image" src="https://github.com/user-attachments/assets/848d2c74-fe56-4fcc-8afd-376ef3ccbfb1" />
+
+<img width="859" height="339" alt="image" src="https://github.com/user-attachments/assets/57758a66-3c4c-4cd2-a7f1-7b67bb911fee" />
+
+**ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 (สังเกตได้จาก Broker Log)**
+
+| ระดับ QoS | ระดับการรับประกัน (Delivery Guarantee) | ลำดับแพ็กเก็ตฝั่ง Publisher ↔ Broker | ลำดับแพ็กเก็ตฝั่ง Broker ↔ Subscriber | Packet ID (Mid) | รูปแบบ Handshake / การตอบรับ | จุดเด่นและข้อจำกัด |
+| :--- | :--- | :--- | :--- | :---: | :--- | :--- |
+| **QoS 0** | **At most once**<br>(ส่งได้มากที่สุดครั้งเดียว / Fire-and-forget) | 1. `Received PUBLISH (q0, m0)` | 1. `Sending PUBLISH (q0, m0)` | **ไม่มี**<br>(Mid = 0) | **ไม่มีการตอบรับ (No ACK)**<br>Broker รับแล้วส่งต่อทันที ไม่มีการตรวจสอบว่าปลายทางได้รับหรือไม่ | • ประสิทธิภาพสูงสุด Overhead ต่ำสุด<br>• ข้อมูลอาจสูญหายได้หากเครือข่ายขัดข้อง |
+| **QoS 1** | **At least once**<br>(ส่งถึงอย่างน้อยหนึ่งครั้ง) | 1. `Received PUBLISH (q1, m1)`<br>2. `Sending PUBACK (m1, rc0)` | 1. `Sending PUBLISH (q1, m1)`<br>2. `Received PUBACK (Mid: 1, RC:0)` | **มี**<br>(ระบุเลข Mid: 1) | **2-Way Handshake**<br>`PUBLISH` → `PUBACK`<br>มีการตอบรับเพื่อยืนยันว่าได้รับข้อความแล้ว | • การันตีว่าข้อความไม่สูญหาย<br>• อาจเกิดข้อความซ้ำ (Duplicate) ได้หาก ACK ส่งกลับไม่ทัน |
+| **QoS 2** | **Exactly once**<br>(ส่งถึงครั้งเดียวอย่างแน่นอน) | 1. `Received PUBLISH (q2, m1)`<br>2. `Sending PUBREC (m1, rc0)`<br>3. `Received PUBREL (Mid: 1)`<br>4. `Sending PUBCOMP (m1)` | 1. `Sending PUBLISH (q2, m1)`<br>2. `Received PUBREC (Mid: 1)`<br>3. `Sending PUBREL (m1)`<br>4. `Received PUBCOMP` *(โดยหลักการ)* | **มี**<br>(ระบุเลข Mid: 1) | **4-Way Handshake**<br>1. `PUBLISH` (ส่งข้อความ)<br>2. `PUBREC` (รับทราบข้อความ)<br>3. `PUBREL` (ปล่อย/เคลียร์สถานะ)<br>4. `PUBCOMP` (เสร็จสมบูรณ์) | • ปลอดภัยสูงสุด ข้อมูลไม่สูญหายและไม่ซ้ำซ้อนแน่นอน<br>• มี Network Overhead และ Latency สูงสุด |
+
+**หมายเหตุจากผลการทดลอง:**
+จากภาพ Log การทดลองจริงของระบบ จะสังเกตเห็นว่า
+
+- `q` ย่อมาจากระดับของ QoS (เช่น `q0`, `q1`, `q2`)
+- `m` ย่อมาจาก Message ID (เช่น `m0`, `m1`) ซึ่งใน QoS 0 จะไม่มีการระบุ ID ทำให้มีค่าเป็น 0
+- ใน QoS 1 และ 2 จะมีการตอบรับกลับด้วยรหัสสถานะ `RC:0` หรือ `rc0` (Return Code 0) ซึ่งหมายถึง Success (สำเร็จ)
+
+### 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+<img width="652" height="34" alt="image" src="https://github.com/user-attachments/assets/98faf7e9-5b1c-4e04-a78c-42e62498cad7" />
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
-2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
-3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
-4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+
+**1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?**
+
+**ตอบ:** สัญลักษณ์ `#` (Multi-Level Wildcard) ใช้สำหรับจับคู่ (Match) ระดับชั้นของ Topic ตั้งแต่ตำแหน่งที่กำหนดไปจนจบสายแบบไม่จำกัดความลึก ด้วยเหตุนี้ตามมาตรฐานของ MQTT จึงบังคับให้ต้องวางไว้ที่ตำแหน่งท้ายสุดเสมอ หากกำหนดเป็น `home/#/light` ระบบ Broker จะถือว่าเป็นรูปแบบที่ไม่ถูกต้อง (Syntax Error / Invalid Topic Filter) เนื่องจากมีระดับชั้นต่อท้าย `#` ซึ่งขัดกับหลักการทำงาน ทำให้ Client ไม่สามารถ Subscribe หัวข้อนี้ได้ หรืออาจเกิดข้อผิดพลาดในการเชื่อมต่อ
+
+**2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?**
+
+**ตอบ:** ควรเลือกใช้ **QoS 0 (At most once)** เพราะระบบมีการอัปเดตข้อมูลด้วยความถี่สูงมาก (ทุกๆ 1 วินาที) ข้อมูลพิกัดล่าสุดมีความสำคัญกว่าข้อมูลในอดีต หากมีข้อมูลสูญหายระหว่างทางบ้าง ระบบก็สามารถรอรับพิกัดใหม่ในวินาทีถัดไปได้ทันที การใช้ QoS 1 หรือ 2 จะทำให้เกิดกระบวนการยืนยันการรับส่ง (ACKs) ที่ไม่จำเป็น ซึ่งจะสร้างภาระให้กับเครือข่าย (Network Overhead) สิ้นเปลืองแบนด์วิดท์ และอาจทำให้แอปพลิเคชันทำงานช้าลงหรือเกิดความหน่วง (Latency)
+
+**3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?**
+
+**ตอบ:** **จะไม่ถูกเผยแพร่ออกไป** เพราะกลไก Last Will and Testament (LWT) ถูกออกแบบมาเพื่อแจ้งเตือนในกรณีที่ Client ขาดการเชื่อมต่อกับ Broker อย่างกะทันหันหรือผิดปกติเท่านั้น (เช่น สายแลนหลุด, แบตเตอรี่หมด, หรือแอปค้าง) หาก Client ทำการส่งแพ็กเก็ต `DISCONNECT` อย่างถูกต้อง (Graceful Disconnect) Broker จะถือว่าผู้ใช้จงใจปิดการทำงานตามปกติ และจะทำการล้างข้อความ LWT นั้นทิ้งไปโดยไม่เผยแพร่ออกไป
+
+**4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?**
+
+**ตอบ:** มีประโยชน์อย่างมากในการทำให้ Dashboard **สามารถแสดงสถานะล่าสุดของอุปกรณ์ต่างๆ ได้ในทันที** (เช่น โชว์ว่าไฟดวงไหนเปิดอยู่, อุณหภูมิแอร์ตั้งไว้ที่เท่าไหร่) ทันทีที่แอปพลิเคชันเชื่อมต่อและ Subscribe กับ Broker สำเร็จ โดยที่แอปพลิเคชันไม่จำเป็นต้องรอให้เซ็นเซอร์ครบรอบการส่งข้อมูลครั้งต่อไป ช่วยลดปัญหาหน้าจอว่างเปล่า และทำให้ผู้ใช้ได้รับประสบการณ์การใช้งาน (UX) ที่ราบรื่นและเห็นสถานะปัจจุบันของบ้านได้ทันที
