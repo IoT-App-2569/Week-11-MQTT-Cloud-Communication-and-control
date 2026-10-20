@@ -290,7 +290,12 @@ QR เดียวกันที่แปลงจาก Serial Log เป็�
 <img src="Images/lab11-4-4-wifi-prov-console.png" alt="wifi-prov over console then cloud connected">
 </p>
 
-<!-- ภาพหน้าจอแอปมือถือ (ผู้ทดลองถ่ายเอง): Images/lab11-4-app-device-card.png — การ์ด Living Room Light ในแอป ESP RainMaker -->
+หน้าจอแอป ESP RainMaker บน iPhone หลังผูกอุปกรณ์สำเร็จ: การ์ด **Living Room Light** ขึ้นในหน้า *My Devices*
+
+<p align="center">
+<img src="Images/lab11-4-app-device-card.png" alt="RainMaker app device card" width="280">
+</p>
+<p align="center"><b>ผลการทดลอง: การ์ด Living Room Light ในแอป ESP RainMaker (09:42)</b></p>
 
 
 ---
@@ -313,7 +318,12 @@ QR เดียวกันที่แปลงจาก Serial Log เป็�
 <img src="Images/lab11-4-5-cloud-control.png" alt="cloud control serial log">
 </p>
 
-<!-- ภาพหน้าจอแอปมือถือ (ผู้ทดลองถ่ายเอง): Images/lab11-4-app-power-brightness.png — หน้าควบคุม Power/Brightness -->
+หน้าควบคุมในแอป: Power = On, Brightness = 100 — แถบสถานะของ iPhone แสดง **4G** และไอคอน Personal Hotspot (สีเขียว) แปลว่ามือถือออกอินเทอร์เน็ตผ่านเครือข่ายมือถือขณะสั่งงาน
+
+<p align="center">
+<img src="Images/lab11-4-app-power-brightness.png" alt="RainMaker app power and brightness" width="280">
+</p>
+<p align="center"><b>ผลการทดลอง: ควบคุม Power / Brightness ผ่านแอป (09:41, เครือข่าย 4G)</b></p>
 
 
 ---
