@@ -183,6 +183,12 @@ mosquitto version 2.1.2 terminating
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
 
+<img width="1111" height="182" alt="image" src="https://github.com/user-attachments/assets/d379cc1f-683e-4d34-8a1c-8212b792f817" />
+
+```
+ส่วน home/bedroom/balcony/light จะไม่แสดง เพราะมีระดับย่อยเพิ่มมาอีกหนึ่งระดับ Wildcard + แทนชื่อ Topic ได้เพียงหนึ่งระดับเท่านั้น ไม่สามารถแทนหลายระดับพร้อมกันได้
+```
+
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
 ```powershell
