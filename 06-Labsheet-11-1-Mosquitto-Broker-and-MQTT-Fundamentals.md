@@ -205,6 +205,9 @@ mosquitto version 2.1.2 terminating
 
 ---
 
+<img width="902" height="117" alt="image" src="https://github.com/user-attachments/assets/1078d1fc-b53f-4393-8dff-c2ca116dd80e" />
+
+
 ### กิจกรรมที่ 11-1.3 การทดสอบระดับคุณภาพการส่งข้อมูล (QoS 0, QoS 1, QoS 2)
 
 ในกิจกรรมนี้ ให้สังเกตข้อความ Log ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)** ควบคู่กับคำสั่งในเทอร์มินัลที่ 2 และ 3
