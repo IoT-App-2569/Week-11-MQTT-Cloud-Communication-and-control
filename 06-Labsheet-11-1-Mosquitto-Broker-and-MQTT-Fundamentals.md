@@ -228,6 +228,9 @@ mosquitto version 2.1.2 terminating
 * *สังเกต Log ฝั่ง Broker*  จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
 
 
+<img width="1026" height="257" alt="image" src="https://github.com/user-attachments/assets/326b7b82-00d3-4d0d-8b44-13033da50597" />
+
+
 
 #### 3. ทดสอบ QoS 2 (Exactly Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
@@ -237,6 +240,10 @@ mosquitto version 2.1.2 terminating
   2. `Sending PUBREC`
   3. `Received PUBREL`
   4. `Sending PUBCOMP`
+
+
+<img width="1012" height="312" alt="image" src="https://github.com/user-attachments/assets/c66fa55b-e70f-4f5c-ba01-c7fe5ae32ab6" />
+
 
 ---
 
