@@ -267,6 +267,11 @@ mosquitto version 2.1.2 terminating
    ```
    *ผลที่ได้* ในเทอร์มินัลที่ 2 (Subscriber)ได้รับข้อความ `sensor/state CRITICAL_ALERT` ทันที
 
+
+<img width="995" height="131" alt="image" src="https://github.com/user-attachments/assets/082ee2e6-e6f2-476a-93ab-472a1fb92824" />
+
+
+
 5. ปิดเทอร์มินัลที่ 2 (Subscriber) (`Ctrl + C`) แล้วรัน subscriber ใหม่อีกครั้ง
    ```powershell
    & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -v
