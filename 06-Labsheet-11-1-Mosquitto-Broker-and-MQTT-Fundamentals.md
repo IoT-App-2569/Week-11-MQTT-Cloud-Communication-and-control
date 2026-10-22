@@ -322,8 +322,25 @@ mosquitto version 2.1.2 terminating
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="1017" height="292" alt="image" src="https://github.com/user-attachments/assets/8f158a16-923e-48dc-b52c-ba198af84046" />
+
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+## ตารางเปรียบเทียบลำดับแพ็กเก็ตของ QoS
+
+| ระดับ QoS | ลำดับแพ็กเก็ตที่สังเกตได้ | การยืนยัน |
+|---|---|---|
+| QoS 0 | `PUBLISH` | ไม่มี `PUBACK` เป็นการส่งข้อความโดยไม่มีการตอบรับในระดับ MQTT |
+| QoS 1 | `PUBLISH → PUBACK` | มีการตอบรับข้อความด้วยแพ็กเก็ต `PUBACK` |
+| QoS 2 | `PUBLISH → PUBREC → PUBREL → PUBCOMP` | มีการยืนยันหลายขั้นตอน เพื่อให้ส่งมอบข้อความตามกลไก QoS 2 |
+
+
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+<img width="995" height="131" alt="image" src="https://github.com/user-attachments/assets/082ee2e6-e6f2-476a-93ab-472a1fb92824" />
 
 ---
 
