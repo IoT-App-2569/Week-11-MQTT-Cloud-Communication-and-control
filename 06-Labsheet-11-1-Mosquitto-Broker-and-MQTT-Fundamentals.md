@@ -300,6 +300,9 @@ mosquitto version 2.1.2 terminating
    (เปิดเทอร์มินัลที่ 4 (Publisher 2) แล้วพิมพ์ `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "node/esp32/status" -m "ONLINE"`)
    *สังเกตผล* เทอร์มินัลที่ 2 แสดงสถานะ `ONLINE`
 
+<img width="992" height="80" alt="image" src="https://github.com/user-attachments/assets/ec33a97f-6abb-47e7-8e0a-78fcd811f8d7" />
+
+
 4. **จำลองเหตุการณ์ไฟดับหรือเครือข่ายหลุดกะทันหัน**  
    ในเทอร์มินัลที่ 3 ให้ทำการ **บังคับปิดหน้าต่างเทอร์มินัลทันที** หรือกดปิดโปรเซส เพื่อไม่ให้ Client ส่งแพ็กเก็ต `DISCONNECT`
 5. *สังเกตผลในเทอร์มินัลที่ 2*  
@@ -308,6 +311,10 @@ mosquitto version 2.1.2 terminating
    node/esp32/status LOST_CONNECTION_OFFLINE
    ```
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
+
+
+<img width="1002" height="133" alt="image" src="https://github.com/user-attachments/assets/5011d9e5-9280-4d98-bcf1-1247c78fc338" />
+
 
 ---
 
