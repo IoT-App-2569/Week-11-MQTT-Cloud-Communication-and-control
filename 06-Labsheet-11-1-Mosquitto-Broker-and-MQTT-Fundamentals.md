@@ -210,6 +210,9 @@ home/+/light จึงตรงกับ topic ที่มี 3 ระดับ
 
 *สังเกตผล* ทุกข้อความที่ขึ้นต้นด้วย `home/` จะถูกส่งมาแสดงผลทั้งหมด
 
+<img width="1111" height="355" alt="image" src="https://github.com/user-attachments/assets/5698065f-7c93-44de-a32a-4681b3bf3939" />
+<img width="1457" height="747" alt="image" src="https://github.com/user-attachments/assets/bf309046-fe77-4040-99eb-b33d03ecd571" />
+
 ---
 
 ### กิจกรรมที่ 11-1.3 การทดสอบระดับคุณภาพการส่งข้อมูล (QoS 0, QoS 1, QoS 2)
@@ -222,12 +225,14 @@ home/+/light จึงตรงกับ topic ที่มี 3 ระดับ
 * *หมายเหตุ* การรันโปรแกรมทั้ง subscriber และ publisher จะทำให้หน้าต่างค้างและรอแสดงข้อความที่ publisher ส่งมาให้ ดังนั้นการเปลี่ยนคำสั่ง ต้องกด  `Ctrl+C`  ทุกครั้งเพื่อออกจาก  โปรแกรม subscriber ก่อนเสมอ แล้วเปลี่ยนคำสั่ง subscriber ใหม่ จากนั้นจึงรันคำสั่ง publisher ใหม่
 * *สังเกต Log ฝั่ง Broker*  มีเพียงแพ็กเก็ต `PUBLISH` ส่งผ่านไปโดยไม่มีแพ็กเก็ตตอบรับใดๆ
 
-
+<img width="1457" height="747" alt="image" src="https://github.com/user-attachments/assets/14cf8ae6-dad2-4975-a714-3c1d13386c60" />
 
 #### 2. ทดสอบ QoS 1 (At Least Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 1 -v`
 * ในเทอร์มินัลที่ 3 (Publisher)  `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 1 Message" -q 1`
 * *สังเกต Log ฝั่ง Broker*  จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
+
+<img width="1460" height="747" alt="image" src="https://github.com/user-attachments/assets/4012089a-d230-4f49-931c-21b1c639b5f6" />
 
 #### 3. ทดสอบ QoS 2 (Exactly Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
@@ -237,6 +242,22 @@ home/+/light จึงตรงกับ topic ที่มี 3 ระดับ
   2. `Sending PUBREC`
   3. `Received PUBREL`
   4. `Sending PUBCOMP`
+
+<img width="1458" height="750" alt="image" src="https://github.com/user-attachments/assets/8c80dac3-ee1b-4c44-8a40-b5105dbb1f69" />
+
+
+### ตารางเปรียบเทียบลำดับแพ็กเก็ต QoS 0, 1, 2 จาก Broker Log
+
+| QoS | ช่วง Publisher → Broker | ช่วง Broker → Subscriber | Message ID | จำนวนแพ็กเก็ตทั้งหมด |
+|:---:|:---|:---|:---:|:---:|
+| **0** (At most once) | PUBLISH | PUBLISH | ไม่มี (m0) | 2 |
+| **1** (At least once) | PUBLISH → PUBACK | PUBLISH → PUBACK | m1 | 4 |
+| **2** (Exactly once) | PUBLISH → PUBREC → PUBREL → PUBCOMP | PUBLISH → PUBREC → PUBREL → PUBCOMP | m1 | 8 |
+
+**วิเคราะห์จาก Log**
+- **QoS 0:** Broker ได้รับ PUBLISH แล้วส่งต่อทันที ไม่มีแพ็กเก็ตตอบรับใดๆ หากหายระหว่างทางก็ไม่มีใครรู้
+- **QoS 1:** มี Message ID (m1) และตอบรับด้วย PUBACK ทั้ง 2 ช่วง หากผู้ส่งไม่ได้ PUBACK จะส่งซ้ำ จึงรับประกันว่าถึงอย่างน้อย 1 ครั้ง แต่อาจได้รับซ้ำ
+- **QoS 2:** มีการยืนยัน 4 ขั้นในแต่ละช่วง (PUBREC = ได้รับแล้ว, PUBREL = ปล่อยข้อความได้, PUBCOMP = เสร็จสมบูรณ์) จาก Log จะเห็นว่า Broker ส่ง PUBLISH ต่อให้ Subscriber หลังจากได้ PUBREL แล้วเท่านั้น ทำให้รับประกันว่าข้อความถึงเพียงครั้งเดียวไม่ซ้ำ แลกกับจำนวนแพ็กเก็ตที่มากที่สุด (8 แพ็กเก็ต เทียบกับ QoS 0 ที่ใช้ 2)
 
 ---
 
@@ -265,6 +286,17 @@ home/+/light จึงตรงกับ topic ที่มี 3 ระดับ
    & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -v
    ```
    *ผลที่ได้* ทันทีที่เชื่อมต่อสำเร็จ เทอร์มินัลที่ 2 (Subscriber) จะได้รับข้อความ `CRITICAL_ALERT` ในทันที แม้ Publisher จะไม่ได้ส่งข้อความใหม่เลยก็ตาม
+   
+<img width="1472" height="751" alt="image" src="https://github.com/user-attachments/assets/fcf4bf8f-b995-45ea-993d-b7396a37fc63" />
+
+ ```
+- ข้อความ "Normal" ส่งโดยไม่ใช้ -r ขณะที่ไม่มี Subscriber จึงไม่ถูกเก็บไว้
+  เมื่อเปิด Subscriber ภายหลังจึงไม่ได้รับข้อความนี้
+- ข้อความ "CRITICAL_ALERT" ส่งพร้อมแฟล็ก -r (Retain) Subscriber ที่เปิดอยู่ได้รับทันที
+- เมื่อปิดแล้วเปิด Subscriber ใหม่ ได้รับ "CRITICAL_ALERT" ทันทีที่เชื่อมต่อ
+  แม้ไม่มีใครส่งใหม่ เพราะ Broker เก็บข้อความล่าสุดของ topic นั้นไว้
+  และส่งให้ทุก Subscriber ที่เพิ่งเข้ามา
+ ```
 
 > [!TIP]
 > **วิธีลบ Retained Message ออกจาก Broker**  ส่งข้อความที่มีเนื้อหาว่างเปล่า (Empty Payload) พร้อมเปิดแฟล็ก `-r`
@@ -297,19 +329,94 @@ home/+/light จึงตรงกับ topic ที่มี 3 ระดับ
    ```
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
 
+
+<img width="1306" height="741" alt="image" src="https://github.com/user-attachments/assets/f4ff6578-9af8-4588-a31c-013bdd32b9c3" />
+
+ ```
+ผลการทดสอบ Last Will and Testament (LWT)
+
+Client "Node_Client_01" ลงทะเบียน LWT ไว้กับ Broker ตั้งแต่ตอนเชื่อมต่อ (topic `node/esp32/status`, payload `LOST_CONNECTION_OFFLINE`, QoS 1)
+เมื่อปิดหน้าต่างทันทีโดยไม่ส่งแพ็กเก็ต DISCONNECT Broker ตรวจพบว่า TCP Connection ขาดแบบผิดปกติ
+จึงเผยแพร่ข้อความ LWT แทน Client โดยอัตโนมัติ ทำให้ Subscriber รู้ทันทีว่าโหนดออฟไลน์
+ ```
+
 ---
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+<img width="1391" height="751" alt="image" src="https://github.com/user-attachments/assets/98ee8fec-ca51-40fc-b039-334e0b0c7b07" />
+<img width="1111" height="355" alt="image" src="https://github.com/user-attachments/assets/5698065f-7c93-44de-a32a-4681b3bf3939" />
+
+
+ลำดับเหตุการณ์ที่สังเกตได้จาก Log เมื่อ Subscriber เชื่อมต่อเข้ามา
+
+```
+New connection from 127.0.0.1:50656 on port 1883.
+New client connected from 127.0.0.1:50656 as auto-B3F1... (p4, c1, k60).
+No will message specified.
+Sending CONNACK to auto-B3F1... (0, 0)
+Received SUBSCRIBE from auto-B3F1...
+    test/qos (QoS 0)
+Sending SUBACK to auto-B3F1...
+```
+
+| ขั้นตอน | แพ็กเก็ต | ความหมาย |
+|:---:|:---|:---|
+| 1 | New connection | สร้าง TCP Connection ที่พอร์ต 1883 |
+| 2 | CONNECT | Client ขอเชื่อมต่อ (p4 = MQTT v3.1.1, c1 = Clean Session, k60 = Keep Alive 60 วินาที) |
+| 3 | CONNACK | Broker ตอบรับการเชื่อมต่อ (0 = สำเร็จ) |
+| 4 | SUBSCRIBE | Client ขอรับข้อความจาก topic `test/qos` |
+| 5 | SUBACK | Broker ยืนยันการ Subscribe |
+| 6 | PINGREQ / PINGRESP | Client ส่งสัญญาณ Keep Alive เป็นระยะเพื่อบอกว่ายังเชื่อมต่ออยู่ |
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+<img width="1457" height="747" alt="image" src="https://github.com/user-attachments/assets/14cf8ae6-dad2-4975-a714-3c1d13386c60" />
+<img width="1460" height="747" alt="image" src="https://github.com/user-attachments/assets/4012089a-d230-4f49-931c-21b1c639b5f6" />
+<img width="1458" height="750" alt="image" src="https://github.com/user-attachments/assets/8c80dac3-ee1b-4c44-8a40-b5105dbb1f69" />
+
+| QoS | ช่วง Publisher → Broker | ช่วง Broker → Subscriber | Message ID | จำนวนแพ็กเก็ตทั้งหมด |
+|:---:|:---|:---|:---:|:---:|
+| **0** (At most once) | PUBLISH | PUBLISH | ไม่มี (m0) | 2 |
+| **1** (At least once) | PUBLISH → PUBACK | PUBLISH → PUBACK | m1 | 4 |
+| **2** (Exactly once) | PUBLISH → PUBREC → PUBREL → PUBCOMP | PUBLISH → PUBREC → PUBREL → PUBCOMP | m1 | 8 |
+
+**วิเคราะห์จาก Log**
+- **QoS 0:** Broker ได้รับ PUBLISH แล้วส่งต่อทันที ไม่มีแพ็กเก็ตตอบรับใดๆ หากหายระหว่างทางก็ไม่มีใครรู้
+- **QoS 1:** มี Message ID (m1) และตอบรับด้วย PUBACK ทั้ง 2 ช่วง หากผู้ส่งไม่ได้ PUBACK จะส่งซ้ำ จึงรับประกันว่าถึงอย่างน้อย 1 ครั้ง แต่อาจได้รับซ้ำ
+- **QoS 2:** มีการยืนยัน 4 ขั้นในแต่ละช่วง (PUBREC = ได้รับแล้ว, PUBREL = ปล่อยข้อความได้, PUBCOMP = เสร็จสมบูรณ์) จาก Log จะเห็นว่า Broker ส่ง PUBLISH ต่อให้ Subscriber หลังจากได้ PUBREL แล้วเท่านั้น ทำให้รับประกันว่าข้อความถึงเพียงครั้งเดียวไม่ซ้ำ แลกกับจำนวนแพ็กเก็ตที่มากที่สุด (8 แพ็กเก็ต เทียบกับ QoS 0 ที่ใช้ 2)
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+<img width="1472" height="751" alt="image" src="https://github.com/user-attachments/assets/fcf4bf8f-b995-45ea-993d-b7396a37fc63" />
+- ข้อความ `Normal` ส่งโดยไม่ใช้ `-r` ขณะที่ไม่มี Subscriber จึงไม่ถูกเก็บไว้ เมื่อเปิด Subscriber ภายหลังจึงไม่ได้รับข้อความนี้
+- ข้อความ `CRITICAL_ALERT` ส่งพร้อมแฟล็ก `-r` (Retain) Subscriber ที่เปิดอยู่ได้รับทันที
+- เมื่อปิดแล้วเปิด Subscriber ใหม่ ได้รับ `CRITICAL_ALERT` ทันทีที่เชื่อมต่อ แม้ไม่มีใครส่งใหม่ เพราะ Broker เก็บข้อความล่าสุดของ topic นั้นไว้และส่งให้ทุก Subscriber ที่เพิ่งเข้ามา
+- เมื่อล้างด้วยคำสั่ง `-n -r` Subscriber ได้รับ `sensor/state (null)` แสดงว่า Retained Message ถูกลบออกจาก Broker แล้ว
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+```
+เพราะ `#` หมายถึง "ทุกระดับที่เหลือต่อจากนี้ทั้งหมด" (ศูนย์ระดับหรือมากกว่า) จึงไม่มีขอบเขตสิ้นสุด หากมีระดับอื่นต่อท้ายจะไม่สามารถตีความได้ว่า `#` ครอบคลุมถึงตรงไหน มาตรฐาน MQTT จึงกำหนดให้ `#` อยู่ท้ายสุดและต้องอยู่ระดับของตัวเองเท่านั้น
+
+หากใช้ `home/#/light` ถือเป็น Topic Filter ที่ไม่ถูกต้อง (Invalid) โดย `mosquitto_sub` จะแจ้ง error และไม่ยอม Subscribe หรือ Broker จะปฏิเสธคำขอ SUBSCRIBE และอาจตัดการเชื่อมต่อ หากต้องการกรองแบบนี้ให้ใช้ `+` แทน เช่น `home/+/light` หรือ `home/+/+/light`
+```
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+```
+ควรเลือก QoS 0 เพราะพิกัดถูกส่งใหม่ทุก 1 วินาที หากพิกัดใดหาย ค่าใหม่ก็จะมาแทนในวินาทีถัดไป การส่งซ้ำพิกัดเก่าจึงไม่มีประโยชน์และเป็นข้อมูลที่ล้าสมัยแล้ว
+
+จากการทดลองพบว่า QoS 0 ใช้เพียง 2 แพ็กเก็ต ขณะที่ QoS 1 ใช้ 4 และ QoS 2 ใช้ถึง 8 แพ็กเก็ต การใช้ QoS 0 จึงประหยัดแบนด์วิดท์ของซิมมือถือ ลดภาระของ Broker เมื่อมียานพาหนะจำนวนมาก และไม่เกิดความหน่วงจากการรอ ACK ทั้งนี้ข้อความสำคัญอื่นในระบบเดียวกัน เช่น การแจ้งเตือนอุบัติเหตุ หรือคำสั่งดับเครื่องยนต์ ควรใช้ QoS 1 แทน
+```
+
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+```
+ไม่ถูกเผยแพร่ เพราะ LWT ออกแบบมาเพื่อแจ้งการหลุดแบบผิดปกติเท่านั้น เช่น ไฟดับ เครือข่ายขาด หรือโปรแกรมค้างจน Keep Alive หมดเวลา เมื่อ Broker ได้รับแพ็กเก็ต DISCONNECT แสดงว่า Client ตั้งใจออกอย่างปกติ Broker จะลบ Will Message ที่ลงทะเบียนไว้ทิ้งทันที ในทางปฏิบัติ อุปกรณ์ที่ปิดตัวอย่างปกติจึงควร Publish สถานะ `OFFLINE` เองก่อนส่ง DISCONNECT
+```
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+```
+เมื่อผู้ใช้เปิดแอปและ Subscribe topic ต่างๆ Broker จะส่งค่าล่าสุดที่ถูก Retain ไว้ให้ทันที แอปจึงแสดงสถานะปัจจุบันได้ทันที เช่น ไฟห้องนั่งเล่นเปิดอยู่ อุณหภูมิ 26.4 °C โดยไม่ต้องรอให้อุปกรณ์ส่งค่ารอบถัดไป ซึ่งอาจนานหลายนาทีสำหรับเซนเซอร์ที่ส่งไม่บ่อย
+
+หากไม่มี Retained Message หน้าจอจะว่างเปล่าหรือแสดงค่าไม่ถูกต้องจนกว่าจะมีข้อความใหม่ นอกจากนี้ยังนิยมใช้ Retain ร่วมกับ LWT เพื่อให้สถานะ ONLINE/OFFLINE ของอุปกรณ์แสดงถูกต้องตั้งแต่เปิดแอป
+```
