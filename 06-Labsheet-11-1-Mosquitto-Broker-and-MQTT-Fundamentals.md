@@ -137,6 +137,7 @@ Config loaded from C:\mqtt_lab\mosquitto.conf.
 Opening ipv4 listen socket on port 1883.
 mosquitto version 2.0.18 running
 ```
+<img width="1391" height="751" alt="image" src="https://github.com/user-attachments/assets/98ee8fec-ca51-40fc-b039-334e0b0c7b07" />
 
 #### 5. หยุดการทำงานของ Mosquitto Broker
 ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)**  ให้กด Ctrl+C เพื่อหยุดการทำงานของ Mosquitto Broker
@@ -182,6 +183,18 @@ mosquitto version 2.1.2 terminating
 
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
+
+<img width="1472" height="400" alt="image" src="https://github.com/user-attachments/assets/d405c705-cc03-4479-9d9e-99d2915fae67" />
+
+```
+ข้อความที่ปรากฏ: home/livingroom/light และ home/kitchen/light
+ข้อความที่ไม่ปรากฏ: home/bedroom/balcony/light
+
+เหตุผล: เครื่องหมาย + แทนได้เพียง 1 ระดับ (1 ช่องระหว่างเครื่องหมาย /) เท่านั้น
+home/+/light จึงตรงกับ topic ที่มี 3 ระดับ คือ home / ??? / light
+แต่ home/bedroom/balcony/light มี 4 ระดับ ช่องกลางมี 2 ระดับคือ bedroom และ balcony
+จึงไม่ตรงกับรูปแบบ และ Broker ไม่ส่งข้อความนี้ให้ Subscriber
+```
 
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
