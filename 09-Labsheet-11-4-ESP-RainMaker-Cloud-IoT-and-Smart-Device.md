@@ -220,6 +220,79 @@ idf.py -p COMx flash monitor
 * **ปิดสัญญาณ Wi-Fi บนสมาร์ตโฟน** แล้วเปิดใช้งานเฉพาะ **สัญญาณอินเทอร์เน็ตมือถือ (4G/5G)**
 * กดสั่งเปิด-ปิดหลอดไฟอีกครั้ง สังเกตว่าบอร์ด ESP32 ที่บ้านยังคงตอบสนองต่อคำสั่งได้อย่างรวดเร็ว แสดงถึงพลังของสถาปัตยกรรม Cloud Control
 
+## ผลการทดลอง
+
+### กิจกรรม 11-4.1 การสร้างโปรเจกต์และติดตั้ง Dependency
+
+| รายการ | ค่าที่ใช้จริง |
+|:---|:---|
+| ESP-IDF | v6.0.2 |
+| Target | ESP32 |
+| Component หลัก | `espressif/esp_rainmaker` ^1.17.0 |
+| Component Wi-Fi Provisioning | `espressif/rmaker_app_network` ^1.4.4 |
+| Flash / Partition | 4 MB, `ota_0` + `ota_1` (1600K) และ `fctry` ที่ 0x340000 |
+
+### กิจกรรม 11-4.3 การแฟลชและ QR Code
+
+<img width="943" height="683" alt="image" src="https://github.com/user-attachments/assets/d70b4401-1f6b-4c5f-8874-aa2240dc1fcd" />
+
+
+บอร์ดพิมพ์ QR Code พร้อมข้อมูล `{"ver":"v1","name":"PROV_51681e","username":"wifiprov","pop":"6c38a8d3","transport":"ble"}` และเริ่ม BLE Advertising รอการจับคู่ โดยมี Node ID คือ `SFyfCRezgekerpXw4se7yf`
+
+### กิจกรรม 11-4.4 การจับคู่ผ่านแอป ESP RainMaker
+
+<img width="868" height="1887" alt="image" src="https://github.com/user-attachments/assets/a8fce9dc-7724-410c-98e1-b1d329cc14db" />
+
+ลำดับเหตุการณ์จาก Serial Monitor
+
+| ขั้นตอน | Log ที่สังเกตได้ |
+|:---|:---|
+| 1. แอปเชื่อมต่อ BLE และสร้าง Session เข้ารหัส (Security 2) | `app_network: Secured session established!` |
+| 2. ยืนยันความเป็นเจ้าของ Node (Challenge-Response) | `esp_rmaker_chal_resp: Challenge-Response handler completed successfully` |
+| 3. รับข้อมูล Wi-Fi จากแอปทาง BLE | `app_wifi: Received Wi-Fi credentials SSID: IPK_` |
+| 4. เชื่อมต่อ Wi-Fi | `sta ip: 172.20.10.3` และ `Provisioning successful` |
+| 5. เชื่อมต่อคลาวด์ AWS IoT Core ผ่าน MQTTS | `Connecting to a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com` → `Certificate validated` → `MQTT Connected` |
+| 6. ผูก Node กับบัญชีผู้ใช้ | `User node mapping done` |
+| 7. รายงานสถานะเริ่มต้นขึ้นคลาวด์ | `Reporting params (init): {"Living Room Light":{"Power":false,"Brightness":100},...}` |
+| 8. ปิด BLE คืนหน่วยความจำ | `Provisioning stopped` / `BTDM memory released` |
+
+---
+
+## การทดสอบและการตรวจสอบผลลัพธ์
+
+### 1. การควบคุมผ่าน Mobile App
+
+<img width="868" height="1887" alt="image" src="https://github.com/user-attachments/assets/74a698ea-079b-4cf3-904a-5ac6f2ae0fa2" />
+
+
+<img width="961" height="702" alt="image" src="https://github.com/user-attachments/assets/f71fd298-c6e5-44cc-88ab-8b83405567a1" />
+
+
+<img width="1108" height="1477" alt="image" src="https://github.com/user-attachments/assets/43d266a5-dba4-412f-babc-c0624908d794" />
+
+
+| การกระทำในแอป | Log บน Serial Monitor | ผลที่บอร์ด |
+|:---|:---|:---|
+| เปิดสวิตช์ Power | `Received params: {"Living Room Light":{"Power":true}}` → `Changing LED state to: ON` → `Reporting params` | LED ติด |
+| ปิดสวิตช์ Power | `Received params: {"Living Room Light":{"Power":false}}` → `Changing LED state to: OFF` → `Reporting params` | LED ดับ |
+| เลื่อน Brightness | `Changing Brightness to: ..%` | รับค่าได้ แต่ความสว่างไม่เปลี่ยน เพราะโค้ดยังไม่ได้ใช้ LEDC PWM |
+
+### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต
+
+มือถือเชื่อมต่ออินเทอร์เน็ตผ่าน 4G และปิด Bluetooth ระหว่างทดสอบ ทุกคำสั่งแสดง `Request received via: Cloud` ยืนยันว่าคำสั่งเดินทางจากแอป → RainMaker Cloud (AWS IoT Core, us-east-1) → MQTT → ESP32 ไม่ได้ส่งตรงผ่านเครือข่ายท้องถิ่น
+
+### 3. ปัญหาที่พบและการแก้ไข
+
+| ปัญหา | สาเหตุ | วิธีแก้ |
+|:---|:---|:---|
+| `add-dependency "espressif/esp-rainmaker"` ไม่พบ component | ชื่อและเวอร์ชันในใบงานไม่ตรงกับ Component Registry ปัจจุบัน | ใช้ `espressif/esp_rainmaker` ^1.17.0 |
+| ไม่พบ `app_wifi.h` | ฟังก์ชัน Provisioning ถูกแยกเป็น component และเปลี่ยนชื่อ | เพิ่ม `espressif/rmaker_app_network` และใช้ `app_network.h`, `app_network_init()`, `app_network_start()` |
+| ต้องกำหนด Partition Table เอง | RainMaker ต้องใช้พื้นที่สำหรับ OTA และพาร์ติชัน `fctry` เก็บข้อมูลประจำเครื่อง | สร้าง `partitions.csv` และ `sdkconfig.defaults` (Flash 4 MB, เปิด BLE แบบ NimBLE) |
+| แอปค้างที่ "Confirming Node Association" และขึ้น `ESPSessionError` | `***ERROR*** A stack overflow in task nimble_host` ขณะบอร์ดคำนวณลายเซ็น ECDSA ในขั้น Challenge-Response ทำให้บอร์ดรีบูต | เพิ่ม `CONFIG_BT_NIMBLE_HOST_TASK_STACK_SIZE=8192` และตั้งค่าตามตัวอย่างทางการ เช่น `CONFIG_BTDM_CTRL_MODE_BLE_ONLY=y`, `CONFIG_MBEDTLS_DYNAMIC_BUFFER=y` |
+| `NimBLE: ATT write: invalid handle` | iPhone จำโครงสร้าง GATT ของบอร์ดจากการเชื่อมต่อครั้งก่อน (GATT Cache) | รีสตาร์ต iPhone ก่อนจับคู่ใหม่ |
+
+---
+
 ---
 
 ### 3. (ทางเลือกขั้นสูง) การทดสอบผ่าน RainMaker CLI บนคอมพิวเตอร์
@@ -247,6 +320,47 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+```
+อุปกรณ์ทุกตัวต้องมี **ใบรับรอง X.509 และกุญแจส่วนตัวเฉพาะตัว** จึงจะเชื่อมต่อ AWS IoT Core ของ RainMaker ด้วย MQTTS ได้ (หลักการเดียวกับ mTLS ในแล็บ 11.3) วิธีดั้งเดิมคือผู้ผลิตต้องสร้างใบรับรองและแฟลชลงพาร์ติชัน `fctry` ของทีละเครื่องผ่านสาย USB ด้วยเครื่องมือเฉพาะ ซึ่งยุ่งยากในขั้นพัฒนาต้นแบบ
+
+Assisted Claiming ใช้**แอปบนมือถือเป็นตัวกลาง** แทน
+1. ESP32 สร้างคู่กุญแจและคำร้องขอใบรับรอง (CSR) ขึ้นเองภายในบอร์ด
+2. ส่ง CSR ให้แอปผ่าน BLE ที่เข้ารหัสแล้ว
+3. แอปซึ่งล็อกอินบัญชีผู้ใช้และมีอินเทอร์เน็ต ส่ง CSR ไปให้ RainMaker Cloud ลงนาม
+4. แอปส่งใบรับรองที่ได้กลับไปให้ ESP32 ทาง BLE และบอร์ดบันทึกลงหน่วยความจำ
+
+ข้อดีคือนักพัฒนาไม่ต้องจัดการใบรับรองเอง **กุญแจส่วนตัวไม่เคยออกจากตัวบอร์ด** และอุปกรณ์ที่ยังไม่มีอินเทอร์เน็ตก็ขอใบรับรองได้ตั้งแต่ขั้นจับคู่ครั้งแรก จากการทดลอง RainMaker เวอร์ชันปัจจุบันยังเพิ่มขั้น **Challenge-Response** ให้บอร์ดลงนามด้วยกุญแจ ECDSA เพื่อพิสูจน์ต่อแอปว่าเป็นเจ้าของ Node ID จริงก่อนผูกกับบัญชี (`esp_rmaker_user_node_auth: ECDSA key found`)
+
+```
+
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+```
+ฟังก์ชันนี้ทำ 2 อย่าง คือ อัปเดตค่าในหน่วยความจำของบอร์ด และ รายงานค่าปัจจุบันกลับขึ้นคลาวด์ ซึ่งจำเป็นเพราะ
+- ยืนยันสถานะจริง: คำสั่งจากแอปเป็นเพียง "ค่าที่ต้องการ" การรายงานกลับคือการยืนยันว่าบอร์ดเปลี่ยนสถานะสำเร็จแล้ว หากสั่งไม่สำเร็จหรือบอร์ดปรับค่าเอง (เช่น จำกัดช่วง) แอปจะแสดงค่าที่ถูกต้อง
+- ซิงก์ทุกช่องทาง: คลาวด์เก็บสถานะล่าสุดของ Node ไว้ ผู้ใช้อื่นที่แชร์อุปกรณ์ แดชบอร์ด ระบบ Schedule หรือ Alexa/Google จะเห็นสถานะเดียวกันทั้งหมด
+- ป้องกันสถานะไม่ตรงกัน: ถ้าไม่รายงาน แอปอาจย้อนกลับไปแสดงค่าเดิม หรือเปิดแอปครั้งต่อไปจะเห็นสถานะผิด แม้ LED จะเปลี่ยนแล้ว
+
+จากการทดลองจะเห็นบรรทัด `Reporting params: {"Living Room Light":{"Power":true}}` ตามหลังทุกคำสั่ง ซึ่งเป็นหลักการเดียวกับแล็บ 11.2 ที่ ESP32 ตอบกลับสถานะ LED ทาง topic `iot/node01/state/led`
+
+```
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+
+| ประเด็น | Plain MQTT + Mosquitto (11.2) | ESP RainMaker SDK (11.4) |
+|:---|:---|:---|
+| **ความพยายามในการพัฒนา** | ต้องตั้ง Broker เอง ออกแบบ Topic, JSON Payload, LWT, การตอบกลับสถานะ และเขียนแอปฝั่งผู้ใช้เองทั้งหมด แต่ยืดหยุ่นและเข้าใจทุกชั้น | ประกาศ Node, Device, Param ด้วย API มาตรฐานไม่กี่บรรทัด ได้แอปมือถือ, Schedule, OTA ทันที แต่ต้องตั้งค่าระบบ (Partition, BLE, หน่วยความจำ) ให้ถูกต้อง |
+| **การตั้งค่าเครือข่าย** | Hard-code ชื่อและรหัส Wi-Fi และ IP ของ Broker ในโค้ด ต้องแฟลชใหม่เมื่อเปลี่ยน | BLE Provisioning ผ่านแอป ผู้ใช้ทั่วไปตั้งค่าเองได้ ไม่ต้องแก้โค้ด |
+| **ความปลอดภัย** | ใช้พอร์ต 1883 แบบไม่เข้ารหัส และ `allow_anonymous true` ใครอยู่วงเดียวกันก็ดักฟังหรือสั่งงานได้ (ต้องทำ TLS/mTLS เองแบบแล็บ 11.3) | บังคับ MQTTS พร้อมใบรับรองเฉพาะเครื่อง, Provisioning เข้ารหัสด้วย Security 2, ยืนยันเจ้าของด้วย Challenge-Response และสิทธิ์ผูกกับบัญชีผู้ใช้ |
+| **การขยายระบบ** | Broker บนคอมเครื่องเดียว ใช้ได้เฉพาะวง LAN หากจะรองรับอุปกรณ์จำนวนมากหรือใช้ผ่านอินเทอร์เน็ต ต้องจัดการเซิร์ฟเวอร์, IP สาธารณะ, ใบรับรอง และการดูแลระบบเอง | ทำงานบน AWS IoT Core รองรับอุปกรณ์จำนวนมากและเข้าถึงได้จากทั่วโลก มี OTA, การแชร์อุปกรณ์ และเชื่อมต่อ Alexa/Google ในตัว แต่ขึ้นกับแพลตฟอร์มของผู้ให้บริการ |
+| **เหมาะกับ** | การเรียนรู้กลไกโปรโตคอล ระบบปิดในโรงงาน หรือที่ต้องควบคุมข้อมูลเอง | ผลิตภัณฑ์ผู้บริโภคที่ต้องออกสู่ตลาดเร็ว |
+
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+```
+การเชื่อมต่อเกิดขึ้นในระดับ**คลาวด์ต่อคลาวด์ (Cloud-to-Cloud) ไม่ได้เกิดที่ตัวบอร์ด
+1. ใช้ Device Type และ Parameter มาตรฐาน: โค้ดสร้างอุปกรณ์ด้วย `esp_rmaker_lightbulb_device_create()` และ `esp_rmaker_brightness_param_create()` ซึ่งมีชนิดมาตรฐาน `esp.device.lightbulb`, `esp.param.power`, `esp.param.brightness` RainMaker Cloud จึงรู้ว่าอุปกรณ์นี้คือหลอดไฟที่เปิด-ปิดและหรี่ได้
+2. RainMaker Cloud แปลงเป็นรูปแบบของผู้ช่วยเสียง: Espressif ทำ Alexa Smart Home Skill และ Google Smart Home Action ไว้แล้ว โดยแมปชนิดมาตรฐานเป็น Trait/Capability ของแต่ละแพลตฟอร์ม เช่น Power → OnOff, Brightness → Brightness
+3. ผู้ใช้เชื่อมบัญชี (Account Linking): ในแอป Alexa หรือ Google Home ให้เพิ่ม Skill/บริการ **ESP RainMaker** แล้วล็อกอินด้วยบัญชีเดียวกับแอป RainMaker
+4. ค้นหาอุปกรณ์ (Discovery): Alexa/Google ดึงรายการอุปกรณ์จาก RainMaker Cloud จะเห็น "Living Room Light" ทันที
+5. สั่งงานด้วยเสียง: เช่น "Alexa, turn on Living Room Light" คำสั่งเดินทาง Alexa Cloud → RainMaker Cloud → MQTT → ESP32 แล้วเข้า `write_cb` เดียวกับที่ใช้รับคำสั่งจากแอป บอร์ดรายงานสถานะกลับด้วย `esp_rmaker_param_update_and_report()` ผู้ช่วยเสียงจึงเห็นสถานะล่าสุด
+
+เนื่องจากบอร์ดคุยกับ RainMaker Cloud ด้วยรูปแบบเดิมเสมอ การเพิ่ม Alexa หรือ Google จึงไม่ต้องแก้เฟิร์มแวร์ ขอเพียงใช้ Device Type และ Parameter มาตรฐานตั้งแต่ต้น
+```
