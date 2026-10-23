@@ -126,6 +126,25 @@ mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hacker message" --ca
 * ในหน้าต่าง Broker Log จะแจ้ง: `Client disconnected due to TLS error: peer did not return a certificate`
 * แสดงว่าระบบปฏิเสธการเชื่อมต่อจากอุปกรณ์แปลกปลอมได้อย่างสมบูรณ์
 
+**ผลการทดลองจริง**
+
+<img width="1461" height="498" alt="image" src="https://github.com/user-attachments/assets/d779314e-e227-4d15-bf76-e380cbd3e2bb" />
+
+
+<img width="1468" height="743" alt="image" src="https://github.com/user-attachments/assets/ea71e5bb-aaaf-4622-a265-34c1adb601ca" />
+
+
+| ตำแหน่ง | ผลที่คาดหวังในใบงาน | ผลที่ได้จริง |
+|:---|:---|:---|
+| เทอร์มินัล Publisher | `Error: Connection refused: Not authorised` หรือ `ssl handshake failure` | `Error: The connection was lost` |
+| Broker Log | `peer did not return a certificate` | `OpenSSL Error ... error:0A0000C7:SSL routines::peer did not return a certificate` ตามด้วย `disconnected: protocol error.` |
+| เทอร์มินัล Subscriber | ไม่ได้รับข้อความ | ไม่ได้รับ `Hacker message` |
+
+**วิเคราะห์ผล**
+- Broker ตรวจพบว่า Client ไม่ส่งใบรับรองมาในขั้นตอน TLS Handshake จึงตัดการเชื่อมต่อทันที ผู้บุกรุก**ไม่ได้รับ CONNACK** และไม่สามารถส่งข้อความ MQTT ใดๆ ได้เลย
+- ข้อความ error ฝั่ง Client ต่างจากใบงาน เพราะ Mosquitto 2.1.2 / OpenSSL 3.5 ตัดการเชื่อมต่อทันทีหลังพบข้อผิดพลาด ฝั่ง Client จึงเห็นเพียงว่าการเชื่อมต่อขาด แต่ผลลัพธ์เหมือนกันคือ**ถูกปฏิเสธ**
+- Client ที่มีใบรับรองถูกต้องเชื่อมต่อได้ด้วย **TLSv1.3** cipher `TLS_AES_256_GCM_SHA384` แม้ตั้งค่า `tls_version tlsv1.2` เพราะค่านี้คือเวอร์ชันขั้นต่ำที่ยอมรับ
+
 ---
 
 ### กิจกรรมที่ 11-3.4 การสร้างโปรเจกต์ ESP-IDF และการฝัง Certificate ผ่าน CMake
