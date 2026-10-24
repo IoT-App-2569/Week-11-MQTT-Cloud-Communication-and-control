@@ -290,13 +290,36 @@ mosquitto version 2.1.2 terminating
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="1008" height="223" alt="image" src="https://github.com/user-attachments/assets/3dd4f6f6-9671-4f52-82f2-c580a2204b34" />
+
+<img width="400" height="136" alt="image" src="https://github.com/user-attachments/assets/03cc0f79-2a5f-4683-aedd-5821025ceeeb" />
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+<img width="245" height="132" alt="image" src="https://github.com/user-attachments/assets/4046859d-0524-4959-9c59-8c523a05f38d" />
+
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+<img width="1155" height="67" alt="image" src="https://github.com/user-attachments/assets/e5e68671-8fdc-4aed-8f9f-5a093a036277" />
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+```
+ตอบ สัญลักษณ์ # ใช้แทน Topic ได้หลายระดับ จึงต้องอยู่ท้ายสุดของ Topic Filter เสมอ หากกำหนด home/#/light จะผิดกฎของ MQTT เพราะมีระดับ Topic ต่อท้าย # ทำให้ไม่สามารถ Subscribe ได้อย่างถูกต้อง
+```
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+```
+ควรเลือก QoS 0 เพราะ GPS ส่งพิกัดทุก 1 วินาที หากข้อมูลบางชุดหายไปก็รับข้อมูลชุดถัดไปได้ และช่วยลดความล่าช้าในการส่งข้อมูล
+```
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+```
+LWT จะไม่ถูกเผยแพร่ เพราะ Client ส่ง DISCONNECT อย่างถูกต้อง ทำให้ Broker ทราบว่า Client ปิดการเชื่อมต่อแบบปกติและยกเลิกข้อความ LWT
+```
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+```
+Retained Message ช่วยให้ผู้ใช้เห็นข้อมูลล่าสุดของอุปกรณ์ Smart Home ทันทีเมื่อเปิดแอป เช่น สถานะไฟหรืออุณหภูมิ โดยไม่ต้องรอให้อุปกรณ์ส่งข้อมูลใหม่ ทำให้แดชบอร์ดแสดงสถานะได้รวดเร็วขึ้น
+```
