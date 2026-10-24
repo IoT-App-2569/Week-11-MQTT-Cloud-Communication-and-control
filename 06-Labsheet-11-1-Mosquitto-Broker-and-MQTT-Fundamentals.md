@@ -295,13 +295,14 @@ mosquitto version 2.1.2 terminating
 
 <img width="400" height="136" alt="image" src="https://github.com/user-attachments/assets/03cc0f79-2a5f-4683-aedd-5821025ceeeb" />
 
-
-
-
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
 
+ระดับ QoS	ลำดับแพ็กเก็ต (Packet Sequence)	จำนวนครั้งที่ส่ง PUBLISH	การรับประกัน
+QoS 0	PUBLISH → จบการส่ง	1 ครั้งตามขั้นตอนปกติ ไม่มีการรอ ACK	ส่งได้ไม่เกินหนึ่งครั้ง (At most once)
+QoS 1	PUBLISH → PUBACK	อาจส่ง PUBLISH ซ้ำหากไม่ได้รับ ACK	ส่งอย่างน้อยหนึ่งครั้ง (At least once)
+QoS 2	PUBLISH → PUBREC → PUBREL → PUBCOMP	ใช้ขั้นตอนจับมือ 4 แพ็กเก็ต เพื่อป้องกันการส่งซ้ำในระดับ QoS 2	ส่งเพียงครั้งเดียวตามการรับประกันของ QoS 2 (Exactly once)
 
-4. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
 ---
 
