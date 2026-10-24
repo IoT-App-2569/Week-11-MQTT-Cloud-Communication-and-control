@@ -290,8 +290,15 @@ mosquitto version 2.1.2 terminating
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="1008" height="223" alt="image" src="https://github.com/user-attachments/assets/3dd4f6f6-9671-4f52-82f2-c580a2204b34" />
+
+
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
-3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+
+4. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
 ---
 
