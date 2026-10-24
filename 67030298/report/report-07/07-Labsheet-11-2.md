@@ -11,22 +11,23 @@
   * ชิปไมโครคอนโทรลเลอร์ที่ใช้: `ESP32`
   * ขา GPIO ของ LED: `GPIO 2`
   * ขา ADC Channel ของ Potentiometer: `ADC1_CH6` (GPIO `34`)
-  * IP Address ของคอมพิวเตอร์ที่รัน Mosquitto Broker: `192.168.1.X`
-  * Broker URI ที่ตั้งค่าในโค้ด: `mqtt://192.168.1.X:1883`
+  * IP Address ของคอมพิวเตอร์ที่รัน Mosquitto Broker: `192.168.1.7`
+  * Broker URI ที่ตั้งค่าในโค้ด: `mqtt://192.168.1.7:1883`
 
 * **บันทึก Serial Monitor Log ขณะ ESP32 บูตและเชื่อมต่อ Broker สำเร็จ:**
   ```text
   I (773) wifi:mode : sta (84:1f:e8:39:bd:64)
   I (793) LAB11_MQTT: Wi-Fi Initialization finished.
-  I (11093) wifi:connected with YOUR_WIFI_SSID, aid = 2, channel 2, BW20, bssid = 34:4a:c3:26:26:d6
-  I (13303) esp_netif_handlers: sta ip: 192.168.1.Y, mask: 255.255.255.0, gw: 192.168.1.1
-  I (13303) LAB11_MQTT: Got IP Address: 192.168.1.Y
+  I (11093) wifi:connected with FBT4402_2.4, aid = 2, channel 2, BW20, bssid = 34:4a:c3:26:26:d6
+  I (13303) esp_netif_handlers: sta ip: 192.168.1.8, mask: 255.255.255.0, gw: 192.168.1.1
+  I (13303) LAB11_MQTT: Got IP Address: 192.168.1.8
   I (13653) LAB11_MQTT: MQTT_EVENT_CONNECTED: Connected to Broker!
   I (13663) LAB11_MQTT: Subscribed to: iot/node01/cmd/led
   I (17313) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","adc_raw":4095,"voltage_v":3.299999952316284,"led_state":false,"uptime_ms":17313}
   ```
 
 * **ภาพหน้าจอ Serial Monitor ขณะเริ่มต้นระบบ:**
+
 ![alt text](image.png)
 
 ---
@@ -59,9 +60,11 @@
 | 5 | หมุนตามเข็มนาฬิกาสุด (~100%) | `4095` | `3.30` | `false` | `541613` |
 
 * **ภาพหน้าจอ Terminal Subscriber หรือ MQTT Explorer ที่ได้รับ Telemetry JSON:**
+
 ![alt text](image-1.png)
 
 * **ภาพหน้าจอ Serial Monitor ขณะกำลังส่ง Telemetry:**
+
 ![alt text](image-2.png)
 
 ---
@@ -77,9 +80,11 @@
 | 4 | สั่งปิดไฟด้วย JSON (`{"state": 0}`) | `mosquitto_pub ... -t "iot/node01/cmd/led" -m "{\"state\": 0}" -q 1` | [ ] สว่าง<br>[✅] ดับ | `{"led_state": false}` | `false` |
 
 * **บันทึก Serial Monitor Log เมื่อได้รับคำสั่งควบคุม LED:**
+
 ![alt text](image-3.png)
 
 * **ภาพหน้าจอการทดสอบส่งคำสั่งผ่าน Terminal และผลตอบรับ Acknowledge State:**
+
 ![alt text](image-4.png)
 
 ---
@@ -99,6 +104,7 @@
     ```
 
 * **ภาพหน้าจอผลการทดสอบ LWT ของโหนด ESP32:**
+
 ![alt text](image-5.png)
 
 ---
@@ -106,17 +112,14 @@
 ## 2. คำถามท้ายการทดลองและการวิเคราะห์ผลเชิงวิศวกรรม (Post-Lab Questions)
 
 ### ข้อ 1: เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`?
-> **คำตอบ:**
-> 
+> **คำตอบ:** เพื่อให้ Broker เก็บสถานะล่าสุดค้างไว้เสมอ ผู้ใช้ที่เพิ่งเปิดแอปจะรู้ทันทีว่าอุปกรณ์ออนไลน์อยู่ และหากอุปกรณ์ดับกะทันหัน Broker จะส่งข้อความพินัยกรรม `"offline"` มาทับทันที ทำให้แดชบอร์ดทราบสถานะที่แท้จริงตลอดเวลา
 
 ---
 
 ### ข้อ 2: หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่?
-> **คำตอบ:**
-> 
+> **คำตอบ:** มีระบบเชื่อมต่อใหม่อัตโนมัติ (Auto-reconnect) อยู่แล้ว เมื่อสัญญาณ Wi-Fi กลับมา ตัวไลบรารีจะพยายามต่อเข้า Broker เองทันที โดยที่เราไม่ต้องเขียนโค้ดเรียกเชื่อมต่อใหม่ด้วยตนเอง
 
 ---
 
 ### ข้อ 3: ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32?
-> **คำตอบ:**
-> 
+> **คำตอบ:** เพราะ cJSON ทำการจองหน่วยความจำแบบไดนามิก (Heap) หากไม่คืนหน่วยความจำจะเกิดปัญหาหน่วยความจำรั่วไหล (Memory Leak) สะสมไปเรื่อยๆ จนแรมหมดและส่งผลให้ ESP32 แครชหรือรีสตาร์ตตัวเองในที่สุด
