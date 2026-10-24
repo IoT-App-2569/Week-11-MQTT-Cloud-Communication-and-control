@@ -293,7 +293,8 @@ mosquitto version 2.1.2 terminating
 
 <img width="1008" height="223" alt="image" src="https://github.com/user-attachments/assets/3dd4f6f6-9671-4f52-82f2-c580a2204b34" />
 
-<img width="275" height="72" alt="image" src="https://github.com/user-attachments/assets/497d5cf9-5dd5-460f-bc16-1eb90a73b10d" />
+<img width="400" height="136" alt="image" src="https://github.com/user-attachments/assets/03cc0f79-2a5f-4683-aedd-5821025ceeeb" />
+
 
 
 
