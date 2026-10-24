@@ -180,19 +180,18 @@
   ```
 * **สถานะเริ่มต้นที่ Subscriber ได้รับ:**
   ```text
-  [บันทึกผลลัพธ์]
+  node/esp32/status ONLINE
   ```
 
 #### 2. ผลการจำลองเหตุการณ์ขาดการเชื่อมต่อกะทันหัน (Unclean Disconnection)
 * วิธีการตัดการเชื่อมต่อ: บังคับปิดหน้าต่างเทอร์มินัลที่ 3 ทันที (Force Kill Process)
 * **ข้อความ LWT ที่ Broker ส่งอัตโนมัติมายังหน้าต่าง Subscriber:**
   ```text
-  [บันทึกผลลัพธ์ LWT Payload ที่ปรากฏบน Subscriber]
+  node/esp32/status LOST_CONNECTION_OFFLINE
   ```
 
 #### 3. ภาพหน้าจอการทำงานของ LWT
-![LWT Trigger Test](images/lab11-1_lwt_result.png)
-*รูปที่ 1.6: ข้อความแจ้งเตือน LWT อัตโนมัติเมื่ออุปกรณ์ขาดการเชื่อมต่ออย่างผิดปกติ*
+![alt text](image-11.png)
 
 ---
 
