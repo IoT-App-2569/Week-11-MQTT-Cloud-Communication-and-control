@@ -116,6 +116,10 @@ mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hello Secure World!"
 ```
 *สังเกตผล* ในเทอร์มินัลที่ 2 จะได้รับข้อความสำเร็จ และใน Broker Log จะแสดงกระบวนการจับมือ TLS สำเร็จ
 
+
+<img width="1370" height="212" alt="image" src="https://github.com/user-attachments/assets/d80816e9-b89f-4e9e-8bd4-233ea642f218" />
+
+
 #### 2. การทดสอบการปฏิเสธผู้บุกรุก (Unauthorized Client Attack)
 ทดลองใช้ `mosquitto_pub` ส่งข้อความ **โดยไม่ส่งใบรับรอง Client** (ส่งเฉพาะ cafile)
 ```powershell
