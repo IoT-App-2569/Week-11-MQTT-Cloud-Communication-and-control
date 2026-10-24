@@ -92,29 +92,59 @@
 #### 1. ตารางเปรียบเทียบลำดับแพ็กเก็ต (Packet Sequence & Handshake) จาก Broker Verbose Log
 | ระดับ QoS | คำสั่ง Subscriber & Publisher ที่ใช้ | ลำดับแพ็กเก็ตที่บันทึกได้จาก Broker Log | กลไกการยืนยันข้อมูล (Handshake Mechanism) |
 | :---: | :--- | :--- | :--- |
-| **QoS 0**<br>(At Most Once) | **Sub:** `mosquitto_sub ... -t "test/qos" -q 0 -v`<br>**Pub:** `mosquitto_pub ... -t "test/qos" -m "QoS 0" -q 0` | | |
-| **QoS 1**<br>(At Least Once) | **Sub:** `mosquitto_sub ... -t "test/qos" -q 1 -v`<br>**Pub:** `mosquitto_pub ... -t "test/qos" -m "QoS 1" -q 1` | | |
-| **QoS 2**<br>(Exactly Once) | **Sub:** `mosquitto_sub ... -t "test/qos" -q 2 -v`<br>**Pub:** `mosquitto_pub ... -t "test/qos" -m "QoS 2" -q 2` | | |
+| **QoS 0**<br>(At Most Once) | **Sub:** `mosquitto_sub ... -t "test/qos" -q 0 -v`<br>**Pub:** `mosquitto_pub ... -t "test/qos" -m "QoS 0" -q 0` | 1. `PUBLISH` (จาก Publisher ถึง Broker)<br>2. `PUBLISH` (จาก Broker ถึง Subscriber) | ไม่มีการยืนยันข้อมูล (Fire and Forget) ไม่มีการส่งแพ็กเก็ตตอบรับใดๆ |
+| **QoS 1**<br>(At Least Once) | **Sub:** `mosquitto_sub ... -t "test/qos" -q 1 -v`<br>**Pub:** `mosquitto_pub ... -t "test/qos" -m "QoS 1" -q 1` | 1. `PUBLISH` (จาก Publisher ถึง Broker)<br>2. `PUBACK` (จาก Broker กลับไปยัง Publisher)<br>3. `PUBLISH` (จาก Broker ถึง Subscriber)<br>4. `PUBACK` (จาก Subscriber ตอบกลับ Broker) | ยืนยันข้อมูล 2 จังหวะ (Two-way Handshake) ด้วยแพ็กเก็ต `PUBACK` เพื่อรับประกันว่าข้อมูลส่งถึงอย่างน้อย 1 ครั้ง |
+| **QoS 2**<br>(Exactly Once) | **Sub:** `mosquitto_sub ... -t "test/qos" -q 2 -v`<br>**Pub:** `mosquitto_pub ... -t "test/qos" -m "QoS 2" -q 2` | 1. `PUBLISH`<br>2. `PUBREC`<br>3. `PUBREL`<br>4. `PUBCOMP` | ยืนยันข้อมูล 4 จังหวะ (Four-way Handshake) เพื่อรับประกันความถูกต้องว่าข้อความส่งถึงปลายทางแน่นอนและเพียงครั้งเดียวเท่านั้น (Exactly Once) |
 
 #### 2. รายละเอียด Broker Log แต่ละระดับ QoS
 * **Log การทำงานของ QoS 0:**
   ```text
-  [วาง Log ที่เกิดขึ้นในฝั่ง Broker สำหรับ QoS 0]
+  1792850901: New connection from 127.0.0.1:54486 on port 1883.
+  1792850901: Sending CONNACK to auto-CE1A8F12-A3DB-CB68-09FD-E1B31FA3956E (0, 0)
+  1792850901: Received SUBSCRIBE from auto-CE1A8F12-A3DB-CB68-09FD-E1B31FA3956E (test/qos QoS 0)
+  1792850901: Sending SUBACK to auto-CE1A8F12-A3DB-CB68-09FD-E1B31FA3956E
+  1792850905: Received PUBLISH from auto-92D03C57-7686-1D4C-E153-14121A439858 (d0, q0, r0, m0, 'test/qos', ... (13 bytes))
+  1792850905: Sending PUBLISH to auto-CE1A8F12-A3DB-CB68-09FD-E1B31FA3956E (d0, q0, r0, m0, 'test/qos', ... (13 bytes))
+  1792850905: Client auto-92D03C57-7686-1D4C-E153-14121A439858 [127.0.0.1:54491] disconnected.
   ```
 
 * **Log การทำงานของ QoS 1 (PUBLISH & PUBACK):**
   ```text
-  [วาง Log ที่เกิดขึ้นในฝั่ง Broker สำหรับ QoS 1 เช่น Packet ID, PUBACK]
+  1792851028: New connection from 127.0.0.1:52117 on port 1883.
+  1792851028: Sending CONNACK to auto-15D40994-5D23-9785-EEED-9447A9407E28 (0, 0)
+  1792851028: Received SUBSCRIBE from auto-15D40994-5D23-9785-EEED-9447A9407E28 (test/qos QoS 1)
+  1792851028: Sending SUBACK to auto-15D40994-5D23-9785-EEED-9447A9407E28
+  1792851034: Received PUBLISH from auto-4881C6F0-DBD0-E328-8133-015720CE4D6B (d0, q1, r0, m1, 'test/qos', ... (13 bytes))
+  1792851034: Sending PUBLISH to auto-15D40994-5D23-9785-EEED-9447A9407E28 (d0, q1, r0, m1, 'test/qos', ... (13 bytes))
+  1792851034: Sending PUBACK to auto-4881C6F0-DBD0-E328-8133-015720CE4D6B (m1, rc0)
+  1792851034: Received PUBACK from auto-15D40994-5D23-9785-EEED-9447A9407E28 (Mid: 1, RC:0)
+  1792851034: Client auto-4881C6F0-DBD0-E328-8133-015720CE4D6B disconnected.
   ```
 
 * **Log การทำงานของ QoS 2 (4-way Handshake):**
   ```text
-  [วาง Log 4 ขั้นตอน: Received PUBLISH, Sending PUBREC, Received PUBREL, Sending PUBCOMP]
+  1792851105: Received SUBSCRIBE from auto-250C482B-3133-775C-1295-5E341DFA9B65 (test/qos QoS 2)
+  1792851105: Sending SUBACK to auto-250C482B-3133-775C-1295-5E341DFA9B65
+  1792851109: Received PUBLISH from auto-2E033EB7-88EF-0582-9BF8-95214441E6E3 (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+  1792851109: Sending PUBREC to auto-2E033EB7-88EF-0582-9BF8-95214441E6E3 (m1, rc0)
+  1792851109: Received PUBREL from auto-2E033EB7-88EF-0582-9BF8-95214441E6E3 (Mid: 1)
+  1792851109: Sending PUBLISH to auto-250C482B-3133-775C-1295-5E341DFA9B65 (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+  1792851109: Sending PUBCOMP to auto-2E033EB7-88EF-0582-9BF8-95214441E6E3 (m1)
+  1792851109: Received PUBREC from auto-250C482B-3133-775C-1295-5E341DFA9B65 (Mid: 1)
+  1792851109: Sending PUBREL to auto-250C482B-3133-775C-1295-5E341DFA9B65 (m1)
+  1792851109: Received PUBCOMP from auto-250C482B-3133-775C-1295-5E341DFA9B65 (Mid: 1, RC:0)
   ```
 
 #### 3. ภาพหน้าจอ Broker Log เปรียบเทียบ QoS 0, QoS 1, QoS 2
-![QoS Comparison Log](images/lab11-1_qos_comparison.png)
 *รูปที่ 1.4: ข้อความแพ็กเก็ตใน Broker Log เปรียบเทียบระดับ QoS 0, 1 และ 2*
+- QoS 0
+![alt text](image-7.png)
+
+- QoS 1
+![alt text](image-8.png)
+
+- QoS 2
+![alt text](image-9.png)
 
 ---
 
