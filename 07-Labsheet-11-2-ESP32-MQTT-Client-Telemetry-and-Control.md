@@ -389,6 +389,9 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 <img width="1376" height="386" alt="image" src="https://github.com/user-attachments/assets/d8d98892-515b-4c8a-a3d0-6b4741e62620" />
 
 
+<img width="1315" height="377" alt="image" src="https://github.com/user-attachments/assets/8aadfa79-0229-4c47-9a09-253e2f48108a" />
+
+
 ---
 
 ### 2. การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
