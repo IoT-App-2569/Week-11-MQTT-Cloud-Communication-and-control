@@ -150,17 +150,16 @@
 
 ### กิจกรรมที่ 11-1.4: การทดสอบข้อความคงค้าง (Retained Messages)
 
-#### 1. ตารางบันทึกผลการทดสอบ Retained Message
+##### ตารางบันทึกผลการทดสอบ Retained Message
 | ลำดับขั้นตอน | รายละเอียดการทดสอบและคำสั่งที่ใช้ | ผลลัพธ์บน Subscriber | การวิเคราะห์พฤติกรรมของ Broker |
 | :---: | :--- | :--- | :--- |
-| 1 | ปิด Subscriber ทั้งหมด แล้ว Publish แบบธรรมดา:<br>`mosquitto_pub ... -t "sensor/state" -m "Normal"`<br>จากนั้นจึงเปิด Subscriber | | |
-| 2 | ขณะที่ Subscriber ยังเปิดอยู่ Publish แบบ Retain (`-r`):<br>`mosquitto_pub ... -t "sensor/state" -m "CRITICAL_ALERT" -r` | | |
-| 3 | ปิด Subscriber (Ctrl+C) แล้วเปิด Subscriber ใหม่อีกครั้ง โดย **ไม่ส่ง** ข้อความใหม่ | | |
-| 4 | เคลียร์ข้อความ Retained ด้วย Empty Payload (`-n -r`):<br>`mosquitto_pub ... -t "sensor/state" -n -r`<br>แล้วเปิด Subscriber ขึ้นมาใหม่ | | |
+| 1 | ปิด Subscriber ทั้งหมด แล้ว Publish แบบธรรมดา:<br>`mosquitto_pub ... -t "sensor/state" -m "Normal"`<br>จากนั้นจึงเปิด Subscriber | *(ไม่ได้รับข้อความ)* | ข้อความทั่วไปที่ไม่มีการ Retain จะไม่ถูกจัดเก็บ เมื่อไม่มี Subscriber เชื่อมต่ออยู่ ข้อมูลจะสูญหายทันที |
+| 2 | ขณะที่ Subscriber ยังเปิดอยู่ Publish แบบ Retain (`-r`):<br>`mosquitto_pub ... -t "sensor/state" -m "CRITICAL_ALERT" -r` | `sensor/state CRITICAL_ALERT` | Broker ส่งต่อข้อความให้ Subscriber ทันที พร้อมบันทึกข้อความนี้ไว้เป็นสถานะล่าสุดของ Topic (Retain Flag = 1) |
+| 3 | ปิด Subscriber (Ctrl+C) แล้วเปิด Subscriber ใหม่อีกครั้ง โดย **ไม่ส่ง** ข้อความใหม่ | `sensor/state CRITICAL_ALERT` | Broker ส่งข้อความล่าสุดที่บันทึกค้างไว้ให้ Subscriber ทันทีที่เชื่อมต่อเข้ามาใหม่ แม้ไม่มีการ Publish เพิ่มเติม |
+| 4 | เคลียร์ข้อความ Retained ด้วย Empty Payload (`-n -r`):<br>`mosquitto_pub ... -t "sensor/state" -n -r`<br>แล้วเปิด Subscriber ขึ้นมาใหม่ | *(ไม่ได้รับข้อความ)* | การส่ง Empty Payload พร้อม flag `-r` เป็นการสั่งให้ Broker ลบข้อความที่ค้างอยู่ใน Topic นั้นออกไป |
 
 #### 2. ภาพหน้าจอการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
-![Retained Message Test](images/lab11-1_retained_message.png)
-*รูปที่ 1.5: Subscriber ได้รับข้อความ Retained Message ทันทีที่เชื่อมต่อเข้ากับ Broker*
+![alt text](image-10.png)
 
 ---
 
