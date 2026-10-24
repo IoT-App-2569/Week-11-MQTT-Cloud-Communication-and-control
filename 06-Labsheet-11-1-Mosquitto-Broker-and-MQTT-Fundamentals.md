@@ -290,7 +290,142 @@ mosquitto version 2.1.2 terminating
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+ ```
+PS C:\Users\HP\Documents\Week-11-MQTT-Cloud-Communication-and-control> & mosquitto.exe -c "C:\mqtt_lab\mosquitto.conf" -v
+1792837553: mosquitto version 2.1.2 starting
+1792837553: Config loaded from C:\mqtt_lab\mosquitto.conf.
+1792837553: Bridge support available.
+1792837553: Persistence support available.
+1792837553: TLS support available.
+1792837553: TLS-PSK support available.
+1792837553: Websockets support available.
+1792837553: Opening ipv4 listen socket on port 1883.
+1792837553: mosquitto version 2.1.2 running
+1792837564: New connection from 127.0.0.1:62994 on port 1883.
+1792837564: New client connected from 127.0.0.1:62994 as auto-3F45AB65-A2CB-C043-4AE5-59633C435798 (p4, c1, k60).
+1792837564: No will message specified.
+1792837564: Sending CONNACK to auto-3F45AB65-A2CB-C043-4AE5-59633C435798 (0, 0)
+1792837564: Received SUBSCRIBE from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837564:     home/livingroom/light (QoS 0)
+1792837564: auto-3F45AB65-A2CB-C043-4AE5-59633C435798 0 home/livingroom/light
+1792837564: Sending SUBACK to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837624: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837624: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837630: New connection from 127.0.0.1:63016 on port 1883.
+1792837630: New client connected from 127.0.0.1:63016 as auto-B81709EB-7074-C593-8A2A-83340E5DBFB2 (p4, c1, k60).
+1792837630: No will message specified.
+1792837630: Sending CONNACK to auto-B81709EB-7074-C593-8A2A-83340E5DBFB2 (0, 0)
+1792837630: Received PUBLISH from auto-B81709EB-7074-C593-8A2A-83340E5DBFB2 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837630: Sending PUBLISH to auto-3F45AB65-A2CB-C043-4AE5-59633C435798 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837630: Received DISCONNECT from auto-B81709EB-7074-C593-8A2A-83340E5DBFB2
+1792837630: Client auto-B81709EB-7074-C593-8A2A-83340E5DBFB2 [127.0.0.1:63016] disconnected.
+1792837684: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837684: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837744: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837744: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837804: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837804: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837864: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837864: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837923: New connection from 127.0.0.1:61345 on port 1883.
+1792837923: New client connected from 127.0.0.1:61345 as auto-B08A1D33-CC86-A393-8158-71DC9141D39B (p4, c1, k60).
+1792837923: No will message specified.
+1792837923: Sending CONNACK to auto-B08A1D33-CC86-A393-8158-71DC9141D39B (0, 0)
+1792837923: Received PUBLISH from auto-B08A1D33-CC86-A393-8158-71DC9141D39B (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837923: Sending PUBLISH to auto-3F45AB65-A2CB-C043-4AE5-59633C435798 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837923: Received DISCONNECT from auto-B08A1D33-CC86-A393-8158-71DC9141D39B
+1792837923: Client auto-B08A1D33-CC86-A393-8158-71DC9141D39B [127.0.0.1:61345] disconnected.
+1792837923: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837923: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837924: New connection from 127.0.0.1:61348 on port 1883.
+1792837924: New client connected from 127.0.0.1:61348 as auto-F1134427-D0C3-D3BB-6FAC-409A661A671D (p4, c1, k60).
+1792837924: No will message specified.
+1792837924: Sending CONNACK to auto-F1134427-D0C3-D3BB-6FAC-409A661A671D (0, 0)
+1792837924: Received SUBSCRIBE from auto-F1134427-D0C3-D3BB-6FAC-409A661A671D
+1792837924:     home/livingroom/light (QoS 0)
+1792837924: auto-F1134427-D0C3-D3BB-6FAC-409A661A671D 0 home/livingroom/light
+1792837924: Sending SUBACK to auto-F1134427-D0C3-D3BB-6FAC-409A661A671D
+1792837931: Client auto-F1134427-D0C3-D3BB-6FAC-409A661A671D [127.0.0.1:61348] disconnected: connection closed by client.
+1792837984: Received PINGREQ from auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837984: Sending PINGRESP to auto-3F45AB65-A2CB-C043-4AE5-59633C435798
+1792837984: New connection from 127.0.0.1:61371 on port 1883.
+1792837984: New client connected from 127.0.0.1:61371 as auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD (p4, c1, k60).
+1792837984: No will message specified.
+1792837984: Sending CONNACK to auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD (0, 0)
+1792837984: Received SUBSCRIBE from auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD
+1792837984:     home/livingroom/light (QoS 0)
+1792837984: auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD 0 home/livingroom/light
+1792837984: Sending SUBACK to auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD
+1792837985: New connection from 127.0.0.1:61374 on port 1883.
+1792837985: New client connected from 127.0.0.1:61374 as auto-1C66EE21-A529-1B20-32DC-D9F7DFF1165D (p4, c1, k60).
+1792837985: No will message specified.
+1792837985: Sending CONNACK to auto-1C66EE21-A529-1B20-32DC-D9F7DFF1165D (0, 0)
+1792837985: Received PUBLISH from auto-1C66EE21-A529-1B20-32DC-D9F7DFF1165D (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837985: Sending PUBLISH to auto-3F45AB65-A2CB-C043-4AE5-59633C435798 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837985: Sending PUBLISH to auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837985: Received DISCONNECT from auto-1C66EE21-A529-1B20-32DC-D9F7DFF1165D
+1792837985: Client auto-1C66EE21-A529-1B20-32DC-D9F7DFF1165D [127.0.0.1:61374] disconnected.
+1792837985: Client auto-C005C648-0FF8-0EFF-3CBC-148252C69DFD [127.0.0.1:61371] disconnected: connection closed by client.
+1792837986: New connection from 127.0.0.1:61377 on port 1883.
+1792837986: New client connected from 127.0.0.1:61377 as auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732 (p4, c1, k60).
+1792837986: No will message specified.
+1792837986: Sending CONNACK to auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732 (0, 0)
+1792837986: Received SUBSCRIBE from auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732
+1792837986:     home/+/light (QoS 0)
+1792837986: auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732 0 home/+/light
+1792837986: Sending SUBACK to auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732
+1792837986: New connection from 127.0.0.1:61380 on port 1883.
+1792837986: New client connected from 127.0.0.1:61380 as auto-B4AE8CEF-9DA2-6DB5-8B5C-957D841CAD8A (p4, c1, k60).
+1792837986: No will message specified.
+1792837986: Sending CONNACK to auto-B4AE8CEF-9DA2-6DB5-8B5C-957D841CAD8A (0, 0)
+1792837986: Received PUBLISH from auto-B4AE8CEF-9DA2-6DB5-8B5C-957D841CAD8A (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837986: Sending PUBLISH to auto-3F45AB65-A2CB-C043-4AE5-59633C435798 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837986: Sending PUBLISH to auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1792837986: Received DISCONNECT from auto-B4AE8CEF-9DA2-6DB5-8B5C-957D841CAD8A
+1792837986: Client auto-B4AE8CEF-9DA2-6DB5-8B5C-957D841CAD8A [127.0.0.1:61380] disconnected.
+1792837986: New connection from 127.0.0.1:61383 on port 1883.
+1792837986: New client connected from 127.0.0.1:61383 as auto-7FED4079-3EA6-345F-417C-5514C82F712D (p4, c1, k60).
+1792837986: No will message specified.
+1792837986: Sending CONNACK to auto-7FED4079-3EA6-345F-417C-5514C82F712D (0, 0)
+1792837986: Received PUBLISH from auto-7FED4079-3EA6-345F-417C-5514C82F712D (d0, q0, r0, m0, 'home/kitchen/light', ... (3 bytes))
+1792837986: Sending PUBLISH to auto-FAB4D88F-9E05-3A58-6C31-B82E8AD2F732 (d0, q0, r0, m0, 'home/kitchen/light', ... (3 bytes))
+1792837986: Received DISCONNECT from auto-7FED4079-3EA6-345F-417C-5514C82F712D
+1792837986: Client auto-7FED4079-3EA6-345F-417C-5514C82F712D [127.0.0.1:61383] disconnected.
+ ```
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+QoS 0 (At Most Once - ส่งเที่ยวเดียวจบ)
+ลำดับแพ็กเก็ต: PUBLISH
+คำอธิบาย: Broker ส่งต่อข้อความไปหา Subscriber ทันทีโดยไม่มีแพ็กเก็ตตอบรับยืนยันใดๆ (เร็วสุด แต่ไม่มีการันตี)
+```
+Received PUBLISH from ... (d0, q0, r0, m0, 'test/qos', ... (13 bytes))
+Sending PUBLISH to ... (d0, q0, r0, m0, 'test/qos', ... (13 bytes))
+```
+
+QoS 1 (At Least Once - ยืนยัน 2 จังหวะ)
+ลำดับแพ็กเก็ต: PUBLISH (q1) > PUBACK (Mid: 1)
+คำอธิบาย: เมื่อ Publisher ส่งข้อความ Broker จะต้องส่งแพ็กเก็ต PUBACK กลับไปยืนยันเสมอ เพื่อรับประกันว่าข้อความส่งถึงอย่างแน่นอน
+```
+Received PUBLISH from ... (d0, q1, r0, m1, 'test/qos', ... (13 bytes))
+Sending PUBACK to ... (m1, rc0)
+Sending PUBLISH to ... (d0, q1, r0, m1, 'test/qos', ... (13 bytes))
+Received PUBACK from ... (Mid: 1)
+```
+
+QoS 2 (Exactly Once - ยืนยัน 4 จังหวะ / 4-Way Handshake)
+ลำดับแพ็กเก็ต: PUBLISH (q2) 
+PUBREC > PUBREL > PUBCOMP
+คำอธิบาย: มีการคุยโต้ตอบครบ 4 ขั้นตอนเพื่อล็อกและปล่อยข้อความ รับประกันว่าข้อความจะถึงปลายทางถูกต้องแน่นอนและไม่ได้รับซ้ำ 100%
+```
+Received PUBLISH from ... (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+Sending PUBREC to ... (m1, rc0)
+Received PUBREL from ... (Mid: 1)
+Sending PUBCOMP to ... (m1)
+Sending PUBLISH to ... (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+Received PUBREC from ... (Mid: 1)
+Sending PUBREL to ... (m1)
+Received PUBCOMP from ... (Mid: 1)
+```
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
 ---
