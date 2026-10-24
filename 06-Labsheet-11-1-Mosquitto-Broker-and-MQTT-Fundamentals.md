@@ -428,6 +428,8 @@ Received PUBCOMP from ... (Mid: 1)
 ```
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
+<img width="1156" height="102" alt="image" src="https://github.com/user-attachments/assets/a1024904-a6f9-4982-9aac-aebaabe08874" />
+
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
