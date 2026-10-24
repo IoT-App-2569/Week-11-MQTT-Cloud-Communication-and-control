@@ -46,9 +46,8 @@
   & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/livingroom/light" -m "ON"
   ```
 * **ผลลัพธ์ที่ได้รับบนหน้าต่าง Subscriber:**
-  ```text
-  [บันทึกผลลัพธ์ เช่น home/livingroom/light ON]
-  ```
+![alt text](image-1.png)
+![alt text](image-2.png)
 
 ---
 
@@ -58,17 +57,16 @@
 ##### ตารางบันทึกผลการทดสอบ Single-Level Wildcard
 | ลำดับ | คำสั่ง Publish Topic & Message | ผลลัพธ์ที่แสดงบน Subscriber (`home/+/light`) | ได้รับ / ไม่ได้รับ |
 | :---: | :------------------------------------------------------------- | :------------------------------------------- | :----------------: |
-| 1 | `& mosquitto_pub.exe ... -t "home/livingroom/light" -m "ON"` | | [ ] ได้รับ / [ ] ไม่ได้รับ |
-| 2 | `& mosquitto_pub.exe ... -t "home/kitchen/light" -m "OFF"` | | [ ] ได้รับ / [ ] ไม่ได้รับ |
-| 3 | `& mosquitto_pub.exe ... -t "home/bedroom/balcony/light" -m "ON"`| | [ ] ได้รับ / [ ] ไม่ได้รับ |
+| 1 | `& mosquitto_pub.exe ... -t "home/livingroom/light" -m "ON"` | `home/livingroom/light ON` | [✅] ได้รับ / [ ] ไม่ได้รับ |
+| 2 | `& mosquitto_pub.exe ... -t "home/kitchen/light" -m "OFF"` | `home/kitchen/light OFF` | [✅] ได้รับ / [ ] ไม่ได้รับ |
+| 3 | `& mosquitto_pub.exe ... -t "home/bedroom/balcony/light" -m "ON"`| *(ไม่แสดงข้อความ)* | [ ] ได้รับ / [✅] ไม่ได้รับ |
 
 * **การวิเคราะห์ผล:** เหตุใดหัวข้อ `home/bedroom/balcony/light` จึงไม่แสดงผลใน Subscriber:
-  > **คำตอบ/การวิเคราะห์:** 
+  > **คำตอบ/การวิเคราะห์:** เพราะเครื่องหมาย `+` ใช้แทนชื่อหัวข้อได้เพียงชั้นเดียว แต่หัวข้อนี้มีชั้นย่อยคั่นกลาง 2 ชั้นคือ `bedroom/balcony` จึงไม่ตรงกับเงื่อนไข ทำให้ไม่ได้รับข้อความ
 
 * **ภาพหน้าจอการทดสอบ Single-Level Wildcard:**
-![Single-Level Wildcard Test](images/lab11-1_single_wildcard.png)
-*รูปที่ 1.2: ผลการทดสอบไวลด์การ์ดระดับเดียว (+)*
-
+![alt text](image-3.png)
+![alt text](image-4.png)
 ---
 
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
@@ -77,15 +75,15 @@
 ##### ตารางบันทึกผลการทดสอบ Multi-Level Wildcard
 | ลำดับ | คำสั่ง Publish Topic & Message | ผลลัพธ์ที่แสดงบน Subscriber (`home/#`) | ได้รับ / ไม่ได้รับ |
 | :---: | :------------------------------------------------------------- | :------------------------------------- | :----------------: |
-| 1 | `& mosquitto_pub.exe ... -t "home/livingroom/temp" -m "26.4"` | | [ ] ได้รับ / [ ] ไม่ได้รับ |
-| 2 | `& mosquitto_pub.exe ... -t "home/bedroom/balcony/light" -m "ON"`| | [ ] ได้รับ / [ ] ไม่ได้รับ |
+| 1 | `& mosquitto_pub.exe ... -t "home/livingroom/temp" -m "26.4"` | `home/livingroom/temp 26.4` | [✅] ได้รับ / [ ] ไม่ได้รับ |
+| 2 | `& mosquitto_pub.exe ... -t "home/bedroom/balcony/light" -m "ON"`| `home/bedroom/balcony/light ON` | [✅] ได้รับ / [ ] ไม่ได้รับ |
 
 * **ผลการสังเกต:**
-  > **บันทึกผล:**
+  > **บันทึกผล:** เครื่องหมาย `#` สามารถดักจับหัวข้อย่อยทั้งหมดที่อยู่ภายใต้ `home/` ได้ทุกระดับชั้น ไม่ว่าจะมีลำดับชั้นเดียวหรือหลายชั้นคั่นกลาง ทำให้ได้รับข้อความทั้งหมด
 
 * **ภาพหน้าจอการทดสอบ Multi-Level Wildcard:**
-![Multi-Level Wildcard Test](images/lab11-1_multi_wildcard.png)
-*รูปที่ 1.3: ผลการทดสอบไวลด์การ์ดหลายระดับ (#)*
+![alt text](image-5.png)
+![alt text](image-6.png)
 
 ---
 
