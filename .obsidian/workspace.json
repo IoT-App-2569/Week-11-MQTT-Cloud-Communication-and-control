@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "67030314/08-Labsheet-11-3-MQTTS-TLS-Mutual-Authentication-Security.md",
+                "file": "67030314/06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "08-Labsheet-11-3-MQTTS-TLS-Mutual-Authentication-Security"
+              "title": "06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals"
             }
           }
         ]
@@ -201,6 +201,8 @@
   },
   "active": "e940ca5fa9b054de",
   "lastOpenFiles": [
+    "67030314/07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
+    "67030314/08-Labsheet-11-3-MQTTS-TLS-Mutual-Authentication-Security.md",
     "67030314/09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
     "67030314/06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals.md",
     "67030314/Lab11-4_RainMaker_Light/build/Lab11-4_RainMaker_Light.bin",
@@ -235,8 +237,6 @@
     "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/tool/esp_prov/README.md",
     "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/examples/wifi_prov/README.md",
     "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/examples/thread_prov/README.md",
-    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/examples/README.md",
-    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/README.md",
     "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/docs/_static/signature_block.png",
     "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/docs/_static/tlv_format.png",
     "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/examples/esp_secure_cert_ota_example/static/direct_ota.png",
