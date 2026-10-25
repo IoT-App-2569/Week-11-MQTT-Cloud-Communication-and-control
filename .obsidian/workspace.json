@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "67030314/06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals.md",
+                "file": "67030314/09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals"
+              "title": "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device"
             }
           }
         ]
@@ -201,12 +201,46 @@
   },
   "active": "e940ca5fa9b054de",
   "lastOpenFiles": [
-    "67030314/07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
-    "67030314/08-Labsheet-11-3-MQTTS-TLS-Mutual-Authentication-Security.md",
-    "67030314/09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
-    "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
     "67030314/06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals.md",
-    "06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals.md",
-    "67030314"
+    "67030314/Lab11-4_RainMaker_Light/build/Lab11-4_RainMaker_Light.bin",
+    "67030314/Lab11-4_RainMaker_Light/build/Lab11-4_RainMaker_Light.elf",
+    "67030314/Lab11-4_RainMaker_Light/build/Lab11-4_RainMaker_Light.map",
+    "67030314/Lab11-4_RainMaker_Light/build/CMakeFiles/Lab11-4_RainMaker_Light.elf.dir/project_elf_src_esp32.c.obj",
+    "67030314/Lab11-4_RainMaker_Light/build/CMakeFiles/Lab11-4_RainMaker_Light.elf.dir/project_elf_src_esp32.c.obj.d",
+    "67030314/Lab11-4_RainMaker_Light/build/esp-idf/esp_system/ld/sections.ld",
+    "67030314/Lab11-4_RainMaker_Light/build/esp-idf/main/stnM4Tj6",
+    "67030314/Lab11-4_RainMaker_Light/build/esp-idf/main/stLbzDJ0",
+    "67030314/Lab11-4_RainMaker_Light/build/esp-idf/main/libmain.a",
+    "67030314/Lab11-4_RainMaker_Light/build/esp-idf/espressif__esp_rainmaker/stMMpgfb",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_work_queue/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_time_sync/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_system_ctrl/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_console/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common_events/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/components/rmaker_common_events/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/components/rmaker_system_ctrl/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/components/rmaker_console/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/components/rmaker_cmd_resp/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/components/rmaker_work_queue/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/components/rmaker_time_sync/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_common/test_app/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_cmd_resp/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_app_network/CHANGELOG.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__rmaker_app_network/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__qrcode/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/proto/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/CHANGELOG.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/tool/esp_prov/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/examples/wifi_prov/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/examples/thread_prov/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/examples/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__network_provisioning/README.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__mdns/refactor_2025.md",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/docs/_static/signature_block.png",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/docs/_static/tlv_format.png",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/examples/esp_secure_cert_ota_example/static/direct_ota.png",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/examples/esp_secure_cert_ota_example/static/passive_app_partition.png",
+    "67030314/Lab11-4_RainMaker_Light/managed_components/espressif__esp_secure_cert_mgr/examples/esp_secure_cert_ota_example/static/unallocated_space.png"
   ]
 }

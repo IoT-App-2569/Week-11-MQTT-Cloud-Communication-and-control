@@ -245,8 +245,34 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 
 ---
 
+> [!NOTE] **สิ่งที่ต้องแก้จากใบงานจึงจะ build ผ่าน (ESP-IDF 5.4)**
+> 1. ชื่อคอมโพเนนต์ที่ถูกต้องคือ `espressif/esp_rainmaker` (ขีดล่าง) ไม่ใช่ `espressif/esp-rainmaker`
+> 2. ต้องเพิ่ม `espressif/rmaker_app_network` เพราะเป็นตัวที่มี `app_wifi.h` (`app_wifi_start()` ถูกแมปไปที่ `app_network_start()`)
+> 3. ต้องเพิ่ม `partitions.csv` (OTA 1600K + `fctry`) และ `sdkconfig.defaults` (Flash 4MB, เปิด BLE NimBLE) จากตัวอย่าง `led_light` ของ esp-rainmaker เพราะเฟิร์มแวร์มีขนาด 1.4 MB ใหญ่กว่า partition เริ่มต้น 1 MB
+>
+> `main.c` ใช้โค้ดตามใบงานโดยไม่แก้ไข
+
+---
+
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+
+- **คำตอบ** ไม่ต้องสร้างและแฟลชใบรับรองลงบอร์ดเอง บอร์ดสร้างคู่กุญแจและ CSR เอง แล้วส่งผ่าน BLE ให้แอปมือถือ แอปที่ล็อกอินอยู่จะขอใบรับรองจาก RainMaker Cloud แล้วส่งกลับให้บอร์ดเก็บไว้ใน NVS
+
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+
+- **คำตอบ** เพื่อบันทึกค่าใหม่ในบอร์ดและรายงานกลับขึ้น Cloud ให้แอปมือถือทุกเครื่องแสดงสถานะตรงกับหลอดไฟจริง ถ้าไม่เรียก แอปจะไม่รู้ว่าค่าเปลี่ยนแล้ว
+
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+
+- **คำตอบ**
+
+| ประเด็น | Plain MQTT + Mosquitto (11.2) | ESP RainMaker (11.4) |
+| :--- | :--- | :--- |
+| **Development Effort** | ต้องทำเองทั้ง Broker, Topic, รูปแบบ JSON, แอป และการตั้ง Wi-Fi | มี Data Model, BLE Provisioning, แอปมือถือ, OTA และ Schedule สำเร็จรูป |
+| **Security** | Plaintext พอร์ต 1883 แบบ Anonymous ต้องทำ TLS/mTLS เอง | mTLS พร้อมใบรับรองเฉพาะบอร์ดผ่าน AWS IoT และบัญชีผู้ใช้ในตัว |
+| **Scalability** | Broker ตัวเดียว ต้องดูแลเซิร์ฟเวอร์และขยายเอง | รันบน AWS รองรับอุปกรณ์จำนวนมาก แต่ผูกกับแพลตฟอร์มของ Espressif |
+
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+
+- **คำตอบ** บอร์ดสร้าง Device ด้วยชนิดมาตรฐาน (`esp.device.lightbulb`, `esp.param.power`, `esp.param.brightness`) ไว้แล้ว ผู้ใช้เปิด Skill/Action ของ ESP RainMaker ในแอป Alexa หรือ Google Home แล้วผูกบัญชี (Account Linking) Cloud ของ RainMaker จะแปลงคำสั่งเสียงเป็นการตั้งค่า Param ผ่าน Cloud ไปยังบอร์ด บอร์ดจึงไม่ต้องรู้เลยว่าคำสั่งมาจากเสียง

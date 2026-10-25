@@ -290,13 +290,87 @@ mosquitto version 2.1.2 terminating
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+```text
+mosquitto version 2.1.2 starting
+Opening ipv4 listen socket on port 1883.
+mosquitto version 2.1.2 running
+New connection from 127.0.0.1:53864 on port 1883.
+New client connected from 127.0.0.1:53864 as auto-C238F8D6-C2A3-1D6E-F5E9-98A2189A0F79 (p4, c1, k60).
+Received SUBSCRIBE from auto-C238F8D6-C2A3-1D6E-F5E9-98A2189A0F79
+	home/livingroom/light (QoS 0)
+Sending SUBACK to auto-C238F8D6-C2A3-1D6E-F5E9-98A2189A0F79
+New connection from 127.0.0.1:42898 on port 1883.
+New client connected from 127.0.0.1:42898 as auto-260EB565-A50C-F946-9458-CFA5777CB0B8 (p4, c1, k60).
+Received PUBLISH from auto-260EB565-A50C-F946-9458-CFA5777CB0B8 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+Sending PUBLISH to auto-C238F8D6-C2A3-1D6E-F5E9-98A2189A0F79 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+Received DISCONNECT from auto-260EB565-A50C-F946-9458-CFA5777CB0B8
+Client auto-260EB565-A50C-F946-9458-CFA5777CB0B8 [127.0.0.1:42898] disconnected.
+```
+
+**ผลไวลด์การ์ด `home/+/light`:** ได้รับ `home/livingroom/light ON` และ `home/kitchen/light OFF` ส่วน `home/bedroom/balcony/light` ไม่แสดง เพราะ `+` แทนได้แค่ 1 ระดับ
+
+**ผลไวลด์การ์ด `home/#`:** ได้รับ `home/livingroom/temp 26.4` และ `home/bedroom/balcony/light ON` ครบทุกข้อความ
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+| QoS | ลำดับแพ็กเก็ตฝั่ง Publisher → Broker | ลำดับแพ็กเก็ตฝั่ง Broker → Subscriber | จำนวนแพ็กเก็ต |
+| :---: | :--- | :--- | :---: |
+| **0** | `PUBLISH (q0, m0)` | `PUBLISH (q0, m0)` | 1 + 1 |
+| **1** | `PUBLISH (q1, m1)` → `PUBACK (m1)` | `PUBLISH (q1, m1)` → `PUBACK (Mid: 1)` | 2 + 2 |
+| **2** | `PUBLISH (q2, m1)` → `PUBREC` → `PUBREL` → `PUBCOMP` | `PUBLISH (q2, m1)` → `PUBREC` → `PUBREL` → `PUBCOMP` | 4 + 4 |
+
+```text
+Received PUBLISH from auto-498BFBC2-... (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+Sending PUBREC to auto-498BFBC2-... (m1, rc0)
+Received PUBREL from auto-498BFBC2-... (Mid: 1)
+Sending PUBLISH to auto-762AEFE0-... (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+Sending PUBCOMP to auto-498BFBC2-... (m1)
+Received PUBREC from auto-762AEFE0-... (Mid: 1)
+Sending PUBREL to auto-762AEFE0-... (m1)
+Received PUBCOMP from auto-762AEFE0-... (Mid: 1, RC:0)
+```
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+```text
+> mosquitto_pub -t "sensor/state" -m "Normal"
+> mosquitto_sub -t "sensor/state" -v
+(ว่างเปล่า ไม่ได้รับข้อความ)
+
+> mosquitto_pub -t "sensor/state" -m "CRITICAL_ALERT" -r
+sensor/state CRITICAL_ALERT
+
+> mosquitto_sub -t "sensor/state" -v        (เปิด Subscriber ใหม่)
+sensor/state CRITICAL_ALERT
+
+> mosquitto_pub -t "sensor/state" -n -r     (ลบ Retained Message)
+> mosquitto_sub -t "sensor/state" -v
+(ว่างเปล่า ไม่ได้รับข้อความ)
+```
+
+**ผล LWT:** หลังบังคับปิด `Node_Client_01` ทันที Subscriber ได้รับ
+
+```text
+node/esp32/status ONLINE
+node/esp32/status LOST_CONNECTION_OFFLINE
+```
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+
+- **คำตอบ** เพราะ `#` แทนทุกระดับที่เหลือจนจบ Topic ตามมาตรฐาน MQTT ถ้าใช้ `home/#/light` จะเป็น Topic Filter ที่ไม่ถูกต้อง `mosquitto_sub` จะขึ้น `Error: Invalid subscription topic 'home/#/light', are all '+' and '#' wildcards correct?` และไม่ยอม Subscribe
+
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+
+- **คำตอบ** QoS 0 เพราะพิกัดใหม่มาทุก 1 วินาที หายไป 1 จุดก็ไม่เสียหาย และใช้แพ็กเก็ตและดาต้าน้อยที่สุด
+
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+
+- **คำตอบ** ไม่ถูกเผยแพร่ เพราะ Broker จะลบ LWT ทิ้งเมื่อได้รับ `DISCONNECT` ปกติ LWT จะส่งเฉพาะเมื่อการเชื่อมต่อขาดแบบผิดปกติ
+
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+
+- **คำตอบ** แอปที่เพิ่งเปิดจะได้รับสถานะล่าสุดของทุกอุปกรณ์ทันทีที่ Subscribe โดยไม่ต้องรออุปกรณ์ส่งข้อความรอบใหม่
