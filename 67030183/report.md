@@ -248,13 +248,18 @@ log_type all
 
 ---
 
-### 5.2 การผูกอุปกรณ์และควบคุมผ่าน ESP RainMaker Mobile App
-* ทำการ Assisted Claiming รับใบรับรองความปลอดภัยอัตโนมัติจาก AWS IoT Backend ของ Espressif
-* เชื่อมต่อ Wi-Fi และเพิ่มอุปกรณ์ "Living Room Light" เข้าสู่แดชบอร์ดของแอป
+### 5.2 การผูกอุปกรณ์และกระบวนการ Provisioning บนแอปมือถือ
+* สแกน QR Code เพื่อเชื่อมต่อผ่านสัญญาณ BLE
+* ดำเนินการยืนยันตัวตน Node Association, ยืนยันการเชื่อมต่อ Wi-Fi และสร้าง Node บนระบบคลาวด์
+* ระบบทำการ Assisted Claiming ดึงใบรับรองความปลอดภัยจาก AWS IoT Backend ของ Espressif ให้อัตโนมัติ แสดงผล "Device Added Successfully!!"
 
-> **จุดที่ต้องแคปรูปที่ 13:** ภาพหน้าจอแอปพลิเคชัน ESP RainMaker บนสมาร์ตโฟนแสดงการ์ดอุปกรณ์ "Living Room Light"
+> **จุดที่ต้องแคปรูปที่ 13:** ภาพหน้าจอแอปพลิเคชัน ESP RainMaker บนสมาร์ตโฟนแสดงกระบวนการ Provisioning และผูกอุปกรณ์สำเร็จ
 
-![RainMaker App Device Card](images/lab11_4_app_device.png)
+<div align="center">
+  <img src="images/lab11_4_provision_success.png" alt="RainMaker Provisioning Success" width="280"/>
+  <br/>
+  <b>ภาพหน้าจอแอป ESP RainMaker แสดงการยืนยัน Node Association และเพิ่มอุปกรณ์สำเร็จ</b>
+</div>
 
 ---
 
@@ -262,9 +267,13 @@ log_type all
 * ทดสอบสวิตช์ Power และปรับความสว่าง Brightness: หลอดไฟ LED บนบอร์ดตอบสนองทันที
 * ทดสอบปิด Wi-Fi บนมือถือ และเปิดใช้สัญญาณเน็ต 4G/5G สั่งการข้ามโครงข่ายอินเทอร์เน็ต สามารถควบคุมได้ตามปกติ
 
-> **จุดที่ต้องแคปรูปที่ 14:** ภาพหน้าจอมือถือขณะใช้งานผ่านเน็ต 4G/5G สั่งเปิด-ปิดไฟ ควบคู่กับภาพหลอดไฟบนบอร์ดจริง
+> **จุดที่ต้องแคปรูปที่ 14:** ภาพหน้าจอมือถือขณะใช้งานผ่านเน็ต 4G/5G สั่งเปิดไฟ (Power: On) และปรับระดับความสว่าง (Brightness: 100%)
 
-![RainMaker 4G Remote Control](images/lab11_4_remote_control.png)
+<div align="center">
+  <img src="images/lab11_4_remote_control.png" alt="RainMaker 5G Remote Control" width="280"/>
+  <br/>
+  <b>ภาพหน้าจอควบคุมหลอดไฟ Living Room Light ผ่านเครือข่ายมือถือ 5G</b>
+</div>
 
 ---
 
