@@ -38,7 +38,18 @@
 
 ---
 
-## 2. ใบงานที่ 11.1: การติดตั้ง Mosquitto Broker และการทดสอบโปรโตคอล MQTT ด้วย CLI
+## 2. ลิงก์วิดีโอสาธิตการทำงาน (Video Demonstration Links)
+
+| การทดลอง | รายละเอียดคลิปสาธิต | ลิงก์วิดีโอ (YouTube Shorts) |
+| :--- | :--- | :--- |
+| **ใบงานที่ 11.1** | Mosquitto Broker Setup & MQTT CLI Fundamentals (QoS, Retain, LWT) | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
+| **ใบงานที่ 11.2** | ESP32 MQTT Two-Way Telemetry & LED Remote Control | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
+| **ใบงานที่ 11.3** | MQTTS High Security TLS & Mutual Authentication (mTLS) | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
+| **ใบงานที่ 11.4** | ESP RainMaker Cloud Smart Light & 4G/5G Remote Control | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
+
+---
+
+## 3. ใบงานที่ 11.1: การติดตั้ง Mosquitto Broker และการทดสอบโปรโตคอล MQTT ด้วย CLI
 
 ### 2.1 ผลการรัน Mosquitto Broker
 * ไฟล์คอนฟิก `mosquitto.conf`:
@@ -116,7 +127,7 @@ log_type all
 
 ---
 
-## 3. ใบงานที่ 11.2: การพัฒนา ESP32 MQTT Client (Telemetry & Control)
+## 4. ใบงานที่ 11.2: การพัฒนา ESP32 MQTT Client (Telemetry & Control)
 
 ### 3.1 ผลการรันโปรแกรมบน ESP32
 * บอร์ดเชื่อมต่อ Wi-Fi สำเร็จ และได้รับ IP Address
@@ -166,7 +177,7 @@ log_type all
 
 ---
 
-## 4. ใบงานที่ 11.3: การสื่อสาร MQTT ความปลอดภัยสูงด้วย TLS และการยืนยันตัวตนสองทาง (mTLS)
+## 5. ใบงานที่ 11.3: การสื่อสาร MQTT ความปลอดภัยสูงด้วย TLS และการยืนยันตัวตนสองทาง (mTLS)
 
 ### 4.1 การสร้างกุญแจและใบรับรองดิจิทัล (OpenSSL PKI)
 * สร้าง Root CA: `ca.key`, `ca.crt`
@@ -210,7 +221,7 @@ log_type all
 
 ---
 
-## 5. ใบงานที่ 11.4: แพลตฟอร์มคลาวด์ ESP RainMaker & Smart Light
+## 6. ใบงานที่ 11.4: แพลตฟอร์มคลาวด์ ESP RainMaker & Smart Light
 
 ### 5.1 ผลการรันเฟิร์มแวร์และกระบวนการ Provisioning
 * แฟลชโปรแกรม RainMaker ลงบน ESP32
@@ -258,7 +269,7 @@ log_type all
 
 ---
 
-## 6. สรุปผลการทดลองและการประยุกต์ใช้งาน
+## 7. สรุปผลการทดลองและการประยุกต์ใช้งาน
 
 การทดลองในสัปดาห์ที่ 11 ได้เรียนรู้และลงมือปฏิบัติการครบถ้วนตั้งแต่:
 1. การทำความเข้าใจโครงสร้างโปรโตคอล MQTT ผ่าน Eclipse Mosquitto Broker และ CLI
