@@ -42,10 +42,11 @@
 
 | การทดลอง | รายละเอียดคลิปสาธิต | ลิงก์วิดีโอ (YouTube Shorts) |
 | :--- | :--- | :--- |
-| **ใบงานที่ 11.1** | Mosquitto Broker Setup & MQTT CLI Fundamentals (QoS, Retain, LWT) | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
-| **ใบงานที่ 11.2** | ESP32 MQTT Two-Way Telemetry & LED Remote Control | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
-| **ใบงานที่ 11.3** | MQTTS High Security TLS & Mutual Authentication (mTLS) | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
-| **ใบงานที่ 11.4** | ESP RainMaker Cloud Smart Light & 4G/5G Remote Control | `(ใส่ลิงก์คลิปวิดีโอที่นี่)` |
+| **ใบงานที่ 11.1** | Mosquitto Broker Setup & MQTT CLI Fundamentals (QoS, Retain, LWT) | *(การทดสอบระดับโปรโตคอลด้วย CLI มีภาพบันทึกผลการรันครบถ้วน)* |
+| **ใบงานที่ 11.2** | ESP32 MQTT Two-Way Telemetry & LED Remote Control | [https://www.youtube.com/shorts/JMp2Mwli6h4](https://www.youtube.com/shorts/JMp2Mwli6h4) |
+| **ใบงานที่ 11.3** | MQTTS High Security TLS & Mutual Authentication (mTLS) | *(การทดสอบความปลอดภัย mTLS ด้วย OpenSSL มีภาพบันทึกผลครบถ้วน)* |
+| **ใบงานที่ 11.4** | ESP RainMaker Cloud Smart Light & 4G/5G Remote Control | [https://www.youtube.com/shorts/FS7aSXBQBvA](https://www.youtube.com/shorts/FS7aSXBQBvA) |
+
 
 ---
 
@@ -128,6 +129,9 @@ log_type all
 ---
 
 ## 4. ใบงานที่ 11.2: การพัฒนา ESP32 MQTT Client (Telemetry & Control)
+
+> 🎥 **วิดีโอสาธิตการทำงานจริง (YouTube Shorts):** [https://www.youtube.com/shorts/JMp2Mwli6h4](https://www.youtube.com/shorts/JMp2Mwli6h4)  
+> *(แสดงการหมุน Potentiometer เปลี่ยนแปลงค่า Telemetry JSON บนจอคอมพิวเตอร์ และการส่งคำสั่งเปิด-ปิดหลอดไฟ LED บนบอร์ดจริง)*
 
 ### 3.1 ผลการรันโปรแกรมบน ESP32
 * บอร์ดเชื่อมต่อ Wi-Fi สำเร็จ และได้รับ IP Address
@@ -223,14 +227,24 @@ log_type all
 
 ## 6. ใบงานที่ 11.4: แพลตฟอร์มคลาวด์ ESP RainMaker & Smart Light
 
+> 🎥 **วิดีโอสาธิตการทำงานจริง (YouTube Shorts):** [https://www.youtube.com/shorts/FS7aSXBQBvA](https://www.youtube.com/shorts/FS7aSXBQBvA)  
+> *(แสดงการควบคุมเปิด-ปิดหลอดไฟ LED ผ่านแอปพลิเคชัน ESP RainMaker บนสมาร์ตโฟนด้วยเครือข่ายอินเทอร์เน็ตมือถือ)*
+
 ### 5.1 ผลการรันเฟิร์มแวร์และกระบวนการ Provisioning
-* แฟลชโปรแกรม RainMaker ลงบน ESP32
-* หน้าต่าง Serial Monitor ปรากฏ QR Code (ASCII) และ URL รูปภาพ
-* แอปพลิเคชัน ESP RainMaker บนโทรศัพท์มือถือสแกนเชื่อมต่อผ่าน BLE
+* แฟลชโปรแกรม RainMaker ลงบน ESP32 และตั้งค่า Assisted Claiming
+* บอร์ดเริ่มต้นสร้าง BLE Advertising ในชื่อ Service: `PROV_86a09d` (Proof of Possession / POP: `2780c63d`)
+* หน้าต่าง Serial Monitor ปรากฏ QR Code และ URL สำหรับเข้าสู่การ Provisioning บนแอปพลิเคชัน ESP RainMaker
 
-> **จุดที่ต้องแคปรูปที่ 12:** หน้าจอ Serial Monitor แสดง QR Code ASCII พร้อมสถานะ BLE Advertising และ Assisted Claiming
+> **จุดที่ต้องแคปรูปที่ 12:** หน้าจอ Serial Monitor แสดง Log การเริ่มต้น Provisioning และ QR Code
 
-![ESP RainMaker QR Code](images/lab11_4_qrcode_provision.png)
+![ESP RainMaker Serial Provision](images/lab11_4_qrcode_provision.png)
+
+<div align="center">
+  <img src="images/rainmaker_qrcode.png" alt="RainMaker QR Code" width="240"/>
+  <br/>
+  <b>QR Code สำหรับสแกนผ่านแอปพลิเคชัน ESP RainMaker บนสมาร์ตโฟน</b><br/>
+  ลิงก์ตรงสำหรับเปิด QR Code ผ่านเบราว์เซอร์: <a href="https://rainmaker.espressif.com/qrcode.html?data=%7B%22ver%22%3A%22v1%22%2C%22name%22%3A%22PROV_86a09d%22%2C%22username%22%3A%22wifiprov%22%2C%22pop%22%3A%222780c63d%22%2C%22transport%22%3A%22ble%22%7D">เปิดหน้า QR Code ของ Espressif</a>
+</div>
 
 ---
 
