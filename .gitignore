@@ -13,3 +13,8 @@ dependencies.lock
 managed_components/
 *.old
 sdkconfig
+build/
+managed_components/
+.obsidian/
+*.key
+sdkconfig.old
