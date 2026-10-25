@@ -328,39 +328,6 @@ void app_main(void)
    * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
 
 ---
-
-### ผลการทดสอบด้วย CLI (กิจกรรมที่ 11-3.3)
-
-**1. Client ที่มีใบรับรองถูกต้อง**
-```text
-> mosquitto_sub -h 192.168.1.100 -p 8883 -t "secure/test" --cafile ca.crt --cert client.crt --key client.key -v
-secure/test Hello Secure World!
-```
-```text
-New connection from 192.168.1.2:41512 on port 8883.
-New client connected from 192.168.1.2:41512 as auto-D621A032-... (p4, c1, k60, u'esp32-secure-node').
-Client auto-D621A032-... negotiated TLSv1.3 cipher TLS_AES_256_GCM_SHA384
-Sending CONNACK to auto-D621A032-... (0, 0)
-```
-
-**2. Client ที่ไม่ส่งใบรับรอง (ผู้บุกรุก)**
-```text
-> mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hacker message" --cafile ca.crt
-Error: The connection was lost
-```
-```text
-New connection from 192.168.1.2:57284 on port 8883.
-OpenSSL Error while trying to get the error[0]: error:0A0000C7:SSL routines::peer did not return a certificate
-Client 192.168.1.2 [192.168.1.2:57284] disconnected: Protocol error.
-```
-
-> [!NOTE] **สิ่งที่ต้องแก้จากใบงานจึงจะใช้งานได้ (OpenSSL 3.x / Mosquitto 2.1)**
-> 1. **ใบรับรอง CA:** ขั้นตอน 1.3 ต้องเพิ่ม `-extfile` ที่มี `basicConstraints=critical,CA:TRUE` ไม่อย่างนั้นจะขึ้น `invalid CA certificate` / `unknown ca`
-> 2. **ใบรับรอง Server:** ขั้นตอน 2.3 ต้องเพิ่ม `subjectAltName=IP:192.168.1.100` เพราะ OpenSSL ไม่ตรวจ IP จาก CN ไม่อย่างนั้นจะขึ้น `bad certificate`
-> 3. **`mosquitto_ssl.conf`:** ต้องเพิ่ม `use_identity_as_username true` ไม่อย่างนั้นจะขึ้น `Connection Refused: not authorised`
-
----
-
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
 
