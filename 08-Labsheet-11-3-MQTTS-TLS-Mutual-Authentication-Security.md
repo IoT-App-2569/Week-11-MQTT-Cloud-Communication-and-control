@@ -115,12 +115,16 @@ mosquitto_sub -h 192.168.1.100 -p 8883 -t "secure/test" --cafile ca.crt --cert c
 mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hello Secure World!" --cafile ca.crt --cert client.crt --key client.key
 ```
 *สังเกตผล* ในเทอร์มินัลที่ 2 จะได้รับข้อความสำเร็จ และใน Broker Log จะแสดงกระบวนการจับมือ TLS สำเร็จ
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-26 เวลา 01 16 12" src="https://github.com/user-attachments/assets/3392aed3-3dbd-43c2-a179-7c845f2f82e5" />
 
 #### 2. การทดสอบการปฏิเสธผู้บุกรุก (Unauthorized Client Attack)
 ทดลองใช้ `mosquitto_pub` ส่งข้อความ **โดยไม่ส่งใบรับรอง Client** (ส่งเฉพาะ cafile)
 ```powershell
 mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hacker message" --cafile ca.crt
 ```
+
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-26 เวลา 01 17 34" src="https://github.com/user-attachments/assets/73ef732b-83d3-46e8-86ed-fb8b4810ea6b" />
+
 **ผลลัพธ์ที่คาดหวัง**
 * ในเทอร์มินัลจะแจ้งเตือนข้อผิดพลาด: `Error: Connection refused: Not authorised` หรือ `OpenSSL Error: ssl handshake failure`
 * ในหน้าต่าง Broker Log จะแจ้ง: `Client disconnected due to TLS error: peer did not return a certificate`
@@ -323,13 +327,32 @@ void app_main(void)
    * บอร์ดเชื่อมต่อ Wi-Fi สำเร็จ
    * เริ่มกระบวนการจับมือ TLS `Connecting to 192.168.1.100:8883...`
    * หน้าจอรายงาน `MQTTS TLS Handshake Successful! Connected to Secure Broker.`
+
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-26 เวลา 01 22 15" src="https://github.com/user-attachments/assets/20d1fb81-da7c-4f07-a4e4-ea8df82ba03b" />
+
 3. สังเกตหน้าต่าง Broker Log
    * Mosquitto จะพิมพ์ข้อความยืนยัน `Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node`
    * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
+
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-26 เวลา 01 22 21" src="https://github.com/user-attachments/assets/a35a2889-e319-4a8e-9364-925167171364" />
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+
+```
+เพราะ client ต้องแน่ใจว่าเครื่องที่ต่ออยู่คือ broker ตัวจริง ไม่ใช่เครื่องอื่นที่เอาใบรับรองมาปลอมตัว หลังตรวจว่า CA เซ็นถูกแล้ว client จะเทียบชื่อในใบรับรองกับที่อยู่ที่ตัวเองต่อไป ถ้าไม่ตรงกันจะถือว่า hostname mismatch แล้วตัดการเชื่อมต่อตอน TLS handshake ทันที ทำให้ต่อ broker ไม่ได้ ในการทดลองนี้ใส่แค่ CN เป็น IP แล้ว mosquitto_sub ยังถูกปฏิเสธ (bad certificate) จนต้องเพิ่ม subjectAltName เป็น IP เพราะ OpenSSL 3 ตรวจชื่อจาก SAN เป็นหลัก
+```
+
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+
+```
+HTTPS ทั่วไปมีแค่เซิร์ฟเวอร์ที่ต้องมีใบรับรอง เบราว์เซอร์ตรวจเซิร์ฟเวอร์ฝั่งเดียว ส่วนผู้ใช้ยืนยันตัวตนทีหลังด้วยรหัสผ่านหรือ token ส่วน mTLS ฝั่ง client ก็ต้องมีใบรับรองและกุญแจส่วนตัวของตัวเองด้วย และ broker ตรวจว่าใบรับรองนั้นออกโดย CA ที่เชื่อถือ ถ้าไม่มี broker ตัดการเชื่อมต่อตั้งแต่ handshake ก่อนที่จะส่งข้อความ MQTT ได้ ตอนทดสอบ mosquitto_pub ที่ส่งแค่ cafile จึงถูกตัดทันที ทำให้ยืนยันตัวตนกันได้ทั้งสองทางโดยไม่ต้องใช้รหัสผ่าน
+```
+
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+
+```
+กู้ได้ เพราะ client.key ถูกฝังเป็นข้อความธรรมดา (PEM) ในเฟิร์มแวร์ตามที่ใช้ EMBED_TXTFILES ถ้าได้ไฟล์ .bin หรืออ่านจากแฟลชตรงๆ ก็ค้นหาข้อความ BEGIN PRIVATE KEY เจอแล้วนำกุญแจไปปลอมตัวเป็นบอร์ดได้ ในงานเชิงพาณิชย์แก้ด้วย Flash Encryption ที่เข้ารหัสเนื้อในแฟลชด้วยกุญแจที่เก็บใน eFuse อ่านออกไม่ได้ Secure Boot ที่ให้บอร์ดรันเฉพาะเฟิร์มแวร์ที่เซ็นลายเซ็นถูกต้อง และ Digital Signature Peripheral (DS) ที่ให้ฮาร์ดแวร์ใช้กุญแจส่วนตัวเซ็นในชิปเอง กุญแจจึงไม่เคยออกมานอกชิปและไม่ต้องฝังในเฟิร์มแวร์ นอกจากนี้ยังออกกุญแจเฉพาะบอร์ดแต่ละตัว เพื่อให้เพิกถอนทีละตัวได้
+```

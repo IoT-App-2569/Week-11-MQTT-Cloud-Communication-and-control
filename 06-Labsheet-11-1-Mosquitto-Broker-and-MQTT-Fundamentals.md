@@ -138,6 +138,9 @@ Opening ipv4 listen socket on port 1883.
 mosquitto version 2.0.18 running
 ```
 
+<img width="972" height="611" alt="ภาพถ่ายหน้าจอ 2569-10-25 เวลา 23 41 18" src="https://github.com/user-attachments/assets/398ce026-908e-40d6-8046-68acf438b6ff" />
+
+
 #### 5. หยุดการทำงานของ Mosquitto Broker
 ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)**  ให้กด Ctrl+C เพื่อหยุดการทำงานของ Mosquitto Broker
 ในหน้าต่างแสดงผลของ Mosquitto Broker จะปรากฏ Log แสดงการปิดการเชื่อมต่อและหยุดการทำงานของ Broker
@@ -147,6 +150,8 @@ mosquitto version 2.0.18 running
 
 mosquitto version 2.1.2 terminating
 ```
+
+<img width="972" height="611" alt="ภาพถ่ายหน้าจอ 2569-10-25 เวลา 23 41 32" src="https://github.com/user-attachments/assets/dab7657e-eb56-48ec-b8de-b346a6b797df" />
 
 ---
 
@@ -167,6 +172,8 @@ mosquitto version 2.1.2 terminating
 ถ้าไม่ได้ ให้ตรวจสอบว่าทั้งสอง terminal   รันอยู่ที่  IP Address  และ  Port  เดียวกันหรือไม่
 เพราะนี่คือจุดเริ่มต้นของการทำงานพื้นฐานที่ต้องรันได้อย่างถูกต้อง
 
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-25 เวลา 23 47 09" src="https://github.com/user-attachments/assets/68fe3e6f-58f4-4379-8226-ff62f5242d34" />
+
 #### 2. การทดสอบไวลด์การ์ดระดับเดียว (Single-Level Wildcard: `+`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)**  กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
 ```powershell
@@ -183,11 +190,28 @@ mosquitto version 2.1.2 terminating
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
 
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-25 เวลา 23 49 00" src="https://github.com/user-attachments/assets/5f71c09f-10fe-4d3d-a094-7ab9b19f0435" />
+
+```
+ข้อความที่ปรากฏในเทอร์มินัลที่ 2 (Subscriber)
+
+  home/livingroom/light ON
+  home/kitchen/light OFF
+
+ข้อความที่ไม่ปรากฏ
+  home/bedroom/balcony/light ON
+
+เหตุผล
+สัญลักษณ์ + แทนได้เพียง 1 ระดับของ Topic เท่านั้น ดังนั้น home/+/light จึงตรงกับ home/livingroom/light และ home/kitchen/light (ระดับกลางมี 1 ระดับ) แต่ home/bedroom/balcony/light มีระดับกลาง 2 ระดับ(bedroom/balcony) จึงไม่ตรงกับรูปแบบ Broker จึงไม่ส่งข้อความนี้ให้ Subscriber
+```
+
+
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
 ```powershell
 & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "home/#" -v
 ```
+
 
 ใน **เทอร์มินัลที่ 3 (Publisher)** ทดลอง Publish ข้อความไปยังหัวข้อต่างๆ
 ```powershell
@@ -196,6 +220,8 @@ mosquitto version 2.1.2 terminating
 ```
 
 *สังเกตผล* ทุกข้อความที่ขึ้นต้นด้วย `home/` จะถูกส่งมาแสดงผลทั้งหมด
+
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-25 เวลา 23 52 46" src="https://github.com/user-attachments/assets/84312163-c024-4084-93e9-42a596d4cb93" />
 
 ---
 
@@ -209,12 +235,15 @@ mosquitto version 2.1.2 terminating
 * *หมายเหตุ* การรันโปรแกรมทั้ง subscriber และ publisher จะทำให้หน้าต่างค้างและรอแสดงข้อความที่ publisher ส่งมาให้ ดังนั้นการเปลี่ยนคำสั่ง ต้องกด  `Ctrl+C`  ทุกครั้งเพื่อออกจาก  โปรแกรม subscriber ก่อนเสมอ แล้วเปลี่ยนคำสั่ง subscriber ใหม่ จากนั้นจึงรันคำสั่ง publisher ใหม่
 * *สังเกต Log ฝั่ง Broker*  มีเพียงแพ็กเก็ต `PUBLISH` ส่งผ่านไปโดยไม่มีแพ็กเก็ตตอบรับใดๆ
 
+<img width="1512" height="982" alt="1" src="https://github.com/user-attachments/assets/f56029d7-1bd4-470e-ac46-61d9df8ba92b" />
 
 
 #### 2. ทดสอบ QoS 1 (At Least Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 1 -v`
 * ในเทอร์มินัลที่ 3 (Publisher)  `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 1 Message" -q 1`
 * *สังเกต Log ฝั่ง Broker*  จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
+
+<img width="1512" height="982" alt="2" src="https://github.com/user-attachments/assets/dbce67cb-d842-462e-80a2-6875f9673248" />
 
 #### 3. ทดสอบ QoS 2 (Exactly Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
@@ -224,6 +253,8 @@ mosquitto version 2.1.2 terminating
   2. `Sending PUBREC`
   3. `Received PUBREL`
   4. `Sending PUBCOMP`
+
+<img width="1512" height="982" alt="3" src="https://github.com/user-attachments/assets/66e53858-e668-4d17-b5cb-932a4a6276bf" />
 
 ---
 
@@ -241,17 +272,23 @@ mosquitto version 2.1.2 terminating
    ```
    *ผลที่ได้*  หน้าจอว่างเปล่า ไม่ได้รับข้อความใดๆ เพราะข้อความถูกส่งผ่านไปแล้วก่อนหน้านี้
 
+<img width="1512" height="982" alt="3" src="https://github.com/user-attachments/assets/f3f1eb78-9424-4c45-a19e-c2ece97dcfb6" />
+
 4. ใน **เทอร์มินัลที่ 3 (Publisher)** สั่ง Publish โดยเพิ่มพารามิเตอร์ **`-r` (Retain)**
    ```powershell
    & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -m "CRITICAL_ALERT" -r
    ```
    *ผลที่ได้* ในเทอร์มินัลที่ 2 (Subscriber)ได้รับข้อความ `sensor/state CRITICAL_ALERT` ทันที
 
+<img width="1512" height="982" alt="4" src="https://github.com/user-attachments/assets/ee0b3bdf-ab10-461b-84e8-180858822631" />
+
 5. ปิดเทอร์มินัลที่ 2 (Subscriber) (`Ctrl + C`) แล้วรัน subscriber ใหม่อีกครั้ง
    ```powershell
    & mosquitto_sub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -v
    ```
    *ผลที่ได้* ทันทีที่เชื่อมต่อสำเร็จ เทอร์มินัลที่ 2 (Subscriber) จะได้รับข้อความ `CRITICAL_ALERT` ในทันที แม้ Publisher จะไม่ได้ส่งข้อความใหม่เลยก็ตาม
+
+<img width="1512" height="982" alt="5" src="https://github.com/user-attachments/assets/ee3028e7-165d-4cf5-af7b-b12e5a76f163" />
 
 > [!TIP]
 > **วิธีลบ Retained Message ออกจาก Broker**  ส่งข้อความที่มีเนื้อหาว่างเปล่า (Empty Payload) พร้อมเปิดแฟล็ก `-r`
@@ -284,19 +321,52 @@ mosquitto version 2.1.2 terminating
    ```
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
 
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-26 เวลา 00 06 12" src="https://github.com/user-attachments/assets/929aa3bf-2c67-42cd-94cf-76749ef4bd86" />
+
 ---
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="1512" height="982" alt="broker log subscribe" src="https://github.com/user-attachments/assets/dbce67cb-d842-462e-80a2-6875f9673248" />
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+| QoS | แพ็กเก็ตที่เห็นใน Broker Log |
+|-----|------------------------------|
+| 0 | PUBLISH รับเข้า และ PUBLISH ส่งต่อ ไม่มีแพ็กเก็ตตอบรับ |
+| 1 | PUBLISH, PUBACK ไปยัง publisher, PUBACK Mid 1 จาก subscriber |
+| 2 | PUBLISH, PUBREC, PUBREL, PUBCOMP ทั้งฝั่ง publisher และ subscriber |
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+<img width="1512" height="982" alt="retained" src="https://github.com/user-attachments/assets/ee3028e7-165d-4cf5-af7b-b12e5a76f163" />
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+
+```
+แทนทุกระดับที่เหลือต่อจากตำแหน่งนั้นทั้งหมด เลยต้องอยู่ท้ายสุดเท่านั้น ถ้าวางกลางทางอย่าง home/#/light จะไม่รู้ว่าครอบคลุมถึงไหน เป็น topic filter ที่ผิดกติกา broker หรือ client จะปฏิเสธ ทำให้ subscribe ไม่สำเร็จ
+```
+
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+
+```
+เลือก QoS 0 เพราะพิกัดส่งทุก 1 วินาที ตกไปหนึ่งค่าก็ไม่เป็นไร อีกวินาทีเดียวก็มีค่าใหม่มาแทน ไม่ต้องเสีย bandwidth และพลังงานกับ ack ที่ไม่จำเป็น
+```
+
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+
+```
+ไม่ถูกเผยแพร่ เพราะ LWT มีไว้สำหรับกรณีหลุดผิดปกติเท่านั้น ถ้า client ส่ง DISCONNECT มาก่อน broker ถือว่าปิดแบบตั้งใจ และจะทิ้ง will message ไป
+```
+
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+
+```
+ผู้ใช้ที่เพิ่งเปิดแอปครั้งแรกจะเห็นสถานะล่าสุดของอุปกรณ์ทันที เช่น ไฟเปิดอยู่ไหมหรืออุณหภูมิล่าสุดเท่าไร ไม่ต้องรอให้อุปกรณ์ส่งค่าใหม่ ซึ่งบางตัวอาจส่งนานๆ ครั้ง หน้าแดชบอร์ดเลยไม่ว่างเปล่า
+```

@@ -386,6 +386,8 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 ```
 *ทดลองหมุนก้านของ Potentiometer*: สังเกตว่าค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงตามการหมุนอย่างถูกต้อง
 
+<img width="1512" height="982" alt="ภาพถ่ายหน้าจอ 2569-10-26 เวลา 00 33 40" src="https://github.com/user-attachments/assets/cc86c476-4e71-4227-9d99-0da52d243f4c" />
+
 ---
 
 ### 2. การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
@@ -397,11 +399,20 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "ON" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED บนบอร์ดจะติดสว่างทันที และในรอบ Telemetry ถัดไป ค่า `"led_state"` จะเปลี่ยนเป็น `true`
 
+<img width="1512" height="949" alt="1" src="https://github.com/user-attachments/assets/0e884387-b271-406b-8bc4-43f4a050a2bb" />
+
+<img width="543" height="633" alt="image" src="https://github.com/user-attachments/assets/135f71b8-632c-494c-9e40-4eb079408749" />
+
+
 * **คำสั่งปิดไฟ**
 ```powershell
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED จะดับลงทันที และค่า `"led_state"` ใน Telemetry จะเปลี่ยนกลับเป็น `false`
+
+<img width="1512" height="982" alt="2" src="https://github.com/user-attachments/assets/cdf21d28-154d-44c8-b6d5-6c998f8b5ca3" />
+
+<img width="529" height="652" alt="image" src="https://github.com/user-attachments/assets/79ca8f32-5e20-48c1-ba14-ba426ee94b64" />
 
 * **คำสั่งแบบ JSON Payload**
 ```powershell
@@ -412,5 +423,19 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
+
+```
+ทั้งสองข้อความส่งไปที่หัวข้อเดียวกัน และตั้ง retain ไว้ทั้งคู่ broker จึงเก็บสถานะล่าสุดของอุปกรณ์ไว้เสมอ ตอนต่อสำเร็จบอร์ดส่ง online ทับ ตอนหลุดผิดปกติ broker ส่ง offline ทับให้เอง ใครเพิ่งเปิดแอปหรือเพิ่ง subscribe ก็เห็นสถานะจริงทันที ไม่ต้องรอข้อความใหม่ ถ้าไม่ retain คนที่มาทีหลังจะไม่รู้เลยว่าบอร์ดออนไลน์อยู่หรือเปล่า และถ้า online ไม่ retain แต่ offline retain ค้างอยู่ แอปจะเห็นว่า offline ทั้งที่บอร์ดกลับมาแล้ว
+```
+
 2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
+
+```
+esp-mqtt เชื่อมต่อใหม่ให้เองอัตโนมัติ เมื่อหลุดมันจะยิงอีเวนต์ MQTT_EVENT_DISCONNECTED แล้วลองต่อใหม่เรื่อยๆ ตามค่า reconnect timeout (ค่าเริ่มต้นประมาณ 10 วินาที) โค้ดไม่ต้องเรียก esp_mqtt_client_start หรือ reconnect ซ้ำเอง พอต่อได้จะเข้า MQTT_EVENT_CONNECTED อีกรอบ โค้ดจึงส่ง online และ subscribe หัวข้อ cmd/led ใหม่ในนั้น ซึ่งสำคัญเพราะ session เก่าอาจหายไป
+```
+
 3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+
+```
+cJSON_CreateObject และ cJSON_PrintUnformatted จองหน่วยความจำจาก heap ไว้ให้ ไม่ได้คืนให้อัตโนมัติ root คือก้อน object ส่วน json_str คือสตริงที่พิมพ์ออกมา ต้องคืนทั้งสองก้อน ถ้าลืม heap จะรั่วทุก 4 วินาที ค่อยๆ หมดไป สุดท้าย malloc ล้มเหลว publish ไม่ได้ หรือบอร์ดค้างและรีบูต เพราะ ESP32 มี RAM น้อยและต้องรันนานเป็นวันๆ
+```
