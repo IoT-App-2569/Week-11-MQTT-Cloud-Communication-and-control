@@ -1,0 +1,7 @@
+1729987000: mosquitto version 2.0.18 starting
+1729987000: Opening ipv4 listen socket on port 1883.
+1729987010: New connection from 127.0.0.1:54321 as sub_client.
+1729987015: New connection from 127.0.0.1:54322 as pub_client.
+1729987015: Received PUBLISH from pub_client (d0, q1, r0, m1, 'iot/test', ... (12 bytes))
+1729987015: Sending PUBLISH to sub_client (d0, q1, r0, m1, 'iot/test', ... (12 bytes))
+1729987015: Received PUBACK from sub_client (Mid: 1)
