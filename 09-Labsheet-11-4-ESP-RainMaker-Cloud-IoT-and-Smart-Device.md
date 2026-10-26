@@ -208,6 +208,13 @@ idf.py -p COMx flash monitor
 5. **กรอกรหัส Wi-Fi** เลือกชื่อ SSID เครือข่าย Wi-Fi 2.4 GHz ในบ้านและกรอกรหัสผ่าน
 6. **เสร็จสิ้นการผูกอุปกรณ์** บอร์ดจะเชื่อมต่อ Wi-Fi และผูกตัวเองเข้ากับบัญชีผู้ใช้ แอปจะแสดงการ์ด **"Living Room Light"** ขึ้นมาบนหน้าจอ
 
+
+<img width="1498" height="737" alt="image" src="https://github.com/user-attachments/assets/58c630f6-b323-4390-9f1d-2897af31c6fd" />
+
+
+<img width="1446" height="877" alt="image" src="https://github.com/user-attachments/assets/0d8bc391-5cbe-429e-b38a-c3d6d24b5dd7" />
+
+
 ---
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
