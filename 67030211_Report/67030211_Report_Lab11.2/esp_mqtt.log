@@ -1,4 +1,0 @@
-I (1250) mqtt: Connecting to mqtt://192.168.1.100:1883
-[MQTT] Connected to Broker! Subscribing to command topic...
-I (1450) mqtt: Subscribed to iot/esp32/control with QoS 1
-[MQTT] Incoming Data -> Topic: iot/esp32/control | Payload: {"led":"ON"}

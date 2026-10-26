@@ -1,7 +1,0 @@
-MQTTS TLS 1.3 Mutual Authentication Handshake:
-1. Client -> Server: ClientHello (Cipher Suites: TLS_AES_128_GCM_SHA256)
-2. Server -> Client: ServerHello + Server Certificate (CN=192.168.1.100) + CertificateRequest
-3. Client verifies Server Cert against ca.crt: SUCCESS
-4. Client -> Server: Client Certificate (CN=ESP32-Client) + CertificateVerify
-5. Server verifies Client Cert against ca.crt: SUCCESS
-6. Handshake Finished. Secure Port 8883 Established.
