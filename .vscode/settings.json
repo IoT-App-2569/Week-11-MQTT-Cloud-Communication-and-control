@@ -1,1 +1,4 @@
-{}
+{
+    "cmake.sourceDirectory": "C:/Users/Nawapon/Desktop/Work/Kmitl/P3/P3T1/IoT-Architecture/109-Week-11-MQTT-Cloud-Communication-and-control/Example_project/Lab11-2_MQTT_Client",
+    "idf.currentSetup": "C:\\esp\\v6.0.2\\esp-idf"
+}

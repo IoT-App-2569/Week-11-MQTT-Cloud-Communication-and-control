@@ -183,6 +183,38 @@ mosquitto version 2.1.2 terminating
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
 
+**ผลที่สังเกตได้**
+
+| Topic ที่ส่ง | แสดงใน Subscriber หรือไม่ | Payload |
+|---|---|---|
+| `home/livingroom/light` | แสดง | `ON` |
+| `home/kitchen/light` | แสดง | `OFF` |
+| `home/bedroom/balcony/light` | ไม่แสดง | `ON` |
+
+ข้อความที่แสดงในเทอร์มินัลที่ 2:
+```text
+home/livingroom/light ON
+home/kitchen/light OFF
+```
+
+**เหตุผลที่ `home/bedroom/balcony/light` ไม่แสดง**
+
+เครื่องหมาย `+` ในตัวกรอง `home/+/light` ใช้แทน Topic ได้เพียงหนึ่งระดับ โดยแต่ละระดับคั่นด้วยเครื่องหมาย `/`:
+
+| Topic หรือ Filter | ระดับที่ 1 | ระดับที่ 2 | ระดับที่ 3 | ระดับที่ 4 |
+|---|---|---|---|---|
+| Filter `home/+/light` | `home` | `+` | `light` | - |
+| `home/livingroom/light` | `home` | `livingroom` | `light` | - |
+| `home/kitchen/light` | `home` | `kitchen` | `light` | - |
+| `home/bedroom/balcony/light` | `home` | `bedroom` | `balcony` | `light` |
+
+- Topic `home/livingroom/light` และ `home/kitchen/light` มี 3 ระดับ จึงตรงกับ Filter `home/+/light`
+- ใน Topic `home/bedroom/balcony/light` มี 4 ระดับ โดย `+` จับคู่กับ `bedroom` ได้เพียงระดับเดียว แต่ระดับถัดไปคือ `balcony` ไม่ตรงกับ `light` ใน Filter
+- Broker จึงไม่ส่งข้อความจาก Topic นี้ให้ Subscriber ที่ใช้ Filter `home/+/light`
+
+![alt text](image-1.png)
+![alt text](image.png)
+
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
 ```powershell
@@ -197,6 +229,8 @@ mosquitto version 2.1.2 terminating
 
 *สังเกตผล* ทุกข้อความที่ขึ้นต้นด้วย `home/` จะถูกส่งมาแสดงผลทั้งหมด
 
+![alt text](image-3.png)
+![alt text](image-2.png)
 ---
 
 ### กิจกรรมที่ 11-1.3 การทดสอบระดับคุณภาพการส่งข้อมูล (QoS 0, QoS 1, QoS 2)
@@ -259,6 +293,7 @@ mosquitto version 2.1.2 terminating
 > & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -n -r
 > ```
 
+![alt text](image-4.png)
 ---
 
 ### กิจกรรมที่ 11-1.5 การทดสอบพินัยกรรมฉุกเฉิน (Last Will and Testament - LWT)
@@ -284,15 +319,44 @@ mosquitto version 2.1.2 terminating
    ```
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
 
+
+![alt text](image-5.png)
+![alt text](image-6.png)
 ---
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+![alt text](image-7.png)
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
-3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
+| ระดับ QoS | ลำดับแพ็กเก็ตที่สังเกตได้ | การรับประกันการส่ง | ข้อสังเกต |
+|---|---|---|---|
+| QoS 0 | `PUBLISH` | ส่งไม่เกินหนึ่งครั้ง (At most once) | ไม่มีแพ็กเก็ตตอบรับ หากข้อความสูญหายจะไม่มีการส่งซ้ำ |
+| QoS 1 | `PUBLISH → PUBACK` | ส่งอย่างน้อยหนึ่งครั้ง (At least once) | มีแพ็กเก็ตตอบรับ แต่อาจได้รับข้อความซ้ำได้ |
+| QoS 2 | `PUBLISH → PUBREC → PUBREL → PUBCOMP` | ส่งเพียงครั้งเดียว (Exactly once) | มีขั้นตอนยืนยันครบ จึงใช้แพ็กเก็ตและเวลาในการรับส่งมากกว่า |
+
+ลำดับในตารางแสดงการแลกเปลี่ยนแพ็กเก็ตของการส่งหนึ่งช่วง Broker Log อาจแสดงชุดแพ็กเก็ตแยกกันระหว่าง Publisher กับ Broker และระหว่าง Broker กับ Subscriber โดย QoS ของแต่ละช่วงขึ้นกับ QoS ที่ส่งและระดับ QoS สูงสุดที่ Subscriber ขอ
+
+#### QoS 0
+![alt text](image-8.png)
+![alt text](image-9.png)
+![alt text](image-10.png)
+
+
+#### QoS 1
+![alt text](image-11.png)
+![alt text](image-12.png)
+![alt text](image-13.png)
+
+
+#### QoS 2
+![alt text](image-14.png)
+![alt text](image-15.png)
+![alt text](image-16.png)
+3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+![alt text](image-17.png)
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
@@ -300,3 +364,13 @@ mosquitto version 2.1.2 terminating
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+
+### แนวคำตอบ
+
+1. `#` เป็น Multi-Level Wildcard ใช้แทน Topic ได้ตั้งแต่ศูนย์ระดับขึ้นไป จึงต้องอยู่ท้ายสุดของ Topic Filter และต้องเป็นระดับเต็ม เช่น `home/#` ตัวกรอง `home/#/light` ไม่ถูกต้อง เพราะมีระดับ `light` ต่อท้าย `#` ทำให้ Broker ปฏิเสธการสมัครรับ Topic Filter นี้ หรือรายงานข้อผิดพลาดตามเวอร์ชัน MQTT และการทำงานของ Broker
+
+2. โดยทั่วไปเลือก **QoS 0** สำหรับพิกัดที่ส่งทุก 1 วินาที เพราะข้อมูลใหม่มาแทนข้อมูลเก่า หากบางข้อความสูญหายก็ยังได้รับตำแหน่งล่าสุดในรอบถัดไป และลดการรับส่งแพ็กเก็ตตอบรับ อย่างไรก็ตาม หากระบบต้องเก็บพิกัดทุกจุดเพื่อใช้ติดตามย้อนหลัง หรือการสูญหายของข้อมูลมีผลสำคัญ ควรพิจารณา **QoS 1** และออกแบบให้จัดการข้อความซ้ำได้ ส่วน QoS 2 มักมีภาระการรับส่งสูงกว่าและไม่จำเป็นสำหรับข้อมูลตำแหน่งที่อัปเดตต่อเนื่องทั่วไป
+
+3. **ไม่เผยแพร่ LWT** เมื่อ Client ส่งแพ็กเก็ต `DISCONNECT` อย่างถูกต้อง เพราะ Broker รับรู้ว่า Client ปิดการเชื่อมต่อโดยปกติ LWT จะถูกเผยแพร่เมื่อ Broker ตรวจพบการตัดการเชื่อมต่อที่ผิดปกติ เช่น เครือข่ายขาดหรือ Client หายไปโดยไม่ได้ส่ง `DISCONNECT`
+
+4. Retained Message ช่วยให้ Broker ส่ง **ค่าล่าสุดที่ถูกเก็บไว้** ของแต่ละ Topic ให้แดชบอร์ดทันทีเมื่อแอปสมัครรับ Topic แม้แอปเพิ่งเปิดและพลาดข้อความที่ส่งไปก่อนหน้า ผู้ใช้จึงเห็นสถานะอุปกรณ์ล่าสุดได้โดยไม่ต้องรอให้อุปกรณ์ส่งข้อมูลรอบใหม่ ทั้งนี้ Retained Message เก็บสถานะล่าสุด ไม่ใช่ประวัติ และข้อมูลอาจเก่าหากอุปกรณ์ออฟไลน์ จึงควรมีเวลาอัปเดตหรือสถานะออนไลน์/ออฟไลน์ประกอบ

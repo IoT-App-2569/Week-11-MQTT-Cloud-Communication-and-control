@@ -1,0 +1,21 @@
+menu "Lab11 MQTT Client Configuration"
+
+config LAB_WIFI_SSID
+    string "Wi-Fi SSID"
+    default ""
+    help
+        SSID of the 2.4 GHz Wi-Fi network used by the ESP32.
+
+config LAB_WIFI_PASSWORD
+    string "Wi-Fi password"
+    default ""
+    help
+        Password for the Wi-Fi network. This value is stored in the local sdkconfig file.
+
+config LAB_MQTT_BROKER_URI
+    string "MQTT broker URI"
+    default "mqtt://172.20.10.3:1884"
+    help
+        MQTT URI reachable by the ESP32, for example mqtt://192.168.1.100:1884.
+
+endmenu
