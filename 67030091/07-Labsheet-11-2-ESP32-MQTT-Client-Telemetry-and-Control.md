@@ -408,14 +408,14 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
 ```
 **คำสั่งเปิดไฟ**
-![alt text](image-19.png)
-![alt text](image-17.png)
-![alt text](image-21.png)
+![alt text](images/image-19.png)
+![alt text](images/image-17.png)
+![alt text](images/image-21.png)
 
 **คำสั่งปิดไฟ**
-![alt text](image-22.png)
-![alt text](image-18.png)
-![alt text](image-20.png)
+![alt text](images/image-22.png)
+![alt text](images/image-18.png)
+![alt text](images/image-20.png)
 
 
 

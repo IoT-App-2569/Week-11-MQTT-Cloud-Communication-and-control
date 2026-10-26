@@ -183,8 +183,8 @@ mosquitto version 2.1.2 terminating
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
 
-![alt text](image.png)
-![alt text](image-1.png)
+![alt text](images/image.png)
+![alt text](images/image-1.png)
 
 ## ผลที่สังเกตได้
 
@@ -236,8 +236,8 @@ home/kitchen/light OFF
 
 *สังเกตผล* ทุกข้อความที่ขึ้นต้นด้วย `home/` จะถูกส่งมาแสดงผลทั้งหมด
 
-![alt text](image-2.png)
-![alt text](image-3.png)
+![alt text](images/image-2.png)
+![alt text](images/image-3.png)
 
 ---
 
@@ -333,26 +333,26 @@ home/kitchen/light OFF
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
 
-![alt text](image-14.png)
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](images/image-14.png)
+![alt text](images/image-15.png)
+![alt text](images/image-16.png)
 
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
 
 - QoS 0
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+![alt text](images/image-4.png)
+![alt text](images/image-5.png)
+![alt text](images/image-6.png)
 
 - QoS 1
-![alt text](image-7.png)
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](images/image-7.png)
+![alt text](images/image-8.png)
+![alt text](images/image-9.png)
 
 - QoS 2
-![alt text](image-10.png)
-![alt text](image-11.png)
-![alt text](image-12.png)
+![alt text](images/image-10.png)
+![alt text](images/image-11.png)
+![alt text](images/image-12.png)
 
 
 
@@ -424,7 +424,7 @@ QoS 2 (Exactly Once)
 
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 
-![alt text](image-13.png)
+![alt text](images/image-13.png)
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
