@@ -214,6 +214,8 @@ idf.py -p COMx flash monitor
 
 <img width="1446" height="877" alt="image" src="https://github.com/user-attachments/assets/0d8bc391-5cbe-429e-b38a-c3d6d24b5dd7" />
 
+<img width="828" height="1792" alt="Image (7)" src="https://github.com/user-attachments/assets/f42b3aae-5bf5-476e-8dc2-d5074c11bf27" />
+
 
 ---
 
@@ -225,6 +227,12 @@ idf.py -p COMx flash monitor
 
 
 <img width="1062" height="932" alt="image" src="https://github.com/user-attachments/assets/9eae6915-d405-4706-9e3b-433045775d26" />
+
+
+<img width="3024" height="4032" alt="Image (8)" src="https://github.com/user-attachments/assets/b3a55931-e2c0-41d3-8465-095f446c607f" />
+
+
+<img width="828" height="1792" alt="Image (9)" src="https://github.com/user-attachments/assets/f9c4bc06-0b14-4bbb-9f7e-d51506a6ed79" />
 
 
 ### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
