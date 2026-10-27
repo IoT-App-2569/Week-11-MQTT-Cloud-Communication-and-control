@@ -97,13 +97,13 @@ idf.py -p COMx flash monitor
 ### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
 * กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
 * ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
-![alt text](image-29.png)
+![alt text](image/image-29.png)
 
-![alt text](image-30.png)
+![alt text](image/image-30.png)
 
-![alt text](image-31.png)
+![alt text](image/image-31.png)
 
-![alt text](image-32.png)
+![alt text](image/image-32.png)
 
 Video : https://drive.google.com/file/d/1nmKPN4MtEsqgY3qaewTp8eHBWoXtQOuX/view?usp=sharing
 ### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)

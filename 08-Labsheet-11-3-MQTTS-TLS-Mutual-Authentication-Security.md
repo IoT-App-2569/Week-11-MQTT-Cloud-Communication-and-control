@@ -340,18 +340,18 @@ void app_main(void)
    ```
 2. ตรวจสอบหน้าต่าง Serial Monitor ว่าบอร์ดเชื่อมต่อ Wi-Fi และแสดงข้อความ `MQTTS mTLS handshake successful` ซึ่งยืนยันว่าการเชื่อมต่อ MQTTS สำเร็จ
 
-![alt text](image-27.png)
+![alt text](image/image-27.png)
 
 3. ทดสอบการรับส่งข้อความ MQTT สองทาง
    * ส่งข้อความไปยัง `secure/esp32/cmd` แล้วตรวจสอบว่า ESP32 แสดง Topic และ Payload ที่ได้รับใน Serial Monitor
    * ตรวจสอบข้อความสถานะ `secure/esp32/status` ที่ ESP32 Publish ออกมาในหน้าต่าง Subscriber
 
-   ![ESP32 ได้รับคำสั่ง MQTT](image-25.png)
-   ![Subscriber ได้รับสถานะจาก ESP32](image-26.png)
+   ![ESP32 ได้รับคำสั่ง MQTT](image/image-25.png)
+   ![Subscriber ได้รับสถานะจาก ESP32](image/image-26.png)
 
 4. ตรวจสอบหน้าต่าง Mosquitto Broker Log ว่ามีการเชื่อมต่อและตรวจสอบ Client Certificate สำเร็จ จากนั้นบันทึกภาพหน้าจอ Broker Log เพิ่มในรายงาน โดยข้อความ Log อาจแตกต่างกันตามเวอร์ชัน Mosquitto
 
-![alt text](image-28.png)
+![alt text](image/image-28.png)
 
 ---
 

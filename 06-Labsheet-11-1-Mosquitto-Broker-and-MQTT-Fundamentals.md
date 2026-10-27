@@ -212,8 +212,8 @@ home/kitchen/light OFF
 - ใน Topic `home/bedroom/balcony/light` มี 4 ระดับ โดย `+` จับคู่กับ `bedroom` ได้เพียงระดับเดียว แต่ระดับถัดไปคือ `balcony` ไม่ตรงกับ `light` ใน Filter
 - Broker จึงไม่ส่งข้อความจาก Topic นี้ให้ Subscriber ที่ใช้ Filter `home/+/light`
 
-![alt text](image-1.png)
-![alt text](image.png)
+![alt text](image/image-1.png)
+![alt text](image/image.png)
 
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
@@ -229,8 +229,8 @@ home/kitchen/light OFF
 
 *สังเกตผล* ทุกข้อความที่ขึ้นต้นด้วย `home/` จะถูกส่งมาแสดงผลทั้งหมด
 
-![alt text](image-3.png)
-![alt text](image-2.png)
+![alt text](image/image-3.png)
+![alt text](image/image-2.png)
 ---
 
 ### กิจกรรมที่ 11-1.3 การทดสอบระดับคุณภาพการส่งข้อมูล (QoS 0, QoS 1, QoS 2)
@@ -293,7 +293,7 @@ home/kitchen/light OFF
 > & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -n -r
 > ```
 
-![alt text](image-4.png)
+![alt text](image/image-4.png)
 ---
 
 ### กิจกรรมที่ 11-1.5 การทดสอบพินัยกรรมฉุกเฉิน (Last Will and Testament - LWT)
@@ -320,15 +320,15 @@ home/kitchen/light OFF
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
 
 
-![alt text](image-5.png)
-![alt text](image-6.png)
+![alt text](image/image-5.png)
+![alt text](image/image-6.png)
 ---
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
-![alt text](image-7.png)
+![alt text](image/image-7.png)
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
 
 | ระดับ QoS | ลำดับแพ็กเก็ตที่สังเกตได้ | การรับประกันการส่ง | ข้อสังเกต |
@@ -340,23 +340,23 @@ home/kitchen/light OFF
 ลำดับในตารางแสดงการแลกเปลี่ยนแพ็กเก็ตของการส่งหนึ่งช่วง Broker Log อาจแสดงชุดแพ็กเก็ตแยกกันระหว่าง Publisher กับ Broker และระหว่าง Broker กับ Subscriber โดย QoS ของแต่ละช่วงขึ้นกับ QoS ที่ส่งและระดับ QoS สูงสุดที่ Subscriber ขอ
 
 #### QoS 0
-![alt text](image-8.png)
-![alt text](image-9.png)
-![alt text](image-10.png)
+![alt text](image/image-8.png)
+![alt text](image/image-9.png)
+![alt text](image/image-10.png)
 
 
 #### QoS 1
-![alt text](image-11.png)
-![alt text](image-12.png)
-![alt text](image-13.png)
+![alt text](image/image-11.png)
+![alt text](image/image-12.png)
+![alt text](image/image-13.png)
 
 
 #### QoS 2
-![alt text](image-14.png)
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](image/image-14.png)
+![alt text](image/image-15.png)
+![alt text](image/image-16.png)
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
-![alt text](image-17.png)
+![alt text](image/image-17.png)
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)

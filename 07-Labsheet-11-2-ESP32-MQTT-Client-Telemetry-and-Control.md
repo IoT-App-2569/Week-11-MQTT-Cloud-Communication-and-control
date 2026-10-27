@@ -409,7 +409,7 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 ```
 *ทดลองหมุนก้านของ Potentiometer*: สังเกตว่าค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงตามการหมุนอย่างถูกต้อง
 
-![alt text](image-18.png)
+![alt text](image/image-18.png)
 ---
 
 ### 2. การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
@@ -422,11 +422,11 @@ mosquitto_pub -h 192.168.1.100 -p 1884 -t "iot/node01/cmd/led" -m "ON" -q 1
 *สังเกตผล*: หลอดไฟ LED บนบอร์ดจะติดสว่างทันที และในรอบ Telemetry ถัดไป ค่า `"led_state"` จะเปลี่ยนเป็น `true`
 
 
-![alt text](image-19.png)
+![alt text](image/image-19.png)
 
-![alt text](image-21.png)
+![alt text](image/image-21.png)
 
-![alt text](image-20.png)
+![alt text](image/image-20.png)
 
 
 
@@ -441,11 +441,11 @@ mosquitto_pub -h 192.168.1.100 -p 1884 -t "iot/node01/cmd/led" -m "OFF" -q 1
 mosquitto_pub -h 192.168.1.100 -p 1884 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
 ```
 
-![alt text](image-22.png)
+![alt text](image/image-22.png)
 
-![alt text](image-23.png)
+![alt text](image/image-23.png)
 
-![alt text](image-24.png)
+![alt text](image/image-24.png)
 
 ---
 
