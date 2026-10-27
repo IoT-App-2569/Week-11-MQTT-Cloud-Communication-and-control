@@ -166,7 +166,7 @@ esp_mqtt_client_config_t mqtt_cfg = {
 
 `esp-mqtt` ทำงานด้วยสถาปัตยกรรม **Event Loop (ESP Event System)** โดยจะแจ้งเหตุการณ์การเปลี่ยนแปลงสถานะของเครือข่ายเข้ามายังฟังก์ชัน Event Handler
 
-<p align="center"><img src="Images/Fig_02-ESP-IDF-MQTT-Client-and-Broker-Setup_2026-10-27T10-12-11_academic.svg" alt="02-ESP-IDF-MQTT-Client-and-Broker-Setup" width="800" ></p>
+<p align="center"><img src="Images/Fig_02-ESP-IDF-MQTT-Client-and-Broker-Setup_2026-10-27T10-12-11_academic.svg" alt="02-ESP-IDF-MQTT-Client-and-Broker-Setup" </p>
 <p align="center">  11.2.4 วงจรชีวิตและ State Machine ของ ESP-IDF MQTT Client</p>
 
 <p align="center"><b>รูปที่ 11.2.2</b>  วงจรชีวิตและ State Machine ของ ESP-IDF MQTT Client</p>
