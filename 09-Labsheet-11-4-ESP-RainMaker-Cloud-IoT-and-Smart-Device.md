@@ -28,149 +28,30 @@
 
 ## 3. ขั้นตอนการทดลอง (Deconstructed Activities)
 
-### กิจกรรมที่ 11-4.1 การสร้างโปรเจกต์และติดตั้ง Dependency `esp-rainmaker`
+### กิจกรรมที่ 11-4.1 การตั้งค่าโปรเจกต์และ Dependency `esp_rainmaker`
 
-#### 1. สร้างโปรเจกต์ใหม่
+เตรียมโปรเจกต์ตัวอย่างไว้ที่ `Example_project\Lab11-4_RainMaker_Light` แล้ว เปิด **ESP-IDF Terminal** ใน VS Code และเข้าโฟลเดอร์โปรเจกต์ โครงสร้างนี้ตั้งค่า BLE/NimBLE และ partition `fctry` สำหรับ PoP แบบสุ่มไว้แล้ว โดยกำหนดขนาด Flash 4 MB
 ```powershell
-idf.py create-project Lab11-4_RainMaker_Light
-cd Lab11-4_RainMaker_Light
-idf.py set-target esp32c3   # หรือ esp32
+cd Example_project\Lab11-4_RainMaker_Light
+idf.py set-target esp32     # ใช้ esp32c3 แทน หากบอร์ดเป็น ESP32-C3
 ```
 
-#### 2. ติดตั้ง ESP RainMaker Component จาก IDF Component Registry
-เพิ่มไลบรารีทางการของ Espressif ผ่านคำสั่ง
-```powershell
-idf.py add-dependency "espressif/esp-rainmaker"
-```
-
-ไฟล์ `main/idf_component.yml` จะได้รับการสร้างและอัปเดตโดยอัตโนมัติ
+ไฟล์ `main/idf_component.yml` ระบุเวอร์ชัน ESP RainMaker และตัวช่วย BLE/network provisioning จาก Component Registry ไว้แล้ว
 ```yaml
 dependencies:
   idf:
-    version: ">=5.0.0"
-  espressif/esp-rainmaker:
-    version: "^3.0.0"
+    version: ">=5.1"
+  espressif/esp_rainmaker: "^1.17.0"
+  espressif/rmaker_app_network: "^1.4.5"
 ```
 
 ---
 
 ### กิจกรรมที่ 11-4.2 การเขียนโค้ดเฟิร์มแวร์อุปกรณ์ (`main/main.c`)
 
-เปิดไฟล์ `main/main.c` และแทนที่ด้วยโค้ดสมบูรณ์ต่อไปนี้
+โค้ดเฟิร์มแวร์พร้อมใช้งานอยู่ใน [main.c](../Example_project/Lab11-4_RainMaker_Light/main/main.c) โดยใช้ `rmaker_app_network` สำหรับ BLE provisioning (แทน `app_wifi.h` รุ่นเดิม) และ LEDC PWM เพื่อให้ตัวเลื่อน Brightness ปรับความสว่าง LED ได้จริง การเริ่มต้น provisioning ตั้ง PoP แบบสุ่มเป็นค่าเริ่มต้น
 
-```c
-#include <stdio.h>
-#include <string.h>
-#include "esp_log.h"
-#include "nvs_flash.h"
-#include "driver/gpio.h"
-
-// RainMaker Headers
-#include "esp_rmaker_core.h"
-#include "esp_rmaker_standard_types.h"
-#include "esp_rmaker_standard_params.h"
-#include "esp_rmaker_standard_devices.h"
-#include "esp_rmaker_schedule.h"
-#include "app_wifi.h"
-
-#if CONFIG_IDF_TARGET_ESP32C3
-#define LED_PIN GPIO_NUM_8
-#else
-#define LED_PIN GPIO_NUM_2
-#endif
-
-static const char *TAG = "RMAKER_LIGHT";
-static esp_rmaker_device_t *s_light_device = NULL;
-
-/* ========================================================
- * 1. Write Callback ฟังก์ชันรับคำสั่งควบคุมจากคลาวด์
- * ======================================================== */
-static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_t *param,
-                          const esp_rmaker_param_val_t val, void *priv_data, esp_rmaker_write_ctx_t *ctx)
-{
-    if (ctx) {
-        ESP_LOGI(TAG, "Request received via: %s", esp_rmaker_device_cb_src_to_str(ctx->src));
-    }
-    const char *device_name = esp_rmaker_device_get_name(device);
-    const char *param_name = esp_rmaker_param_get_name(param);
-
-    ESP_LOGI(TAG, "Device: %s | Param: %s", device_name, param_name);
-
-    // ตรวจสอบว่าเป็นคำสั่ง Power (เปิด/ปิด)
-    if (strcmp(param_name, ESP_RMAKER_DEF_POWER_NAME) == 0) {
-        bool state = val.val.b;
-        ESP_LOGI(TAG, "Changing LED state to: %s", state ? "ON" : "OFF");
-        gpio_set_level(LED_PIN, state ? 1 : 0);
-        
-        // รายงานสถานะปัจจุบันกลับสู่คลาวด์ เพื่อให้แอปบนมือถืออัปเดตสถานะทันที
-        esp_rmaker_param_update_and_report(param, val);
-    }
-    // ตรวจสอบว่าเป็นคำสั่ง Brightness (ความสว่าง 0 - 100%)
-    else if (strcmp(param_name, ESP_RMAKER_DEF_BRIGHTNESS_NAME) == 0) {
-        int brightness = val.val.i;
-        ESP_LOGI(TAG, "Changing Brightness to: %d%%", brightness);
-        
-        // (สามารถนำค่า brightness 0-100 ไปปรับค่า LEDC PWM ในงานจริงได้)
-        esp_rmaker_param_update_and_report(param, val);
-    }
-
-    return ESP_OK;
-}
-
-/* ========================================================
- * 2. ฟังก์ชันหลัก (app_main)
- * ======================================================== */
-void app_main(void)
-{
-    // กำหนดค่า GPIO ควบคุม LED
-    gpio_reset_pin(LED_PIN);
-    gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
-    gpio_set_level(LED_PIN, 0);
-
-    // เริ่มต้นระบบจัดเก็บข้อมูล NVS Flash
-    esp_err_t err = nvs_flash_init();
-    if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-        ESP_ERROR_CHECK(nvs_flash_erase());
-        err = nvs_flash_init();
-    }
-    ESP_ERROR_CHECK(err);
-
-    // 1. เริ่มต้นระบบ Wi-Fi Provisioning (ผ่าน BLE)
-    app_wifi_init();
-
-    // 2. สร้าง Node ในระบบ ESP RainMaker
-    esp_rmaker_config_t rainmaker_cfg = {
-        .enable_time_sync = true, // เปิดบริการซิงก์เวลาโลกอัตโนมัติ
-    };
-    esp_rmaker_node_t *node = esp_rmaker_node_init(&rainmaker_cfg, "Smart Light Node", "Lightbulb");
-    if (!node) {
-        ESP_LOGE(TAG, "Could not initialise node.");
-        return;
-    }
-
-    // 3. สร้าง Device ประเภท Lightbulb
-    s_light_device = esp_rmaker_lightbulb_device_create("Living Room Light", NULL, false);
-    // ผูก Callback สำหรับรับคำสั่ง
-    esp_rmaker_device_add_cb(s_light_device, write_cb, NULL);
-
-    // 4. เพิ่ม Parameter Brightness (ความสว่างเริ่มต้น 100%)
-    esp_rmaker_param_t *brightness_param = esp_rmaker_brightness_param_create(ESP_RMAKER_DEF_BRIGHTNESS_NAME, 100);
-    esp_rmaker_device_add_param(s_light_device, brightness_param);
-
-    // 5. บรรจุ Device เข้าสู่ Node
-    esp_rmaker_node_add_device(node, s_light_device);
-
-    // 6. เปิดบริการระดับระบบ (System Services)
-    esp_rmaker_timezone_service_enable(); // บริการโซนเวลา
-    esp_rmaker_schedule_enable();         // บริการตั้งเวลาอัตโนมัติ
-
-    // 7. เริ่มการทำงานของระบบ RainMaker Core
-    esp_rmaker_start();
-
-    // 8. เริ่มต้นระบบค้นหาอุปกรณ์และรับการตั้งค่า Wi-Fi (BLE Provisioning)
-    app_wifi_start(POP_TYPE_RANDOM);
-}
-```
+> ตรวจสอบว่าบอร์ดมี Flash อย่างน้อย 4 MB ก่อน build หากไม่แน่ใจให้ตรวจรุ่นบอร์ด/ขนาด Flash แล้วปรับ `partitions.csv` และ `sdkconfig.defaults` ให้ตรงกัน
 
 ---
 
@@ -178,6 +59,7 @@ void app_main(void)
 
 สั่งคอมไพล์และแฟลชโปรแกรม
 ```powershell
+idf.py menuconfig    # ตรวจ ESP RainMaker App Wi-Fi Provisioning ว่าเลือก BLE ไว้
 idf.py build
 idf.py -p COMx flash monitor
 ```
