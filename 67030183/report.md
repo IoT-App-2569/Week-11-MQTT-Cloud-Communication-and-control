@@ -252,9 +252,13 @@ log_type all
 ### 6.3 ผลการทดสอบควบคุมระยะไกล (Local Wi-Fi และ 4G/5G Remote Control)
 * ทดสอบสวิตช์ Power และปรับความสว่าง Brightness: หลอดไฟ LED บนบอร์ดตอบสนองตามคำสั่งทันที
 * ทดสอบปิด Wi-Fi บนโทรศัพท์มือถือ และเปิดใช้สัญญาณอินเทอร์เน็ตมือถือ 4G/5G พบว่าสามารถสั่งการเปิด-ปิดไฟข้ามเครือข่ายอินเทอร์เน็ตได้ตามปกติ
+* หน้าต่าง Serial Monitor ของ ESP32 แสดงการรับคำสั่งจาก Cloud อย่างชัดเจน ทั้งการหรี่แสง (`Changing Brightness to: 24%, 100%, 94%, 72%`) และการสลับสถานะเปิด-ปิดไฟ (`Changing LED state to: ON/OFF`) พร้อมทั้งรายงานค่าสถานะปัจจุบันกลับขึ้นสู่ Cloud (`esp_rmaker_param_update_and_report`)
 
 ![RainMaker 5G Remote Control](images/lab11_4_remote_control.png)
 *รูปที่ 15: หน้าจอแอปพลิเคชันสั่งเปิดไฟ (Power: On) และปรับความสว่าง (Brightness: 100%) ผ่านเครือข่าย 5G*
+
+![ESP RainMaker Serial Control Log](images/lab11_4_serial_control.png)
+*รูปที่ 16: หน้าต่าง Serial Monitor ของ ESP32 แสดง Log การรับคำสั่งควบคุมเปิด-ปิดไฟ (Power: ON/OFF) และปรับความสว่าง (Brightness) จากระบบคลาวด์แบบ Real-time*
 
 ---
 
