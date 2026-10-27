@@ -244,11 +244,8 @@ log_type all
 * ดำเนินการยืนยันตัวตน Node Association, ยืนยันการเชื่อมต่อ Wi-Fi และสร้าง Node บนระบบคลาวด์
 * ระบบทำการ Assisted Claiming ดึงใบรับรองความปลอดภัยจาก AWS IoT Backend ของ Espressif ให้อัตโนมัติ แสดงผล "Device Added Successfully!!"
 
-<div align="center">
-  <img src="images/lab11_4_provision_success.png" alt="RainMaker Provisioning Success" width="280"/>
-  <br/>
-  <b>รูปที่ 14: ภาพหน้าจอแอป ESP RainMaker แสดงการยืนยัน Node Association และเพิ่มอุปกรณ์สำเร็จ</b>
-</div>
+![RainMaker Provisioning Success](images/lab11_4_provision_success.png)
+*รูปที่ 14: ภาพหน้าจอแอป ESP RainMaker แสดงการยืนยัน Node Association และเพิ่มอุปกรณ์สำเร็จ*
 
 ---
 
@@ -256,11 +253,8 @@ log_type all
 * ทดสอบสวิตช์ Power และปรับความสว่าง Brightness: หลอดไฟ LED บนบอร์ดตอบสนองตามคำสั่งทันที
 * ทดสอบปิด Wi-Fi บนโทรศัพท์มือถือ และเปิดใช้สัญญาณอินเทอร์เน็ตมือถือ 4G/5G พบว่าสามารถสั่งการเปิด-ปิดไฟข้ามเครือข่ายอินเทอร์เน็ตได้ตามปกติ
 
-<div align="center">
-  <img src="images/lab11_4_remote_control.png" alt="RainMaker 5G Remote Control" width="280"/>
-  <br/>
-  <b>รูปที่ 15: หน้าจอแอปพลิเคชันสั่งเปิดไฟ (Power: On) และปรับความสว่าง (Brightness: 100%) ผ่านเครือข่าย 5G</b>
-</div>
+![RainMaker 5G Remote Control](images/lab11_4_remote_control.png)
+*รูปที่ 15: หน้าจอแอปพลิเคชันสั่งเปิดไฟ (Power: On) และปรับความสว่าง (Brightness: 100%) ผ่านเครือข่าย 5G*
 
 ---
 
