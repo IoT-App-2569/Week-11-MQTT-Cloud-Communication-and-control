@@ -16,9 +16,9 @@
 #include "mqtt_client.h"
 #include "cJSON.h"
 
-#define WIFI_SSID           "AIS 4G Hi-Speed Home WiFi_769475"
-#define WIFI_PASS           "50769475"
-#define MQTT_BROKER_URI     "mqtt://192.168.1.111:1883" // เปลี่ยนเป็น IP คอมพิวเตอร์ของท่าน
+#define WIFI_SSID           CONFIG_LAB_WIFI_SSID
+#define WIFI_PASS           CONFIG_LAB_WIFI_PASSWORD
+#define MQTT_BROKER_URI     CONFIG_LAB_MQTT_BROKER_URI
 
 
 #if CONFIG_IDF_TARGET_ESP32C3
@@ -190,6 +190,11 @@ static void telemetry_task(void *pvParameters)
  * ======================================================== */
 void app_main(void)
 {
+    if (WIFI_SSID[0] == '\0' || MQTT_BROKER_URI[0] == '\0') {
+        ESP_LOGE(TAG, "Set Wi-Fi SSID and MQTT broker URI in menuconfig before running.");
+        return;
+    }
+
     // กำหนดค่า NVS Flash
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {

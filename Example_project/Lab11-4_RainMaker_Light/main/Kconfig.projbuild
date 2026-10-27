@@ -1,0 +1,10 @@
+menu "RainMaker Light Configuration"
+
+    config APP_LIGHT_INITIAL_BRIGHTNESS
+        int "Initial LED brightness"
+        range 0 100
+        default 100
+        help
+            Initial brightness for the LED and RainMaker Brightness parameter.
+
+endmenu

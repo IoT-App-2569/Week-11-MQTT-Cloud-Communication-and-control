@@ -86,6 +86,27 @@ idf_component_register(SRCS "Lab11-2_MQTT_Client.c"
                     REQUIRES mqtt cjson esp_wifi esp_event nvs_flash cjson esp_adc driver esp_driver_gpio)
 ```
 
+#### 5. สร้างเมนูตั้งค่า Wi-Fi และ MQTT Broker
+สร้างไฟล์ `main/Kconfig.projbuild` เพื่อให้กรอกค่าเครือข่ายในเครื่องโดยไม่ฝังรหัสผ่านไว้ในซอร์สโค้ด:
+```text
+menu "Lab11 MQTT Client Configuration"
+
+config LAB_WIFI_SSID
+    string "Wi-Fi SSID"
+    default ""
+
+config LAB_WIFI_PASSWORD
+    string "Wi-Fi password"
+    default ""
+
+config LAB_MQTT_BROKER_URI
+    string "MQTT broker URI"
+    default ""
+
+endmenu
+```
+
+ก่อน Build ให้เปิด `idf.py menuconfig` แล้วกรอก SSID, รหัสผ่าน Wi-Fi และ URI ของ Broker เช่น `mqtt://192.168.1.100:1884` จากนั้นบันทึกค่าใน `sdkconfig` ของเครื่อง
 
 ---
 ### กิจกรรมที่ 11-2.2 การเขียนโค้ดโปรแกรมหลัก (`main/Lab11-2_MQTT_Client.c`)
@@ -111,9 +132,9 @@ idf_component_register(SRCS "Lab11-2_MQTT_Client.c"
 #include "mqtt_client.h"
 #include "cJSON.h"
 
-#define WIFI_SSID           "YOUR_WIFI_SSID"
-#define WIFI_PASS           "YOUR_WIFI_PASSWORD"
-#define MQTT_BROKER_URI     "mqtt://192.168.1.100:1883" // เปลี่ยนเป็น IP คอมพิวเตอร์ของท่าน
+#define WIFI_SSID           CONFIG_LAB_WIFI_SSID
+#define WIFI_PASS           CONFIG_LAB_WIFI_PASSWORD
+#define MQTT_BROKER_URI     CONFIG_LAB_MQTT_BROKER_URI
 
 #if CONFIG_IDF_TARGET_ESP32C3
 #define LED_PIN             GPIO_NUM_8
@@ -342,13 +363,15 @@ void app_main(void)
 
 ### กิจกรรมที่ 11-2.3 การคอมไพล์และแฟลชโปรแกรมลงบอร์ด
 
-1. แก้ไขชื่อ `WIFI_SSID`, `WIFI_PASS` และ IP Address ของ Broker ในตัวแปร `MQTT_BROKER_URI` ให้ตรงกับสภาพแวดล้อมเครือข่ายของท่าน
-2. สั่งคอมไพล์และแฟลช
+1. เชื่อมต่อคอมพิวเตอร์และ ESP32 เข้ากับ Wi-Fi ย่าน 2.4 GHz เครือข่ายเดียวกัน และตรวจสอบ IPv4 Address ของคอมพิวเตอร์
+2. เปิด Broker ด้วยไฟล์คอนฟิกที่อนุญาตการเชื่อมต่อจากเครือข่ายแล็บ แล้วกำหนดค่า Wi-Fi SSID, Wi-Fi Password และ MQTT Broker URI ในเมนู `Lab11 MQTT Client Configuration` ของ `idf.py menuconfig` ตัวอย่าง URI คือ `mqtt://<IPv4-ของคอมพิวเตอร์>:1884` ค่าเหล่านี้จะอยู่ในไฟล์ `sdkconfig` ในเครื่อง ไม่ต้องใส่รหัสผ่านไว้ในซอร์สโค้ด
+3. สั่งคอมไพล์และแฟลช
 ```powershell
+idf.py set-target esp32
 idf.py build
 idf.py -p COMx flash monitor
 ```
-*(เปลี่ยน `COMx` เป็นพอร์ตของบอร์ด ESP32 เช่น `COM3`)*
+*(เปลี่ยน `COMx` เป็นพอร์ต USB ของบอร์ด ESP32 ที่ตรวจพบใน Device Manager ไม่ใช่พอร์ต Bluetooth)*
 
 *หรือใช้ Docker*
 ```powershell
@@ -363,22 +386,22 @@ python -m esptool -p <COMxx> --chip esp32 -b 460800 --before default_reset --aft
 > [!IMPORTANT] **ข้อสังเกตและแนวทางแก้ปัญหาสำคัญ (Troubleshooting Guide)**
 > 1. **ปัญหา Broker ทำงานซ้ำซ้อน (Split-Brain Broker บน Windows)**:
 >    * หากเครื่องคอมพิวเตอร์มีการติดตั้ง Mosquitto เป็น Windows Service ตัว Service ดังกล่าวจะแอบรันอยู่เบื้องหลังและผูกกับ IP `127.0.0.1` ตลอดเวลา
->    * เมื่อท่านเปิดรัน `mosquitto.exe -c mosquitto.conf -v` ใน Terminal อีกตัว บอร์ด ESP32 จะเชื่อมต่อเข้ากับ Terminal (ผ่าน IP วงแลน `192.168.1.xxx`) ในขณะที่คำสั่ง `mosquitto_pub` ที่ส่งไปยัง `127.0.0.1` จะวิ่งไปหา Windows Service แทน ทำให้ส่งคำสั่งไม่ถึงตัวบอร์ด!
+>    * เมื่อท่านเปิดรัน `mosquitto.exe -c mosquitto.conf -v` ใน Terminal อีกตัว บอร์ด ESP32 จะเชื่อมต่อ Broker ผ่าน IP ของคอมพิวเตอร์ใน LAN ในขณะที่คำสั่ง `mosquitto_pub` ที่ส่งไปยัง `127.0.0.1` อาจวิ่งไปหา Windows Service แทน ทำให้ส่งคำสั่งไม่ถึงตัวบอร์ด!
 >    * **วิธีแก้:** ให้ปิด Windows Service ก่อนเสมอด้วยคำสั่งใน PowerShell (Admin):  
 >      `Stop-Service mosquitto; Set-Service mosquitto -StartupType Manual`
 > 2. **ทำไมใน MQTT Explorer จึงแสดงเป็น QoS 0 ทั้งที่ส่งด้วย `-q 1`?**:
 >    * ตามมาตรฐาน MQTT ระดับ QoS ที่ผู้รับจะได้รับจริงถูกคำนวณจาก **`min(QoS_publish, QoS_subscribe)`**
 >    * โปรแกรม MQTT Explorer ทำการ Subscribe ทุกหัวข้อ (`#`) ด้วย **QoS 0** เป็นค่าเริ่มต้น เมื่อ Broker ได้รับข้อความระดับ QoS 1 จึงทำการลดระดับ (Downgrade) เป็น QoS 0 ส่งให้ MQTT Explorer แสดงผล
 >    * หากต้องการให้ข้อความปรากฏค้างอยู่ใน MQTT Explorer เสมอแม้ส่งเสร็จไปแล้ว ให้เพิ่มแฟล็ก **`-r` (Retain)** ในคำสั่ง Publish
-> 3. **การเปิดพอร์ต Firewall**: ตรวจสอบว่า Windows Defender Firewall อนุญาตให้พอร์ต TCP 1883 รับการเชื่อมต่อจาก Inbound LAN
+> 3. **การเปิดพอร์ต Firewall**: ตรวจสอบว่า Windows Defender Firewall อนุญาตให้พอร์ต TCP 1884 รับการเชื่อมต่อจาก ESP32 ในเครือข่ายแล็บ
 
 ---
 
 ### 1. การตรวจสอบ Telemetry Data
-เปิดเทอร์มินัลบนเครื่องคอมพิวเตอร์ แล้วรันคำสั่งบอกรับข้อมูล (เปลี่ยน `192.168.1.xxx` เป็น IP ของคอมพิวเตอร์ที่รัน Broker):
+เปิดเทอร์มินัลบนเครื่องคอมพิวเตอร์ แล้วรันคำสั่งบอกรับข้อมูล (เปลี่ยน `192.168.1.100` เป็น IPv4 ของคอมพิวเตอร์ที่รัน Broker):
 ```powershell
-# สามารถใช้ IP ของเครื่อง หรือ 127.0.0.1 (หากปิด Windows Service แล้ว)
-mosquitto_sub -h 192.168.1.111 -p 1883 -t "iot/node01/telemetry" -v
+# ใช้ IPv4 ของเครื่องที่รัน Broker
+mosquitto_sub -h 192.168.1.100 -p 1884 -t "iot/node01/telemetry" -v
 ```
 **ผลลัพธ์ที่คาดหวัง**: จะได้รับ JSON ข้อมูลเซนเซอร์ทุกๆ 4 วินาที
 ```text
@@ -386,6 +409,7 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 ```
 *ทดลองหมุนก้านของ Potentiometer*: สังเกตว่าค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงตามการหมุนอย่างถูกต้อง
 
+![alt text](image/image-18.png)
 ---
 
 ### 2. การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
@@ -393,24 +417,47 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 
 * **คำสั่งเปิดไฟ**
 ```powershell
-mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "ON" -q 1
+mosquitto_pub -h 192.168.1.100 -p 1884 -t "iot/node01/cmd/led" -m "ON" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED บนบอร์ดจะติดสว่างทันที และในรอบ Telemetry ถัดไป ค่า `"led_state"` จะเปลี่ยนเป็น `true`
 
+
+![alt text](image/image-19.png)
+
+![alt text](image/image-21.png)
+
+![alt text](image/image-20.png)
+
+
+
 * **คำสั่งปิดไฟ**
 ```powershell
-mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
+mosquitto_pub -h 192.168.1.100 -p 1884 -t "iot/node01/cmd/led" -m "OFF" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED จะดับลงทันที และค่า `"led_state"` ใน Telemetry จะเปลี่ยนกลับเป็น `false`
 
 * **คำสั่งแบบ JSON Payload**
 ```powershell
-mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
+mosquitto_pub -h 192.168.1.100 -p 1884 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
 ```
+
+![alt text](image/image-22.png)
+
+![alt text](image/image-23.png)
+
+![alt text](image/image-24.png)
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
-2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
-3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`?
+
+   **คำตอบ:** การ Publish สถานะ `"online"` พร้อม `retain = 1` ทำให้ Broker เก็บสถานะล่าสุดไว้ และส่งให้ Client ที่ Subscribe ภายหลังได้ทันที ส่วน LWT ตั้ง `"offline"` แบบ Retain เพื่อให้ Broker อัปเดตสถานะที่เก็บไว้เป็นออฟไลน์เมื่อ Client หลุดหรือปิดการเชื่อมต่อผิดปกติ วิธีนี้ช่วยให้แอปหรือระบบตรวจสอบเห็นสถานะล่าสุดของอุปกรณ์ แม้เริ่ม Subscribe หลังจากเหตุการณ์เกิดขึ้นแล้ว ทั้งนี้ LWT จะไม่ถูกส่งเมื่อ Client ปิดการเชื่อมต่ออย่างปกติด้วยแพ็กเก็ต `DISCONNECT`
+
+2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่?
+
+   **คำตอบ:** เมื่อ Wi-Fi หลุด โค้ดตัวอย่างเรียก `esp_wifi_connect()` อีกครั้งจาก `WIFI_EVENT_STA_DISCONNECTED` และ `esp-mqtt` จะพยายามเชื่อมต่อ Broker ใหม่เมื่อเครือข่ายกลับมา จึงไม่ต้องเรียก `esp_mqtt_client_start()` ซ้ำด้วยตนเอง เมื่อ MQTT เชื่อมต่อสำเร็จอีกครั้ง จะเกิด `MQTT_EVENT_CONNECTED` และโค้ดสมัครรับหัวข้อคำสั่ง LED ใหม่ใน Event Handler อย่างไรก็ตาม การเชื่อมต่อจะสำเร็จได้ก็ต่อเมื่อ Wi-Fi และ Broker กลับมาใช้งานได้
+
+3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32?
+
+   **คำตอบ:** `cJSON_PrintUnformatted(root)` จัดสรรหน่วยความจำแบบ Dynamic สำหรับสตริง JSON ซึ่งผู้เรียกต้องคืนด้วย `free(json_str)` หลังใช้งาน ส่วน `root` และสมาชิกภายในถูกสร้างด้วย `cJSON_CreateObject()` และต้องคืนหน่วยความจำด้วย `cJSON_Delete(root)` หากไม่คืนหน่วยความจำเมื่อ Task สร้างข้อมูลซ้ำทุก 4 วินาที จะเกิด Memory Leak ทำให้ Heap ของ ESP32 ลดลงเรื่อย ๆ จนอาจจัดสรรหน่วยความจำไม่สำเร็จหรือระบบทำงานผิดปกติ ในโค้ดนี้ `cJSON_Delete(root)` ถูกเรียกแม้การสร้างสตริงล้มเหลว เพื่อคืนหน่วยความจำของ Object ด้วย

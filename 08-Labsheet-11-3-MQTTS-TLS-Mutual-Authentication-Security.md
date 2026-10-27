@@ -30,33 +30,27 @@
 > [!TIP]
 > สำหรับนักศึกษาที่ต้องการศึกษาพื้นฐานความปลอดภัยไซเบอร์, ระบบคู่กุญแจ (Key-Pair), X.509 Certificates และรายละเอียดของแต่ละคำสั่ง OpenSSL สามารถศึกษาเพิ่มเติมได้ที่ **[ภาคผนวกที่ 2 พื้นฐานความปลอดภัยไซเบอร์, กลไกคู่กุญแจ และการใช้งาน OpenSSL สำหรับ IoT](10-Appendix-2-OpenSSL-and-Keys-pair.md)**
 
-สร้างโฟลเดอร์สำหรับเก็บใบรับรอง เช่น `C:\mqtt_certs\` (หรือ `~/mqtt_certs/`) แล้วเปิดหน้าต่าง Terminal ในโฟลเดอร์ดังกล่าว
+สร้างโฟลเดอร์สำหรับเก็บใบรับรอง เช่น `C:\mqtt_certs\` (หรือ `~/mqtt_certs/`) แล้วเปิดหน้าต่าง Terminal ในโฟลเดอร์ดังกล่าว ไฟล์ `ca.key`, `server.key` และ `client.key` เป็น Private Key ห้ามเผยแพร่หรือ Commit ลง Git
 
 #### 1. สร้างกุญแจส่วนตัวและใบรับรอง Root CA (ผู้รับรอง)
 ```bash
-# 1.1 สร้างกุญแจส่วนตัว 2048-bit RSA ของ CA
-openssl genrsa -out ca.key 2048
-
-# 1.2 สร้างคำร้องขอใบรับรอง (CSR) ของ CA
-openssl req -out ca.csr -key ca.key -new -subj "/C=TH/ST=Bangkok/O=IoT Security Lab/CN=IoT Root CA"
-
-# 1.3 ลงนามออกใบรับรอง ca.crt แบบ Self-signed มีอายุ 3650 วัน
-openssl x509 -req -in ca.csr -out ca.crt -sha256 -days 3650 -signkey ca.key
+# สร้าง Root CA key และ self-signed certificate พร้อมกำหนด CA constraints
+openssl req -x509 -newkey rsa:2048 -nodes -keyout ca.key -sha256 -days 3650 -out ca.crt -subj "/C=TH/ST=Bangkok/O=IoT Security Lab/CN=IoT Root CA" -addext "basicConstraints=critical,CA:TRUE" -addext "keyUsage=critical,keyCertSign,cRLSign"
 ```
 
 #### 2. สร้างกุญแจส่วนตัวและใบรับรอง Server (สำหรับ Mosquitto Broker)
 > [!IMPORTANT]
-> ในคำสั่งด้านล่าง ค่า **CN (Common Name)** ของ Server จะต้องระบุเป็น **หมายเลข IP Address ของเครื่องคอมพิวเตอร์ที่รัน Broker** (เช่น `192.168.1.100`) เพื่อป้องกันข้อผิดพลาด Hostname Mismatch ในขั้นตอน TLS Handshake
+> ใบรับรอง Server ต้องมี **Subject Alternative Name (SAN)** ที่ตรงกับ IP Address หรือ Hostname ที่ Client ใช้เชื่อมต่อด้วย การตั้ง `CN` อย่างเดียวไม่เพียงพอสำหรับการตรวจสอบชื่อ Server สมัยใหม่
 
 ```bash
 # 2.1 สร้างกุญแจส่วนตัวของ Server
 openssl genrsa -out server.key 2048
 
-# 2.2 สร้างคำร้องขอใบรับรอง (เปลี่ยน 192.168.1.100 เป็น IP เครื่องของท่าน)
-openssl req -out server.csr -key server.key -new -subj "/C=TH/ST=Bangkok/O=IoT Broker/CN=192.168.1.100"
+# 2.2 สร้าง CSR พร้อม SAN (เปลี่ยน IP ให้ตรงกับ URI ที่ Client ใช้)
+openssl req -out server.csr -key server.key -new -subj "/C=TH/ST=Bangkok/O=IoT Broker/CN=192.168.1.100" -addext "subjectAltName=IP:192.168.1.100" -addext "basicConstraints=critical,CA:FALSE" -addext "keyUsage=critical,digitalSignature,keyEncipherment" -addext "extendedKeyUsage=serverAuth"
 
-# 2.3 ใช้ Root CA ลงนามออกใบรับรอง server.crt
-openssl x509 -req -in server.csr -out server.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650
+# 2.3 ลงนามใบรับรอง Server โดยคัดลอก extensions จาก CSR
+openssl x509 -req -in server.csr -out server.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -copy_extensions copy
 ```
 
 #### 3. สร้างกุญแจส่วนตัวและใบรับรอง Client (สำหรับ ESP32)
@@ -64,11 +58,11 @@ openssl x509 -req -in server.csr -out server.crt -sha256 -CA ca.crt -CAkey ca.ke
 # 3.1 สร้างกุญแจส่วนตัวของ Client
 openssl genrsa -out client.key 2048
 
-# 3.2 สร้างคำร้องขอใบรับรองของ Client
-openssl req -out client.csr -key client.key -new -subj "/C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node"
+# 3.2 สร้าง CSR โดยระบุการใช้งานเป็น Client Authentication
+openssl req -out client.csr -key client.key -new -subj "/C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node" -addext "basicConstraints=critical,CA:FALSE" -addext "keyUsage=critical,digitalSignature,keyEncipherment" -addext "extendedKeyUsage=clientAuth"
 
-# 3.3 ใช้ Root CA ลงนามออกใบรับรอง client.crt
-openssl x509 -req -in client.csr -out client.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650
+# 3.3 ลงนามใบรับรอง Client โดยคัดลอก extensions จาก CSR
+openssl x509 -req -in client.csr -out client.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -copy_extensions copy
 ```
 
 ---
@@ -78,7 +72,7 @@ openssl x509 -req -in client.csr -out client.crt -sha256 -CA ca.crt -CAkey ca.ke
 สร้างไฟล์คอนฟิก `mosquitto_ssl.conf` ในโฟลเดอร์ `C:\mqtt_certs\`:
 
 ```text
-# กำหนดให้ฟังพอร์ต 8883 สำหรับการเชื่อมต่อเข้ารหัส TLS
+# กำหนดให้ฟังพอร์ต 8883 สำหรับการเชื่อมต่อเข้ารหัส TLS (จำกัด IP ตามเครือข่ายแล็บ)
 listener 8883 0.0.0.0
 
 # ระบุตำแหน่งไฟล์ใบรับรอง (ใช้ Forward Slash / เสมอ)
@@ -88,6 +82,7 @@ keyfile C:/mqtt_certs/server.key
 
 # บังคับการตรวจสอบสิทธิ์สองทาง (Mutual Authentication / mTLS)
 require_certificate true
+allow_anonymous true
 
 # บังคับใช้ TLS เวอร์ชัน 1.2 ขึ้นไป
 tls_version tlsv1.2
@@ -95,6 +90,8 @@ tls_version tlsv1.2
 # บันทึกรายละเอียดการทำงาน
 log_type all
 ```
+
+`allow_anonymous true` ใช้เพื่อไม่บังคับ username/password เพิ่ม เพราะ Client ต้องผ่านการตรวจ Client Certificate ใน TLS ก่อนจึงจะเชื่อมต่อ MQTT ได้ ควรใช้เฉพาะ Broker ทดลองที่จำกัดการเข้าถึงเครือข่ายและไม่เปิดออกสู่อินเทอร์เน็ต
 
 สั่งรัน Mosquitto ใน **เทอร์มินัลที่ 1**
 ```powershell
@@ -157,6 +154,28 @@ idf_component_register(
 )
 ```
 
+#### 4. กำหนดค่า Wi-Fi และ Broker URI แบบไม่ฝังรหัสผ่านใน Source Code
+เพิ่มไฟล์ `main/Kconfig.projbuild`:
+```text
+menu "Lab11-3 Secure MQTT Configuration"
+
+config LAB_WIFI_SSID
+    string "Wi-Fi SSID"
+    default ""
+
+config LAB_WIFI_PASSWORD
+    string "Wi-Fi password"
+    default ""
+
+config LAB_MQTTS_BROKER_URI
+    string "MQTTS broker URI"
+    default "mqtts://192.168.1.100:8883"
+
+endmenu
+```
+
+ก่อน Build ให้รัน `idf.py menuconfig` แล้วกรอกชื่อและรหัสผ่าน Wi-Fi รวมถึง URI ของ Broker ให้ตรงกับเครือข่ายของท่าน ค่าเหล่านี้จะถูกเก็บใน `sdkconfig` ภายในเครื่อง ไม่ควรใส่รหัสผ่านไว้ใน Source Code หรือ Commit ไฟล์ `sdkconfig`
+
 ---
 
 ### กิจกรรมที่ 11-3.5 การเขียนโค้ดโปรแกรมหลัก (`main/main.c`)
@@ -180,9 +199,9 @@ idf_component_register(
 #include "driver/gpio.h"
 #include "mqtt_client.h"
 
-#define WIFI_SSID           "YOUR_WIFI_SSID"
-#define WIFI_PASS           "YOUR_WIFI_PASSWORD"
-#define MQTTS_BROKER_URI    "mqtts://192.168.1.100:8883" // พอร์ต 8883
+#define WIFI_SSID           CONFIG_LAB_WIFI_SSID
+#define WIFI_PASS           CONFIG_LAB_WIFI_PASSWORD
+#define MQTTS_BROKER_URI    CONFIG_LAB_MQTTS_BROKER_URI
 
 static const char *TAG = "MQTTS_SECURE";
 static EventGroupHandle_t s_wifi_event_group;
@@ -319,17 +338,32 @@ void app_main(void)
    ```powershell
    idf.py -p COMx flash monitor
    ```
-2. สังเกตผลในหน้าต่าง Serial Monitor
-   * บอร์ดเชื่อมต่อ Wi-Fi สำเร็จ
-   * เริ่มกระบวนการจับมือ TLS `Connecting to 192.168.1.100:8883...`
-   * หน้าจอรายงาน `MQTTS TLS Handshake Successful! Connected to Secure Broker.`
-3. สังเกตหน้าต่าง Broker Log
-   * Mosquitto จะพิมพ์ข้อความยืนยัน `Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node`
-   * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
+2. ตรวจสอบหน้าต่าง Serial Monitor ว่าบอร์ดเชื่อมต่อ Wi-Fi และแสดงข้อความ `MQTTS mTLS handshake successful` ซึ่งยืนยันว่าการเชื่อมต่อ MQTTS สำเร็จ
+
+![alt text](image/image-27.png)
+
+3. ทดสอบการรับส่งข้อความ MQTT สองทาง
+   * ส่งข้อความไปยัง `secure/esp32/cmd` แล้วตรวจสอบว่า ESP32 แสดง Topic และ Payload ที่ได้รับใน Serial Monitor
+   * ตรวจสอบข้อความสถานะ `secure/esp32/status` ที่ ESP32 Publish ออกมาในหน้าต่าง Subscriber
+
+   ![ESP32 ได้รับคำสั่ง MQTT](image/image-25.png)
+   ![Subscriber ได้รับสถานะจาก ESP32](image/image-26.png)
+
+4. ตรวจสอบหน้าต่าง Mosquitto Broker Log ว่ามีการเชื่อมต่อและตรวจสอบ Client Certificate สำเร็จ จากนั้นบันทึกภาพหน้าจอ Broker Log เพิ่มในรายงาน โดยข้อความ Log อาจแตกต่างกันตามเวอร์ชัน Mosquitto
+
+![alt text](image/image-28.png)
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+
+   **คำตอบ:** ชื่อที่ Client ใช้เชื่อมต่อกับ Broker ต้องตรงกับชื่อที่ระบุในตัวตนของใบรับรอง Server โดยการตรวจสอบสมัยใหม่จะตรวจ **Subject Alternative Name (SAN)** เป็นหลัก ไม่ใช่ CN เพียงอย่างเดียว ดังนั้นเมื่อเชื่อมต่อด้วย IP ต้องใส่ IP นั้นใน SAN แบบ `IP:...` และเมื่อเชื่อมต่อด้วย Hostname ต้องใส่ชื่อใน SAN แบบ `DNS:...` หากไม่ตรงกัน การตรวจสอบตัวตน Server จะล้มเหลวและ Client อาจแจ้งข้อผิดพลาด hostname/IP mismatch หรือ TLS certificate verification failed แล้วปฏิเสธการเชื่อมต่อ
+
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+
+   **คำตอบ:** ใน HTTPS ทั่วไป เว็บเบราว์เซอร์ตรวจใบรับรองของ Server เพื่อยืนยันว่าเชื่อมต่อกับเว็บไซต์ที่ถูกต้อง โดยปกติผู้ใช้ไม่ต้องมี Client Certificate ส่วน mTLS ทั้ง Client และ Server ต่างส่งใบรับรองให้อีกฝ่ายตรวจสอบ ในการทดลองนี้ ESP32 ตรวจใบรับรอง Broker ด้วย Root CA และ Broker ตรวจใบรับรอง Client ของ ESP32 ก่อนอนุญาตการเชื่อมต่อ จึงไม่ใช่เพียงการเข้ารหัสช่องทาง แต่เป็นการยืนยันตัวตนทั้งสองฝั่งด้วย
+
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+
+   **คำตอบ:** ในตัวอย่างนี้ `client.key` ถูกฝังไว้ใน Firmware ด้วย `EMBED_TXTFILES` ดังนั้นหากผู้โจมตีได้ไฟล์ `.bin` ที่ไม่ได้เข้ารหัส ก็อาจสกัดหรือกู้คืนกุญแจได้ จึงไม่ควรถือว่าการฝังกุญแจไว้ใน Firmware ปลอดภัยจากการอ่านไฟล์ไบนารี ในอุปกรณ์จริงควรใช้ **Flash Encryption** เพื่อเข้ารหัสข้อมูลใน Flash, **Secure Boot** เพื่อตรวจว่ากำลังรัน Firmware ที่ได้รับอนุญาต และใช้การจัดเก็บกุญแจในฮาร์ดแวร์ที่เหมาะสม เช่น Secure Element หรืออุปกรณ์ที่รองรับการใช้กุญแจโดยไม่เปิดเผยค่าออกมา ส่วน Digital Signature ใช้ตรวจลายเซ็น/ยืนยันความถูกต้องของข้อมูลหรือ Firmware ไม่ได้เข้ารหัสหรือซ่อน `client.key` โดยตัวมันเอง ทั้งนี้รายละเอียดความสามารถและการตั้งค่าขึ้นกับรุ่น ESP32 และการกำหนดค่า eFuse/ESP-IDF

@@ -1,0 +1,15 @@
+menu "Lab11-3 Secure MQTT Configuration"
+
+config LAB_WIFI_SSID
+    string "Wi-Fi SSID"
+    default ""
+
+config LAB_WIFI_PASSWORD
+    string "Wi-Fi password"
+    default ""
+
+config LAB_MQTTS_BROKER_URI
+    string "MQTTS broker URI"
+    default "mqtts://172.20.10.3:8883"
+
+endmenu
