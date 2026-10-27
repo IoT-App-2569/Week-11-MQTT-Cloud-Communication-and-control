@@ -179,9 +179,11 @@ mosquitto version 2.1.2 terminating
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/kitchen/light" -m "OFF"
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/bedroom/balcony/light" -m "ON"
 ```
-
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
+
+<img width="1561" height="356" alt="image" src="https://github.com/user-attachments/assets/a4b6caa4-a3d0-468e-a0d3-a2bbb59dd466" />
+
 
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
@@ -194,6 +196,9 @@ mosquitto version 2.1.2 terminating
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/livingroom/temp" -m "26.4"
 & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "home/bedroom/balcony/light" -m "ON"
 ```
+
+<img width="1372" height="181" alt="image" src="https://github.com/user-attachments/assets/234fb668-d096-456d-855b-73f824bc104c" />
+
 
 *สังเกตผล* ทุกข้อความที่ขึ้นต้นด้วย `home/` จะถูกส่งมาแสดงผลทั้งหมด
 
@@ -225,6 +230,10 @@ mosquitto version 2.1.2 terminating
   3. `Received PUBREL`
   4. `Sending PUBCOMP`
 
+
+<img width="1057" height="872" alt="image" src="https://github.com/user-attachments/assets/7546cfff-f09c-4113-b77f-14a041c1b450" />
+
+
 ---
 
 ### กิจกรรมที่ 11-1.4 การทดสอบข้อความคงค้าง (Retained Messages)
@@ -246,6 +255,9 @@ mosquitto version 2.1.2 terminating
    & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -m "CRITICAL_ALERT" -r
    ```
    *ผลที่ได้* ในเทอร์มินัลที่ 2 (Subscriber)ได้รับข้อความ `sensor/state CRITICAL_ALERT` ทันที
+
+<img width="942" height="127" alt="image" src="https://github.com/user-attachments/assets/9acf9557-47f1-450c-9bcb-fc139844c69e" />
+
 
 5. ปิดเทอร์มินัลที่ 2 (Subscriber) (`Ctrl + C`) แล้วรัน subscriber ใหม่อีกครั้ง
    ```powershell
@@ -275,6 +287,9 @@ mosquitto version 2.1.2 terminating
    (เปิดเทอร์มินัลที่ 4 (Publisher 2) แล้วพิมพ์ `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "node/esp32/status" -m "ONLINE"`)
    *สังเกตผล* เทอร์มินัลที่ 2 แสดงสถานะ `ONLINE`
 
+<img width="940" height="117" alt="image" src="https://github.com/user-attachments/assets/ab87de2a-de04-4662-975e-80788d5411fc" />
+
+
 4. **จำลองเหตุการณ์ไฟดับหรือเครือข่ายหลุดกะทันหัน**  
    ในเทอร์มินัลที่ 3 ให้ทำการ **บังคับปิดหน้าต่างเทอร์มินัลทันที** หรือกดปิดโปรเซส เพื่อไม่ให้ Client ส่งแพ็กเก็ต `DISCONNECT`
 5. *สังเกตผลในเทอร์มินัลที่ 2*  
@@ -284,14 +299,30 @@ mosquitto version 2.1.2 terminating
    ```
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
 
+<img width="942" height="176" alt="image" src="https://github.com/user-attachments/assets/8e928a6a-7e3f-44fb-bb5d-5b54c0aa05dd" />
+
+
 ---
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="941" height="332" alt="image" src="https://github.com/user-attachments/assets/3a92facb-ffce-4daf-8f3a-82b613e27e08" />
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+| ระดับ QoS | ลำดับแพ็กเก็ตที่สังเกตได้ | การยืนยัน |
+| :---: | :--- | :--- |
+| **QoS 0** | 1. Received PUBLISH<br>2. Sending PUBLISH | ไม่มีการยืนยัน (No ACK) |
+| **QoS 1** | 1. Received PUBLISH<br>2. Sending PUBACK<br>3. Sending PUBLISH<br>4. Received PUBACK | ยืนยัน 2 จังหวะด้วย PUBACK |
+| **QoS 2** | 1. Received PUBLISH<br>2. Sending PUBREC<br>3. Received PUBREL<br>4. Sending PUBCOMP | ยืนยัน 4 จังหวะ (4-Way Handshake) |
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+<img width="923" height="88" alt="image" src="https://github.com/user-attachments/assets/fbc081bc-cb53-425b-b641-cccc46d08fbd" />
+
 
 ---
 
