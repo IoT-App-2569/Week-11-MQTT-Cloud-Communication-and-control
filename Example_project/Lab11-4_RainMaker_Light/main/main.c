@@ -27,7 +27,7 @@
 
 static const char *TAG = "RMAKER_LIGHT";
 static bool s_power;
-static uint8_t s_brightness = 100;
+static uint8_t s_brightness = CONFIG_APP_LIGHT_INITIAL_BRIGHTNESS;
 
 static esp_err_t update_led(void)
 {
@@ -144,6 +144,5 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_rmaker_schedule_enable());
     ESP_ERROR_CHECK(esp_rmaker_start());
 
-    ESP_ERROR_CHECK(app_network_start(
-        (app_network_pop_type_t)CONFIG_APP_POP_TYPE));
+    ESP_ERROR_CHECK(app_network_start(POP_TYPE_MAC));
 }

@@ -1,11 +1,10 @@
 menu "RainMaker Light Configuration"
 
-    config APP_POP_TYPE
-        int "Provisioning Proof of Possession type"
-        default 1
-        range 0 1
+    config APP_LIGHT_INITIAL_BRIGHTNESS
+        int "Initial LED brightness"
+        range 0 100
+        default 100
         help
-            0: Use the device MAC address.
-            1: Use a random value stored in the factory partition.
+            Initial brightness for the LED and RainMaker Brightness parameter.
 
 endmenu
