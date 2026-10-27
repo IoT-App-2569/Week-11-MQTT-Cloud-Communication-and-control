@@ -27,7 +27,7 @@
 
 ### กิจกรรมที่ 11-3.1 การสร้างคู่กุญแจและใบรับรองดิจิทัลด้วย OpenSSL
 
-> [!TIP]
+    > [!TIP]
 > สำหรับนักศึกษาที่ต้องการศึกษาพื้นฐานความปลอดภัยไซเบอร์, ระบบคู่กุญแจ (Key-Pair), X.509 Certificates และรายละเอียดของแต่ละคำสั่ง OpenSSL สามารถศึกษาเพิ่มเติมได้ที่ **[ภาคผนวกที่ 2 พื้นฐานความปลอดภัยไซเบอร์, กลไกคู่กุญแจ และการใช้งาน OpenSSL สำหรับ IoT](10-Appendix-2-OpenSSL-and-Keys-pair.md)**
 
 สร้างโฟลเดอร์สำหรับเก็บใบรับรอง เช่น `C:\mqtt_certs\` (หรือ `~/mqtt_certs/`) แล้วเปิดหน้าต่าง Terminal ในโฟลเดอร์ดังกล่าว
@@ -144,18 +144,32 @@ idf.py set-target esp32c3   # หรือ esp32
 3. `client.key` (กุญแจส่วนตัวของ ESP32)
 
 #### 3. การแก้ไขไฟล์ `main/CMakeLists.txt`
-เปิดไฟล์ `main/CMakeLists.txt` แล้วเพิ่มคำสั่ง `EMBED_TXTFILES`
+เปิดไฟล์ `main/CMakeLists.txt` แล้วระบุ dependencies และเพิ่มคำสั่ง `EMBED_TXTFILES`
 
 ```cmake
 idf_component_register(
     SRCS "main.c"
     INCLUDE_DIRS "."
+    REQUIRES mqtt esp_wifi esp_event nvs_flash esp_netif driver esp_driver_gpio
     EMBED_TXTFILES 
         "certs/ca.crt"
         "certs/client.crt"
         "certs/client.key"
 )
 ```
+
+#### 4. เพิ่ม MQTT component สำหรับ ESP-IDF 5.3 ขึ้นไป
+สร้างไฟล์ `main/idf_component.yml` เพื่อให้ Component Manager ดาวน์โหลด MQTT component:
+
+```yaml
+dependencies:
+  idf:
+    version: ">=5.3"
+  espressif/mqtt: "*"
+```
+
+> [!WARNING]
+> ไฟล์ `client.key` เป็นกุญแจส่วนตัว ห้ามเผยแพร่หรือ commit ขึ้น repository ให้เก็บไฟล์ certificate ไว้ใน `main/certs/` เฉพาะเครื่องที่ใช้ build เท่านั้น
 
 ---
 
@@ -315,21 +329,60 @@ void app_main(void)
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
+![alt text](img/image-12.png)
+![alt text](img/image-13.png)
+![alt text](img/image-14.png)
+![alt text](img/image-15.png)
 1. แฟลชโปรแกรมลงบนบอร์ด ESP32
    ```powershell
    idf.py -p COMx flash monitor
    ```
+   
 2. สังเกตผลในหน้าต่าง Serial Monitor
    * บอร์ดเชื่อมต่อ Wi-Fi สำเร็จ
    * เริ่มกระบวนการจับมือ TLS `Connecting to 192.168.1.100:8883...`
    * หน้าจอรายงาน `MQTTS TLS Handshake Successful! Connected to Secure Broker.`
+   ![alt text](img/image-16.png)
 3. สังเกตหน้าต่าง Broker Log
    * Mosquitto จะพิมพ์ข้อความยืนยัน `Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node`
    * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
-
+![alt text](img/image-17.png)
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
+
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+
+   **ตอบ:** ใบรับรองดิจิทัลทำหน้าที่ผูก "ตัวตน" (ชื่อ) เข้ากับ "กุญแจสาธารณะ" ตอน TLS handshake ฝั่ง Client (ESP32) จะตรวจสอบว่าชื่อในใบรับรองของเซิร์ฟเวอร์ (CN หรือ Subject Alternative Name: SAN) ตรงกับ host ที่ตั้งใจเชื่อมต่อ (IP หรือ Hostname ใน `MQTTS_BROKER_URI`) หรือไม่ เรียกว่า **Hostname Verification** ซึ่งป้องกันการโจมตีแบบ **Man-in-the-Middle (MITM)** เพราะหากไม่ตรวจ ผู้โจมตีสามารถนำใบรับรองที่ถูกต้องของเซิร์ฟเวอร์อื่น (ที่ CA เดียวกันออกให้) มาสวมรอยเป็น Broker ได้
+
+   หากระบุชื่ออื่น การตรวจสอบชื่อจะล้มเหลว (hostname/CN mismatch) TLS handshake ไม่สำเร็จ และการเชื่อมต่อถูกตัดก่อนส่งข้อมูล MQTT ใด ๆ ฝั่ง ESP32 จะเกิด `MQTT_EVENT_ERROR` ประเภท `MQTT_ERROR_TYPE_TCP_TRANSPORT` (เช่น `ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED` หรือ `X509 - Certificate verification failed, CN mismatch`)
+
+   หมายเหตุ: ปัจจุบันมาตรฐานแนะนำให้ใส่ชื่อ/IP ใน **SAN** เป็นหลัก และเมื่อใช้ IP Address ต้องระบุเป็น `IP:` ใน SAN
+
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+
+   **ตอบ:**
+
+   | ประเด็น | HTTPS ทั่วไป (One-way TLS) | Mutual TLS (mTLS) |
+   |---|---|---|
+   | การพิสูจน์ตัวตน | เซิร์ฟเวอร์พิสูจน์ตัวตนต่อ Client ฝั่งเดียว | ทั้งสองฝ่ายพิสูจน์ตัวตนต่อกัน |
+   | ใบรับรองฝั่ง Client | ไม่จำเป็น | จำเป็น ต้องมี `client.crt` และ `client.key` ที่ออกโดย CA ที่เซิร์ฟเวอร์เชื่อถือ |
+   | การยืนยันตัวตนผู้ใช้ | ทำในชั้นแอปพลิเคชัน เช่น username/password, token | ทำในชั้น TLS ด้วยใบรับรอง ก่อนถึงชั้นแอปพลิเคชัน |
+   | การตรวจสอบของเซิร์ฟเวอร์ | ไม่ตรวจว่าใครเชื่อมต่อเข้ามา | ส่ง `CertificateRequest` และตรวจ `client.crt` กับ CA ของตน หากไม่ผ่านจะปฏิเสธการเชื่อมต่อ |
+   | กรณีใช้งานทั่วไป | เว็บไซต์สาธารณะ | IoT, machine-to-machine, microservices |
+
+   สรุป: ใน HTTPS ทั่วไปเบราว์เซอร์ตรวจสอบเพียงว่าเซิร์ฟเวอร์เป็นของจริง ส่วนใน mTLS Broker จะตรวจสอบด้วยว่าอุปกรณ์ที่เชื่อมต่อได้รับอนุญาต (มี `client.crt` ที่ลงนามโดย CA เดียวกัน และพิสูจน์การครอบครอง `client.key` ผ่านขั้นตอน CertificateVerify) อุปกรณ์ที่ไม่มีใบรับรองจึงเชื่อมต่อไม่ได้แม้จะรู้ที่อยู่ของ Broker
+
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+
+   **ตอบ:** **กู้คืนได้** หากไม่มีมาตรการป้องกัน เพราะ `client.key` ถูกฝังในเฟิร์มแวร์เป็นข้อความธรรมดา (plain text) ผ่าน `EMBED_TXTFILES` และเก็บอยู่ใน Flash ผู้โจมตีสามารถอ่าน Flash ด้วย `esptool.py read_flash` แล้วค้นหาข้อความ `-----BEGIN PRIVATE KEY-----` ก็จะได้ Private Key ครบถ้วน จากนั้นปลอมตัวเป็นอุปกรณ์เชื่อมต่อกับ Broker ได้ (Device Impersonation) และหากทุกบอร์ดใช้ Private Key ร่วมกัน การแก้ไขจะยากมาก
+
+   ฮาร์ดแวร์/กลไกความปลอดภัยของ ESP32 ที่ช่วยแก้ปัญหา:
+
+   - **Flash Encryption:** เข้ารหัสเนื้อหาใน Flash ด้วยกุญแจ AES ที่เก็บใน eFuse (ซอฟต์แวร์อ่านไม่ได้) แม้อ่าน Flash ออกมาก็ได้เพียงข้อมูลที่เข้ารหัส
+   - **Secure Boot (v2):** ตรวจลายเซ็นดิจิทัลของ Bootloader และเฟิร์มแวร์ก่อนรัน ป้องกันการแทนที่เฟิร์มแวร์ด้วยโค้ดอันตรายที่อ่านและส่ง Private Key ออกไป
+   - **Digital Signature (DS) Peripheral:** เก็บ Private Key ในรูปแบบเข้ารหัส และให้ฮาร์ดแวร์คำนวณลายเซ็น RSA ระหว่าง TLS handshake โดยตรง ซอฟต์แวร์จึงไม่สามารถเข้าถึง Private Key แบบ plain text ได้ (ใช้ร่วมกับ HMAC key ใน eFuse) เหมาะที่สุดกับกรณีนี้
+   - **NVS Encryption / HMAC-based key protection:** เก็บใบรับรองและกุญแจใน NVS partition แบบเข้ารหัส และ provision แยกต่อบอร์ด แทนการฝังในไบนารี
+   - **eFuse Read/Write Protect และการปิด JTAG / UART download mode:** ป้องกันการอ่านกุญแจและการดึง Flash ผ่านช่องทางดีบัก
+
+   แนวปฏิบัติเชิงพาณิชย์เพิ่มเติม: ออก Client Certificate **แยกต่อบอร์ด** (unique per-device identity) เพื่อให้เพิกถอน (revoke) ได้เฉพาะอุปกรณ์ที่ถูกโจมตีผ่าน CRL/OCSP โดยไม่กระทบอุปกรณ์อื่น

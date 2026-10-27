@@ -40,7 +40,8 @@ idf.py set-target esp32c3   # หรือ esp32
 #### 2. ติดตั้ง ESP RainMaker Component จาก IDF Component Registry
 เพิ่มไลบรารีทางการของ Espressif ผ่านคำสั่ง
 ```powershell
-idf.py add-dependency "espressif/esp-rainmaker"
+idf.py add-dependency "espressif/esp_rainmaker"
+idf.py add-dependency "espressif/rmaker_app_network"
 ```
 
 ไฟล์ `main/idf_component.yml` จะได้รับการสร้างและอัปเดตโดยอัตโนมัติ
@@ -48,8 +49,10 @@ idf.py add-dependency "espressif/esp-rainmaker"
 dependencies:
   idf:
     version: ">=5.0.0"
-  espressif/esp-rainmaker:
-    version: "^3.0.0"
+  espressif/esp_rainmaker:
+    version: "^1.17.0"
+  espressif/rmaker_app_network:
+    version: "^1.4.5"
 ```
 
 ---
@@ -71,7 +74,7 @@ dependencies:
 #include "esp_rmaker_standard_params.h"
 #include "esp_rmaker_standard_devices.h"
 #include "esp_rmaker_schedule.h"
-#include "app_wifi.h"
+#include "app_network.h"
 
 #if CONFIG_IDF_TARGET_ESP32C3
 #define LED_PIN GPIO_NUM_8
@@ -136,7 +139,7 @@ void app_main(void)
     ESP_ERROR_CHECK(err);
 
     // 1. เริ่มต้นระบบ Wi-Fi Provisioning (ผ่าน BLE)
-    app_wifi_init();
+    app_network_init();
 
     // 2. สร้าง Node ในระบบ ESP RainMaker
     esp_rmaker_config_t rainmaker_cfg = {
@@ -168,7 +171,7 @@ void app_main(void)
     esp_rmaker_start();
 
     // 8. เริ่มต้นระบบค้นหาอุปกรณ์และรับการตั้งค่า Wi-Fi (BLE Provisioning)
-    app_wifi_start(POP_TYPE_RANDOM);
+    ESP_ERROR_CHECK(app_network_start(POP_TYPE_RANDOM));
 }
 ```
 
@@ -213,12 +216,20 @@ idf.py -p COMx flash monitor
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
 ### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
+![alt text](img/image-18.png) ![alt text](img/image-19.png) 
+![alt text](img/image-20.png) ![alt text](img/image-21.png)
+![alt text](img/image-22.png) ![alt text](img/image-23.png)
+                                
+### Linnk การทดลอง ปิด-เปิดไฟ 67030043 : https://youtube.com/shorts/dxhML7FBFg8?feature=share
+### Linnk การทดลอง ปรับแสงไฟ 67030043 : https://youtube.com/shorts/eapLZ4ilLVg?feature=share
+
 * กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
 * ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
-
+Lin
 ### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
 * **ปิดสัญญาณ Wi-Fi บนสมาร์ตโฟน** แล้วเปิดใช้งานเฉพาะ **สัญญาณอินเทอร์เน็ตมือถือ (4G/5G)**
 * กดสั่งเปิด-ปิดหลอดไฟอีกครั้ง สังเกตว่าบอร์ด ESP32 ที่บ้านยังคงตอบสนองต่อคำสั่งได้อย่างรวดเร็ว แสดงถึงพลังของสถาปัตยกรรม Cloud Control
+
 
 ---
 
@@ -246,7 +257,48 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
+
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+
+   **ตอบ:** การเชื่อมต่อ RainMaker Cloud ใช้ MQTT over TLS แบบ mTLS ซึ่งอุปกรณ์แต่ละตัวต้องมี Client Certificate และ Private Key เฉพาะตัว ตามปกติผู้พัฒนาต้องสร้างและติดตั้งใบรับรองลงอุปกรณ์เอง ซึ่งยุ่งยากและเสี่ยงผิดพลาดในขั้นตอนพัฒนาต้นแบบ
+
+   **Assisted Claiming** แก้ปัญหานี้โดยใช้สมาร์ตโฟนเป็นตัวกลาง ดังนี้
+   1. บอร์ดสร้าง Private Key และ CSR ขึ้นเองบนตัวอุปกรณ์ (Private Key ไม่ถูกส่งออกจากบอร์ด)
+   2. แอปบนมือถือรับ CSR ผ่าน BLE แล้วส่งไปขอ Certificate จาก RainMaker Cloud (มือถือใช้อินเทอร์เน็ตของตนเอง)
+   3. Cloud ออก Certificate ให้ แอปส่ง Certificate กลับไปยังบอร์ดผ่าน BLE
+   4. บอร์ดบันทึก Certificate ลง NVS แล้วใช้เชื่อมต่อ Cloud ด้วย mTLS ได้ทันที
+
+   ผลคือไม่ต้องสร้าง ฝัง หรือจัดการใบรับรองด้วยตนเอง ไม่ต้องมี Provisioning ล่วงหน้าจากโรงงาน และไม่ต้องให้บอร์ดมีอินเทอร์เน็ตตั้งแต่ต้น ทำให้พัฒนาต้นแบบได้รวดเร็ว (ในเชิงพาณิชย์จะใช้ Self Claiming หรือฝัง Certificate ตอนผลิตแทน)
+
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+
+   **ตอบ:** เมื่อ Cloud ส่งคำสั่งเขียนค่ามา `write_cb` ทำหน้าที่ควบคุมฮาร์ดแวร์จริง (เช่น เปลี่ยนระดับ GPIO) แต่ค่าพารามิเตอร์ที่เก็บในหน่วยความจำของ RainMaker และสถานะบนคลาวด์ (Device Shadow) ยังไม่ถูกอัปเดต `esp_rmaker_param_update_and_report()` จึงมีหน้าที่
+   - **อัปเดตค่าในหน่วยความจำ** ของพารามิเตอร์ให้ตรงกับสถานะจริงของอุปกรณ์
+   - **รายงานสถานะกลับสู่ Cloud** ทาง MQTT เพื่อยืนยันว่าอุปกรณ์ทำตามคำสั่งแล้ว
+   - **ให้ทุกไคลเอนต์ซิงก์ตรงกัน** เช่น แอปมือถือหลายเครื่อง, Alexa/Google Home หรือ Schedule ที่เห็นสถานะล่าสุดเสมอ
+
+   หากไม่เรียก สถานะบนแอปอาจไม่ตรงกับสถานะจริงของ LED (เช่น สวิตช์ในแอปแสดง OFF ทั้งที่ไฟติด) หรือกลับไปเป็นค่าเดิมเมื่อรีเฟรช
+
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+
+   **ตอบ:**
+
+   | ประเด็น | Plain MQTT + Mosquitto (แล็บ 11.2) | ESP RainMaker SDK (แล็บ 11.4) |
+   |---|---|---|
+   | ความพยายามในการพัฒนา | ต้องติดตั้งและตั้งค่า Broker เอง ออกแบบ Topic และรูปแบบข้อมูล เขียนโค้ด Wi-Fi/MQTT และสร้างแอปควบคุมเอง | มี Cloud, แอปมือถือ, Provisioning ผ่าน BLE ให้พร้อม เขียนเพียงสร้าง Node/Device/Parameter และ Callback |
+   | ความปลอดภัย | ต้องตั้งค่า TLS, ใบรับรอง, ACL และผู้ใช้เอง หากตั้งค่าผิดหรือใช้ Plain MQTT จะไม่ปลอดภัย | mTLS ต่ออุปกรณ์, Provisioning แบบ Security 2 (SRP6a), ระบบบัญชีผู้ใช้และการผูกอุปกรณ์กับผู้ใช้จัดการให้ |
+   | การขยายระบบ | ต้องดูแลเซิร์ฟเวอร์เอง รองรับอุปกรณ์จำนวนมากต้องทำ Clustering, Load Balancing, Monitoring และการจัดการผู้ใช้เอง | Cloud รองรับอุปกรณ์จำนวนมาก มี OTA, Schedule, การแชร์อุปกรณ์ และการเชื่อม Voice Assistant ในตัว |
+   | ความยืดหยุ่น/การควบคุม | ควบคุมได้เต็มที่ ไม่ผูกกับผู้ให้บริการ ไม่มีค่าบริการคลาวด์ | ผูกกับระบบนิเวศของ Espressif และมีข้อจำกัดตามบริการ |
+
+   สรุป: Mosquitto เหมาะกับการเรียนรู้และระบบเล็กที่ต้องการควบคุมเอง ส่วน RainMaker ลดเวลาพัฒนาและเหมาะกับผลิตภัณฑ์ที่ต้องขยายเป็นจำนวนมาก
+
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+
+   **ตอบ:** การเชื่อมต่อทำที่ฝั่ง Cloud ไม่ใช่ที่ฝั่งเฟิร์มแวร์ โดยมีขั้นตอนดังนี้
+   1. อุปกรณ์ถูกสร้างด้วยชนิดมาตรฐาน (เช่น `esp_rmaker_lightbulb_device_create` พร้อมพารามิเตอร์ Power และ Brightness) ซึ่งมี Device Type และ Parameter Type ตามมาตรฐานของ RainMaker
+   2. ผู้ใช้เปิดแอป Alexa หรือ Google Home เลือกเพิ่ม Skill/Action ของ **ESP RainMaker** แล้วล็อกอินด้วยบัญชี RainMaker เดียวกัน (Account Linking ผ่าน OAuth)
+   3. Cloud ของ RainMaker ดึงรายการอุปกรณ์ในบัญชีและแปลงชนิดอุปกรณ์/พารามิเตอร์มาตรฐาน ให้ตรงกับ Capability ของ Alexa หรือ Google Home (เช่น Power เป็น On/Off, Brightness เป็นระดับความสว่าง)
+   4. เมื่อผู้ใช้สั่งด้วยเสียง เช่น "เปิดไฟห้องนั่งเล่น" Voice Assistant ส่งคำสั่งมายัง RainMaker Cloud
+   5. RainMaker Cloud ส่งคำสั่งต่อมายังบอร์ดทาง MQTT ซึ่งเข้าสู่ `write_cb` เดิมที่เขียนไว้แล้ว และบอร์ดรายงานสถานะกลับด้วย `esp_rmaker_param_update_and_report()`
+
+   เพราะบอร์ดสื่อสารกับ RainMaker Cloud เพียงช่องทางเดียวเสมอ การเพิ่มช่องทางควบคุม (แอปมือถือ, เสียง, CLI, Schedule) จึงไม่ต้องแก้โค้ดบนบอร์ด
