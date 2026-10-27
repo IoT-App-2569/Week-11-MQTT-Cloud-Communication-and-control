@@ -111,6 +111,7 @@ Video : https://drive.google.com/file/d/1nmKPN4MtEsqgY3qaewTp8eHBWoXtQOuX/view?u
 * กดสั่งเปิด-ปิดหลอดไฟอีกครั้ง สังเกตว่าบอร์ด ESP32 ที่บ้านยังคงตอบสนองต่อคำสั่งได้อย่างรวดเร็ว แสดงถึงพลังของสถาปัตยกรรม Cloud Control
 
 Video : https://drive.google.com/file/d/1kPPvg09gltF9FgiS53W-JDn13c5yTrfQ/view?usp=sharing
+
 ---
 
 ### 3. (ทางเลือกขั้นสูง) การทดสอบผ่าน RainMaker CLI บนคอมพิวเตอร์
