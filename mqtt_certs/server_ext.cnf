@@ -1,9 +1,9 @@
 basicConstraints = CA:FALSE
-nsCertType = server
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 
 [alt_names]
-IP.1 = 192.168.100.41
+IP.1 = 172.20.10.8
 IP.2 = 127.0.0.1
+DNS.1 = localhost

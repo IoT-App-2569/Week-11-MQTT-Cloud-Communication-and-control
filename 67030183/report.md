@@ -224,7 +224,7 @@ log_type all
 
 ### 6.1 ผลการรันเฟิร์มแวร์และกระบวนการ Provisioning
 * แฟลชเฟิร์มแวร์ RainMaker ลงบน ESP32 และตั้งค่าระบบ Assisted Claiming
-* บอร์ดเริ่มต้นสร้างการกระจายสัญญาณ BLE Advertising ในชื่อ Service: `PROV_86a09d` (Proof of Possession / POP: `2780c63d`)
+* บอร์ดเริ่มต้นสร้างการกระจายสัญญาณ BLE Advertising ในชื่อ Service: `PROV_46813d` (Proof of Possession / POP: `af1c8cd1`)
 * หน้าต่าง Serial Monitor แสดงข้อมูล QR Code และ URL สำหรับเข้าสู่ขั้นตอนการจับคู่อุปกรณ์บนแอป ESP RainMaker
 
 ![ESP RainMaker Serial Provision](images/lab11_4_qrcode_provision.png)
@@ -234,7 +234,7 @@ log_type all
   <img src="images/rainmaker_qrcode.png" alt="RainMaker QR Code" width="240"/>
   <br/>
   <b>QR Code สำหรับสแกนผ่านแอปพลิเคชัน ESP RainMaker บนสมาร์ตโฟน</b><br/>
-  ลิงก์ตรงสำหรับเปิด QR Code ผ่านเบราว์เซอร์: <a href="https://rainmaker.espressif.com/qrcode.html?data=%7B%22ver%22%3A%22v1%22%2C%22name%22%3A%22PROV_86a09d%22%2C%22username%22%3A%22wifiprov%22%2C%22pop%22%3A%222780c63d%22%2C%22transport%22%3A%22ble%22%7D">เปิดหน้า QR Code ของ Espressif</a>
+  ลิงก์ตรงสำหรับเปิด QR Code ผ่านเบราว์เซอร์: <a href="https://rainmaker.espressif.com/qrcode.html?data=%7B%22ver%22%3A%22v1%22%2C%22name%22%3A%22PROV_46813d%22%2C%22username%22%3A%22wifiprov%22%2C%22pop%22%3A%22af1c8cd1%22%2C%22transport%22%3A%22ble%22%7D">เปิดหน้า QR Code ของ Espressif</a>
 </div>
 
 ---

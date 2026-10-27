@@ -16,9 +16,9 @@
 #include "mqtt_client.h"
 #include "cJSON.h"
 
-#define WIFI_SSID           "nt wifi 103-2.4G"
-#define WIFI_PASS           "0611404146"
-#define MQTT_BROKER_URI     "mqtt://192.168.100.41:1883"
+#define WIFI_SSID           "PhuwishP"
+#define WIFI_PASS           "123456789"
+#define MQTT_BROKER_URI     "mqtt://172.20.10.8:1883"
 
 
 #if CONFIG_IDF_TARGET_ESP32C3

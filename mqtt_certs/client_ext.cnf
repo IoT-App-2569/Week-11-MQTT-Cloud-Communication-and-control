@@ -1,4 +1,3 @@
 basicConstraints = CA:FALSE
-nsCertType = client
 keyUsage = critical, digitalSignature, keyEncipherment
 extendedKeyUsage = clientAuth
