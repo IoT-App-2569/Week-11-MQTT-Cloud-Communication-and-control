@@ -1,0 +1,5 @@
+$ mosquitto_pub -h 127.0.0.1 -p 1883 -i pub-qos0 -t test/qos -m "QoS 0 Message" -q 0 -d
+Client pub-qos0 sending CONNECT
+Client pub-qos0 received CONNACK (0)
+Client pub-qos0 sending PUBLISH (d0, q0, r0, m1, 'test/qos', ... (13 bytes))
+Client pub-qos0 sending DISCONNECT

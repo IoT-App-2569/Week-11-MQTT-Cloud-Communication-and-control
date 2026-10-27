@@ -13,6 +13,13 @@
 4. สามารถกำหนดค่า `esp_mqtt_client_config_t` สำหรับการเชื่อมต่อ MQTTS พร้อมอ้างอิงสัญลักษณ์ตัวแปร Assembler ได้
 5. เข้าใจและสามารถวิเคราะห์ขั้นตอน TLS Handshake รวมถึงสาธิตการปฏิเสธการเชื่อมต่อจาก Client ที่ไม่มีใบรับรองถูกต้อง
 
+> [!NOTE] **สภาพแวดล้อมที่ใช้ทำการทดลองจริง (รหัสนักศึกษา 67030011)**
+> * macOS + **OpenSSL 4.0.3**, Mosquitto 2.0.22, บอร์ด ESP32-D0WD-V3, ESP-IDF v6.0.2
+> * IP ของเครื่องที่รัน Broker (Mac บน Hotspot) = **`172.20.10.2`** จึงใช้เป็น CN ของ Server Certificate
+> * ไฟล์ทั้งหมดอยู่ใน [Lab11-3_MQTTS_Secure/](HW-67030011/Lab11-3_MQTTS_Secure/) — สคริปต์สร้างใบรับรอง [mqtt_certs/gen_certs.sh](HW-67030011/Lab11-3_MQTTS_Secure/mqtt_certs/gen_certs.sh), คอนฟิก Broker [mqtt_certs/mosquitto_ssl.conf](HW-67030011/Lab11-3_MQTTS_Secure/mqtt_certs/mosquitto_ssl.conf), Log ใน [logs/](HW-67030011/Lab11-3_MQTTS_Secure/logs/)
+> * ไฟล์กุญแจส่วนตัว `*.key` และ `*.csr` **ไม่ถูก Commit** (อยู่ใน `.gitignore`) — รัน `./gen_certs.sh <IP>` เพื่อสร้างใหม่ก่อน Build
+
+
 ---
 
 ## 2. อุปกรณ์และเครื่องมือที่ใช้
@@ -71,6 +78,31 @@ openssl req -out client.csr -key client.key -new -subj "/C=TH/ST=Bangkok/O=IoT N
 openssl x509 -req -in client.csr -out client.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650
 ```
 
+**ผลการทดลอง — พบปัญหาของคำสั่งในใบงานกับ OpenSSL รุ่นใหม่**
+
+เมื่อใช้คำสั่งตามใบงานทุกตัวอักษรบน OpenSSL 4.0.3 ใบรับรอง `ca.crt` ที่ได้เป็น **X.509 v3 ที่มีแค่ Subject Key Identifier แต่ไม่มี `basicConstraints = CA:TRUE`** (ตั้งแต่ OpenSSL 3.2 คำสั่ง `x509 -req` ใส่ SKID/AKID ให้อัตโนมัติ) ใบรับรองจึงถูกปฏิเสธว่า "ไม่ใช่ CA" ทั้งใน `openssl verify` (error 79 invalid CA certificate), `mosquitto_pub` (`certificate verify failed`) และ Broker (`tlsv1 alert unknown ca`) — mbedTLS บน ESP32 ก็ตรวจเงื่อนไขเดียวกัน
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-1-labsheet-ca-error.png" alt="labsheet CA command error">
+</p>
+
+**วิธีแก้:** ใส่ส่วนขยาย v3 ให้ Root CA ตอนลงนาม ([mqtt_certs/ca_ext.cnf](HW-67030011/Lab11-3_MQTTS_Secure/mqtt_certs/ca_ext.cnf))
+```bash
+openssl x509 -req -in ca.csr -out ca.crt -sha256 -days 3650 -signkey ca.key -extfile ca_ext.cnf -extensions v3_ca
+```
+```ini
+[v3_ca]
+basicConstraints = critical, CA:TRUE
+keyUsage = critical, keyCertSign, cRLSign
+subjectKeyIdentifier = hash
+```
+หลังแก้ `openssl verify` ผ่านทั้ง `server.crt` และ `client.crt`
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-1-certs.png" alt="certificates verified">
+</p>
+
+
 ---
 
 ### กิจกรรมที่ 11-3.2 การตั้งค่า Mosquitto MQTTS Broker (Port 8883)
@@ -101,6 +133,17 @@ log_type all
 & "C:\Program Files\mosquitto\mosquitto.exe" -c "C:\mqtt_certs\mosquitto_ssl.conf" -v
 ```
 
+**ผลการทดลอง:** ใช้คอนฟิกเดียวกับใบงาน (Path แบบสัมพัทธ์ เพราะรัน Broker จากโฟลเดอร์ `mqtt_certs/`) และ **ต้องเพิ่ม `allow_anonymous true`** เพราะใน Mosquitto 2.x Listener ที่ประกาศเองจะไม่อนุญาต Client ที่ไม่มี Username โดยปริยาย แม้ผ่าน mTLS แล้วก็ตาม ถ้าไม่ใส่จะได้ `CONNACK (0, 5)` → `Connection Refused: not authorised` (ทางเลือกที่ปลอดภัยกว่าคือ `use_identity_as_username true` ให้ใช้ CN ของใบรับรองเป็น Username แล้วคุมสิทธิ์ด้วย ACL)
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-2-no-allow-anonymous.png" alt="mosquitto 2 not authorised without allow_anonymous">
+</p>
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-2-broker-tls.png" alt="TLS broker listening on 8883">
+</p>
+
+
 ---
 
 ### กิจกรรมที่ 11-3.3 การทดสอบความปลอดภัยผ่านเครื่องมือ CLI
@@ -125,6 +168,27 @@ mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hacker message" --ca
 * ในเทอร์มินัลจะแจ้งเตือนข้อผิดพลาด: `Error: Connection refused: Not authorised` หรือ `OpenSSL Error: ssl handshake failure`
 * ในหน้าต่าง Broker Log จะแจ้ง: `Client disconnected due to TLS error: peer did not return a certificate`
 * แสดงว่าระบบปฏิเสธการเชื่อมต่อจากอุปกรณ์แปลกปลอมได้อย่างสมบูรณ์
+
+**ผลการทดลอง:**
+
+| การทดสอบ | ผลฝั่ง Client | ผลใน Broker Log |
+| :--- | :--- | :--- |
+| ส่งครบ `--cafile` + `--cert` + `--key` | Subscriber ได้รับ `secure/test Hello Secure World!` | `New client connected ... on port 8883` ตามปกติ |
+| ส่งเฉพาะ `--cafile` (ไม่มีใบรับรอง Client) | `Error: The connection was lost.` | `OpenSSL Error: peer did not return a certificate` → `Client <unknown> disconnected: Protocol error.` |
+| ไม่ระบุ `--cafile` เลย | `Error: Protocol error` | `tlsv1 alert unknown ca` (Client ใช้ CA ของระบบ จึงไม่เชื่อถือ IoT Root CA ที่สร้างเอง) |
+
+Client ที่ไม่มีใบรับรองถูกตัดตั้งแต่ขั้น TLS Handshake **ยังไม่ทันส่งแพ็กเก็ต MQTT CONNECT** เลย
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-3-cli-mtls.png" alt="mTLS CLI tests">
+</p>
+
+รายละเอียด Session จาก `openssl s_client`: เครื่อง Mac เจรจาได้ **TLSv1.3, TLS_AES_256_GCM_SHA384**, Peer certificate `CN=172.20.10.2`, `Verification: OK`
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-tls-session.png" alt="openssl s_client session">
+</p>
+
 
 ---
 
@@ -156,6 +220,9 @@ idf_component_register(
         "certs/client.key"
 )
 ```
+
+**ที่ใช้จริง** ([main/CMakeLists.txt](HW-67030011/Lab11-3_MQTTS_Secure/main/CMakeLists.txt)): เพิ่ม `REQUIRES mqtt esp_wifi esp_event nvs_flash esp_driver_gpio` และต้อง `idf.py add-dependency "espressif/mqtt"` เพราะ ESP-IDF v6 แยก `mqtt` ออกเป็น Managed Component แล้ว
+
 
 ---
 
@@ -311,6 +378,15 @@ void app_main(void)
 }
 ```
 
+**โค้ดที่ใช้จริง:** [main/main.c](HW-67030011/Lab11-3_MQTTS_Secure/main/main.c) — ตามใบงาน และเพิ่ม: อ่าน Wi-Fi จาก `wifi_credentials.h`, `nvs_flash_init` แบบ erase เมื่อจำเป็น, Log ขนาดใบรับรองที่ฝังไว้, Log `mbedTLS error` + `cert verify flags` ใน `MQTT_EVENT_ERROR` และให้คำสั่ง `ON`/`OFF` ที่ Topic `secure/esp32/cmd` ควบคุม LED (GPIO 2) เพื่อทดสอบการควบคุมผ่านช่องทางเข้ารหัส
+
+Build ได้ .bin ขนาด 0xda600 (894,464 ไบต์)
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-4-build.png" alt="idf.py build lab 11-3">
+</p>
+
+
 ---
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
@@ -327,9 +403,60 @@ void app_main(void)
    * Mosquitto จะพิมพ์ข้อความยืนยัน `Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node`
    * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
 
+**ผลการทดลอง:** บอร์ดได้ IP แล้วเริ่ม TLS Handshake ที่ 5,255 ms และเชื่อมต่อสำเร็จที่ 7,135 ms (**Handshake ≈ 1.9 วินาที** เพราะ ESP32 ต้องทำ RSA-2048 ทั้งตรวจใบรับรอง Server และเซ็นด้วย `client.key`) จากนั้นรับคำสั่ง `ON` / `OFF` / `ON` ผ่าน MQTTS แล้ว LED เปลี่ยนตาม
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-5-esp32-mtls-serial.png" alt="ESP32 mTLS serial log">
+</p>
+
+ฝั่ง Mac: Subscriber ที่มีใบรับรองได้รับ `secure/esp32/status SECURE_ONLINE_MTLS` จากบอร์ด และ Broker ส่งคำสั่งให้ `esp32_mtls_client_node` ด้วย QoS 1 (ได้ PUBACK กลับทุกครั้ง)
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-5-esp32-mtls-cli.png" alt="ESP32 mTLS broker and CLI">
+</p>
+
+> [!NOTE] Mosquitto 2.0.22 **ไม่พิมพ์** บรรทัด `Peer certificate verified: ...` ตามที่ใบงานระบุ (Log ปกติไม่แสดง Subject ของ Client) หลักฐานว่า Broker ตรวจใบรับรองจริงคือการทดสอบในกิจกรรม 11-3.3 ที่ Client ไม่มีใบรับรองถูกปฏิเสธด้วย `peer did not return a certificate` ส่วน ESP32 ผ่านได้ (ถ้าต้องการให้ CN ปรากฏใน Log ใช้ `use_identity_as_username true` แล้ว Client ID/Username จะเป็น `esp32-secure-node`) และ ESP32 เจรจาด้วย **TLS 1.2** เพราะ `CONFIG_MBEDTLS_SSL_PROTO_TLS1_3` ปิดอยู่ใน sdkconfig ค่าเริ่มต้น
+
+
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
-2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
-3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+
+1. **เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า Common Name (CN) จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?**
+   * **คำตอบ:** การยืนยันตัวตน Server ใน TLS มี 2 ขั้น คือ (1) ใบรับรองต้องถูกเซ็นโดย CA ที่ Client เชื่อถือ และ (2) **Hostname Verification** ชื่อในใบรับรอง (SAN `dNSName`/`iPAddress` หรือ CN ถ้าไม่มี SAN) ต้องตรงกับชื่อ/IP ที่ Client ใช้เชื่อมต่อจริง ขั้นที่ 2 ป้องกัน Man-in-the-Middle เพราะถ้าไม่ตรวจชื่อ ใครก็ตามที่มีใบรับรองใด ๆ จาก CA เดียวกัน (เช่น ใบของอุปกรณ์ตัวอื่น) ก็ปลอมตัวเป็น Broker ได้ ESP32 เชื่อมต่อด้วย `mqtts://172.20.10.2:8883` CN จึงต้องเป็น `172.20.10.2` พอดี
+   * **ถ้าไม่ตรง:** Handshake ถูกยกเลิกทันทีก่อนส่งข้อมูล MQTT ใด ๆ ทดลองจริงโดยเชื่อมต่อเครื่องเดียวกันด้วย `-h 127.0.0.1` และ `-h localhost` (ไม่ตรงกับ CN=172.20.10.2) ได้ `Error: host name verification failed.` + `OpenSSL Error: certificate verify failed` ทั้งที่ใบรับรองถูกต้องทุกอย่าง ฝั่ง ESP32 (mbedTLS) จะได้ `MBEDTLS_ERR_X509_CERT_VERIFY_FAILED (-0x2700)` พร้อม verify flag `MBEDTLS_X509_BADCERT_CN_MISMATCH (0x04)` และ esp-tls รายงาน `ESP_ERR_MBEDTLS_SSL_HANDSHAKE_FAILED`
+   * **ข้อสังเกตเพิ่มเติม:** มาตรฐานปัจจุบันให้ใส่ชื่อใน `subjectAltName` (เช่น `IP:172.20.10.2, DNS:broker.local`) เพราะ Client สมัยใหม่ไม่ดู CN เมื่อมี SAN และเมื่อ IP ของ Broker เปลี่ยน (DHCP ของ Hotspot) ต้องออกใบรับรองใหม่ จึงควรผูกกับ Hostname ที่คงที่แทน IP
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-q1-hostname-mismatch.png" alt="hostname mismatch">
+</p>
+
+2. **การยืนยันตัวตนแบบ Mutual Authentication (mTLS) แตกต่างจากการใช้ HTTPS ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?**
+   * **คำตอบ:**
+
+     | ประเด็น | HTTPS ทั่วไป (One-way TLS) | mTLS (ใบงานนี้) |
+     | :--- | :--- | :--- |
+     | ใครแสดงใบรับรอง | Server ฝ่ายเดียว | ทั้ง Server และ Client |
+     | ข้อความ Handshake | ไม่มี `CertificateRequest` | Server ส่ง `CertificateRequest` → Client ต้องส่ง `Certificate` + `CertificateVerify` (ลายเซ็นด้วย Private Key เพื่อพิสูจน์ว่าถือกุญแจจริง) |
+     | Client ยืนยันตัวตนอย่างไร | ภายหลังในชั้น Application (Username/Password, Cookie, OAuth) หลังช่องทางเข้ารหัสเสร็จแล้ว | ในชั้น TLS เลย ด้วยใบรับรองที่ CA ของเราออกให้ ถ้าไม่มี/ไม่ถูกต้อง ถูกตัดตั้งแต่ Handshake |
+     | ใบรับรอง Client มาจากไหน | ไม่ต้องมี | ต้องมี PKI ของตัวเองออกใบให้ทุกอุปกรณ์ (กิจกรรม 11-3.1) |
+     | เหมาะกับ | ผู้ใช้ทั่วไปจำนวนมากที่ไม่มีใบรับรอง | อุปกรณ์ IoT ที่ไม่มีคนพิมพ์รหัส ต้องการตัวตนเฉพาะเครื่อง และเพิกถอนรายเครื่องได้ (CRL) |
+
+     ผลทดลองยืนยัน: Client ที่ส่งแค่ `--cafile` (เหมือนเบราว์เซอร์ที่เชื่อถือ Server ได้แต่ไม่มีใบรับรองของตัวเอง) ถูก Broker ตัดด้วย `peer did not return a certificate` ในขณะที่ HTTPS ปกติ Client แบบนี้เข้าได้
+
+3. **หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?**
+   * **คำตอบ: กู้คืนได้ทั้งไฟล์** เพราะ `EMBED_TXTFILES` นำข้อความ PEM ไปวางใน `.rodata` ของเฟิร์มแวร์ตรง ๆ โดยไม่เข้ารหัส ทดลองจริง:
+     * ค้นใน `build/Lab11-3_MQTTS_Secure.bin` ด้วย `grep -abo` พบ `-----BEGIN PRIVATE KEY-----` 2 ตำแหน่ง ตำแหน่งแรก (63968) เป็นสตริงค่าคงที่ของตัว Parser PEM ใน mbedTLS ส่วนตำแหน่งที่สอง **offset 77577** คือกุญแจจริง ตัดมา 1,704 ไบต์แล้ว SHA-256 **ตรงกับ `client.key` ทุกไบต์** (`aa8574e2…6c8645`)
+     * อ่านจากบอร์ดจริงผ่าน USB ด้วย `esptool read-flash 0x22000 0x2000` ก็พบกุญแจที่ Flash address `0x022F09` และ SHA-256 ตรงกันเช่นกัน ([logs/11-3_q3_key_extraction.txt](HW-67030011/Lab11-3_MQTTS_Secure/logs/11-3_q3_key_extraction.txt)) แปลว่าแค่เข้าถึงตัวบอร์ดได้ก็ขโมยกุญแจได้ ไม่ต้องมีไฟล์ .bin
+     * `espefuse summary` ของบอร์ดนี้: `FLASH_CRYPT_CNT = 0` (ไม่เข้ารหัส Flash), `ABS_DONE_0/1 = False` (ไม่มี Secure Boot), `JTAG_DISABLE = False`, `DISABLE_DL_ENCRYPT/DECRYPT = False` จึงไม่มีอะไรกันเลย
+     * ผลกระทบ: ผู้โจมตีนำ `client.crt` + `client.key` ไปปลอมตัวเป็นบอร์ด (Clone) เชื่อมต่อ Broker เพื่อส่งข้อมูลปลอมหรือ Subscribe ดักคำสั่ง ซึ่ง Broker แยกไม่ออก
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-3-q3-key-in-bin.png" alt="private key found in firmware bin and efuse status">
+</p>
+
+   * **ฮาร์ดแวร์ความปลอดภัยที่ใช้แก้:**
+     * **Flash Encryption:** เข้ารหัสเนื้อหา Flash ด้วย AES (คีย์อยู่ใน eFuse BLOCK1 ที่ Software อ่านไม่ได้) ถอดรหัสแบบโปร่งใสเฉพาะตอน CPU อ่านผ่าน Cache ดังนั้น `read-flash` หรือ .bin ที่หลุดออกไปจะเป็นข้อมูลที่อ่านไม่ออก (โหมด Release ปิดการเข้าถึงผ่าน UART ด้วย `DISABLE_DL_ENCRYPT/DECRYPT`)
+     * **Secure Boot V2:** ROM ตรวจลายเซ็น (RSA-3072/ECDSA) ของ Bootloader และ App ก่อนรัน ป้องกันผู้โจมตีแฟลชเฟิร์มแวร์ของตัวเองเพื่ออ่านกุญแจจาก Flash ที่ถอดรหัสแล้ว ต้องใช้คู่กับ Flash Encryption
+     * **Digital Signature (DS) Peripheral** (ESP32-S2/S3/C3/C6/H2 แต่ **ไม่มีใน ESP32 รุ่นแรกที่ใช้ทดลอง**): เก็บ Private Key ในรูปที่เข้ารหัสด้วย HMAC Key ใน eFuse และให้ฮาร์ดแวร์เซ็น TLS แทน Software จะไม่เห็นกุญแจจริงเลย (esp-tls รองรับผ่าน `ds_data` และพาร์ทิชัน `esp_secure_cert`) สำหรับ ESP32 รุ่นแรกอาจใช้ Secure Element ภายนอก เช่น ATECC608A
+     * นอกจากนี้ต้องใช้ **ใบรับรองแยกรายเครื่อง** (กุญแจหลุด 1 เครื่องไม่กระทบทั้งระบบ), เพิกถอนด้วย CRL ที่ Broker, ปิด JTAG และ **ไม่เก็บกุญแจใน Git** (งานนี้จึงใส่ `*.key` ไว้ใน `.gitignore`)

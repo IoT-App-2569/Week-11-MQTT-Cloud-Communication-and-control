@@ -1,0 +1,10 @@
+$ python3 raw_invalid_subscribe.py 127.0.0.1 1883 "home/#/light"
+-> CONNECT   10 1D 00 04 4D 51 54 54 04 02 00 3C 00 11 72 61 77 2D 77 69 6C 64 63 61 72 64 2D 74 65 73 74
+<- CONNACK   20 02 00 00  (return code 0)
+-> SUBSCRIBE 82 11 00 01 00 0C 68 6F 6D 65 2F 23 2F 6C 69 67 68 74 00  (filter 'home/#/light', QoS 0)
+<- connection closed by broker (no SUBACK)
+$ python3 raw_invalid_subscribe.py 127.0.0.1 1883 "home/+/light"
+-> CONNECT   10 1D 00 04 4D 51 54 54 04 02 00 3C 00 11 72 61 77 2D 77 69 6C 64 63 61 72 64 2D 74 65 73 74
+<- CONNACK   20 02 00 00  (return code 0)
+-> SUBSCRIBE 82 11 00 01 00 0C 68 6F 6D 65 2F 2B 2F 6C 69 67 68 74 00  (filter 'home/+/light', QoS 0)
+<- 90 03 00 01 00  (packet type 0x9)

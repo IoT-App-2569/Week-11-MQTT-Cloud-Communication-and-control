@@ -1,0 +1,10 @@
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -i sub-qos0 -t test/qos -q 0 -v -d -W 2
+Client sub-qos0 sending CONNECT
+Client sub-qos0 received CONNACK (0)
+Client sub-qos0 sending SUBSCRIBE (Mid: 1, Topic: test/qos, QoS: 0, Options: 0x00)
+Client sub-qos0 received SUBACK
+Subscribed (mid: 1): 0
+Client sub-qos0 received PUBLISH (d0, q0, r0, m0, 'test/qos', ... (13 bytes))
+test/qos QoS 0 Message
+Timed out
+Client sub-qos0 sending DISCONNECT

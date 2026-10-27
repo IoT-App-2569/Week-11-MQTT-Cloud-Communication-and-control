@@ -1,0 +1,18 @@
+08:51:15: mosquitto version 2.0.22 terminating
+^C   [ทดสอบ Auto-Reconnect ครั้งที่ 2: หยุด Broker 08:51:15]
+$ mosquitto -c mosquitto.conf -v   [เปิด Broker ใหม่ 08:51:27]
+08:51:27: mosquitto version 2.0.22 starting
+08:51:27: Config loaded from mosquitto.conf.
+08:51:27: Opening ipv4 listen socket on port 1883.
+08:51:27: mosquitto version 2.0.22 running
+08:51:30: New connection from 172.20.10.6:53185 on port 1883.
+08:51:30: New client connected from 172.20.10.6:53185 as esp32-node01 (p2, c1, k60).
+08:51:30: Will message specified (7 bytes) (r1, q1).
+08:51:30: 	iot/node01/status
+08:51:30: Sending CONNACK to esp32-node01 (0, 0)
+08:51:30: Received PUBLISH from esp32-node01 (d0, q1, r1, m51331, 'iot/node01/status', ... (6 bytes))
+08:51:30: Sending PUBACK to esp32-node01 (m51331, rc0)
+08:51:30: Received SUBSCRIBE from esp32-node01
+08:51:30: 	iot/node01/cmd/led (QoS 1)
+08:51:30: esp32-node01 1 iot/node01/cmd/led
+08:51:30: Sending SUBACK to esp32-node01

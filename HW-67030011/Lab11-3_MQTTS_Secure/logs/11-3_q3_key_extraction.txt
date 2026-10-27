@@ -1,0 +1,10 @@
+$ esptool --port /dev/cu.usbserial-0001 read-flash 0x22000 0x2000 key_region.bin   # อ่าน Flash ตรงจากบอร์ดผ่าน USB-UART
+Read 8192 bytes from 0x00022000
+ค้นหา PEM block ใน dump: พบ PRIVATE KEY ที่ Flash address 0x022F09 ความยาว 1704 ไบต์ (ข้อความธรรมดา ไม่เข้ารหัส)
+ข้อมูลที่อ่านได้ (ปิดบังเนื้อกุญแจในรายงาน):
+  -----BEGIN PRIVATE KEY-----
+  MIIEvQIBAD…(ปิดบัง 26 บรรทัด)…
+  -----END PRIVATE KEY-----
+SHA-256 ของกุญแจที่ดึงจาก Flash : aa8574e2e515031511a87a982b1fc0e3a3f9779456f04dd8d4df98be036c8645
+SHA-256 ของ mqtt_certs/client.key: aa8574e2e515031511a87a982b1fc0e3a3f9779456f04dd8d4df98be036c8645
+ผลการเทียบ: ตรงกันทุกไบต์ — กู้คืน client.key จากบอร์ดได้สมบูรณ์

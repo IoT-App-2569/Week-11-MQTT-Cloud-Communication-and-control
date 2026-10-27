@@ -1,0 +1,93 @@
+I (4676) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (5776) esp_netif_handlers: sta ip: 172.20.10.6, mask: 255.255.255.240, gw: 172.20.10.1
+I (5776) RMAKER_LIGHT: Node ID: UE8xRB8zb33cRLRySRcdEW
+I (9076) esp_mqtt_glue: MQTT Connected
+I (9096) esp_rmaker_core: User node mapping done, initializing MQTT parameters.
+I (38666) RMAKER_LIGHT: Request received via: Cloud
+I (38666) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (38676) RMAKER_LIGHT: Changing LED state to: ON
+I (38676) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (39516) RMAKER_LIGHT: Request received via: Cloud
+I (39516) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (39526) RMAKER_LIGHT: Changing LED state to: OFF
+I (39526) RMAKER_LIGHT: LED output: power=OFF brightness=100% (duty 0/8191)
+I (40016) RMAKER_LIGHT: Request received via: Cloud
+I (40016) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (40026) RMAKER_LIGHT: Changing LED state to: ON
+I (40026) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (40716) RMAKER_LIGHT: Request received via: Cloud
+I (40726) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (40726) RMAKER_LIGHT: Changing LED state to: OFF
+I (40736) RMAKER_LIGHT: LED output: power=OFF brightness=100% (duty 0/8191)
+I (41636) RMAKER_LIGHT: Request received via: Cloud
+I (41646) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (41646) RMAKER_LIGHT: Changing LED state to: ON
+I (41656) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (42066) RMAKER_LIGHT: Request received via: Cloud
+I (42066) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (42076) RMAKER_LIGHT: Changing Brightness to: 96%
+I (42076) RMAKER_LIGHT: LED output: power=ON brightness=96% (duty 7863/8191)
+I (42916) RMAKER_LIGHT: Request received via: Cloud
+I (42926) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (42926) RMAKER_LIGHT: Changing Brightness to: 42%
+I (42936) RMAKER_LIGHT: LED output: power=ON brightness=42% (duty 3440/8191)
+I (43686) RMAKER_LIGHT: Request received via: Cloud
+I (43686) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (43696) RMAKER_LIGHT: Changing Brightness to: 12%
+I (43696) RMAKER_LIGHT: LED output: power=ON brightness=12% (duty 982/8191)
+I (43766) RMAKER_LIGHT: Request received via: Cloud
+I (43766) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (43776) RMAKER_LIGHT: Changing Brightness to: 44%
+I (43786) RMAKER_LIGHT: LED output: power=ON brightness=44% (duty 3604/8191)
+I (44506) RMAKER_LIGHT: Request received via: Cloud
+I (44506) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (44516) RMAKER_LIGHT: Changing Brightness to: 15%
+I (44516) RMAKER_LIGHT: LED output: power=ON brightness=15% (duty 1228/8191)
+I (44926) RMAKER_LIGHT: Request received via: Cloud
+I (44926) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (44936) RMAKER_LIGHT: Changing Brightness to: 56%
+I (44936) RMAKER_LIGHT: LED output: power=ON brightness=56% (duty 4586/8191)
+I (46456) RMAKER_LIGHT: Request received via: Cloud
+I (46456) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (46466) RMAKER_LIGHT: Changing Brightness to: 60%
+I (46466) RMAKER_LIGHT: LED output: power=ON brightness=60% (duty 4914/8191)
+I (46756) RMAKER_LIGHT: Request received via: Cloud
+I (46756) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (46766) RMAKER_LIGHT: Changing Brightness to: 100%
+I (46766) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (61176) RMAKER_LIGHT: Request received via: Cloud
+I (61176) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (61186) RMAKER_LIGHT: Changing Brightness to: 95%
+I (61196) RMAKER_LIGHT: LED output: power=ON brightness=95% (duty 7781/8191)
+I (62116) RMAKER_LIGHT: Request received via: Cloud
+I (62116) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (62126) RMAKER_LIGHT: Changing Brightness to: 91%
+I (62126) RMAKER_LIGHT: LED output: power=ON brightness=91% (duty 7453/8191)
+I (62526) RMAKER_LIGHT: Request received via: Cloud
+I (62526) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (62536) RMAKER_LIGHT: Changing Brightness to: 29%
+I (62536) RMAKER_LIGHT: LED output: power=ON brightness=29% (duty 2375/8191)
+I (62936) RMAKER_LIGHT: Request received via: Cloud
+I (62936) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (62946) RMAKER_LIGHT: Changing Brightness to: 15%
+I (62946) RMAKER_LIGHT: LED output: power=ON brightness=15% (duty 1228/8191)
+I (64466) RMAKER_LIGHT: Request received via: Cloud
+I (64476) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (64476) RMAKER_LIGHT: Changing Brightness to: 0%
+I (64486) RMAKER_LIGHT: LED output: power=ON brightness=0% (duty 0/8191)
+I (64676) RMAKER_LIGHT: Request received via: Cloud
+I (64676) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (64686) RMAKER_LIGHT: Changing Brightness to: 11%
+I (64686) RMAKER_LIGHT: LED output: power=ON brightness=11% (duty 901/8191)
+I (65796) RMAKER_LIGHT: Request received via: Cloud
+I (65806) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (65806) RMAKER_LIGHT: Changing Brightness to: 4%
+I (65816) RMAKER_LIGHT: LED output: power=ON brightness=4% (duty 327/8191)
+I (66106) RMAKER_LIGHT: Request received via: Cloud
+I (66116) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (66116) RMAKER_LIGHT: Changing Brightness to: 100%
+I (66126) RMAKER_LIGHT: LED output: power=ON brightness=100% (duty 8191/8191)
+I (66156) RMAKER_LIGHT: Request received via: Cloud
+I (66156) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (66166) RMAKER_LIGHT: Changing Brightness to: 70%
+I (66166) RMAKER_LIGHT: LED output: power=ON brightness=70% (duty 5733/8191)

@@ -1,0 +1,11 @@
+$ mosquitto_sub -h 172.20.10.2 -p 8883 -t "secure/#" --cafile ca.crt --cert client.crt --key client.key -v
+secure/esp32/status SECURE_ONLINE_MTLS
+secure/esp32/cmd ON
+secure/esp32/cmd OFF
+secure/esp32/cmd ON
+secure/esp32/status SECURE_ONLINE_MTLS
+secure/esp32/status SECURE_ONLINE_MTLS
+secure/esp32/status SECURE_ONLINE_MTLS
+secure/esp32/status SECURE_ONLINE_MTLS
+secure/esp32/status SECURE_ONLINE_MTLS
+^C

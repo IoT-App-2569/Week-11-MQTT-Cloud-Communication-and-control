@@ -1,0 +1,2 @@
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -i Node_Client_02 -t dummy/listen --will-topic node/esp32/status --will-payload WILL_FROM_NODE_02 --will-qos 1
+^C   [SIGINT — mosquitto_sub ส่ง DISCONNECT ก่อนปิด]

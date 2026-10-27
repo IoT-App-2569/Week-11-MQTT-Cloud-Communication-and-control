@@ -1,0 +1,7 @@
+09:19:38: mosquitto version 2.0.22 starting
+09:19:38: Opening ipv4 listen socket on port 8883.
+09:19:38: mosquitto version 2.0.22 running
+09:19:39: New connection from 172.20.10.2:64900 on port 8883.
+09:19:39: Sending CONNACK to auto-473DF737-7DE5-812B-CA50-10A0D803B24E (0, 5)
+09:19:39: Client auto-473DF737-7DE5-812B-CA50-10A0D803B24E disconnected, not authorised.
+09:19:40: mosquitto version 2.0.22 terminating

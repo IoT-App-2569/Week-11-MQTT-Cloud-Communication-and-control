@@ -13,6 +13,13 @@
 4. สามารถถอดรหัสข้อความคำสั่งควบคุมที่ได้รับจาก Broker แล้วนำไปควบคุมสถานะ GPIO ของหลอดไฟ LED ได้
 5. สามารถทดสอบและติดตามการทำงานผ่านเครื่องมือ CLI (`mosquitto_sub` และ `mosquitto_pub`)
 
+> [!NOTE] **สภาพแวดล้อมที่ใช้ทำการทดลองจริง (รหัสนักศึกษา 67030011)**
+> * บอร์ด **ESP32-D0WD-V3 (rev v3.1)** ที่ `/dev/cu.usbserial-0001`, ESP-IDF **v6.0.2**, Broker = Mosquitto 2.0.22 บน Mac
+> * เครือข่าย: iPhone Personal Hotspot `KBBK-IPHONE` (เปิด Maximize Compatibility ให้เป็น 2.4 GHz) — Mac ได้ IP `172.20.10.2`, ESP32 ได้ `172.20.10.6`
+> * โปรเจกต์: [Lab11-2_MQTT_Client/](HW-67030011/Lab11-2_MQTT_Client/) รหัส Wi-Fi แยกไว้ใน `main/wifi_credentials.h` (อยู่ใน `.gitignore`) — ดูตัวอย่างที่ [wifi_credentials.h.example](HW-67030011/Lab11-2_MQTT_Client/main/wifi_credentials.h.example)
+> * Log ทั้งหมดอยู่ใน [Lab11-2_MQTT_Client/logs/](HW-67030011/Lab11-2_MQTT_Client/logs/)
+
+
 ---
 
 ## 2. วงจรและการต่อสายฮาร์ดแวร์ (Schematic & Wiring)
@@ -31,6 +38,11 @@
 | **Resistor 330 หรือ 470Ω** | สลับขาได้ เนื่องจากตัวต้านทานไม่มีขั้ว | อนุกรมกับ LED          | ตัวต้านทานจำกัดกระแส          |
 | **Potentiometer 10k**      | Wiper (ขากลาง)                         | **GPIO 34** (ADC1_CH6) | เซนเซอร์ตรวจวัดแรงดันแอนะล็อก |
 | **Potentiometer 10k**      | ขาริมซ้าย / ขวา                        | **3.3V / GND**         | แรงดันอ้างอิงและกราวด์        |
+
+**การต่อวงจรจริง:** ใช้ **LED บนบอร์ด (GPIO 2)** เป็น Actuator และต่อ Potentiometer 10k ขากลางเข้า **GPIO 34**, ขาริมเข้า 3V3 / GND
+
+> [!WARNING] ตอนแรก LED ภายนอกถูกต่อที่ **GPIO 35** ซึ่งใช้ไม่ได้ เพราะ GPIO 34–39 ของ ESP32 เป็นขา **Input-only** (ไม่มีวงจรขับเอาต์พุต) จึงย้ายไปใช้ GPIO 2 ตามใบงาน
+
 
 ---
 
@@ -71,6 +83,9 @@ idf.py add-dependency "espressif/cjson"
 idf.py add-dependency "espressif/mqtt"
 ```
 
+**ผลการทดลอง:** ใน ESP-IDF v6 คอมโพเนนต์ `mqtt` ถูกแยกออกจาก IDF ไปอยู่ใน Component Registry แล้ว จึงต้อง `add-dependency "espressif/mqtt"` ด้วย ไฟล์ [main/idf_component.yml](HW-67030011/Lab11-2_MQTT_Client/main/idf_component.yml) ได้ `espressif/cjson: '*'` และ `espressif/mqtt: '*'`
+
+
 *หรือใช้ Docker* 
 ```
     เปลี่ยนท้ายคำสั่ง docker เป็น  `idf.py add-dependency "espressif/cjson"` และ `idf.py add-dependency "espressif/mqtt"`
@@ -84,6 +99,13 @@ idf.py add-dependency "espressif/mqtt"
 idf_component_register(SRCS "Lab11-2_MQTT_Client.c"
                     INCLUDE_DIRS "."
                     REQUIRES mqtt cjson esp_wifi esp_event nvs_flash cjson esp_adc driver esp_driver_gpio)
+```
+
+**ที่ใช้จริง** ([main/CMakeLists.txt](HW-67030011/Lab11-2_MQTT_Client/main/CMakeLists.txt)): ตัด `cjson` ที่ซ้ำ และตัด `driver` (ใน IDF v6 ใช้ `esp_driver_gpio` แทนแล้ว)
+```cmake
+idf_component_register(SRCS "Lab11-2_MQTT_Client.c"
+                    INCLUDE_DIRS "."
+                    REQUIRES mqtt cjson esp_wifi esp_event nvs_flash esp_adc esp_driver_gpio)
 ```
 
 
@@ -338,6 +360,14 @@ void app_main(void)
 }
 ```
 
+**โค้ดที่ใช้จริง:** [main/Lab11-2_MQTT_Client.c](HW-67030011/Lab11-2_MQTT_Client/main/Lab11-2_MQTT_Client.c) — โครงสร้างตามใบงาน และปรับปรุงดังนี้
+* อ่าน SSID/Password จาก `wifi_credentials.h` และตั้ง `sae_pwe_h2e` ให้ต่อ Hotspot แบบ WPA2/WPA3 ได้
+* เทียบ Topic ด้วย **ความยาว + strncmp** — โค้ดเดิม `strncmp(event->topic, "iot/node01/cmd/led", event->topic_len)` จะยอมรับ Topic ที่สั้นกว่าเช่น `iot/node01/cmd` เพราะเทียบแค่ `topic_len` ตัวแรก
+* ถอดรหัส JSON ด้วย `cJSON_ParseWithLength` (รองรับ `{"state": 1}`, `{"state":0}`, `{"state": true}`) แทน `strstr` และคำสั่งที่ไม่รู้จักจะไม่เปลี่ยนสถานะ LED
+* แปลง ADC เป็นแรงดันด้วย **ADC Calibration (eFuse Vref)** และเฉลี่ย 8 ครั้ง แทน `raw/4095*3.3` ซึ่งไม่ตรงกับย่าน 12 dB จริงของ ESP32 (ค่าที่ raw = 0 จริงคือ ≈ 0.14 V และ raw = 4095 คือ ≈ 3.14 V)
+* เพิ่ม `student_id` ใน JSON, ตั้ง `client_id = "esp32-node01"` ให้อ่าน Broker Log ง่าย และไม่ Publish Telemetry ขณะ MQTT ยังไม่เชื่อมต่อ
+
+
 ---
 
 ### กิจกรรมที่ 11-2.3 การคอมไพล์และแฟลชโปรแกรมลงบอร์ด
@@ -349,6 +379,19 @@ idf.py build
 idf.py -p COMx flash monitor
 ```
 *(เปลี่ยน `COMx` เป็นพอร์ตของบอร์ด ESP32 เช่น `COM3`)*
+
+**ผลการทดลอง:** Build ผ่านโดยไม่มี Warning (`idf.py build` แล้ว `idf.py -p /dev/cu.usbserial-0001 flash`) ไฟล์ .bin ขนาด 0xdea50 (911,952 ไบต์) ใช้ Partition 1 MB ไป 87%
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-build.png" alt="idf.py build and size">
+</p>
+
+Serial Monitor หลังบูต: ต่อ Wi-Fi ได้ IP `172.20.10.6` → `MQTT_EVENT_CONNECTED` → Subscribe `iot/node01/cmd/led` → ส่ง Telemetry ทุก 4 วินาที
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-serial-boot-telemetry.png" alt="serial monitor boot and telemetry">
+</p>
+
 
 *หรือใช้ Docker*
 ```powershell
@@ -372,6 +415,15 @@ python -m esptool -p <COMxx> --chip esp32 -b 460800 --before default_reset --aft
 >    * หากต้องการให้ข้อความปรากฏค้างอยู่ใน MQTT Explorer เสมอแม้ส่งเสร็จไปแล้ว ให้เพิ่มแฟล็ก **`-r` (Retain)** ในคำสั่ง Publish
 > 3. **การเปิดพอร์ต Firewall**: ตรวจสอบว่า Windows Defender Firewall อนุญาตให้พอร์ต TCP 1883 รับการเชื่อมต่อจาก Inbound LAN
 
+> [!NOTE] **ปัญหาที่พบจริงระหว่างการทดลอง (macOS + iPhone Hotspot)**
+> 1. **iPhone Hotspot ส่ง Deauth (reason 3) ทันทีหลัง Associate** — iOS รับอุปกรณ์ใหม่เฉพาะตอนเปิดหน้า *Settings › Personal Hotspot* ค้างไว้ (และเปิด *Allow Others to Join*) หลังเปิดหน้านั้นบอร์ดต่อได้ และครั้งต่อ ๆ ไปต่อได้ทันที
+> 2. **Brownout Reset** ขณะเสียบสาย LED ใหม่ระหว่างบอร์ดทำงาน (`E BOD: Brownout detector was triggered`) — เกิดช่วง Wi-Fi เริ่มส่งสัญญาณซึ่งกินกระแสสูงสุด ควรถอด USB ก่อนแก้วงจร
+>
+> <p align="center">
+> <img src="HW-67030011/Images/lab11-2-hotspot-deauth.png" alt="iphone hotspot deauth reason 3">
+> </p>
+
+
 ---
 
 ### 1. การตรวจสอบ Telemetry Data
@@ -385,6 +437,19 @@ mosquitto_sub -h 192.168.1.111 -p 1883 -t "iot/node01/telemetry" -v
 iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,"led_state":false,"uptime_ms":1910367}
 ```
 *ทดลองหมุนก้านของ Potentiometer*: สังเกตว่าค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงตามการหมุนอย่างถูกต้อง
+
+**ผลการทดลอง:** ได้รับ JSON ทุก ~4 วินาที (`uptime_ms` ห่างกัน 4,010 ms) ขณะหมุน Potentiometer ค่าเปลี่ยนครบช่วง `adc_raw` 0 – 4095 และ `voltage_v` 0.142 – 3.139 V
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-telemetry-sub.png" alt="telemetry subscriber">
+</p>
+
+Broker Log ตอนบอร์ดเชื่อมต่อ: CONNECT พร้อม **Will (r1, q1) ที่ Topic `iot/node01/status`**, Publish `online` แบบ `q1, r1` แล้ว Subscribe `iot/node01/cmd/led` ด้วย QoS 1
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-broker-esp32-connect.png" alt="broker log esp32 connect">
+</p>
+
 
 ---
 
@@ -408,9 +473,45 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
 ```
 
+**ผลการทดลอง:** ส่งคำสั่ง 6 ครั้ง `ON`, `OFF`, `{"state": 1}`, `{"state": 0}`, `BLINK` (คำสั่งผิด), `ON` บอร์ดเปลี่ยนสถานะ LED ถูกต้องทุกครั้ง ตอบกลับที่ `iot/node01/state/led` และคำสั่ง `BLINK` ไม่เปลี่ยนสถานะ (ตอบ `{"led_state": false}` เหมือนเดิม) LED บนบอร์ดติด/ดับตามคำสั่ง และค่า `led_state` ใน Telemetry รอบถัดไปเปลี่ยนตาม
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-led-control.png" alt="LED control publisher and state">
+</p>
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-led-control-serial.png" alt="LED control serial log">
+</p>
+
+
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
-2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
-3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+
+1. **เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`**
+   * **คำตอบ:** สองส่วนนี้ทำงานคู่กันเป็นรูปแบบ **Presence Detection** ที่ทำให้ Topic สถานะมี "ค่าล่าสุดที่ถูกต้องเสมอ" อยู่ที่ Broker
+     * `online` + retain: Client ที่ Subscribe ทีหลัง (แดชบอร์ด, แอปที่เพิ่งเปิด) ได้สถานะทันทีจาก Retained Message ไม่ต้องรอ และค่านี้ **ทับ `offline` ที่ค้างจาก LWT ครั้งก่อน** ทุกครั้งที่บอร์ดเชื่อมต่อใหม่ (โค้ดจึง Publish ใน `MQTT_EVENT_CONNECTED`)
+     * LWT `offline` + retain: ถ้าบอร์ดหายไปแบบไม่ได้ตั้งใจ (ไฟดับ, Wi-Fi หลุด, ค้าง) บอร์ดไม่มีโอกาสบอกใคร **Broker จึงเป็นผู้ Publish แทน** และเพราะเป็น retain จึงแทนที่ `online` ที่ค้างอยู่ ถ้าไม่มีข้อนี้แดชบอร์ดจะเห็น `online` ค้างตลอดไป (Ghost Online) ถ้า `online` ไม่ retain แดชบอร์ดที่เปิดทีหลังจะเห็นแค่ `offline` เก่าหรือไม่เห็นอะไรเลย
+     * ทั้งคู่ใช้ QoS 1 เพื่อให้ Broker ยืนยันการรับ (เห็น `PUBACK` ใน Log)
+     * **ผลทดลองจริง** (จาก [sub_all_timestamped.txt](HW-67030011/Lab11-2_MQTT_Client/logs/sub_all_timestamped.txt)): ถอดสาย USB บอร์ด (ข้อมูลสุดท้าย 08:33:44) → 08:35:14 Broker บันทึก `Client esp32-node01 has exceeded timeout, disconnecting.` แล้วส่ง `iot/node01/status offline` ซึ่งช้ากว่าแพ็กเก็ตสุดท้าย **90 วินาที = 1.5 × Keep Alive 60 s** ตามมาตรฐาน MQTT เสียบกลับเข้าไป 08:47:24 ได้ `online` กลับมา ถ้าต้องการรู้เร็วกว่านี้ให้ลด `keepalive` (แลกกับ PINGREQ ที่ถี่ขึ้น)
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-lwt-offline.png" alt="LWT offline after keepalive timeout">
+</p>
+
+2. **หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่**
+   * **คำตอบ:** เมื่อ TCP ขาด (read error/EOF หรือไม่ได้ PINGRESP ภายใน Keep Alive) `esp-mqtt` จะส่ง `MQTT_EVENT_ERROR` ตามด้วย `MQTT_EVENT_DISCONNECTED` ปิด Socket แล้วเข้าสถานะรอและ **พยายามเชื่อมต่อใหม่เองทุก `network.reconnect_timeout_ms` (ค่าเริ่มต้น 10 วินาที)** ตราบใดที่ `network.disable_auto_reconnect = false` (ค่าเริ่มต้น) **จึงไม่ต้องเรียก `esp_mqtt_client_start()` หรือ `esp_mqtt_client_reconnect()` เอง** แต่มีสิ่งที่โค้ดต้องรับผิดชอบ:
+     * **การต่อ Wi-Fi ใหม่ไม่ใช่หน้าที่ของ esp-mqtt** — Driver Wi-Fi ไม่ Reconnect ให้อัตโนมัติ โค้ดจึงเรียก `esp_wifi_connect()` ใน `WIFI_EVENT_STA_DISCONNECTED` เมื่อได้ IP คืน การลองครั้งถัดไปของ esp-mqtt ก็จะสำเร็จ
+     * **Subscribe ใหม่ใน `MQTT_EVENT_CONNECTED`** เพราะค่าเริ่มต้นเป็น Clean Session (`c1` ใน Broker Log) Broker ลบ Subscription เดิมทิ้งตอนหลุด และ Publish `online` ใหม่ให้ทับ `offline` จาก LWT
+     * ข้อความ **QoS 0** ที่ส่งระหว่างหลุดจะหาย (`esp_mqtt_client_publish` คืน -1) โค้ดนี้จึงข้ามการส่ง Telemetry ขณะ `s_mqtt_connected == false` ส่วน QoS 1/2 จะถูกเก็บใน Outbox แล้วส่งซ้ำหลังเชื่อมต่อได้
+     * **ผลทดลองจริง:** หยุด Broker 12 วินาที (ผลต่อ esp-mqtt เหมือน Wi-Fi หลุด คือ TCP ขาด) บอร์ดขึ้น `transport_read(): EOF` → `MQTT_EVENT_DISCONNECTED` ที่ 20.56 s → `MQTT not connected, skip telemetry` → `MQTT_EVENT_CONNECTED` เองที่ 35.60 s **โดยไม่ Reboot และไม่มีโค้ดสั่ง Reconnect** Broker เห็น `esp32-node01` กลับมา Publish `online` และ Subscribe ใหม่ ส่วนกรณี Wi-Fi หลุดจริง เห็นได้จากช่วงบูตที่ Hotspot ส่ง Deauth ซ้ำ (reason 3 / 204) และ `wifi_event_handler` เรียก `esp_wifi_connect()` วนจนได้ IP
+
+<p align="center">
+<img src="HW-67030011/Images/lab11-2-auto-reconnect.png" alt="esp-mqtt auto reconnect">
+</p>
+
+3. **ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32**
+   * **คำตอบ:** cJSON จองหน่วยความจำจาก Heap ด้วย `malloc` ทั้งหมดและภาษา C ไม่มี Garbage Collector
+     * `cJSON_CreateObject()` และ `cJSON_Add...ToObject()` สร้าง Node `cJSON` ทีละตัว (บน ESP32 แต่ละ Node 40 ไบต์ บวกสำเนาของชื่อ Key และ String Value) Tree ในโค้ดนี้มี 7 Node (root + 6 field) → **`cJSON_Delete(root)`** ไล่คืนหน่วยความจำของทุก Node และทุกสตริงในต้นไม้แบบ Recursive
+     * `cJSON_PrintUnformatted()` จอง **บัฟเฟอร์สตริงใหม่อีกก้อน** (≈ 117–119 ไบต์ตาม Payload จริงใน Broker Log) แยกจาก Tree → ต้อง **`free(json_str)`** เอง
+   * **ถ้าละเลย:** เกิด Memory Leak ทุกรอบ ประมาณ 7×40 + ~80 (สตริง) + ~120 (บัฟเฟอร์) ≈ **0.5 KB ต่อรอบ** (ยังไม่รวม Header ของ Heap Allocator) ส่งทุก 4 วินาที = 900 รอบ/ชั่วโมง ≈ **430 KB/ชั่วโมง** ขณะที่ ESP32 มี DRAM รวม 180 KB (`idf.py size` แสดงว่าตัวแปร Static ใช้ไป 36,831 ไบต์ และ Wi-Fi/LwIP/MQTT จะจองเพิ่มตอนทำงาน) Heap จึงหมดในเวลาไม่ถึงชั่วโมง ผลคือ `malloc` คืน NULL → `cJSON_PrintUnformatted` ล้มเหลว, Wi-Fi/LwIP/esp-mqtt จองบัฟเฟอร์ไม่ได้จนหลุดการเชื่อมต่อ และสุดท้ายเกิด `abort()` / Reboot วนซ้ำ ระหว่างนั้น Heap ยังแตกเป็นชิ้น (Fragmentation) ทำให้จองก้อนใหญ่ไม่ได้แม้ผลรวมยังเหลือ ตรวจได้ด้วย `esp_get_free_heap_size()` / `heap_caps_get_minimum_free_size()` ที่จะลดลงเรื่อย ๆ

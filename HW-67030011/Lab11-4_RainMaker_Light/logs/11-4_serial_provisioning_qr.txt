@@ -1,0 +1,46 @@
+I (674) app_init: Project name:     Lab11-4_RainMaker_Light
+I (693) app_init: ESP-IDF:          v6.0.2
+I (874) esp_rmaker_work_queue: Work Queue created.
+E (874) esp_rmaker_client_data: Failed to get client cert
+I (874) esp_claim: Initialising Assisted Claiming. This may take time.
+I (894) esp_claim: Private key already exists with matching type. No need to re-initialise it.
+I (894) esp_rmaker_node: Node ID ----- 14335C0E7AA8
+I (904) esp_rmaker_time_service: Time service enabled
+I (904) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (914) esp_rmaker_time: SNTP already initialized.
+I (914) esp_rmaker_core: Starting RainMaker Work Queue task
+I (914) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (924) esp_claim: Waiting for assisted claim to finish.
+I (934) app_network: Reusing cached sec2 salt-verifier from NVS
+I (934) network_prov_scheme_ble: BT memory released
+I (944) app_wifi: Starting provisioning
+I (1294) protocomm_nimble: BLE Host Task Started
+I (1314) network_prov_mgr: Provisioning started with service name : PROV_5c3a36 
+I (1314) app_wifi: Provisioning started
+I (1314) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1324) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1324) QRCODE: {"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+                                          
+  █▀▀▀▀▀█ ███ ▀▄▀▀▀  ▄▀▄▀▀▄▄▀▀  █▀▀▀▀▀█   
+  █ ███ █ █▄▀█ ▄▄▄█▀▀ ▀▀▀█▄▄ ▄█ █ ███ █   
+  █ ▀▀▀ █ ▄  ▄▄█▀▀▀  ▄▄█▄▀ ▀█▀  █ ▀▀▀ █   
+  ▀▀▀▀▀▀▀ ▀▄▀ █ █ █▄▀▄█▄▀▄▀ ▀ ▀ ▀▀▀▀▀▀▀   
+  ██  ▀█▀▄▄ ▄▀▄▄█▄ ▀█▀▀▀██▀▄ ▄▀▄ █▄▀▀▀▀   
+   █▄█▀█▀▀█▀ █▀▀ ▀█▄  ▀▄▄▀▄ █▀▄██ ▀█▄█▄   
+  █▄▄▀█▀▀▄█▀▀ ▀  █▀██▀▄▀ ▄▀▄ ▄▀ ▀█▄▀█▄▀   
+   ▄▄▀ ▀▀▄ ▄█ ▄ █▀██▀▄ ▄██▀▀▄█▄█▄█ █▄     
+  ▄▄▀██▄▀▄▀█▀▀▄▀█▄ ▀█▀▄█ █▀▄▄▄▄██▀▄ ▀▀▀   
+  ▀ ██ █▀▄█▄▄█▀█▀█▀▄ ▄▄█▄▀█ █▀▄█ █▄▀▄▄▄   
+   █▀  ▄▀▀▄ ▀ ▀█▄▄█▀ ▀▀▀ ▄ ▄ ▄▀██▀▄█▀█▀   
+  ██▀▄▀ ▀▄▄▀▄ ▄ ▄▀██▀ █▄█▀ ▀ ▀▄█▄▀ █▄▄▄   
+  ▄█ ▀▄▀▀▀▄  ▀▄▀▀▄█▀ ▀▄▀█▄█ ▄▄▄▀█▀▄▀▀ ▀   
+     █▀▀▀▀█▄▄█▀█▀▀ ▄ ▄ ██▀ ▀▀█  █▄█▄█▀▄   
+  ▀▀▀▀ ▀▀ ▄▄▀ ▀█▄█▄▀▄▀██▀█▄▄▄▄█▀▀▀█ ▀▄    
+  █▀▀▀▀▀█ ▄▀▀ ▄ ▄███▄▄ ▄ ▀  ▄▄█ ▀ ██▄▄▄   
+  █ ███ █ ▀▀▀▀▄▀▀▄██▄ ▄▀█▄█ ▄▄████▀▄█▄▄   
+  █ ▀▀▀ █ ▄▀ █▀█▀▀▄▄▀▄ ████ █ ▄  ▀▄██▄    
+  ▀▀▀▀▀▀▀ ▀▀  ▀▀  ▀▀ ▀▀▀  ▀  ▀   ▀▀ ▀▀▀   
+                                          
+I (1624) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_5c3a36","username":"wifiprov","pop":"5f21fe54","transport":"ble"}
+I (1644) app_network: Provisioning will auto stop after 30 minute(s).

@@ -1,0 +1,24 @@
+08:22:03: New connection from 127.0.0.1:60001 on port 1883.
+08:22:03: New client connected from 127.0.0.1:60001 as sub-qos2 (p2, c1, k60).
+08:22:03: No will message specified.
+08:22:03: Sending CONNACK to sub-qos2 (0, 0)
+08:22:03: Received SUBSCRIBE from sub-qos2
+08:22:03: 	test/qos (QoS 2)
+08:22:03: sub-qos2 2 test/qos
+08:22:03: Sending SUBACK to sub-qos2
+08:22:04: New connection from 127.0.0.1:60002 on port 1883.
+08:22:04: New client connected from 127.0.0.1:60002 as pub-qos2 (p2, c1, k60).
+08:22:04: No will message specified.
+08:22:04: Sending CONNACK to pub-qos2 (0, 0)
+08:22:04: Received PUBLISH from pub-qos2 (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+08:22:04: Sending PUBREC to pub-qos2 (m1, rc0)
+08:22:04: Received PUBREL from pub-qos2 (Mid: 1)
+08:22:04: Sending PUBLISH to sub-qos2 (d0, q2, r0, m1, 'test/qos', ... (13 bytes))
+08:22:04: Sending PUBCOMP to pub-qos2 (m1)
+08:22:04: Received PUBREC from sub-qos2 (Mid: 1)
+08:22:04: Sending PUBREL to sub-qos2 (m1)
+08:22:04: Received DISCONNECT from pub-qos2
+08:22:04: Client pub-qos2 disconnected.
+08:22:04: Received PUBCOMP from sub-qos2 (Mid: 1, RC:0)
+08:22:05: Received DISCONNECT from sub-qos2
+08:22:05: Client sub-qos2 disconnected.

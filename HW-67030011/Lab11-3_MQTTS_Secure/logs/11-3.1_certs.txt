@@ -1,0 +1,18 @@
+$ ls
+ca.crt ca.csr ca.key ca.srl ca_ext.cnf client.crt client.csr client.key gen_certs.sh mosquitto_ssl.conf server.crt server.csr server.key 
+$ openssl x509 -in ca.crt -noout -subject -issuer -ext basicConstraints
+subject=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA
+issuer=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA
+X509v3 Basic Constraints: critical
+    CA:TRUE
+$ openssl x509 -in server.crt -noout -subject -issuer -ext basicConstraints
+No extensions in certificate
+subject=C=TH, ST=Bangkok, O=IoT Broker, CN=172.20.10.2
+issuer=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA
+$ openssl x509 -in client.crt -noout -subject -issuer -ext basicConstraints
+No extensions in certificate
+subject=C=TH, ST=Bangkok, O=IoT Node, CN=esp32-secure-node
+issuer=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA
+$ openssl verify -CAfile ca.crt server.crt client.crt
+server.crt: OK
+client.crt: OK

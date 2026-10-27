@@ -1,0 +1,10 @@
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/test" -m "Hello Secure World!" --cafile ca.crt --cert client.crt --key client.key
+(exit code = 0)
+
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/test" -m "Hacker message" --cafile ca.crt
+Error: The connection was lost.
+(exit code = 7)
+
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/test" -m "Plaintext attempt"   # ไม่ระบุ --cafile: Client ใช้ CA ของระบบ จึงไม่รู้จัก IoT Root CA
+Error: Protocol error
+(exit code = 14)

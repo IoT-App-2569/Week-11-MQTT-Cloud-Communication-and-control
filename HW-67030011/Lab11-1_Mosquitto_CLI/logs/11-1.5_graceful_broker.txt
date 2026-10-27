@@ -1,0 +1,11 @@
+08:22:11: New connection from 127.0.0.1:60025 on port 1883.
+08:22:11: New client connected from 127.0.0.1:60025 as Node_Client_02 (p2, c1, k60).
+08:22:11: Will message specified (17 bytes) (r0, q1).
+08:22:11: 	node/esp32/status
+08:22:11: Sending CONNACK to Node_Client_02 (0, 0)
+08:22:11: Received SUBSCRIBE from Node_Client_02
+08:22:11: 	dummy/listen (QoS 0)
+08:22:11: Node_Client_02 0 dummy/listen
+08:22:11: Sending SUBACK to Node_Client_02
+08:22:12: Received DISCONNECT from Node_Client_02
+08:22:12: Client Node_Client_02 disconnected.

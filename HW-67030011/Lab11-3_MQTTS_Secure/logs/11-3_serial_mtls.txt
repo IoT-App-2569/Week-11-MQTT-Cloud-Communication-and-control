@@ -1,0 +1,21 @@
+# UART log จาก /dev/cu.usbserial-0001 @ 115200 baud (ข้อความเดียวกับที่ idf.py monitor แสดง)
+I (575) MQTTS_SECURE: Embedded certs: ca.crt 1254 B, client.crt 1250 B, client.key 1705 B
+I (775) MQTTS_SECURE: Waiting for Wi-Fi connection...
+I (4185) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (5245) MQTTS_SECURE: Got IP Address: 172.20.10.6
+I (5245) MQTTS_SECURE: Wi-Fi Connected! Initializing Secure MQTTS Client with mTLS...
+I (5255) MQTTS_SECURE: Connecting to mqtts://172.20.10.2:8883 (TLS handshake)...
+I (7135) MQTTS_SECURE: MQTTS TLS Handshake Successful! Connected to Secure Broker.
+I (7145) MQTTS_SECURE: Subscribed to: secure/esp32/cmd
+I (7965) MQTTS_SECURE: SECURE DATA RECEIVED:
+I (7965) MQTTS_SECURE: TOPIC: secure/esp32/cmd
+I (7965) MQTTS_SECURE: PAYLOAD: ON
+I (7965) MQTTS_SECURE: LED -> ON
+I (11045) MQTTS_SECURE: SECURE DATA RECEIVED:
+I (11045) MQTTS_SECURE: TOPIC: secure/esp32/cmd
+I (11045) MQTTS_SECURE: PAYLOAD: OFF
+I (11045) MQTTS_SECURE: LED -> OFF
+I (14125) MQTTS_SECURE: SECURE DATA RECEIVED:
+I (14125) MQTTS_SECURE: TOPIC: secure/esp32/cmd
+I (14125) MQTTS_SECURE: PAYLOAD: ON
+I (14125) MQTTS_SECURE: LED -> ON

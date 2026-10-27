@@ -1,0 +1,27 @@
+08:22:08: New connection from 127.0.0.1:60015 on port 1883.
+08:22:08: New client connected from 127.0.0.1:60015 as auto-E1595E15-7326-69BC-E251-C2D2048580BF (p2, c1, k60).
+08:22:08: No will message specified.
+08:22:08: Sending CONNACK to auto-E1595E15-7326-69BC-E251-C2D2048580BF (0, 0)
+08:22:08: Received SUBSCRIBE from auto-E1595E15-7326-69BC-E251-C2D2048580BF
+08:22:08: 	node/esp32/status (QoS 0)
+08:22:08: auto-E1595E15-7326-69BC-E251-C2D2048580BF 0 node/esp32/status
+08:22:08: Sending SUBACK to auto-E1595E15-7326-69BC-E251-C2D2048580BF
+08:22:09: New connection from 127.0.0.1:60017 on port 1883.
+08:22:09: New client connected from 127.0.0.1:60017 as Node_Client_01 (p2, c1, k60).
+08:22:09: Will message specified (23 bytes) (r0, q1).
+08:22:09: 	node/esp32/status
+08:22:09: Sending CONNACK to Node_Client_01 (0, 0)
+08:22:09: Received SUBSCRIBE from Node_Client_01
+08:22:09: 	dummy/listen (QoS 0)
+08:22:09: Node_Client_01 0 dummy/listen
+08:22:09: Sending SUBACK to Node_Client_01
+08:22:10: New connection from 127.0.0.1:60018 on port 1883.
+08:22:10: New client connected from 127.0.0.1:60018 as auto-9059D749-7AB9-D56A-A16A-7BF22F2D92C9 (p2, c1, k60).
+08:22:10: No will message specified.
+08:22:10: Sending CONNACK to auto-9059D749-7AB9-D56A-A16A-7BF22F2D92C9 (0, 0)
+08:22:10: Received PUBLISH from auto-9059D749-7AB9-D56A-A16A-7BF22F2D92C9 (d0, q0, r0, m0, 'node/esp32/status', ... (6 bytes))
+08:22:10: Sending PUBLISH to auto-E1595E15-7326-69BC-E251-C2D2048580BF (d0, q0, r0, m0, 'node/esp32/status', ... (6 bytes))
+08:22:10: Received DISCONNECT from auto-9059D749-7AB9-D56A-A16A-7BF22F2D92C9
+08:22:10: Client auto-9059D749-7AB9-D56A-A16A-7BF22F2D92C9 disconnected.
+08:22:10: Client Node_Client_01 closed its connection.
+08:22:10: Sending PUBLISH to auto-E1595E15-7326-69BC-E251-C2D2048580BF (d0, q0, r0, m0, 'node/esp32/status', ... (23 bytes))

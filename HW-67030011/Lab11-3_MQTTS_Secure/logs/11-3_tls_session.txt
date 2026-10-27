@@ -1,0 +1,13 @@
+$ openssl s_client -connect 172.20.10.2:8883 -CAfile ca.crt -cert client.crt -key client.key -brief
+Connecting to 172.20.10.2
+CONNECTION ESTABLISHED
+Protocol version: TLSv1.3
+Ciphersuite: TLS_AES_256_GCM_SHA384
+Requested Signature Algorithms: mldsa65:mldsa87:mldsa44:ecdsa_secp256r1_sha256:ecdsa_secp384r1_sha384:ecdsa_secp521r1_sha512:ed25519:ed448:ecdsa_brainpoolP256r1tls13_sha256:ecdsa_brainpoolP384r1tls13_sha384:ecdsa_brainpoolP512r1tls13_sha512:rsa_pss_pss_sha256:rsa_pss_pss_sha384:rsa_pss_pss_sha512:rsa_pss_rsae_sha256:rsa_pss_rsae_sha384:rsa_pss_rsae_sha512:rsa_pkcs1_sha256:rsa_pkcs1_sha384:rsa_pkcs1_sha512
+Own signature type: rsa_pss_rsae_sha256
+Peer certificate: C=TH, ST=Bangkok, O=IoT Broker, CN=172.20.10.2
+Hash used: SHA256
+Signature type: rsa_pss_rsae_sha256
+Verification: OK
+Negotiated TLS1.3 group: X25519MLKEM768
+DONE

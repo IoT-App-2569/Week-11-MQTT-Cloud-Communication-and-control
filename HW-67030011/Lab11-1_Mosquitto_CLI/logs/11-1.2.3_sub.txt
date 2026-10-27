@@ -1,0 +1,4 @@
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t "home/#" -v -W 2
+home/livingroom/temp 26.4
+home/bedroom/balcony/light ON
+Timed out

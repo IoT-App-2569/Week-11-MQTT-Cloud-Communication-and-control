@@ -1,0 +1,20 @@
+I (874) esp_claim: Initialising Assisted Claiming. This may take time.
+I (894) esp_claim: Private key already exists with matching type. No need to re-initialise it.
+I (924) esp_claim: Waiting for assisted claim to finish.
+I (22484) app_network: Secured session established!
+I (22604) esp_claim: Assisted Claiming Started.
+I (24524) esp_rmaker_core: New Node ID ----- UE8xRB8zb33cRLRySRcdEW
+I (29114) esp_claim: Storing received MQTT Host: a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (29124) esp_claim: Storing received MQTT Cred Host: c10yordfvrjdjb.credentials.iot.us-east-1.amazonaws.com
+I (29134) esp_claim: Assisted Claiming was Successful.
+I (52554) esp_rmaker_user_node_auth: ECDSA key found
+I (54344) app_wifi: Received Wi-Fi credentials
+	SSID     : KBBK-IPHONE
+I (60504) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (65434) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+I (70384) wifi:connected with KBBK-IPHONE, aid = 16, channel 6, BW20, bssid = 1a:7d:42:98:ad:f9
+E (70404) network_prov_mgr: Disconnect reason : 3
+E (70404) app_wifi: Provisioning failed!
+	Reason : Wi-Fi station authentication failed
+	Please reset to factory and retry provisioning
+I (70424) app_wifi: Failed to connect with provisioned AP, reseting provisioned credentials

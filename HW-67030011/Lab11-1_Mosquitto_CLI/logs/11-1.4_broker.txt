@@ -1,0 +1,53 @@
+08:22:05: New connection from 127.0.0.1:60003 on port 1883.
+08:22:05: New client connected from 127.0.0.1:60003 as auto-9921CB79-CF4B-499C-3C6F-F6F950AF5DB2 (p2, c1, k60).
+08:22:05: No will message specified.
+08:22:05: Sending CONNACK to auto-9921CB79-CF4B-499C-3C6F-F6F950AF5DB2 (0, 0)
+08:22:05: Received PUBLISH from auto-9921CB79-CF4B-499C-3C6F-F6F950AF5DB2 (d0, q0, r0, m0, 'sensor/state', ... (6 bytes))
+08:22:05: Received DISCONNECT from auto-9921CB79-CF4B-499C-3C6F-F6F950AF5DB2
+08:22:05: Client auto-9921CB79-CF4B-499C-3C6F-F6F950AF5DB2 disconnected.
+08:22:06: New connection from 127.0.0.1:60004 on port 1883.
+08:22:06: New client connected from 127.0.0.1:60004 as auto-4D9033DA-E60E-945F-7B94-87D9461825F9 (p2, c1, k60).
+08:22:06: No will message specified.
+08:22:06: Sending CONNACK to auto-4D9033DA-E60E-945F-7B94-87D9461825F9 (0, 0)
+08:22:06: Received SUBSCRIBE from auto-4D9033DA-E60E-945F-7B94-87D9461825F9
+08:22:06: 	sensor/state (QoS 0)
+08:22:06: auto-4D9033DA-E60E-945F-7B94-87D9461825F9 0 sensor/state
+08:22:06: Sending SUBACK to auto-4D9033DA-E60E-945F-7B94-87D9461825F9
+08:22:06: New connection from 127.0.0.1:60005 on port 1883.
+08:22:06: New client connected from 127.0.0.1:60005 as auto-0BBA53B4-474F-3DD4-5ACA-165A877256CF (p2, c1, k60).
+08:22:06: No will message specified.
+08:22:06: Sending CONNACK to auto-0BBA53B4-474F-3DD4-5ACA-165A877256CF (0, 0)
+08:22:06: Received PUBLISH from auto-0BBA53B4-474F-3DD4-5ACA-165A877256CF (d0, q0, r1, m0, 'sensor/state', ... (14 bytes))
+08:22:06: Sending PUBLISH to auto-4D9033DA-E60E-945F-7B94-87D9461825F9 (d0, q0, r0, m0, 'sensor/state', ... (14 bytes))
+08:22:06: Received DISCONNECT from auto-0BBA53B4-474F-3DD4-5ACA-165A877256CF
+08:22:06: Client auto-0BBA53B4-474F-3DD4-5ACA-165A877256CF disconnected.
+08:22:07: Received DISCONNECT from auto-4D9033DA-E60E-945F-7B94-87D9461825F9
+08:22:07: Client auto-4D9033DA-E60E-945F-7B94-87D9461825F9 disconnected.
+08:22:07: New connection from 127.0.0.1:60006 on port 1883.
+08:22:07: New client connected from 127.0.0.1:60006 as auto-88331FFF-AD39-9C29-0550-C3407D09F0B1 (p2, c1, k60).
+08:22:07: No will message specified.
+08:22:07: Sending CONNACK to auto-88331FFF-AD39-9C29-0550-C3407D09F0B1 (0, 0)
+08:22:07: Received SUBSCRIBE from auto-88331FFF-AD39-9C29-0550-C3407D09F0B1
+08:22:07: 	sensor/state (QoS 0)
+08:22:07: auto-88331FFF-AD39-9C29-0550-C3407D09F0B1 0 sensor/state
+08:22:07: Sending SUBACK to auto-88331FFF-AD39-9C29-0550-C3407D09F0B1
+08:22:07: Sending PUBLISH to auto-88331FFF-AD39-9C29-0550-C3407D09F0B1 (d0, q0, r1, m0, 'sensor/state', ... (14 bytes))
+08:22:07: Received DISCONNECT from auto-88331FFF-AD39-9C29-0550-C3407D09F0B1
+08:22:07: Client auto-88331FFF-AD39-9C29-0550-C3407D09F0B1 disconnected.
+08:22:07: New connection from 127.0.0.1:60009 on port 1883.
+08:22:07: New client connected from 127.0.0.1:60009 as auto-6896DE06-AB47-1D38-8BC9-C6B1422A9AD4 (p2, c1, k60).
+08:22:07: No will message specified.
+08:22:07: Sending CONNACK to auto-6896DE06-AB47-1D38-8BC9-C6B1422A9AD4 (0, 0)
+08:22:07: Received PUBLISH from auto-6896DE06-AB47-1D38-8BC9-C6B1422A9AD4 (d0, q0, r1, m0, 'sensor/state', ... (0 bytes))
+08:22:07: Received DISCONNECT from auto-6896DE06-AB47-1D38-8BC9-C6B1422A9AD4
+08:22:07: Client auto-6896DE06-AB47-1D38-8BC9-C6B1422A9AD4 disconnected.
+08:22:08: New connection from 127.0.0.1:60012 on port 1883.
+08:22:08: New client connected from 127.0.0.1:60012 as auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981 (p2, c1, k60).
+08:22:08: No will message specified.
+08:22:08: Sending CONNACK to auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981 (0, 0)
+08:22:08: Received SUBSCRIBE from auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981
+08:22:08: 	sensor/state (QoS 0)
+08:22:08: auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981 0 sensor/state
+08:22:08: Sending SUBACK to auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981
+08:22:08: Received DISCONNECT from auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981
+08:22:08: Client auto-2CCB0B36-F7F8-8D54-D07E-CF7943938981 disconnected.

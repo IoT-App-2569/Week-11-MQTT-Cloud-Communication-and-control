@@ -1,0 +1,3 @@
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/esp32/cmd" -m "ON" -q 1 --cafile ca.crt --cert client.crt --key client.key
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/esp32/cmd" -m "OFF" -q 1 --cafile ca.crt --cert client.crt --key client.key
+$ mosquitto_pub -h 172.20.10.2 -p 8883 -t "secure/esp32/cmd" -m "ON" -q 1 --cafile ca.crt --cert client.crt --key client.key

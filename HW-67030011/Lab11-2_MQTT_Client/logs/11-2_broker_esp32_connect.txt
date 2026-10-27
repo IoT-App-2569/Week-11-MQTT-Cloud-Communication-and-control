@@ -1,0 +1,26 @@
+08:27:39: New connection from 172.20.10.6:51411 on port 1883.
+08:27:39: New client connected from 172.20.10.6:51411 as esp32-node01 (p2, c1, k60).
+08:27:39: Will message specified (7 bytes) (r1, q1).
+08:27:39: 	iot/node01/status
+08:27:39: Sending CONNACK to esp32-node01 (0, 0)
+08:27:39: Received PUBLISH from esp32-node01 (d0, q1, r1, m40308, 'iot/node01/status', ... (6 bytes))
+08:27:39: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/status', ... (6 bytes))
+08:27:39: Sending PUBACK to esp32-node01 (m40308, rc0)
+08:27:39: Received SUBSCRIBE from esp32-node01
+08:27:39: 	iot/node01/cmd/led (QoS 1)
+08:27:39: esp32-node01 1 iot/node01/cmd/led
+08:27:39: Sending SUBACK to esp32-node01
+08:27:43: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:43: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:47: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:47: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:51: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:51: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (116 bytes))
+08:27:55: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:27:55: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:27:59: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:27:59: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:03: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:03: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:07: Received PUBLISH from esp32-node01 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))
+08:28:07: Sending PUBLISH to auto-5DF64FB6-BDF4-902B-4CD4-2AEB7F303FF5 (d0, q0, r0, m0, 'iot/node01/telemetry', ... (117 bytes))

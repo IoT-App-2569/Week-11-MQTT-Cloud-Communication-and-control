@@ -1,0 +1,39 @@
+# UART log จาก /dev/cu.usbserial-0001 @ 115200 baud (ข้อความเดียวกับที่ idf.py monitor แสดง)
+# ... ส่วนที่รับคำสั่ง LED ...
+I (90214) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":3062,"voltage_v":2.599,"led_state":false,"uptime_ms":90214}
+I (94224) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":143,"voltage_v":0.258,"led_state":false,"uptime_ms":94224}
+I (98234) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2190,"voltage_v":1.918,"led_state":false,"uptime_ms":98234}
+I (102244) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":1159,"voltage_v":1.082,"led_state":false,"uptime_ms":102244}
+I (105484) LAB11_MQTT: MQTT_EVENT_DATA received:
+I (105484) LAB11_MQTT: TOPIC=iot/node01/cmd/led
+I (105484) LAB11_MQTT: DATA=ON
+I (105484) LAB11_MQTT: LED State set to -> ON
+I (106254) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2562,"voltage_v":2.219,"led_state":true,"uptime_ms":106254}
+I (110264) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2069,"voltage_v":1.819,"led_state":true,"uptime_ms":110264}
+I (113574) LAB11_MQTT: MQTT_EVENT_DATA received:
+I (113574) LAB11_MQTT: TOPIC=iot/node01/cmd/led
+I (113574) LAB11_MQTT: DATA=OFF
+I (113574) LAB11_MQTT: LED State set to -> OFF
+I (114274) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":873,"voltage_v":0.85,"led_state":false,"uptime_ms":114274}
+I (118284) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":1835,"voltage_v":1.63,"led_state":false,"uptime_ms":118284}
+I (121564) LAB11_MQTT: MQTT_EVENT_DATA received:
+I (121564) LAB11_MQTT: TOPIC=iot/node01/cmd/led
+I (121564) LAB11_MQTT: DATA={"state": 1}
+I (121564) LAB11_MQTT: LED State set to -> ON
+I (122294) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":48,"voltage_v":0.181,"led_state":true,"uptime_ms":122294}
+I (126304) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":4087,"voltage_v":3.136,"led_state":true,"uptime_ms":126304}
+I (129654) LAB11_MQTT: MQTT_EVENT_DATA received:
+I (129654) LAB11_MQTT: TOPIC=iot/node01/cmd/led
+I (129654) LAB11_MQTT: DATA={"state": 0}
+I (129654) LAB11_MQTT: LED State set to -> OFF
+I (130314) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":2332,"voltage_v":2.033,"led_state":false,"uptime_ms":130314}
+I (134324) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":1032,"voltage_v":0.979,"led_state":false,"uptime_ms":134324}
+I (134674) LAB11_MQTT: MQTT_EVENT_DATA received:
+I (134674) LAB11_MQTT: TOPIC=iot/node01/cmd/led
+I (134674) LAB11_MQTT: DATA=BLINK
+W (134674) LAB11_MQTT: Unknown LED command, state unchanged
+I (137644) LAB11_MQTT: MQTT_EVENT_DATA received:
+I (137644) LAB11_MQTT: TOPIC=iot/node01/cmd/led
+I (137644) LAB11_MQTT: DATA=ON
+I (137644) LAB11_MQTT: LED State set to -> ON
+I (138334) LAB11_MQTT: Telemetry Published: {"node_id":"esp32-node01","student_id":"67030011","adc_raw":944,"voltage_v":0.907,"led_state":true,"uptime_ms":138334}

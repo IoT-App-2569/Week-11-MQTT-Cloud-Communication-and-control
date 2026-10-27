@@ -1,0 +1,4 @@
+$ mosquitto_sub -h 127.0.0.1 -p 1883 -t "home/+/light" -v -W 3
+home/livingroom/light ON
+home/kitchen/light OFF
+Timed out

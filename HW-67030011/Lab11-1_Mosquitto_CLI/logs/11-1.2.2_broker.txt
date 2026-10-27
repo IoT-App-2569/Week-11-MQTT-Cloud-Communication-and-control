@@ -1,0 +1,33 @@
+08:21:54: New connection from 127.0.0.1:59982 on port 1883.
+08:21:54: New client connected from 127.0.0.1:59982 as auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B (p2, c1, k60).
+08:21:54: No will message specified.
+08:21:54: Sending CONNACK to auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B (0, 0)
+08:21:54: Received SUBSCRIBE from auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B
+08:21:54: 	home/+/light (QoS 0)
+08:21:54: auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B 0 home/+/light
+08:21:54: Sending SUBACK to auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B
+08:21:55: New connection from 127.0.0.1:59985 on port 1883.
+08:21:55: New client connected from 127.0.0.1:59985 as auto-EFB61F55-1AB0-EE0C-BE24-15C60D0717E0 (p2, c1, k60).
+08:21:55: No will message specified.
+08:21:55: Sending CONNACK to auto-EFB61F55-1AB0-EE0C-BE24-15C60D0717E0 (0, 0)
+08:21:55: Received PUBLISH from auto-EFB61F55-1AB0-EE0C-BE24-15C60D0717E0 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+08:21:55: Sending PUBLISH to auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+08:21:55: Received DISCONNECT from auto-EFB61F55-1AB0-EE0C-BE24-15C60D0717E0
+08:21:55: Client auto-EFB61F55-1AB0-EE0C-BE24-15C60D0717E0 disconnected.
+08:21:55: New connection from 127.0.0.1:59988 on port 1883.
+08:21:55: New client connected from 127.0.0.1:59988 as auto-9DCD170F-D09F-05FD-40FD-14D344369AB5 (p2, c1, k60).
+08:21:55: No will message specified.
+08:21:55: Sending CONNACK to auto-9DCD170F-D09F-05FD-40FD-14D344369AB5 (0, 0)
+08:21:55: Received PUBLISH from auto-9DCD170F-D09F-05FD-40FD-14D344369AB5 (d0, q0, r0, m0, 'home/kitchen/light', ... (3 bytes))
+08:21:55: Sending PUBLISH to auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B (d0, q0, r0, m0, 'home/kitchen/light', ... (3 bytes))
+08:21:55: Received DISCONNECT from auto-9DCD170F-D09F-05FD-40FD-14D344369AB5
+08:21:55: Client auto-9DCD170F-D09F-05FD-40FD-14D344369AB5 disconnected.
+08:21:56: New connection from 127.0.0.1:59989 on port 1883.
+08:21:56: New client connected from 127.0.0.1:59989 as auto-04E725F1-B1E0-4826-F0F3-DD61A606AA2A (p2, c1, k60).
+08:21:56: No will message specified.
+08:21:56: Sending CONNACK to auto-04E725F1-B1E0-4826-F0F3-DD61A606AA2A (0, 0)
+08:21:56: Received PUBLISH from auto-04E725F1-B1E0-4826-F0F3-DD61A606AA2A (d0, q0, r0, m0, 'home/bedroom/balcony/light', ... (2 bytes))
+08:21:56: Received DISCONNECT from auto-04E725F1-B1E0-4826-F0F3-DD61A606AA2A
+08:21:56: Client auto-04E725F1-B1E0-4826-F0F3-DD61A606AA2A disconnected.
+08:21:57: Received DISCONNECT from auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B
+08:21:57: Client auto-C6B671E9-AED4-7760-3B7D-B8F8EDADD33B disconnected.
