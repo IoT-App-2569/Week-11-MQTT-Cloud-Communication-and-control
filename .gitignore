@@ -13,3 +13,7 @@ dependencies.lock
 managed_components/
 *.old
 sdkconfig
+
+# Lab 11.3 generated certificates and private keys
+/mqtt_certs_lab/
+/Example_project/Lab11-3_MQTTS_Secure/main/certs/
