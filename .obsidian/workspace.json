@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
+                "file": "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control"
+              "title": "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device"
             }
           }
         ]
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
+                "file": "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
+                "file": "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -161,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
+                "file": "09-Labsheet-11-4-ESP-RainMaker-Cloud-IoT-and-Smart-Device.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -185,7 +185,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 317.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -201,6 +201,8 @@
   },
   "active": "3fab8e98712e51fc",
   "lastOpenFiles": [
+    "08-Labsheet-11-3-MQTTS-TLS-Mutual-Authentication-Security.md",
+    "07-Labsheet-11-2-ESP32-MQTT-Client-Telemetry-and-Control.md",
     "06-Labsheet-11-1-Mosquitto-Broker-and-MQTT-Fundamentals.md"
   ]
 }
