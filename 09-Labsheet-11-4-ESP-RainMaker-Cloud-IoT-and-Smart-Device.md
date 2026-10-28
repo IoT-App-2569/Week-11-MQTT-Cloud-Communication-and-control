@@ -208,6 +208,15 @@ idf.py -p COMx flash monitor
 5. **กรอกรหัส Wi-Fi** เลือกชื่อ SSID เครือข่าย Wi-Fi 2.4 GHz ในบ้านและกรอกรหัสผ่าน
 6. **เสร็จสิ้นการผูกอุปกรณ์** บอร์ดจะเชื่อมต่อ Wi-Fi และผูกตัวเองเข้ากับบัญชีผู้ใช้ แอปจะแสดงการ์ด **"Living Room Light"** ขึ้นมาบนหน้าจอ
 
+
+<img width="1498" height="737" alt="image" src="https://github.com/user-attachments/assets/58c630f6-b323-4390-9f1d-2897af31c6fd" />
+
+
+<img width="1446" height="877" alt="image" src="https://github.com/user-attachments/assets/0d8bc391-5cbe-429e-b38a-c3d6d24b5dd7" />
+
+<img width="828" height="1792" alt="Image (7)" src="https://github.com/user-attachments/assets/f42b3aae-5bf5-476e-8dc2-d5074c11bf27" />
+
+
 ---
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
@@ -215,6 +224,16 @@ idf.py -p COMx flash monitor
 ### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
 * กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
 * ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
+
+
+<img width="1062" height="932" alt="image" src="https://github.com/user-attachments/assets/9eae6915-d405-4706-9e3b-433045775d26" />
+
+
+<img width="3024" height="4032" alt="Image (8)" src="https://github.com/user-attachments/assets/b3a55931-e2c0-41d3-8465-095f446c607f" />
+
+
+<img width="828" height="1792" alt="Image (9)" src="https://github.com/user-attachments/assets/f9c4bc06-0b14-4bbb-9f7e-d51506a6ed79" />
+
 
 ### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
 * **ปิดสัญญาณ Wi-Fi บนสมาร์ตโฟน** แล้วเปิดใช้งานเฉพาะ **สัญญาณอินเทอร์เน็ตมือถือ (4G/5G)**
@@ -247,6 +266,20 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+```
+ช่วยให้การลงทะเบียนอุปกรณ์ในช่วงพัฒนาต้นแบบทำได้ง่ายขึ้น โดยใช้กระบวนการยืนยันตัวตนผ่านระบบ RainMaker ลดความจำเป็นในการติดตั้งใบรับรองเฉพาะให้แต่ละบอร์ดด้วยตนเอง
+```
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+```
+เพื่ออัปเดตค่าพารามิเตอร์บนอุปกรณ์และรายงานค่าล่าสุดไปยังระบบ RainMaker ทำให้แอปแสดงสถานะตรงกับการทำงานจริงของอุปกรณ์
+```
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+```
+Development Effort: Plain MQTT ต้องเขียนระบบสื่อสารและจัดการอุปกรณ์เอง ส่วน RainMaker มี SDK แอป และระบบจัดการอุปกรณ์พร้อมใช้
+Security: Plain MQTT ต้องตั้งค่าความปลอดภัยเอง ส่วน RainMaker มีระบบยืนยันตัวตนและการสื่อสารที่ปลอดภัยให้ใช้งาน
+Scalability: Plain MQTT ต้องพัฒนาระบบรองรับอุปกรณ์จำนวนมากเอง ส่วน RainMaker มีโครงสร้าง Cloud ช่วยจัดการและขยายระบบได้สะดวกกว่า
+```
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+```
+RainMaker เชื่อมระบบ Cloud เข้ากับแพลตฟอร์มผู้ช่วยเสียงผ่านการตั้งค่าเชื่อมบัญชีและการเชื่อมบริการ (Account Linking) จากนั้นระบบจะแปลงคำสั่งเสียงเป็นคำสั่งควบคุมอุปกรณ์ผ่าน Cloud โดยไม่ต้องเขียนโค้ดรองรับผู้ช่วยเสียงเพิ่มเติมบน ESP32 ทั้งนี้ต้องตั้งค่าและเปิดใช้การเชื่อมต่อบริการที่เกี่ยวข้องก่อน
+```

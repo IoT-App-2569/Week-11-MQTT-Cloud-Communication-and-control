@@ -183,6 +183,12 @@ mosquitto version 2.1.2 terminating
 > [!NOTE]
 > บันทึกผลการทดลอง สังเกตว่าข้อความใดบ้างที่ปรากฏในเทอร์มินัลที่ 2 และข้อความใดที่ไม่ปรากฏ พร้อมอธิบายเหตุผลว่าทำไม `home/bedroom/balcony/light` จึงไม่แสดงผล
 
+<img width="1111" height="182" alt="image" src="https://github.com/user-attachments/assets/d379cc1f-683e-4d34-8a1c-8212b792f817" />
+
+```
+ส่วน home/bedroom/balcony/light จะไม่แสดง เพราะมีระดับย่อยเพิ่มมาอีกหนึ่งระดับ Wildcard + แทนชื่อ Topic ได้เพียงหนึ่งระดับเท่านั้น ไม่สามารถแทนหลายระดับพร้อมกันได้
+```
+
 #### 3. การทดสอบไวลด์การ์ดหลายระดับ (Multi-Level Wildcard: `#`)
 ใน **เทอร์มินัลที่ 2 (Subscriber)** กด `Ctrl + C` เพื่อออกจากโปรแกรม subscriber แล้วเปลี่ยนคำสั่ง Subscribe เป็น
 ```powershell
@@ -199,6 +205,9 @@ mosquitto version 2.1.2 terminating
 
 ---
 
+<img width="902" height="117" alt="image" src="https://github.com/user-attachments/assets/1078d1fc-b53f-4393-8dff-c2ca116dd80e" />
+
+
 ### กิจกรรมที่ 11-1.3 การทดสอบระดับคุณภาพการส่งข้อมูล (QoS 0, QoS 1, QoS 2)
 
 ในกิจกรรมนี้ ให้สังเกตข้อความ Log ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)** ควบคู่กับคำสั่งในเทอร์มินัลที่ 2 และ 3
@@ -210,11 +219,18 @@ mosquitto version 2.1.2 terminating
 * *สังเกต Log ฝั่ง Broker*  มีเพียงแพ็กเก็ต `PUBLISH` ส่งผ่านไปโดยไม่มีแพ็กเก็ตตอบรับใดๆ
 
 
+<img width="1080" height="716" alt="image" src="https://github.com/user-attachments/assets/c3635dda-57df-4312-be42-f92d0d9178ca" />
+
 
 #### 2. ทดสอบ QoS 1 (At Least Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 1 -v`
 * ในเทอร์มินัลที่ 3 (Publisher)  `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 1 Message" -q 1`
 * *สังเกต Log ฝั่ง Broker*  จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
+
+
+<img width="1026" height="257" alt="image" src="https://github.com/user-attachments/assets/326b7b82-00d3-4d0d-8b44-13033da50597" />
+
+
 
 #### 3. ทดสอบ QoS 2 (Exactly Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
@@ -224,6 +240,10 @@ mosquitto version 2.1.2 terminating
   2. `Sending PUBREC`
   3. `Received PUBREL`
   4. `Sending PUBCOMP`
+
+
+<img width="1012" height="312" alt="image" src="https://github.com/user-attachments/assets/c66fa55b-e70f-4f5c-ba01-c7fe5ae32ab6" />
+
 
 ---
 
@@ -246,6 +266,11 @@ mosquitto version 2.1.2 terminating
    & mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "sensor/state" -m "CRITICAL_ALERT" -r
    ```
    *ผลที่ได้* ในเทอร์มินัลที่ 2 (Subscriber)ได้รับข้อความ `sensor/state CRITICAL_ALERT` ทันที
+
+
+<img width="995" height="131" alt="image" src="https://github.com/user-attachments/assets/082ee2e6-e6f2-476a-93ab-472a1fb92824" />
+
+
 
 5. ปิดเทอร์มินัลที่ 2 (Subscriber) (`Ctrl + C`) แล้วรัน subscriber ใหม่อีกครั้ง
    ```powershell
@@ -275,6 +300,9 @@ mosquitto version 2.1.2 terminating
    (เปิดเทอร์มินัลที่ 4 (Publisher 2) แล้วพิมพ์ `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "node/esp32/status" -m "ONLINE"`)
    *สังเกตผล* เทอร์มินัลที่ 2 แสดงสถานะ `ONLINE`
 
+<img width="992" height="80" alt="image" src="https://github.com/user-attachments/assets/ec33a97f-6abb-47e7-8e0a-78fcd811f8d7" />
+
+
 4. **จำลองเหตุการณ์ไฟดับหรือเครือข่ายหลุดกะทันหัน**  
    ในเทอร์มินัลที่ 3 ให้ทำการ **บังคับปิดหน้าต่างเทอร์มินัลทันที** หรือกดปิดโปรเซส เพื่อไม่ให้ Client ส่งแพ็กเก็ต `DISCONNECT`
 5. *สังเกตผลในเทอร์มินัลที่ 2*  
@@ -284,19 +312,52 @@ mosquitto version 2.1.2 terminating
    ```
    มายังเทอร์มินัลที่ 2 โดยอัตโนมัติ
 
+
+<img width="1002" height="133" alt="image" src="https://github.com/user-attachments/assets/5011d9e5-9280-4d98-bcf1-1247c78fc338" />
+
+
 ---
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
+
+<img width="1017" height="292" alt="image" src="https://github.com/user-attachments/assets/8f158a16-923e-48dc-b52c-ba198af84046" />
+
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
+## ตารางเปรียบเทียบลำดับแพ็กเก็ตของ QoS
+
+| ระดับ QoS | ลำดับแพ็กเก็ตที่สังเกตได้ | การยืนยัน |
+|---|---|---|
+| QoS 0 | `PUBLISH` | ไม่มี `PUBACK` เป็นการส่งข้อความโดยไม่มีการตอบรับในระดับ MQTT |
+| QoS 1 | `PUBLISH → PUBACK` | มีการตอบรับข้อความด้วยแพ็กเก็ต `PUBACK` |
+| QoS 2 | `PUBLISH → PUBREC → PUBREL → PUBCOMP` | มีการยืนยันหลายขั้นตอน เพื่อให้ส่งมอบข้อความตามกลไก QoS 2 |
+
+
+
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
+
+<img width="995" height="131" alt="image" src="https://github.com/user-attachments/assets/082ee2e6-e6f2-476a-93ab-472a1fb92824" />
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+```
+ หากกำหนด home/#/light จะเป็น Topic Filter ที่ไม่ถูกต้องตามกฎ MQTT
+```
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+```
+ควรใช้ QoS 0 เพราะส่งข้อมูลได้รวดเร็วและมีภาระการสื่อสารน้อย เหมาะกับข้อมูลพิกัดที่มีการอัปเดตบ่อยและสามารถรอข้อมูลรอบถัดไปได้
+```
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+```
+ไม่ส่ง เพราะ Broker ทราบว่า Client ปิดการเชื่อมต่ออย่างปกติ จึงไม่ต้องเผยแพร่ข้อความ LWT
+```
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+```
+ช่วยให้ผู้ใช้เห็นสถานะล่าสุดของอุปกรณ์ได้ทันทีเมื่อเปิดแอปครั้งแรก เช่น สถานะเปิด–ปิดไฟ โดยไม่ต้องรอให้อุปกรณ์ส่งข้อความใหม่อีกครั้ง
+```

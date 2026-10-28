@@ -386,6 +386,12 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 ```
 *ทดลองหมุนก้านของ Potentiometer*: สังเกตว่าค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงตามการหมุนอย่างถูกต้อง
 
+<img width="1376" height="386" alt="image" src="https://github.com/user-attachments/assets/d8d98892-515b-4c8a-a3d0-6b4741e62620" />
+
+
+<img width="1315" height="377" alt="image" src="https://github.com/user-attachments/assets/8aadfa79-0229-4c47-9a09-253e2f48108a" />
+
+
 ---
 
 ### 2. การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
@@ -397,20 +403,39 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "ON" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED บนบอร์ดจะติดสว่างทันที และในรอบ Telemetry ถัดไป ค่า `"led_state"` จะเปลี่ยนเป็น `true`
 
+
+<img width="1287" height="185" alt="image" src="https://github.com/user-attachments/assets/994711cc-f2ad-4fdb-9bf8-9430ab8f36d0" />
+
+
 * **คำสั่งปิดไฟ**
 ```powershell
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED จะดับลงทันที และค่า `"led_state"` ใน Telemetry จะเปลี่ยนกลับเป็น `false`
 
+<img width="1272" height="326" alt="image" src="https://github.com/user-attachments/assets/28ac46e5-90b8-43c0-a8e3-78c274cf7254" />
+
+
 * **คำสั่งแบบ JSON Payload**
 ```powershell
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
 ```
 
+<img width="1290" height="265" alt="image" src="https://github.com/user-attachments/assets/760ff198-3085-4d81-80ae-663690d89892" />
+
+
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
+```
+เพื่อให้ Broker เก็บสถานะล่าสุดไว้และส่งให้ผู้ที่พึ่ง Subscribe ได้ทันที โดย retain = 1 ใช้เก็บสถานะ "online" ส่วน LWT จะส่งสถานะ "offline" เมื่ออุปกรณ์ขาดการเชื่อมต่อโดยไม่ปิดการเชื่อมต่ออย่างถูกต้อง
+```
 2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
+```
+esp-mqtt จะจัดการเชื่อมต่อ MQTT ใหม่โดยอัตโนมัติเมื่อเครือข่ายกลับมา หากตั้งค่าระบบและจัดการเหตุการณ์เชื่อมต่อไว้อย่างถูกต้อง จึงไม่จำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่เองทุกครั้ง
+```
 3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+```
+เพราะทั้งสองส่วนใช้หน่วยความจำแบบ Dynamic ที่ต้องคืนเมื่อใช้งานเสร็จ โดย free(json_str) คืนหน่วยความจำของข้อความ JSON และ cJSON_Delete(root) คืนหน่วยความจำของโครงสร้าง JSON หากไม่คืนหน่วยความจำจะเกิด Memory Leak ทำให้หน่วยความจำ ESP32 ลดลง และอาจทำให้โปรแกรมทำงานผิดพลาดหรือหยุดทำงานได้
+```
