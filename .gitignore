@@ -1,15 +1,40 @@
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor & OS files
 *.bkp
 ~$**
+*.swp
+*.bak
+*.tmp
+*.log
 .vscode/settings.json
 Ref/**
 .pytest_cache/
 __pycache__/
 
-# esp-idf built binaries
+# OpenSSL temporary & intermediate files
+*.csr
+*.srl
+
+# ESP-IDF built binaries & dependencies
 build/
+**/build/
 build_*_*/
+**/build_*_*/
 
 dependencies.lock
+**/dependencies.lock
 managed_components/
+**/managed_components/
+
 *.old
 sdkconfig
+**/sdkconfig
+sdkconfig.old
+**/sdkconfig.old
+sdkconfig.ci
+**/sdkconfig.ci

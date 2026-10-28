@@ -1,0 +1,207 @@
+I (27) boot: ESP-IDF v6.0.2 2nd stage bootloader
+I (27) boot: compile time Oct 14 2026 01:23:57
+I (27) boot: Multicore bootloader
+I (29) boot: chip revision: v3.1
+I (32) boot.esp32: SPI Speed      : 40MHz
+I (35) boot.esp32: SPI Mode       : DIO
+I (39) boot.esp32: SPI Flash Size : 4MB
+I (42) boot: Enabling RNG early entropy source...
+I (47) boot: Partition Table:
+I (49) boot: ## Label            Usage          Type ST Offset   Length
+I (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (62) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (69) boot:  2 factory          factory app      00 00 00010000 00300000
+I (75) boot:  3 fctry            WiFi data        01 02 00310000 00006000
+I (82) boot: End of partition table
+I (85) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=5b984h (375172) map
+I (226) esp_image: segment 1: paddr=0006b9ac vaddr=3ffbdb60 size=0466ch ( 18028) load
+I (234) esp_image: segment 2: paddr=00070020 vaddr=400d0020 size=10db28h (1104680) map
+I (627) esp_image: segment 3: paddr=0017db50 vaddr=3ffc21cc size=01904h (  6404) load
+I (630) esp_image: segment 4: paddr=0017f45c vaddr=40080000 size=1ccb4h (117940) load
+I (680) esp_image: segment 5: paddr=0019c118 vaddr=50000000 size=00028h (    40) load
+I (694) boot: Loaded app from partition at offset 0x10000
+I (695) boot: Disabling RNG early entropy source...
+I (705) cpu_start: Multicore app
+I (713) cpu_start: GPIO 3 and 1 are used as console UART I/O pins
+I (714) cpu_start: Pro cpu start user code
+I (714) cpu_start: cpu freq: 160000000 Hz
+I (716) app_init: Application information:
+I (719) app_init: Project name:     Lab11-4_RainMaker_Light
+I (725) app_init: App version:      4d168cd-dirty
+I (729) app_init: Compile time:     Oct 14 2026 01:24:02
+I (734) app_init: ELF file SHA256:  38023b415...
+I (739) app_init: ESP-IDF:          v6.0.2
+I (742) efuse_init: Min chip rev:     v0.0
+I (746) efuse_init: Max chip rev:     v3.99 
+I (750) efuse_init: Chip rev:         v3.1
+I (754) heap_init: Initializing. RAM available for dynamic allocation:
+I (760) heap_init: At 3FFAFF10 len 000000F0 (0 KiB): DRAM
+I (765) heap_init: At 3FFB6388 len 00001C78 (7 KiB): DRAM
+I (771) heap_init: At 3FFB9A20 len 00004108 (16 KiB): DRAM
+I (776) heap_init: At 3FFCBF70 len 00014090 (80 KiB): DRAM
+I (781) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM
+I (786) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
+I (792) heap_init: At 4009CCB4 len 0000334C (12 KiB): IRAM
+W (798) spi_flash: Detected boya flash chip but using generic driver. For optimal functionality, enable `SPI_FLASH_SUPPORT_BOYA_CHIP` in menuconfig
+I (810) spi_flash: detected chip: generic
+I (814) spi_flash: flash io: dio
+I (818) coexist: coex firmware version: 6f3d08c
+I (822) main_task: Started on CPU0
+I (822) main_task: Calling app_main()
+I (852) wifi:wifi driver task: 3ffd0f1c, prio:23, stack:6656, core=0
+I (852) wifi:wifi firmware version: 00ad238
+I (852) wifi:wifi certification version: v7.0
+I (852) wifi:config NVS flash: enabled
+I (852) wifi:config nano formatting: disabled
+I (862) wifi:Init data frame dynamic rx buffer num: 32
+I (862) wifi:Init static rx mgmt buffer num: 5
+I (872) wifi:Init management short buffer num: 32
+I (872) wifi:Init dynamic tx buffer num: 32
+I (882) wifi:Init static rx buffer size: 1600
+I (882) wifi:Init static rx buffer num: 10
+I (882) wifi:Init dynamic rx buffer num: 32
+I (892) wifi_init: rx ba win: 6
+I (892) wifi_init: accept mbox: 6
+I (892) wifi_init: tcpip mbox: 32
+I (902) wifi_init: udp mbox: 6
+I (902) wifi_init: tcp mbox: 6
+I (902) wifi_init: tcp tx win: 5760
+I (912) wifi_init: tcp rx win: 5760
+I (912) wifi_init: tcp mss: 1440
+I (912) wifi_init: WiFi IRAM OP enabled
+I (922) wifi_init: WiFi RX IRAM OP enabled
+I (942) esp_rmaker_work_queue: Work Queue created.
+I (952) esp_mqtt_glue: AWS PPI: ?Platform=APN3|A0|RM|EX00|RMDev|1x0|885721AE4484
+I (952) esp_mqtt_glue: Initialising MQTT
+I (952) esp_mqtt_glue: MQTT LWT not configured
+I (952) esp_rmaker_mqtt_budget: MQTT Budgeting initialised. Default: 100, Max: 1024, Revive count: 1, Revive period: 5
+I (962) esp_rmaker_node: Node ID ----- J4Rw6EkaDmNkTbsnPH38ps
+I (972) esp_rmaker_time_service: Time service enabled
+I (972) esp_rmaker_time: Initializing SNTP. Using the SNTP server: pool.ntp.org
+I (982) esp_rmaker_time: SNTP already initialized.
+I (982) esp_rmaker_core: Starting RainMaker Work Queue task
+I (992) esp_rmaker_work_queue: RainMaker Work Queue task started.
+I (1002) app_network: Reusing cached sec2 salt-verifier from NVS
+I (1002) network_prov_scheme_ble: BT memory released
+I (1012) app_wifi: Starting provisioning
+I (1012) phy_init: phy_version 4863,a3a4459,Oct 28 2025,14:30:06
+I (1102) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)
+I (1122) wifi:mode : sta (88:57:21:ae:44:84)
+I (1122) wifi:enable tsf
+I (1132) BTDM_INIT: BT controller compile version [e02a38e]
+I (1132) BTDM_INIT: Using main XTAL as clock source
+I (1132) BTDM_INIT: Bluetooth MAC: 88:57:21:ae:44:86
+I (1512) network_prov_mgr: Provisioning started with service name : PROV_0129f4 
+I (1512) app_wifi: Provisioning started
+I (1512) app_network: Scan this QR code from the ESP RainMaker phone app for Provisioning.
+I (1522) QRCODE: Encoding below text with ECC LVL 0 & QR Code Version 5
+I (1522) QRCODE: {"ver":"v1","name":"PROV_0129f4","username":"wifiprov","pop":"24604a70","transport":"ble"}
+I (1792) app_network: If QR code is not visible, copy paste the below URL in a browser.
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_0129f4","username":"wifiprov","pop":"24604a70","transport":"ble"}
+I (1812) app_network: Provisioning will auto stop after 30 minute(s).
+I (17632) security2: Using salt and verifier to generate public key...
+I (18232) app_network: Secured session established!
+W (18412) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x13 dev_find 1
+I (21072) security2: Using salt and verifier to generate public key...
+I (21702) app_network: Secured session established!
+I (39522) esp_rmaker_chal_resp: Challenge-Response handler invoked
+I (39532) esp_rmaker_chal_resp: Challenge payload length: 64
+I (39532) esp_rmaker_user_node_auth: ECDSA key found
+I (39842) esp_rmaker_chal_resp: Setting up response with node_id: J4Rw6EkaDmNkTbsnPH38ps, binary signature len: 71
+I (39842) esp_rmaker_chal_resp: Challenge-Response handler completed successfully
+W (41682) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2
+I (41722) app_wifi: Received Wi-Fi credentials
+        SSID     : Kirinya20_2.4G
+        Password : Kirinya200345
+I (47832) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0
+I (47832) wifi:state: init -> auth (0xb0)
+I (47932) wifi:state: auth -> assoc (0x0)
+I (47972) wifi:state: assoc -> run (0x10)
+I (48082) wifi:connected with Kirinya20_2.4G, aid = 20, channel 11, BW20, bssid = 66:20:e3:17:37:fe
+I (48082) wifi:security: WPA2-PSK, phy: bgn, rssi: -68, cipher(pairwise:0x3, group:0x3), pmf:0
+I (48102) wifi:pm start, type: 1
+I (48102) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (48172) wifi:AP's beacon interval = 102400 us, DTIM period = 1
+I (48182) wifi:<ba-add>idx:0 (ifx:0, 66:20:e3:17:37:fe), tid:0, ssn:3, winSize:64
+I (49792) esp_netif_handlers: sta ip: 192.168.1.50, mask: 255.255.255.0, gw: 192.168.1.1
+I (49792) app_network: Connected with IP Address:192.168.1.50
+I (49792) network_prov_mgr: STA Got IP
+I (49792) app_wifi: Provisioning successful
+I (49802) main_task: Returned from app_main()
+I (49802) esp_rmaker_cmd_resp: Enabling Command-Response Module.
+I (49812) esp_rmaker_node: Node attribute cmd-resp created
+I (49812) esp_rmaker_param_cmd_resp: Enabling parameter command-response functionality
+I (49822) esp_rmaker_param_cmd_resp: Allocated 2048 bytes for command response buffer
+I (49832) esp_rmaker_common_cmd_resp: Registered command: cmd=1, access=7
+I (49832) esp_rmaker_param_cmd_resp: Registered standard set params command handler (id=1)
+I (49842) esp_mqtt_glue: Connecting to a1p72mufdu6064-ats.iot.us-east-1.amazonaws.com
+I (49852) esp_rmaker_core: Waiting for MQTT connection
+I (50762) esp-x509-crt-bundle: Certificate validated
+I (52482) esp_mqtt_glue: MQTT Connected
+I (52482) esp_rmaker_cmd_resp: Checking for pending commands.
+I (52482) esp_rmaker_node_config: Generated Node config of length 1253
+I (52502) esp_rmaker_core: User node mapping done, initializing MQTT parameters.
+I (52512) esp_rmaker_param: Params MQTT Init done.
+I (52512) esp_rmaker_param: Reporting params (init): {"Living Room Light":{"Name":"Living Room Light","Power":false,"Brightness":100},"Time":{"TZ":"","TZ-POSIX":""},"Schedule":{"Schedules":[]}}
+W (53082) BT_HCI: hci cmd send: disconnect: hdl 0x0, rsn:0x13
+W (53172) BT_HCI: hcif disc complete: hdl 0x0, rsn 0x16 dev_find 1
+I (54182) network_prov_mgr: Provisioning stopped
+I (54182) network_prov_scheme_ble: BTDM memory released
+I (60572) esp_rmaker_param: Received params: {"Time":{"TZ":"Asia/Bangkok"}}
+I (60572) esp_rmaker_time_service: Received value = Asia/Bangkok for Time - TZ
+I (80202) esp_rmaker_time: SNTP Synchronised.
+I (80202) esp_rmaker_time: The current time is: Wed Oct 14 01:26:23 2026 +0700[+07], DST: No.
+I (88842) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (88842) RMAKER_LIGHT: Request received via: Cloud
+I (88852) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (88852) RMAKER_LIGHT: Changing LED state to: ON
+I (88862) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
+I (90892) esp_rmaker_param: Received params: {"Living Room Light":{"Power":false}}
+I (90892) RMAKER_LIGHT: Request received via: Cloud
+I (90892) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (90902) RMAKER_LIGHT: Changing LED state to: OFF
+I (90902) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":false}}
+I (94262) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (94272) RMAKER_LIGHT: Request received via: Cloud
+I (94272) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (94282) RMAKER_LIGHT: Changing LED state to: ON
+I (94282) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
+I (96102) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":95}}
+I (96102) RMAKER_LIGHT: Request received via: Cloud
+I (96112) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (96122) RMAKER_LIGHT: Changing Brightness to: 95%
+I (96122) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":95}}
+I (97742) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":40}}
+I (97752) RMAKER_LIGHT: Request received via: Cloud
+I (97752) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (97762) RMAKER_LIGHT: Changing Brightness to: 40%
+I (97772) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":40}}
+I (99892) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":34}}
+I (99902) RMAKER_LIGHT: Request received via: Cloud
+I (99902) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (99912) RMAKER_LIGHT: Changing Brightness to: 34%
+I (99912) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":34}}
+I (101332) esp_rmaker_param: Received params: {"Living Room Light":{"Brightness":100}}
+I (101342) RMAKER_LIGHT: Request received via: Cloud
+I (101342) RMAKER_LIGHT: Device: Living Room Light | Param: Brightness
+I (101352) esp_rmaker_param: Reporting params: {"Living Room Light":{"Brightness":100}}
+I (136752) esp_rmaker_param: Received params: {"Living Room Light":{"Power":false}}
+I (136762) RMAKER_LIGHT: Request received via: Cloud
+I (136762) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (136772) RMAKER_LIGHT: Changing LED state to: OFF
+I (136772) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":false}}
+I (138192) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (138202) RMAKER_LIGHT: Request received via: Cloud
+I (138202) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (138212) RMAKER_LIGHT: Changing LED state to: ON
+I (138212) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
+I (140142) esp_rmaker_param: Received params: {"Living Room Light":{"Power":false}}
+I (140152) RMAKER_LIGHT: Request received via: Cloud
+I (140152) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (140162) RMAKER_LIGHT: Changing LED state to: OFF
+I (140162) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":false}}
+I (141672) esp_rmaker_param: Received params: {"Living Room Light":{"Power":true}}
+I (141682) RMAKER_LIGHT: Request received via: Cloud
+I (141682) RMAKER_LIGHT: Device: Living Room Light | Param: Power
+I (141692) RMAKER_LIGHT: Changing LED state to: ON
+I (141692) esp_rmaker_param: Reporting params: {"Living Room Light":{"Power":true}}
