@@ -1,1 +1,4 @@
-{}
+{
+    "cmake.sourceDirectory": "D:/Week-11-MQTT-Cloud-Communication-and-control/Example_project/Lab11-2_MQTT_Client",
+    "idf.currentSetup": "C:\\Users\\Victus\\esp\\v5.5.1\\esp-idf"
+}

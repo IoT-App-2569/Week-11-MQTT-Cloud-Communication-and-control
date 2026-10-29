@@ -209,13 +209,13 @@ mosquitto version 2.1.2 terminating
 * *หมายเหตุ* การรันโปรแกรมทั้ง subscriber และ publisher จะทำให้หน้าต่างค้างและรอแสดงข้อความที่ publisher ส่งมาให้ ดังนั้นการเปลี่ยนคำสั่ง ต้องกด  `Ctrl+C`  ทุกครั้งเพื่อออกจาก  โปรแกรม subscriber ก่อนเสมอ แล้วเปลี่ยนคำสั่ง subscriber ใหม่ จากนั้นจึงรันคำสั่ง publisher ใหม่
 * *สังเกต Log ฝั่ง Broker*  มีเพียงแพ็กเก็ต `PUBLISH` ส่งผ่านไปโดยไม่มีแพ็กเก็ตตอบรับใดๆ
 
-
+![[Pasted image 20261026000247.png]]
 
 #### 2. ทดสอบ QoS 1 (At Least Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& "C:\Program Files\mosquitto\mosquitto_sub.exe" -h 127.0.0.1 -t "test/qos" -q 1 -v`
 * ในเทอร์มินัลที่ 3 (Publisher)  `& "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -t "test/qos" -m "QoS 1 Message" -q 1`
 * *สังเกต Log ฝั่ง Broker*  จะปรากฏแพ็กเก็ต `PUBLISH (d0, q1, m1, ...)` ตามด้วยแพ็กเก็ต `PUBACK (Mid: 1)` เพื่อยืนยันการรับส่งข้อมูล
-
+![[Pasted image 20261026000346.png]]
 #### 3. ทดสอบ QoS 2 (Exactly Once)
 * ในเทอร์มินัลที่ 2 (Subscriber)  `& mosquitto_sub.exe -h 127.0.0.1 -t "test/qos" -q 2 -v`
 * ในเทอร์มินัลที่ 3 (Publisher)  `& mosquitto_pub.exe -h 127.0.0.1 -p 1883 -t "test/qos" -m "QoS 2 Message" -q 2`
@@ -225,6 +225,7 @@ mosquitto version 2.1.2 terminating
   3. `Received PUBREL`
   4. `Sending PUBCOMP`
 
+![[Pasted image 20261026000521.png]]
 ---
 
 ### กิจกรรมที่ 11-1.4 การทดสอบข้อความคงค้าง (Retained Messages)
@@ -297,6 +298,33 @@ mosquitto version 2.1.2 terminating
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+ตอบ `#` หมายถึง "ทุกระดับที่เหลือจากตรงนี้ลงไป" จึงต้องอยู่ท้ายสุดเท่านั้น ถ้าเขียน `home/#/light` จะผิดมาตรฐาน MQTT Broker จะปฏิเสธการ Subscribe (Topic Filter ไม่ถูกต้อง) ถ้าต้องการแทนระดับเดียวตรงกลาง ให้ใช้ `home/+/light`
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+ตอบ  เลือก **QoS 0** เพราะพิกัดถูกส่งใหม่ทุก 1 วินาที ถ้าค่าไหนหายไป ค่าถัดไปก็มาแทนทันที จึงไม่จำเป็นต้องส่งซ้ำ QoS 0 เร็วที่สุด ประหยัดแบนด์วิดท์และแบตเตอรี่ (QoS 1/2 จะเพิ่มแพ็กเก็ตยืนยันโดยไม่จำเป็น)
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+ตอบ **ไม่ถูกเผยแพร่** เพราะ LWT มีไว้ใช้เฉพาะตอนที่ Client หลุดแบบผิดปกติ (ไฟดับ เน็ตหลุด) เมื่อ Client ส่ง `DISCONNECT` อย่างถูกต้อง Broker จะถือว่าตั้งใจออกเอง จึงลบ Will message ทิ้ง
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+Broker เก็บค่าล่าสุดของแต่ละหัวข้อไว้ พอผู้ใช้เปิดแอปและ Subscribe ก็จะได้สถานะปัจจุบันทันที (เช่น ไฟเปิดอยู่ อุณหภูมิ 26°C) โดยไม่ต้องรอให้อุปกรณ์ส่งค่ารอบถัดไป หน้าแดชบอร์ดจึงไม่ว่างเปล่าตอนเปิดครั้งแรก
+
+
+
+![[Pasted image 20261025235419.png]]
+
+
+![[Pasted image 20261025235709.png]]
+
+ได้รับ `home/livingroom/light ON` และ `home/kitchen/light OFF` แต่**ไม่ได้รับ** `home/bedroom/balcony/light` เพราะ `+` แทนได้แค่ **1 ระดับ** ส่วนหัวข้อนี้มีระดับกลาง 2 ระดับ (`bedroom/balcony`) จึงไม่ตรงกับ `home/+/light`
+
+
+![[Pasted image 20261025235907.png]]
+
+
+| QoS                 | Message ID | ลำดับแพ็กเก็ต Publisher ↔ Broker                | ลำดับแพ็กเก็ต Broker ↔ Subscriber               | จำนวนแพ็กเก็ตต่อฝั่ง |
+| ------------------- | ---------- | ----------------------------------------------- | ----------------------------------------------- | -------------------- |
+| **0** At most once  | `m0`       | PUBLISH                                         | PUBLISH                                         | 1                    |
+| **1** At least once | `m1`       | PUBLISH → **PUBACK**                            | PUBLISH → **PUBACK**                            | 2                    |
+| **2** Exactly once  | `m1`       | PUBLISH → **PUBREC** → **PUBREL** → **PUBCOMP** | PUBLISH → **PUBREC** → **PUBREL** → **PUBCOMP** | 4                    |
+![[Pasted image 20261026001035.png]]
+
+
+![[Pasted image 20261026001644.png]]
