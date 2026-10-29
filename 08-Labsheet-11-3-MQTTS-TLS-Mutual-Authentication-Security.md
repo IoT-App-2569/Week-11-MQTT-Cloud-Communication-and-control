@@ -126,6 +126,25 @@ mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hacker message" --ca
 * ในหน้าต่าง Broker Log จะแจ้ง: `Client disconnected due to TLS error: peer did not return a certificate`
 * แสดงว่าระบบปฏิเสธการเชื่อมต่อจากอุปกรณ์แปลกปลอมได้อย่างสมบูรณ์
 
+**ผลการทดลองจริง**
+
+<img width="1461" height="498" alt="image" src="https://github.com/user-attachments/assets/d779314e-e227-4d15-bf76-e380cbd3e2bb" />
+
+
+<img width="1468" height="743" alt="image" src="https://github.com/user-attachments/assets/ea71e5bb-aaaf-4622-a265-34c1adb601ca" />
+
+
+| ตำแหน่ง | ผลที่คาดหวังในใบงาน | ผลที่ได้จริง |
+|:---|:---|:---|
+| เทอร์มินัล Publisher | `Error: Connection refused: Not authorised` หรือ `ssl handshake failure` | `Error: The connection was lost` |
+| Broker Log | `peer did not return a certificate` | `OpenSSL Error ... error:0A0000C7:SSL routines::peer did not return a certificate` ตามด้วย `disconnected: protocol error.` |
+| เทอร์มินัล Subscriber | ไม่ได้รับข้อความ | ไม่ได้รับ `Hacker message` |
+
+**วิเคราะห์ผล**
+- Broker ตรวจพบว่า Client ไม่ส่งใบรับรองมาในขั้นตอน TLS Handshake จึงตัดการเชื่อมต่อทันที ผู้บุกรุก**ไม่ได้รับ CONNACK** และไม่สามารถส่งข้อความ MQTT ใดๆ ได้เลย
+- ข้อความ error ฝั่ง Client ต่างจากใบงาน เพราะ Mosquitto 2.1.2 / OpenSSL 3.5 ตัดการเชื่อมต่อทันทีหลังพบข้อผิดพลาด ฝั่ง Client จึงเห็นเพียงว่าการเชื่อมต่อขาด แต่ผลลัพธ์เหมือนกันคือ**ถูกปฏิเสธ**
+- Client ที่มีใบรับรองถูกต้องเชื่อมต่อได้ด้วย **TLSv1.3** cipher `TLS_AES_256_GCM_SHA384` แม้ตั้งค่า `tls_version tlsv1.2` เพราะค่านี้คือเวอร์ชันขั้นต่ำที่ยอมรับ
+
 ---
 
 ### กิจกรรมที่ 11-3.4 การสร้างโปรเจกต์ ESP-IDF และการฝัง Certificate ผ่าน CMake
@@ -327,9 +346,144 @@ void app_main(void)
    * Mosquitto จะพิมพ์ข้อความยืนยัน `Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node`
    * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
 
+## ผลการทดลอง
+
+### กิจกรรม 11-3.1 การสร้างใบรับรองด้วย OpenSSL
+
+<img width="1042" height="750" alt="image" src="https://github.com/user-attachments/assets/48fe41ba-c3ba-4f74-a57e-d826057872ec" />
+
+
+| ไฟล์ | หน้าที่ | ใช้ที่ |
+|:---|:---|:---|
+| `ca.crt` / `ca.key` | Root CA ผู้ลงนามรับรอง | `ca.crt` ใช้ทั้ง Broker และ Client ส่วน `ca.key` เก็บเป็นความลับ |
+| `server.crt` / `server.key` | ตัวตนของ Broker (CN และ SAN = `172.20.10.4`) | Mosquitto |
+| `client.crt` / `client.key` | ตัวตนของ ESP32 (CN = `esp32-secure-node`) | ESP32 และ CLI ทดสอบ |
+
+ผล `openssl verify -CAfile ca.crt server.crt client.crt` ได้ `OK` ทั้งสองใบ แสดงว่าทั้งคู่ลงนามโดย Root CA ของเราจริง
+
+**การปรับปรุงจากใบงาน:** เพิ่มไฟล์ส่วนขยาย (`-extfile`) ให้แต่ละใบรับรอง ได้แก่ `basicConstraints=CA:TRUE` ให้ Root CA, `subjectAltName=IP:172.20.10.4` และ `extendedKeyUsage=serverAuth` ให้ Server และ `extendedKeyUsage=clientAuth` ให้ Client เพราะ mbedTLS ใน ESP-IDF v6 และ OpenSSL 3.x ตรวจสอบข้อมูลส่วนนี้อย่างเข้มงวด
+
+### กิจกรรม 11-3.2 การตั้งค่า Mosquitto MQTTS Broker
+
+<img width="1020" height="528" alt="image" src="https://github.com/user-attachments/assets/d5af7c65-3999-4fd9-85e8-d2e9a029a8f4" />
+
+```
+listener 8883 0.0.0.0
+cafile C:/mqtt_certs/ca.crt
+certfile C:/mqtt_certs/server.crt
+keyfile C:/mqtt_certs/server.key
+require_certificate true
+allow_anonymous true
+tls_version tlsv1.2
+log_type all
+```
+
+**การปรับปรุงจากใบงาน:** เพิ่ม `allow_anonymous true` เพราะ Mosquitto 2.x ตั้งค่าเริ่มต้นเป็น `false` ทำให้ปฏิเสธ Client ที่ไม่มี username แม้มีใบรับรองถูกต้อง และเปิด Windows Firewall พอร์ต TCP 8883
+
+### กิจกรรม 11-3.3 การทดสอบด้วย CLI
+
+**1. Client ที่มีใบรับรองถูกต้อง**
+
+<img width="1450" height="447" alt="image" src="https://github.com/user-attachments/assets/7d8192c4-a898-4739-9266-1a8d5b1de2a0" />
+
+
+Subscriber ได้รับ `secure/test Hello Secure World!` และ Broker Log แสดง `negotiated TLSv1.3 cipher TLS_AES_256_GCM_SHA384`
+
+**2. Client ที่ไม่มีใบรับรอง (ผู้บุกรุก)**
+
+<img width="1461" height="498" alt="image" src="https://github.com/user-attachments/assets/8f7bc8ea-5db6-4306-baa4-37bd92ecc25d" />
+
+
+<img width="1468" height="743" alt="image" src="https://github.com/user-attachments/assets/60222399-4ca1-48b0-a8fb-02fc531ee765" />
+
+
+| ตำแหน่ง | ผลที่คาดหวังในใบงาน | ผลที่ได้จริง |
+|:---|:---|:---|
+| เทอร์มินัล Publisher | `Not authorised` หรือ `ssl handshake failure` | `Error: The connection was lost` |
+| Broker Log | `peer did not return a certificate` | `OpenSSL Error ... peer did not return a certificate` ตามด้วย `disconnected: protocol error.` |
+| เทอร์มินัล Subscriber | ไม่ได้รับข้อความ | ไม่ได้รับ `Hacker message` |
+
+Broker ตัดการเชื่อมต่อตั้งแต่ขั้น TLS Handshake ผู้บุกรุกไม่ได้รับ CONNACK และไม่สามารถส่งข้อความ MQTT ใดๆ ได้ ข้อความ error ฝั่ง Client ต่างจากใบงานเพราะ Mosquitto 2.1.2 / OpenSSL 3.5 ตัดการเชื่อมต่อทันที ฝั่ง Client จึงเห็นเพียงว่าการเชื่อมต่อขาด แต่ผลลัพธ์เหมือนกันคือถูกปฏิเสธ
+
+### กิจกรรม 11-3.4–11-3.5 ESP32 MQTTS Client แบบ mTLS
+
+<img width="876" height="317" alt="image" src="https://github.com/user-attachments/assets/1492b36e-6a91-4af7-bedd-b06f68367cd5" />
+
+
+<img width="1453" height="745" alt="image" src="https://github.com/user-attachments/assets/b1f40570-ba82-410d-8a35-30a0863de7fe" />
+
+
+```
+New connection from 172.20.10.3:64053 on port 8883.
+New client connected from 172.20.10.3:64053 as esp32_mtls_client_node (p4, c1, k120).
+Client esp32_mtls_client_node negotiated TLSv1.2 cipher ECDHE-RSA-AES256-GCM-SHA384
+Sending CONNACK to esp32_mtls_client_node (0, 0)
+Received PUBLISH from esp32_mtls_client_node (... 'secure/esp32/status', ... (18 bytes))
+Received SUBSCRIBE from esp32_mtls_client_node
+    secure/esp32/cmd (QoS 1)
+```
+
+**การรับส่งข้อความสองทางผ่าน mTLS**
+
+<img width="1472" height="490" alt="image" src="https://github.com/user-attachments/assets/f5611a5f-4a2d-4fad-bf2a-f86606ff7cc5" />
+
+
+<img width="1478" height="457" alt="image" src="https://github.com/user-attachments/assets/fdbfa774-fd51-4096-8d77-f883b18f5852" />
+
+
+- ESP32 → คอมพิวเตอร์: Subscriber ได้รับ `secure/esp32/status SECURE_ONLINE_MTLS`
+- คอมพิวเตอร์ → ESP32: Monitor แสดง `SECURE DATA RECEIVED` และ `PAYLOAD: Hello ESP32 via mTLS`
+
+**เปรียบเทียบการเชื่อมต่อ**
+
+| รายการ | คอมพิวเตอร์ (mosquitto CLI) | ESP32 (esp-mqtt + mbedTLS) |
+|:---|:---|:---|
+| TLS Version | TLSv1.3 | TLSv1.2 |
+| Cipher Suite | TLS_AES_256_GCM_SHA384 | ECDHE-RSA-AES256-GCM-SHA384 |
+| Keep Alive | 60 วินาที | 120 วินาที |
+| เวลาเชื่อมต่อ | แทบทันที | ประมาณ 8 วินาที (เทียบกับ MQTT ธรรมดาที่ต่อได้ทันที) |
+
+ESP32 ใช้ TLSv1.2 เพราะค่าเริ่มต้นของ mbedTLS ใน ESP-IDF ไม่ได้เปิด TLS 1.3 แต่ยังปลอดภัยสูงเพราะใช้ ECDHE (Forward Secrecy) ร่วมกับ AES-256-GCM และผ่านเงื่อนไข `tls_version tlsv1.2` ซึ่งเป็นเวอร์ชันขั้นต่ำที่ยอมรับ ส่วนเวลาเชื่อมต่อที่นานขึ้นเกิดจาก ESP32 ต้องคำนวณ RSA 2048 บิต ทั้งตรวจใบรับรองของ Broker และลงนามยืนยันตัวตนด้วย `client.key`
+
+### ปัญหาที่พบและการแก้ไข
+
+| ปัญหา | สาเหตุ | วิธีแก้ |
+|:---|:---|:---|
+| `idf.py build` ไม่ผ่านด้วย CMakeLists ตามใบงาน | ESP-IDF v6 แยก mqtt เป็น component ภายนอก และ `create-project` ตั้งชื่อไฟล์ตามโปรเจกต์ | `idf.py add-dependency "espressif/mqtt"` และแก้ `SRCS "Lab11-3_MQTTS_Secure.c"` พร้อมเพิ่ม `REQUIRES` |
+| `undefined reference to app_main` | ไฟล์โค้ดยังไม่ได้บันทึกเนื้อหา | วางโค้ดลงไฟล์ที่ถูกต้องและบันทึกก่อน build |
+
+---
+
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+```
+ในขั้นตอน TLS Handshake นอกจาก Client จะตรวจว่าใบรับรองของ Server ลงนามโดย CA ที่เชื่อถือแล้ว ยังต้องตรวจ **Hostname Verification** คือเทียบที่อยู่ที่ตัวเองตั้งใจเชื่อมต่อ (ในโค้ดคือ `mqtts://172.20.10.4:8883`) กับชื่อในใบรับรอง (CN หรือ Subject Alternative Name) ว่าตรงกัน เพื่อยืนยันว่ากำลังคุยกับเซิร์ฟเวอร์ตัวจริง ไม่ใช่เครื่องอื่นที่นำใบรับรองซึ่งถูกต้องแต่เป็นของเครื่องอื่นมาแอบอ้าง ซึ่งเป็นการป้องกันการโจมตีแบบ **Man-in-the-Middle**
+
+หากระบุ CN เป็นชื่ออื่น เช่น `localhost` แต่ ESP32 เชื่อมต่อด้วย `172.20.10.4` จะเกิดข้อผิดพลาด **Hostname Mismatch** การ Handshake ล้มเหลว ฝั่ง ESP32 จะแจ้ง `MQTT_EVENT_ERROR` พร้อม error จาก mbedTLS ว่า CN ไม่ตรง (`MBEDTLS_X509_BADCERT_CN_MISMATCH`) ส่วน `mosquitto_sub` จะแจ้ง `certificate verify failed` และเชื่อมต่อไม่ได้ ทั้งนี้มาตรฐานปัจจุบันให้ความสำคัญกับ SAN มากกว่า CN ในการทดลองนี้จึงใส่ IP ไว้ทั้งใน CN และ `subjectAltName=IP:172.20.10.4` และต้องสร้างใบรับรอง Server ใหม่ทุกครั้งที่ IP ของ Broker เปลี่ยน
+
+```
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+
+| ประเด็น | HTTPS ทั่วไป (One-way TLS) | mTLS (Mutual TLS) |
+|:---|:---|:---|
+| ใบรับรองฝั่ง Server | ต้องมี | ต้องมี |
+| ใบรับรองฝั่ง Client | **ไม่ต้องมี** | **ต้องมี** และต้องลงนามโดย CA ที่ Server เชื่อถือ |
+| ใครยืนยันตัวตน | เฉพาะ Server ยืนยันตัวกับ Client | **ทั้งสองฝ่าย**ยืนยันตัวตนซึ่งกันและกัน |
+| Client ยืนยันตัวด้วยอะไร | ชื่อผู้ใช้และรหัสผ่าน คุกกี้ หรือ Token ในชั้น Application หลังจากเชื่อมต่อแล้ว | กุญแจส่วนตัวและใบรับรอง ตั้งแต่ขั้น TLS Handshake ก่อนส่งข้อมูลใดๆ |
+| เหมาะกับ | ผู้ใช้ทั่วไปจำนวนมากที่ไม่มีใบรับรอง | อุปกรณ์ IoT และระบบเครื่องต่อเครื่อง |
+
+ใน HTTPS เบราว์เซอร์ตรวจว่าเว็บไซต์เป็นตัวจริง แต่เว็บไซต์ไม่รู้ว่าเบราว์เซอร์เป็นใครจนกว่าจะ Login ขณะที่ mTLS Broker จะปฏิเสธอุปกรณ์ที่ไม่มีใบรับรองตั้งแต่ขั้นแรก จากการทดลองพบว่า Client ที่ส่งเพียง `ca.crt` แต่ไม่มี `client.crt` ถูกตัดการเชื่อมต่อด้วย `peer did not return a certificate` ก่อนจะได้รับ CONNACK
+
+
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+```
+กู้คืนได้ เพราะคำสั่ง `EMBED_TXTFILES` ฝังไฟล์ `client.key` ลงในเฟิร์มแวร์เป็นข้อความ PEM ธรรมดาโดยไม่เข้ารหัส ผู้โจมตีสามารถเปิดไฟล์ `.bin` หรืออ่าน Flash จากบอร์ดด้วย `esptool.py read_flash` แล้วค้นหาข้อความ `-----BEGIN PRIVATE KEY-----` ก็ได้กุญแจส่วนตัวไปทันที จากนั้นนำไปสร้างอุปกรณ์ปลอมที่ Broker เชื่อถือได้
+
+ESP32 มีกลไกระดับฮาร์ดแวร์ช่วยแก้ปัญหา ดังนี้
+- Flash Encryption: เข้ารหัสข้อมูลทั้งหมดใน Flash ด้วย AES โดยกุญแจเก็บใน eFuse ที่อ่านจากภายนอกไม่ได้ แม้ถอดชิป Flash ไปอ่าน ก็ได้แต่ข้อมูลที่ถูกเข้ารหัส
+- Secure Boot (v2): บอร์ดจะรันเฉพาะเฟิร์มแวร์ที่ลงนามด้วยกุญแจของผู้ผลิต ป้องกันผู้โจมตีแฟลชเฟิร์มแวร์ของตัวเองเพื่อดึงกุญแจออกมา ใช้ร่วมกับ Flash Encryption เสมอ
+- Digital Signature (DS) Peripheral: เก็บกุญแจส่วนตัวในรูปที่ถูกเข้ารหัสด้วยกุญแจใน eFuse และให้ฮาร์ดแวร์เป็นผู้ลงนามในขั้น TLS Handshake ซอฟต์แวร์จึงไม่เคยเห็นกุญแจจริงเลย
+- มาตรการเสริม: ปิด JTAG และ UART Download Mode ผ่าน eFuse, เข้ารหัส NVS, ใช้ใบรับรองแยกเฉพาะแต่ละอุปกรณ์ เพื่อให้เพิกถอน (Revoke) เฉพาะเครื่องที่ถูกขโมยได้ หรือใช้ชิป Secure Element ภายนอก เช่น ATECC608
+```

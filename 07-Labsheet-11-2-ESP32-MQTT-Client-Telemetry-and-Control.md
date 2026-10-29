@@ -372,6 +372,76 @@ python -m esptool -p <COMxx> --chip esp32 -b 460800 --before default_reset --aft
 >    * หากต้องการให้ข้อความปรากฏค้างอยู่ใน MQTT Explorer เสมอแม้ส่งเสร็จไปแล้ว ให้เพิ่มแฟล็ก **`-r` (Retain)** ในคำสั่ง Publish
 > 3. **การเปิดพอร์ต Firewall**: ตรวจสอบว่า Windows Defender Firewall อนุญาตให้พอร์ต TCP 1883 รับการเชื่อมต่อจาก Inbound LAN
 
+
+## 4. ผลการทดสอบ (Testing & Verification)
+
+### 4.1 การเชื่อมต่อ Wi-Fi และ MQTT Broker
+
+<img width="918" height="302" alt="Screenshot 2026-10-23 204317" src="https://github.com/user-attachments/assets/251aa820-2046-4eda-929b-025b895521c5" />
+
+
+| รายการ | ค่า |
+|:---|:---|
+| ESP-IDF | v6.0.2 |
+| Target | ESP32 |
+| Wi-Fi | Mobile Hotspot (2.4 GHz) |
+| IP ของ ESP32 | 172.20.10.3 |
+| IP ของ Broker (คอมพิวเตอร์) | 172.20.10.4 |
+| Broker URI | `mqtt://172.20.10.4:1883` |
+
+### 4.2 การตรวจสอบ Telemetry Data
+
+```
+mosquitto_sub -h 172.20.10.4 -p 1883 -t "iot/node01/telemetry" -v
+```
+
+<img width="1452" height="747" alt="image" src="https://github.com/user-attachments/assets/b514ea9d-d4d6-40e8-9481-6916e71ffed8" />
+
+
+ESP32 ส่ง JSON Payload ทุก 4 วินาที เมื่อหมุน Potentiometer ค่าเปลี่ยนแปลงตามได้ถูกต้องครบทั้งช่วง
+
+| ตำแหน่ง Potentiometer | adc_raw | voltage_v |
+|:---|:---:|:---:|
+| หมุนสุดด้านหนึ่ง | 4095 | 3.30 V |
+| ตำแหน่งกลาง | ~2520 | ~2.03 V |
+| หมุนสุดอีกด้าน | 0 | 0.00 V |
+
+### 4.3 การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
+
+<img width="922" height="323" alt="image" src="https://github.com/user-attachments/assets/d6188137-8e6d-4abb-b8d8-57b011b54206" />
+<img width="935" height="320" alt="image" src="https://github.com/user-attachments/assets/55851dea-d281-4ea1-a39f-241cb1e1056b" />
+
+
+| คำสั่งที่ส่ง | DATA ที่ ESP32 ได้รับ | ผลที่ได้ | led_state ใน Telemetry |
+|:---|:---|:---|:---:|
+| `-m "ON"` | `ON` | LED ติด | `true` |
+| `-m "OFF"` | `OFF` | LED ดับ | `false` |
+| `-m '{\"state\": 1}'` | `{"state": 1}` | LED ติด | `true` |
+
+ลำดับการทำงานที่สังเกตได้จาก Monitor: `MQTT_EVENT_DATA received` → แสดง `TOPIC` และ `DATA` → `LED State set to -> ON/OFF` → Telemetry รอบถัดไปรายงานสถานะใหม่
+
+### 4.4 การทดสอบสถานะ Online/Offline (Retained + LWT)
+
+```
+mosquitto_sub -h 172.20.10.4 -p 1883 -t "iot/node01/#" -v
+```
+
+<img width="1360" height="347" alt="image" src="https://github.com/user-attachments/assets/46997599-d79f-4b85-a483-cbee25aac2bf" />
+
+
+
+1. เมื่อเปิด Subscriber ได้รับ `iot/node01/status online` ทันที แม้ ESP32 ส่งไว้นานแล้ว เพราะส่งด้วย Retain
+2. เมื่อถอดสาย USB ของบอร์ด Telemetry หยุด และ Broker ส่ง `iot/node01/status offline` แทนบอร์ดหลัง Keep Alive หมดเวลา (ประมาณ 1.5 × 60 วินาที)
+3. เมื่อเสียบสายกลับ บอร์ดรีบูต (`uptime_ms` เริ่มนับใหม่) เชื่อมต่อใหม่และส่ง `online` อีกครั้ง โดย `led_state` กลับเป็น `false` เพราะสถานะ LED ไม่ได้ถูกบันทึกไว้
+
+### 4.5 ปัญหาที่พบและวิธีแก้
+
+| ปัญหา | สาเหตุ | วิธีแก้ |
+|:---|:---|:---|
+| คำสั่ง JSON `-m "{\"state\": 1}"` ไม่ทำให้ LED ติด | Windows PowerShell 5.1 ตัดเครื่องหมาย `"` ออกก่อนส่งให้ `mosquitto_pub` ทำให้ ESP32 ได้รับ `{state: 1}` | ใช้ `-m '{\"state\": 1}'` (ครอบด้วย `'` และใช้ `\"` ข้างใน) |
+| ESP32 เชื่อมต่อ Broker ไม่ได้ (ป้องกันไว้ก่อน) | Windows Firewall บล็อกพอร์ต 1883 และ Mosquitto Service ทำงานซ้อน | เปิด Inbound Rule พอร์ต TCP 1883 และไม่ติดตั้ง Mosquitto Service |
+
+---
 ---
 
 ### 1. การตรวจสอบ Telemetry Data
@@ -412,5 +482,27 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
+```
+ทั้งสองทำงานร่วมกันเพื่อให้ topic `iot/node01/status` แสดงสถานะจริงของอุปกรณ์ได้ตลอดเวลา
+- LWT `"offline"` (retain = 1) ลงทะเบียนไว้กับ Broker ตั้งแต่ตอนเชื่อมต่อ เมื่ออุปกรณ์หลุดแบบผิดปกติ เช่น ไฟดับหรือ Wi-Fi ขาด Broker จะส่ง `offline` แทนอุปกรณ์ทันที เพราะอุปกรณ์ที่ดับแล้วไม่สามารถแจ้งได้เอง
+- `"online"` (retain = 1) ส่งทุกครั้งที่เชื่อมต่อสำเร็จ เพื่อเขียนทับค่า `offline` เดิมที่ค้างอยู่
+- การใช้ Retain ทำให้แอปหรือแดชบอร์ดที่เพิ่งเปิดขึ้นมาทีหลังรู้สถานะปัจจุบันได้ทันทีโดยไม่ต้องรอ จากการทดลองพบว่า Subscriber ได้รับ `online` ทันทีที่เชื่อมต่อ หากไม่ใช้ Retain ผู้ที่ Subscribe ภายหลังจะไม่รู้เลยว่าอุปกรณ์ออนไลน์อยู่หรือไม่ จนกว่าจะเกิดการเปลี่ยนสถานะครั้งถัดไป
+
+```
 2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
+```
+เมื่อการเชื่อมต่อขาด `esp-mqtt` จะส่งเหตุการณ์ `MQTT_EVENT_DISCONNECTED` แล้ว**พยายามเชื่อมต่อใหม่อัตโนมัติ**เป็นระยะ (ค่าเริ่มต้นทุกประมาณ 10 วินาที ตามค่า `reconnect_timeout_ms`) เพราะค่า `disable_auto_reconnect` เป็น `false` โดยปริยาย ข้อความ QoS 1/2 ที่ยังส่งไม่สำเร็จจะถูกเก็บไว้ใน Outbox ส่วนข้อความ QoS 0 เช่น Telemetry ระหว่างที่หลุดจะสูญหายไป
+
+โค้ดไม่ต้องเรียกเชื่อมต่อ MQTT ใหม่เอง แต่มีส่วนที่ต้องเตรียมไว้ 2 อย่าง
+- ระดับ Wi-Fi: ฟังก์ชัน `wifi_event_handler` เรียก `esp_wifi_connect()` ใหม่ทุกครั้งที่ได้รับ `WIFI_EVENT_STA_DISCONNECTED` เพื่อให้ได้ IP กลับมาก่อน MQTT จึงจะต่อใหม่ได้
+- ระดับ MQTT: เมื่อเชื่อมต่อใหม่สำเร็จจะเกิด `MQTT_EVENT_CONNECTED` อีกครั้ง โค้ดจึงต้องส่ง `online` และ **Subscribe topic คำสั่งใหม่ไว้ในเหตุการณ์นี้** เพราะใช้ Clean Session ทำให้ Broker ลบการ Subscribe เดิมไปแล้ว ซึ่งโค้ดในใบงานทำไว้ถูกต้อง จากการทดลองถอด-เสียบสาย พบว่าบอร์ดกลับมาส่ง `online` และ Telemetry ได้เองโดยไม่ต้องแก้ไขใดๆ
+
+```
 3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+```
+ภาษา C ไม่มี Garbage Collector คืนหน่วยความจำให้อัตโนมัติ และในแต่ละรอบมีการจองหน่วยความจำบน Heap แยกกัน 2 ก้อน
+- `cJSON_CreateObject()` และ `cJSON_Add...()` จองหน่วยความจำสำหรับทุกโหนดของโครงสร้าง JSON ต้องคืนด้วย `cJSON_Delete(root)` ซึ่งจะไล่คืนโหนดลูกทั้งหมดให้
+- `cJSON_PrintUnformatted()` จองหน่วยความจำอีกก้อนเพื่อเก็บข้อความ JSON ที่แปลงแล้ว ต้องคืนด้วย `free(json_str)` (หรือ `cJSON_free()` ซึ่งปลอดภัยกว่าหากตั้งค่า cJSON ให้ใช้ตัวจองหน่วยความจำของตัวเอง)
+
+หากละเลยจะเกิด หน่วยความจำรั่ว (Memory Leak) ทุกๆ 4 วินาที ค่า Free Heap จะลดลงเรื่อยๆ จนในที่สุด `malloc` ล้มเหลว ESP32 จะทำงานผิดพลาด ค้าง หรือรีบูตตัวเอง ซึ่งเป็นปัญหาร้ายแรงสำหรับอุปกรณ์ IoT ที่ต้องทำงานต่อเนื่องเป็นเดือนและมี RAM จำกัดเพียงหลักร้อยกิโลไบต์ ลำดับที่ถูกต้องคือ Publish ข้อความให้เสร็จก่อน แล้วจึงคืนหน่วยความจำ เพื่อไม่ให้เกิดการใช้หน่วยความจำที่ถูกคืนไปแล้ว (Use-After-Free)
+```
