@@ -25,6 +25,7 @@
 # ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
 <img width="1111" height="98" alt="image" src="https://github.com/user-attachments/assets/2840fd6e-8d95-4587-98ef-56f6c2ab7d39" />
 <img width="1188" height="87" alt="image" src="https://github.com/user-attachments/assets/9d9fef7a-e7e8-4e00-b4f2-ec23c4d6e151" />
+
 ```
 ผลที่เห็นขึ้น sensor/state CRITICAL_ALERT ทันที ทั้งที่ไม่มีส่งอะไรใหม่
 ```
