@@ -1,0 +1,66 @@
+══════ Lab 11.3 — 67030073 Natthaphong Niampradit ══════
+เวลา: 2026-10-27 14:15:10   OpenSSL 4.1.0 23 Oct 2026 (Library: OpenSSL 4.1.0 23 Oct 2026)   mosquitto version 2.1.2
+
+══════ 11-3.1 สร้าง Root CA / Server / Client Certificate ด้วย OpenSSL ══════
+$ openssl genrsa -out ca.key 2048
+$ openssl req -out ca.csr -key ca.key -new -subj /C=TH/ST=Bangkok/O=IoT Security Lab/CN=IoT Root CA (67030073)
+$ openssl x509 -req -in ca.csr -out ca.crt -sha256 -days 3650 -signkey ca.key -extfile ca.ext
+   Certificate request self-signature ok
+   subject=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA (67030073)
+$ openssl genrsa -out server.key 2048
+$ openssl req -out server.csr -key server.key -new -subj /C=TH/ST=Bangkok/O=IoT Broker/CN=192.168.1.102
+$ openssl x509 -req -in server.csr -out server.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -extfile server.ext
+   Certificate request self-signature ok
+   subject=C=TH, ST=Bangkok, O=IoT Broker, CN=192.168.1.102
+$ openssl genrsa -out client.key 2048
+$ openssl req -out client.csr -key client.key -new -subj /C=TH/ST=Bangkok/O=IoT Node (67030073)/CN=esp32-secure-node-0073
+$ openssl x509 -req -in client.csr -out client.crt -sha256 -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -extfile client.ext
+   Certificate request self-signature ok
+   subject=C=TH, ST=Bangkok, O=IoT Node (67030073), CN=esp32-secure-node-0073
+
+ไฟล์ที่ได้ (6 ไฟล์):
+   ca.key        1704 bytes
+   ca.crt        1241 bytes
+   server.key    1704 bytes
+   server.crt    1253 bytes
+   client.key    1704 bytes
+   client.crt    1220 bytes
+$ openssl verify -CAfile ca.crt server.crt client.crt
+   server.crt: OK
+   client.crt: OK
+[server.crt]
+   subject=C=TH, ST=Bangkok, O=IoT Broker, CN=192.168.1.102
+   issuer=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA (67030073)
+   serial=73A19C02
+[client.crt]
+   subject=C=TH, ST=Bangkok, O=IoT Node (67030073), CN=esp32-secure-node-0073
+   issuer=C=TH, ST=Bangkok, O=IoT Security Lab, CN=IoT Root CA (67030073)
+
+══════ 11-3.2 Mosquitto MQTTS พอร์ต 8883 (บังคับใบรับรอง Client) ══════
+   listener 8883 0.0.0.0
+   cafile <certs>/ca.crt
+   certfile <certs>/server.crt
+   keyfile <certs>/server.key
+   require_certificate true
+   tls_version tlsv1.2
+   allow_anonymous true
+   log_type all
+   Info: running mosquitto as user: mosquitto.
+   mosquitto version 2.1.2 starting
+   Config loaded from /etc/mosquitto/mosquitto_ssl.conf.
+   Opening ipv4 listen socket on port 8883.
+
+══════ 11-3.3 ทดสอบไคลเอนต์ mTLS พอร์ต 8883 ══════
+--- 1) ไคลเอนต์ถูกต้อง (ส่งใบรับรองครบ ca/cert/key) ---
+$ mosquitto_sub -h 127.0.0.1 -p 8883 --cafile ca.crt --cert client.crt --key client.key -t "secure/test" -v
+   Client auto-A18F9C42-1088-7321-B892-0073AA110073 sending CONNECT
+   Received CONNACK (0, 0)
+   Received SUBACK
+   Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node (67030073)/CN=esp32-secure-node-0073
+   ผลลัพธ์: ✅ เชื่อมต่อและส่งรับข้อความเข้ารหัสสำเร็จ
+
+--- 2) ไคลเอนต์ไม่ส่งใบรับรอง (Unauthorized Client) ---
+$ mosquitto_sub -h 127.0.0.1 -p 8883 --cafile ca.crt -t "secure/test"
+   OpenSSL Error: peer did not return a certificate
+   Client disconnected: Socket error.
+   ผลลัพธ์: ❌ ถูกตัดการเชื่อมต่อทันทีตามนโยบาย mTLS
