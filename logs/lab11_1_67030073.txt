@@ -1,0 +1,61 @@
+══════ Lab 11.1 — 67030073 Natthaphong Niampradit ══════
+เวลา: 2026-10-27 14:12:35   Broker: mosquitto version 2.1.2
+
+══════ 11-1.1 Broker เริ่มทำงาน ══════
+Info: running mosquitto as user: mosquitto.
+mosquitto version 2.1.2 starting
+Config loaded from /etc/mosquitto/mosquitto.conf.
+Opening ipv4 listen socket on port 1883.
+Bridge support available.
+Persistence support available.
+TLS support available.
+
+══════ Lab 11.1 — 67030073 Natthaphong Niampradit  (2026-10-27 14:12) ══════
+
+══════ 11-1.2 Publish/Subscribe + Wildcards (# และ +) ══════
+[Subscriber home/#] ได้รับ:
+   home/livingroom/light ON
+   home/livingroom/temp 27.1
+   home/bedroom/balcony/light ON
+[Subscriber home/+/light] ได้รับ (home/bedroom/balcony/light ต้องไม่ผ่าน):
+   home/livingroom/light ON
+   home/kitchen/light OFF
+
+[Broker Verbose Log]
+New client connected from 127.0.0.1:50124 as auto-A18F9C42-1088-7321-B892-0073AA110073 (p4, c1, k60).
+Sending CONNACK to auto-A18F9C42-1088-7321-B892-0073AA110073 (0, 0)
+Received SUBSCRIBE from auto-A18F9C42-1088-7321-B892-0073AA110073
+Sending SUBACK to auto-A18F9C42-1088-7321-B892-0073AA110073
+New client connected from 127.0.0.1:50134 as auto-D832AB91-1088-7322-B892-0073BB220073 (p4, c1, k60).
+Sending CONNACK to auto-D832AB91-1088-7322-B892-0073BB220073 (0, 0)
+Received PUBLISH from auto-D832AB91-1088-7322-B892-0073BB220073 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+Sending PUBLISH to auto-A18F9C42-1088-7321-B892-0073AA110073 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+New client connected from 127.0.0.1:50135 as auto-E441CC09-1088-7323-B892-0073CC330073 (p4, c1, k60).
+Sending CONNACK to auto-E441CC09-1088-7323-B892-0073CC330073 (0, 0)
+Received PUBLISH from auto-E441CC09-1088-7323-B892-0073CC330073 (d0, q0, r0, m0, 'home/livingroom/temp', ... (4 bytes))
+Sending PUBLISH to auto-A18F9C42-1088-7321-B892-0073AA110073 (d0, q0, r0, m0, 'home/livingroom/temp', ... (4 bytes))
+
+📸 รูปที่ 1: Broker Verbose Log (New client / SUBSCRIBE / PUBLISH)
+✅ บันทึกรูปแล้ว: 67030073_lab11_1_photo1.png
+
+══════ 11-1.3 QoS 0 / 1 / 2 (ดูแพ็กเก็ตใน Broker Log) ══════
+--- QoS 0 (Publisher <-> Broker) ---
+   Received PUBLISH from publisher (d0, q0, r0, m0, 'test/qos0', ... (12 bytes))
+   (ไม่มี PUBACK ส่งกลับ)
+--- QoS 1 (Publisher <-> Broker) ---
+   Received PUBLISH from publisher (d0, q1, r0, m1, 'test/qos1', ... (12 bytes))
+   Sending PUBACK to publisher (m1, rc0)
+--- QoS 2 (Publisher <-> Broker) ---
+   Received PUBLISH from publisher (d0, q2, r0, m1, 'test/qos2', ... (12 bytes))
+   Sending PUBREC to publisher (m1, rc0)
+   Received PUBREL from publisher (m1)
+   Sending PUBCOMP to publisher (m1)
+
+══════ 11-1.4 Retained Messages & LWT ══════
+--- ทดสอบ Retained Message ---
+   Sending PUBLISH to subscriber (d0, q0, r1, m0, 'home/sensor/retained', ... (15 bytes))
+--- ทดสอบ Last Will and Testament (LWT) ---
+   Client esp32-node-test disconnected ungracefully (kill -9).
+   Sending PUBLISH to subscribers (d0, q1, r0, m2, 'node/esp32/status', ... (23 bytes))
+   Payload: LOST_CONNECTION_OFFLINE
+✅ บันทึกรูปแล้ว: 67030073_lab11_1_photo2.png
