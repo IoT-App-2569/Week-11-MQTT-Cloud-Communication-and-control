@@ -2,7 +2,7 @@
 ## หัวข้อ: MQTT Cloud Communication and Control & ESP RainMaker Ecosystem
 
 **รหัสนักศึกษา:** 67030073  
-**ชื่อ-นามสกุล:** นายณัฐพงศ์ เนียมประดิษฐ (Natthaphong Niampradit)  
+**ชื่อ-นามสกุล:** นายณัฐพงศ์ เนียมประดิษฐ (Natthapong Niampradit)  
 **วิชา:** ระบบสมองกลฝังตัวและการเชื่อมต่อเครือข่าย (Embedded Systems & IoT)  
 **บอร์ดทดลอง:** ESP32 (ESP32-D0WD-V3)  
 
