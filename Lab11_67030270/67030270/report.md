@@ -2,7 +2,7 @@
 ## หัวข้อ: MQTT Cloud Communication and Control & ESP RainMaker Ecosystem
 
 **รหัสนักศึกษา:** 67030270  
-**ชื่อ-นามสกุล:** นายกฤษดินาถ สำราญกิจ (Kritsadinat Samrankit)  
+**ชื่อ-นามสกุล:** นายกฤษฏิณัช สำราญกิจ (Krittinat Samrankit)  
 **วิชา:** ระบบสมองกลฝังตัวและการเชื่อมต่อเครือข่าย (Embedded Systems & IoT)  
 **บอร์ดทดลอง:** ESP32 (ESP32-D0WD-V3)  
 
