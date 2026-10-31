@@ -215,11 +215,17 @@ idf.py -p COMx flash monitor
 ### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
 * กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
 * ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
+![alt text](image-15.png)
+![alt text](image-16.png)
+![alt text](image-17.png)
+![alt text](image-18.png)
+![alt text](image-19.png)
+Link Vidio: https://drive.google.com/file/d/159fZ78oXzYpRee2bopwFY-C04k9yznOR/view?usp=sharing
 
 ### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
 * **ปิดสัญญาณ Wi-Fi บนสมาร์ตโฟน** แล้วเปิดใช้งานเฉพาะ **สัญญาณอินเทอร์เน็ตมือถือ (4G/5G)**
 * กดสั่งเปิด-ปิดหลอดไฟอีกครั้ง สังเกตว่าบอร์ด ESP32 ที่บ้านยังคงตอบสนองต่อคำสั่งได้อย่างรวดเร็ว แสดงถึงพลังของสถาปัตยกรรม Cloud Control
-
+Link Vidio: https://drive.google.com/file/d/1ZG-PAR7lqcUd698JCBo51H0tUHAPqEIB/view?usp=sharing
 ---
 
 ### 3. (ทางเลือกขั้นสูง) การทดสอบผ่าน RainMaker CLI บนคอมพิวเตอร์
@@ -247,6 +253,15 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+คำตอบ: ช่วยให้อุปกรณ์ ESP32 รับข้อมูลรับรองและใบรับรองความปลอดภัยจาก ESP RainMaker Cloud ผ่านกระบวนการ Claiming ทำให้นักพัฒนาไม่ต้องติดตั้งใบรับรองให้แต่ละอุปกรณ์ด้วยตนเอง ช่วยลดความยุ่งยากในการพัฒนาต้นแบบ
+
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+คำตอบ: เพื่ออัปเดตค่าพารามิเตอร์ของอุปกรณ์และรายงานสถานะล่าสุดไปยัง Cloud ทำให้แอป ESP RainMaker แสดงข้อมูลตรงกับการทำงานจริงของอุปกรณ์
+
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+คำตอบ: - Development Effort: Plain MQTT ต้องเขียนและตั้งค่าระบบเอง ส่วน RainMaker มี SDK ช่วยลดขั้นตอนการพัฒนา
+- Security: Plain MQTT ต้องจัดการความปลอดภัยเอง ส่วน RainMaker มีระบบ Claiming และใบรับรองความปลอดภัย
+- Scalability: Plain MQTT ต้องจัดการการขยายระบบเอง ส่วน RainMaker มี Cloud ช่วยจัดการอุปกรณ์หลายตัวได้สะดวกกว่า
+
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+คำตอบ: RainMaker ใช้ Cloud Integration เป็นตัวกลาง โดยนักพัฒนากำหนดประเภทอุปกรณ์และพารามิเตอร์ให้รองรับ จากนั้นผู้ใช้เชื่อมบัญชี RainMaker กับ Google Home หรือ Alexa ผ่านแอปพลิเคชัน ทำให้สามารถสั่งงานด้วยเสียงได้โดยไม่ต้องเขียนโค้ดเพิ่มบนบอร์ด ESP32
