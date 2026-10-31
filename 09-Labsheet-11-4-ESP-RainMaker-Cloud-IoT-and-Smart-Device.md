@@ -246,7 +246,25 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
-2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
-3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
-4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+
+1. **ในสถาปัตยกรรม ESP RainMaker กระบวนการ Assisted Claiming ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?**
+   * **คำตอบ:** 
+     * กระบวนการ **Assisted Claiming** ช่วยข้ามขั้นตอนการฝังใบรับรองและ Private Key ลงใน Flash Memory ของบอร์ดในขั้นตอนการผลิต/พัฒนาต้นแบบที่ยุ่งยาก
+     * โดยแอปพลิเคชันมือถือจะทำหน้าที่เป็นตัวกลาง (Mediator) ติดต่อกับ RainMaker Claiming Service บนคลาวด์ เพื่อร้องขอ Device Certificate แล้วส่งต่อให้บอร์ด ESP32 ผ่านบลูทูธ (BLE) ชั่วคราว ทำให้บอร์ดได้ Certificate มาใช้พิสูจน์ตัวตนกับ MQTTS Cloud ได้โดยตรงโดยไม่ต้องฝังไฟล์คีย์มาล่วงหน้า
+
+2. **เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?**
+   * **คำตอบ:** 
+     * คำสั่ง `esp_rmaker_param_update_and_report()` ทำหน้าที่อัปเดตค่าพารามิเตอร์ในหน่วยความจำของ ESP32 พร้อมทั้งส่งแพ็กเก็ต JSON รายงานสถานะใหม่กลับไปยัง ESP RainMaker Cloud (MQTT Broker) ทันที
+     * หากไม่เรียกคำสั่งนี้ แอปพลิเคชันบนสมาร์ตโฟนหรือแผงควบคุมบนคลาวด์จะไม่รับรู้สถานะที่แท้จริงของฮาร์ดแวร์ ทำให้หน้าจอแอปแสดงสถานะไม่อัปเดต (Out-of-Sync)
+
+3. **เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2) กับการใช้ ESP RainMaker SDK (ในแล็บ 11.4) ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)**
+   * **คำตอบ:** 
+     * **Development Effort:** Plain MQTT ต้องเขียนโค้ดจัดการการเชื่อมต่อ, Parse JSON และสร้างแอปพลิเคชัน/Dashboard เองทั้งหมด ส่วน RainMaker SDK มี Data Model, BLE Provisioning และ Mobile App สำเร็จรูปพร้อมใช้งาน ทำให้ใช้เวลาพัฒนาน้อยกว่ามาก
+     * **Security:** Plain MQTT ต้องตั้งค่าและจัดการระบบใบรับรอง TLS/mTLS เองทั้งหมด แต่ RainMaker SDK มีระบบการเข้ารหัส mTLS, Claiming Service และการจัดการสิทธิ์ผู้ใช้งาน (User-Node Association) ระดับมาตรฐานองค์กรมาให้ในตัว
+     * **Scalability:** Plain MQTT บน Mosquitto Localhost รองรับอุปกรณ์ได้จำกัดและต้องบริหารจัดการ Server เอง ขณะที่ RainMaker ทำงานบน AWS Cloud Infrastructure รองรับการขยายระบบสู่อุปกรณ์จำนวนมหาศาล (Mass Production) ได้ทันที
+
+4. **อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ Google Home หรือ Amazon Alexa ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32**
+   * **คำตอบ:** 
+     * เนื่องจาก ESP RainMaker ใช้โครงสร้างข้อมูลแบบ **Standardized Node & Device Model** (เช่น Device ประเภท `Lightbulb` มีพารามิเตอร์มาตรฐานเป็น `Power` และ `Brightness`)
+     * ทาง Espressif ได้พัฒนา **Cloud-to-Cloud Integration** เชื่อมต่อระหว่าง ESP RainMaker Cloud กับ Google Smart Home API / Amazon Alexa Skill API ไว้ที่ฝั่ง Server เรียบร้อยแล้ว
+     * เมื่อผู้ใช้ทำการผูกบัญชี (Account Linking) คำสั่งเสียงจะถูกแปลงเป็น API Call ส่งตรงจาก Cloud ของ Google/Amazon มายัง RainMaker Cloud และแปลงเป็นพารามิเตอร์มาตรฐานส่งลงมายังบอร์ด ESP32 โดยอัตโนมัติ บอร์ดจึงไม่ต้องมีโค้ดประมวลผลคำสั่งเสียงเพิ่มเติม
