@@ -1,4 +1,5 @@
 {
     "cmake.sourceDirectory": "C:/Users/2417th/Week-11-MQTT-Cloud-Communication-and-control/Example_project/Lab11-2_MQTT_Client",
-    "idf.currentSetup": "C:\\Users\\2417th\\esp\\v5.5.1\\esp-idf"
+    "idf.currentSetup": "C:\\Users\\2417th\\esp\\v5.5.1\\esp-idf",
+    "python.terminal.useEnvFile": true
 }
