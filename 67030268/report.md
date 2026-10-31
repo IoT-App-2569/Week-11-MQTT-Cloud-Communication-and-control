@@ -60,7 +60,8 @@ allow_anonymous true
 log_type all
 ```
 
-![Mosquitto Broker Running]<img width="805" height="390" alt="image" src="https://github.com/user-attachments/assets/ba30b753-9ade-4b0c-816d-784e7671f146" />
+![Mosquitto Broker Running]
+<img width="805" height="390" alt="image" src="https://github.com/user-attachments/assets/ba30b753-9ade-4b0c-816d-784e7671f146" />
 
 *รูปที่ 2: หน้าต่าง Terminal แสดงการเริ่มต้นทำงานของ Mosquitto Broker บนพอร์ต 1883*
 
@@ -92,7 +93,9 @@ log_type all
 * เมื่อส่งข้อความปกติในขณะที่ยังไม่มีใคร Subscribe -> ข้อความจะหายไปในทันที
 * เมื่อส่งข้อความโดยระบุพารามิเตอร์ `-r` (Retain) -> Broker จะบันทึกข้อความล่าสุดค้างไว้ในระบบ เมื่อมี Subscriber เชื่อมต่อเข้ามาในภายหลัง จะได้รับข้อความนี้ทันทีโดยไม่ต้องรอรอบส่งใหม่
 
-![Retained Message Test](images/lab11_1_photo2.png)
+![Retained Message Test]
+<img width="798" height="131" alt="image" src="https://github.com/user-attachments/assets/5eac969b-ca68-4451-8b56-ad8fccd2523e" />
+
 *รูปที่ 5: หน้าต่าง Subscriber เชื่อมต่อเข้ามาใหม่และได้รับข้อความ Retained ทันที*
 
 ---
