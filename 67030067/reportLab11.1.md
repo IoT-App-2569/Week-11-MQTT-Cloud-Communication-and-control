@@ -57,6 +57,7 @@ sensor/state CRITICAL_ALERT
 1710000100: Socket error on client Node_Client_01, disconnecting.
 1710000100: Sending LWT to node/esp32/status (QoS 1, Retain 0)
 - เทอร์มินัลฝั่ง Subscriber ได้รับข้อความอัตโนมัติ: node/esp32/status LOST_CONNECTION_OFFLINE
+---
 5. เฉลยคำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ # จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น home/#/light จะเกิดข้อผิดพลาดอย่างไร?
 คำตอบ ตามข้อกำหนดมาตรฐานโปรโตคอล MQTT (MQTT Specification) เครื่องหมาย # คือ Multi-Level Wildcard ที่ใช้แทนลำดับชั้นของ Topic ทั้งหมดที่อยู่ถัดไป ดังนั้นกฎของโปรโตคอลจึงระบุว่า # ต้องอยู่หลังสัญลักษณ์ / และต้องเป็นอักขระตัวสุดท้ายของ Topic Filter เท่านั้น
