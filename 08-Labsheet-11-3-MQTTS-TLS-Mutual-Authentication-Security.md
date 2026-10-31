@@ -116,6 +116,9 @@ mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hello Secure World!"
 ```
 *สังเกตผล* ในเทอร์มินัลที่ 2 จะได้รับข้อความสำเร็จ และใน Broker Log จะแสดงกระบวนการจับมือ TLS สำเร็จ
 
+<img width="817" height="240" alt="image" src="https://github.com/user-attachments/assets/8c973f13-36bf-46c2-9608-4aad5fe2961a" />
+
+
 #### 2. การทดสอบการปฏิเสธผู้บุกรุก (Unauthorized Client Attack)
 ทดลองใช้ `mosquitto_pub` ส่งข้อความ **โดยไม่ส่งใบรับรอง Client** (ส่งเฉพาะ cafile)
 ```powershell
@@ -125,6 +128,9 @@ mosquitto_pub -h 192.168.1.100 -p 8883 -t "secure/test" -m "Hacker message" --ca
 * ในเทอร์มินัลจะแจ้งเตือนข้อผิดพลาด: `Error: Connection refused: Not authorised` หรือ `OpenSSL Error: ssl handshake failure`
 * ในหน้าต่าง Broker Log จะแจ้ง: `Client disconnected due to TLS error: peer did not return a certificate`
 * แสดงว่าระบบปฏิเสธการเชื่อมต่อจากอุปกรณ์แปลกปลอมได้อย่างสมบูรณ์
+
+<img width="1037" height="75" alt="image" src="https://github.com/user-attachments/assets/f67483d6-83df-434c-8874-2a7352388b97" />
+
 
 ---
 
@@ -323,13 +329,45 @@ void app_main(void)
    * บอร์ดเชื่อมต่อ Wi-Fi สำเร็จ
    * เริ่มกระบวนการจับมือ TLS `Connecting to 192.168.1.100:8883...`
    * หน้าจอรายงาน `MQTTS TLS Handshake Successful! Connected to Secure Broker.`
+
+<img width="960" height="472" alt="image" src="https://github.com/user-attachments/assets/79892345-bd01-4d7e-93b0-ff26f366fb62" />
+
+
 3. สังเกตหน้าต่าง Broker Log
    * Mosquitto จะพิมพ์ข้อความยืนยัน `Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node`
    * แสดงว่า Broker ได้ทำการตรวจความถูกต้องของใบรับรองบอร์ด ESP32 ผ่านเรียบร้อยแล้ว
+
+<img width="960" height="164" alt="image" src="https://github.com/user-attachments/assets/5f98bb84-bae4-4633-b004-93ce9d92301c" />
+
+
+4. ตรวจสอบหน้าต่าง Mosquitto Broker Log ว่ามีการเชื่อมต่อและตรวจสอบ Client Certificate สำเร็จ จากนั้นบันทึกภาพหน้าจอ Broker Log เพิ่มในรายงาน โดยข้อความ Log อาจแตกต่างกันตามเวอร์ชัน Mosquitto
+
+<img width="960" height="318" alt="image" src="https://github.com/user-attachments/assets/f2824a26-a09f-43d5-ab94-b9f05e8dfb90" />
+
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+~~~
+เพื่อป้องกันการโจมตีแบบดักรับ ปลอมแปลง ไคลเอนต์จะนำ IP หรือ Hostname ของ Broker ที่กำลังเชื่อมต่อไปเทียบกับค่า CN ในใบรับรองเสมอ หากไม่ตรงกัน ไคลเอนต์จะปฏิเสธการเชื่อมต่อทันที
+และแจ้งข้อผิดพลาด Host/Domain Name Mismatch 
+~~~
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+~~~
+HTTPS ทั่วไป (One-way TLS)
+ตรวจสอบใบรับรองแค่ฝั่ง Server เท่านั้น ฝั่ง Client ไม่ต้องมีใบรับรอง (ยืนยันตัวตนด้วย Username/Password หรือ Token)
+mTLS (Mutual TLS)
+ต้องมีการตรวจสอบใบรับรองทั้งสองฝั่ง (Two-way) โดย Client ต้องส่งใบรับรอง (client.crt) และกุญแจส่วนตัว (client.key) ไปให้ Broker ตรวจสอบด้วย หากไม่มีหรือใบรับรองไม่ถูกต้อง Broker จะตัดการเชื่อมต่อทันที
+~~~
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+~~~
+สามารถกู้คืนได้ ถ้าไม่มีการเข้ารหัส แฮกเกอร์สามารถใช้คำสั่ง String Extraction หรือ Decompile เพื่อดึงเอา client.key ที่ฝังแบบ Plaintext ออกมาได้
+
+แนวทางแก้ไข
+Flash Encryption: เข้ารหัสข้อมูลทั้งหมดใน Flash Memory แบบฮาร์ดแวร์ด้วยชิป AES เพื่อไม่ให้สามารถดูดหรืออ่านข้อมูลไบนารีออกมาตรงๆ ได้
+Secure Boot: ป้องกันการดัดแปลงหรือแฟลชเฟิร์มแวร์ปลอมลงบอร์ด
+Digital Signature Peripheral (DS) / Secure Element: เก็บรหัส Private Key ไว้ในฮาร์ดแวร์เฉพาะที่ไม่สามารถอ่านออกมาได้ และประมวลผลการลงลายมือชื่อดิจิทัลภายในชิปโดยตรง
+~~~
+
+
