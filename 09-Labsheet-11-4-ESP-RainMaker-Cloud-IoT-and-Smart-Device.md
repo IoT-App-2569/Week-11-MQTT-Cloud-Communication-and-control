@@ -212,41 +212,46 @@ idf.py -p COMx flash monitor
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
-### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
-* กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
-* ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
+### 1. Serial Monitor ขณะเปิดบอร์ด (ASCII QR Code & Provisioning)
+แสดงผลการบูตระบบ RainMaker, การสร้าง ASCII QR Code เพื่อทำ BLE Provisioning, กระบวนการ Assisted Claiming และการเชื่อมต่อไปยัง AWS IoT:
 
-### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
-* **ปิดสัญญาณ Wi-Fi บนสมาร์ตโฟน** แล้วเปิดใช้งานเฉพาะ **สัญญาณอินเทอร์เน็ตมือถือ (4G/5G)**
-* กดสั่งเปิด-ปิดหลอดไฟอีกครั้ง สังเกตว่าบอร์ด ESP32 ที่บ้านยังคงตอบสนองต่อคำสั่งได้อย่างรวดเร็ว แสดงถึงพลังของสถาปัตยกรรม Cloud Control
+<p align="center">
+  <img src="Images/lab11_4_rainmaker_monitor.jpg" width="800" alt="ESP RainMaker Serial Monitor">
+</p>
+<p align="center"><b>รูปที่ 4.1</b> Serial Monitor ของ ESP32 ขณะเปิดระบบ RainMaker และเชื่อมต่อคลาวด์</p>
 
 ---
 
-### 3. (ทางเลือกขั้นสูง) การทดสอบผ่าน RainMaker CLI บนคอมพิวเตอร์
+### 2. การจับคู่อุปกรณ์และควบคุมผ่าน Mobile App
+แสดงขั้นตอนการสแกนจับคู่อุปกรณ์, การรับสิทธิ์ Claiming ผ่านบลูทูธ และหน้าจอ Dashboard สวิตช์ไฟ Living Room Light:
 
-เปิดเทอร์มินัลใหม่บนคอมพิวเตอร์
-
-```powershell
-# ติดตั้งเครื่องมือ CLI
-pip install esp-rainmaker-cli
-
-# เข้าสู่ระบบ
-rainmaker.py login
-
-# ดึงรายชื่ออุปกรณ์และ Node ID
-rainmaker.py getnodes
-
-# สั่งเปิดหลอดไฟผ่าน Command Line
-rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": true}}'
-
-# สั่งปิดหลอดไฟผ่าน Command Line
-rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": false}}'
-```
+<p align="center">
+  <img src="Images/image13.png" width="260">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="Images/image14.png" width="260">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="Images/image15.png" width="260">
+</p>
+<p align="center"><b>รูปที่ 4.2</b> ขั้นตอน Assisted Claiming, การส่งรหัส Wi-Fi และหน้าจอควบคุมบนแอป ESP RainMaker</p>
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
-2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
-3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
-4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+
+**1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ Assisted Claiming ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?**
+* **ตอบ:** Assisted Claiming ช่วยตัดขั้นตอนยุ่งยากในการสร้างและติดตั้งคู่กุญแจ/ใบรับรองลงบนบอร์ดด้วยตนเอง โดยในระหว่างขั้นตอน Provisioning ตัวแอปพลิเคชันมือถือจะเชื่อมต่อไปยัง Cloud เพื่อขอรับ Device Certificate และ Private Key เฉพาะของบอร์ดนั้น แล้วส่งผ่านมายัง ESP32 ผ่านบลูทูธ (BLE) ที่เข้ารหัสไว้ นำไปบันทึกใน NVS Flash ของบอร์ดโดยตรง ทำให้อุปกรณ์พร้อมเชื่อมต่อ MQTTS เข้ากับ AWS IoT Core ได้ทันทีโดยไม่ต้องฝังใบรับรองล่วงหน้าในโค้ด
+
+**2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?**
+* **ตอบ:** เพื่อทำหน้าที่ Cloud State Synchronization โดยฟังก์ชันนี้จะอัปเดตค่าพารามิเตอร์ในหน่วยความจำของบอร์ด พร้อมส่งสถานะใหม่ขึ้นไปยัง Cloud Device Shadow ทันที ทำให้สถานะบนแอปพลิเคชันมือถือตรงกับสถานะฮาร์ดแวร์จริงของอุปกรณ์ตลอดเวลา
+
+**3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2) กับการใช้ ESP RainMaker SDK (ในแล็บ 11.4)**
+* **ตอบ:**
+  * **Development Effort (ความพยายามในการพัฒนา):** Mosquitto ต้องสร้างเซิร์ฟเวอร์เอง, ฟอร์เวิร์ดพอร์ต, เขียนแอปพลิเคชันมือถือเอง และออกแบบโปรโตคอลเองทั้งหมด ขณะที่ RainMaker มีระบบคลาวด์ แบ็กเอนด์ และแอปพลิเคชันสำเร็จรูปให้ใช้งานทันที เขียนโค้ดลงบอร์ดเพียงไม่กี่บรรทัด
+  * **Security (ความปลอดภัย):** Plain MQTT ไม่มีการเข้ารหัส ส่งข้อความดิบ เสี่ยงต่อการดักฟัง ส่วน RainMaker บังคับใช้ TLS/mTLS และมีระบบยืนยันสิทธิ์ Device Certificate ทุกตัว
+  * **Scalability (การขยายระบบ):** Mosquitto ทำงานบนเครื่องเดี่ยว รองรับอุปกรณ์ได้จำกัดและเสี่ยงระบบล่ม ส่วน RainMaker ทำงานบน AWS IoT Core Serverless Infrastructure รองรับอุปกรณ์ได้หลักแสนถึงล้านตัวแบบอัตโนมัติ
+
+**4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ Google Home หรือ Amazon Alexa ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32?**
+* **ตอบ:** เพราะการเชื่อมโยงเกิดขึ้นในระดับ Cloud-to-Cloud Integration ผ่านมาตรฐาน Smart Home Skill / Action
+  1. ผู้ใช้ผูกบัญชี RainMaker เข้ากับ Google Home หรือ Alexa (ผ่าน Account Linking / OAuth 2.0)
+  2. เมื่อสั่งงานด้วยเสียง ระบบรู้จำเสียงของ Google/Alexa จะแปลงเป็นคำสั่งส่งข้ามคลาวด์ไปยัง ESP RainMaker Cloud
+  3. RainMaker Cloud จะปรับเปลี่ยนค่าพารามิเตอร์ใน Device Shadow แล้วส่งข้อความ MQTT ไปสั่งบอร์ด ESP32 ผ่านฟังก์ชัน Callback ปกติ ตัวบอร์ดจึงไม่ต้องมีโค้ดจัดการคำสั่งเสียงเลย

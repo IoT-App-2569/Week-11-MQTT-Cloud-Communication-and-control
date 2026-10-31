@@ -360,57 +360,50 @@ python -m esptool -p <COMxx> --chip esp32 -b 460800 --before default_reset --aft
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
-> [!IMPORTANT] **ข้อสังเกตและแนวทางแก้ปัญหาสำคัญ (Troubleshooting Guide)**
-> 1. **ปัญหา Broker ทำงานซ้ำซ้อน (Split-Brain Broker บน Windows)**:
->    * หากเครื่องคอมพิวเตอร์มีการติดตั้ง Mosquitto เป็น Windows Service ตัว Service ดังกล่าวจะแอบรันอยู่เบื้องหลังและผูกกับ IP `127.0.0.1` ตลอดเวลา
->    * เมื่อท่านเปิดรัน `mosquitto.exe -c mosquitto.conf -v` ใน Terminal อีกตัว บอร์ด ESP32 จะเชื่อมต่อเข้ากับ Terminal (ผ่าน IP วงแลน `192.168.1.xxx`) ในขณะที่คำสั่ง `mosquitto_pub` ที่ส่งไปยัง `127.0.0.1` จะวิ่งไปหา Windows Service แทน ทำให้ส่งคำสั่งไม่ถึงตัวบอร์ด!
->    * **วิธีแก้:** ให้ปิด Windows Service ก่อนเสมอด้วยคำสั่งใน PowerShell (Admin):  
->      `Stop-Service mosquitto; Set-Service mosquitto -StartupType Manual`
-> 2. **ทำไมใน MQTT Explorer จึงแสดงเป็น QoS 0 ทั้งที่ส่งด้วย `-q 1`?**:
->    * ตามมาตรฐาน MQTT ระดับ QoS ที่ผู้รับจะได้รับจริงถูกคำนวณจาก **`min(QoS_publish, QoS_subscribe)`**
->    * โปรแกรม MQTT Explorer ทำการ Subscribe ทุกหัวข้อ (`#`) ด้วย **QoS 0** เป็นค่าเริ่มต้น เมื่อ Broker ได้รับข้อความระดับ QoS 1 จึงทำการลดระดับ (Downgrade) เป็น QoS 0 ส่งให้ MQTT Explorer แสดงผล
->    * หากต้องการให้ข้อความปรากฏค้างอยู่ใน MQTT Explorer เสมอแม้ส่งเสร็จไปแล้ว ให้เพิ่มแฟล็ก **`-r` (Retain)** ในคำสั่ง Publish
-> 3. **การเปิดพอร์ต Firewall**: ตรวจสอบว่า Windows Defender Firewall อนุญาตให้พอร์ต TCP 1883 รับการเชื่อมต่อจาก Inbound LAN
+### 1. การทำงานของ ESP32 Client (Serial Monitor)
+แสดงการเชื่อมต่อ Wi-Fi, เชื่อมต่อเข้าสู่ Broker, รายงาน Telemetry JSON ทุก 2 วินาที และการรับคำสั่งควบคุม LED:
+
+<p align="center">
+  <img src="Images/lab11_2_esp32_monitor.png" width="800" alt="ESP32 Serial Monitor">
+</p>
+<p align="center"><b>รูปที่ 4.1</b> Serial Monitor ของ ESP32 ขณะทำงานและส่ง Telemetry</p>
 
 ---
 
-### 1. การตรวจสอบ Telemetry Data
-เปิดเทอร์มินัลบนเครื่องคอมพิวเตอร์ แล้วรันคำสั่งบอกรับข้อมูล (เปลี่ยน `192.168.1.xxx` เป็น IP ของคอมพิวเตอร์ที่รัน Broker):
-```powershell
-# สามารถใช้ IP ของเครื่อง หรือ 127.0.0.1 (หากปิด Windows Service แล้ว)
-mosquitto_sub -h 192.168.1.111 -p 1883 -t "iot/node01/telemetry" -v
-```
-**ผลลัพธ์ที่คาดหวัง**: จะได้รับ JSON ข้อมูลเซนเซอร์ทุกๆ 4 วินาที
-```text
-iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,"led_state":false,"uptime_ms":1910367}
-```
-*ทดลองหมุนก้านของ Potentiometer*: สังเกตว่าค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงตามการหมุนอย่างถูกต้อง
+### 2. การรับข้อมูล Telemetry ฝั่ง Subscriber (คอมพิวเตอร์)
+แสดงการบอกรับข้อมูลหัวข้อ `iot/node01/telemetry` และได้รับ JSON Data ต่อเนื่อง พร้อมสถานะไฟและการหมุนเปลี่ยนค่าแรงดัน:
+
+<p align="center">
+  <img src="Images/lab11_2_telemetry_sub.jpg" width="800" alt="Telemetry Subscriber">
+</p>
+<p align="center"><b>รูปที่ 4.2</b> ข้อมูล Telemetry ที่ได้รับบน Subscriber</p>
 
 ---
 
-### 2. การส่งคำสั่งเปิด-ปิดหลอดไฟ LED
-เปิดเทอร์มินัลอีกหน้าต่างหนึ่ง แล้วทดลองส่งคำสั่งสั่งงาน:
+### 3. การตรวจสอบผ่านโปรแกรม MQTT Explorer
+สามารถดูภาพรวมของ Topic Tree ลำดับชั้น และการส่งคำสั่งเปิด-ปิดไฟได้ดังนี้:
 
-* **คำสั่งเปิดไฟ**
-```powershell
-mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "ON" -q 1
-```
-*สังเกตผล*: หลอดไฟ LED บนบอร์ดจะติดสว่างทันที และในรอบ Telemetry ถัดไป ค่า `"led_state"` จะเปลี่ยนเป็น `true`
+<p align="center">
+  <img src="Images/appx_01_telemetry_view.png" width="700" alt="MQTT Explorer Telemetry">
+</p>
+<p align="center"><b>รูปที่ 4.3</b> การตรวจสอบ Telemetry และ Topic Hierarchy บน MQTT Explorer</p>
 
-* **คำสั่งปิดไฟ**
-```powershell
-mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
-```
-*สังเกตผล*: หลอดไฟ LED จะดับลงทันที และค่า `"led_state"` ใน Telemetry จะเปลี่ยนกลับเป็น `false`
-
-* **คำสั่งแบบ JSON Payload**
-```powershell
-mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
-```
+<p align="center">
+  <img src="Images/appx_01_publish_control.png" width="700" alt="MQTT Explorer Publish Control">
+</p>
+<p align="center"><b>รูปที่ 4.4</b> การสั่งเปิด-ปิดไฟ LED ผ่านแผงควบคุม Publish ของ MQTT Explorer</p>
 
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
-2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
-3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+
+**1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`?**
+* **ตอบ:** เพื่อทำระบบ Presence Tracking (ตรวจสอบสถานะออนไลน์/ออฟไลน์) ให้แม่นยำตลอดเวลา
+  * เมื่อบอร์ดเปิดทำงานสำเร็จ จะส่ง `online` แบบ Retain ทำให้ใครก็ตามที่เปิดแอปหรือระบบขึ้นมาภายหลัง ทราบได้ทันทีว่าบอร์ดออนไลน์อยู่
+  * หากบอร์ดดับ ไฟดับ หรือเน็ตหลุดกะทันหัน Broker จะส่งข้อความ LWT ว่า `offline` เข้ามาแทนที่ทันที ทำให้ระบบภายนอกรู้สถานะจริงได้โดยไม่ต้องคอย Polling ถาม
+
+**2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่?**
+* **ตอบ:** คอมโพเนนต์ `esp-mqtt` มีกลไก Auto-Reconnect ในตัว โดยเมื่อหลุดจะส่งอีเวนต์ `MQTT_EVENT_DISCONNECTED` แล้วตัวไลบรารีจะพยายามเชื่อมต่อใหม่ซ้ำๆ เป็นระยะตามช่วงเวลา Reconnect Interval เมื่อสัญญาณ Wi-Fi กลับมาใช้งานได้ ตัวไลบรารีจะเชื่อมต่อและกู้คืนหัวข้อที่ Subscribe ไว้เดิมให้เองโดยอัตโนมัติ ผู้พัฒนาจึงไม่จำเป็นต้องเขียนโค้ดเรียกเชื่อมต่อใหม่ด้วยตนเอง
+
+**3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32?**
+* **ตอบ:** เพราะไลบรารี cJSON จัดสรรหน่วยความจำแบบไดนามิกบน Heap ผ่านคำสั่ง `malloc` ทั้งโครงสร้างอ็อบเจกต์ JSON (`root`) และสตริงข้อความ (`json_str`) หากไม่เรียก `free(json_str)` และ `cJSON_Delete(root)` หน่วยความจำส่วนนั้นจะไม่ถูกคืนสู่ระบบ ทำให้เกิดปัญหา Memory Leak สะสมในทุกๆ รอบที่ส่งข้อมูล (ทุก 4 วินาที) ส่งผลให้หน่วยความจำ RAM ของ ESP32 หมด (Heap Exhaustion) และบอร์ดจะแครชรีสตาร์ตในที่สุด
