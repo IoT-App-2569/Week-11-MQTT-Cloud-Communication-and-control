@@ -24,7 +24,7 @@
    - **วิเคราะห์ผล**: สัญลักษณ์ `#` สามารถครอบคลุม Topic ย่อยทุกระดับชั้นที่อยู่ต่อจาก `home/` ทั้งหมดไม่ว่าจะมีความซับซ้อนกี่ระดับก็ตาม
 
 ---
-
+---
 ### 4.2 ภาพหน้าจอและการบันทึก Log ฝั่ง Broker (กิจกรรมที่ 11-1.3 ถึง 11-1.5)
 
 #### 1. บันทึก Log การทำงานของ Mosquitto Broker ในโหมด Verbose (`-v`)
@@ -57,6 +57,7 @@ sensor/state CRITICAL_ALERT
 1710000100: Socket error on client Node_Client_01, disconnecting.
 1710000100: Sending LWT to node/esp32/status (QoS 1, Retain 0)
 - เทอร์มินัลฝั่ง Subscriber ได้รับข้อความอัตโนมัติ: node/esp32/status LOST_CONNECTION_OFFLINE
+---
 ---
 5. เฉลยคำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ # จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น home/#/light จะเกิดข้อผิดพลาดอย่างไร?
