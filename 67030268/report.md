@@ -186,7 +186,8 @@ Sending PUBLISH to auto-D33E561A-2680-6844-EE23-0268DD440268 (d0, q0, r0, m0, 'h
 ```
 
 <div align="center">
-  <img src="images/lab11_1_photo1.png" alt="Terminal Capture 1: Mosquitto Broker Verbose & Wildcards" width="700"/>
+ <img width="556" height="280" alt="image" src="https://github.com/user-attachments/assets/67b49aa5-e44c-4a96-bd7b-b5d08b0812ff" />
+
   <br/>
   <b>รูปที่ 2: หน้าต่าง Terminal บันทึกผลการรัน Mosquitto Broker ในโหมด Verbose และการทดสอบ Publish/Subscribe Wildcards จริง (67030268)</b>
 </div>
