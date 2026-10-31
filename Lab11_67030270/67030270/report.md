@@ -92,7 +92,8 @@ log_type all
 * เมื่อส่งข้อความปกติในขณะที่ยังไม่มีใคร Subscribe -> ข้อความจะหายไปในทันที
 * เมื่อส่งข้อความโดยระบุพารามิเตอร์ `-r` (Retain) -> Broker จะบันทึกข้อความล่าสุดค้างไว้ในระบบ เมื่อมี Subscriber เชื่อมต่อเข้ามาในภายหลัง จะได้รับข้อความนี้ทันทีโดยไม่ต้องรอรอบส่งใหม่
 
-![Retained Message Test](images/lab11_1_photo2.png)
+<img width="1011" height="478" alt="image" src="https://github.com/user-attachments/assets/32241f5b-3771-4614-a393-4d821e779c73" />
+
 *รูปที่ 5: หน้าต่าง Subscriber เชื่อมต่อเข้ามาใหม่และได้รับข้อความ Retained ทันที*
 
 ---
