@@ -14,9 +14,9 @@
 #include "driver/gpio.h"
 #include "mqtt_client.h"
 
-#define WIFI_SSID           "AIS 4G Hi-Speed Home WiFi_769475"
-#define WIFI_PASS           "50769475"
-#define MQTTS_BROKER_URI    "mqtts://172.20.10.4:8883" // พอร์ต 8883
+#define WIFI_SSID           "YOUR_WIFI_SSID"
+#define WIFI_PASS           "YOUR_WIFI_PASSWORD"
+#define MQTTS_BROKER_URI    "mqtts://192.168.1.100:8883" // พอร์ต 8883
 
 static const char *TAG = "MQTTS_SECURE";
 static EventGroupHandle_t s_wifi_event_group;
@@ -81,7 +81,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
 
     switch ((esp_mqtt_event_id_t)event_id) {
     case MQTT_EVENT_CONNECTED:
-        ESP_LOGI(TAG, "MQTTS TLS Handshake Successful! Connected to Secure Broker.");
+        ESP_LOGI(TAG, "MQTTS mTLS handshake successful");
         
         // ส่งข้อความความปลอดภัยสูง
         esp_mqtt_client_publish(client, "secure/esp32/status", "SECURE_ONLINE_MTLS", 0, 1, 0);
@@ -89,9 +89,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         break;
 
     case MQTT_EVENT_DATA:
-        ESP_LOGI(TAG, "SECURE DATA RECEIVED:");
-        ESP_LOGI(TAG, "TOPIC: %.*s", event->topic_len, event->topic);
-        ESP_LOGI(TAG, "PAYLOAD: %.*s", event->data_len, event->data);
+        ESP_LOGI(TAG, "Received %.*s: %.*s", event->topic_len, event->topic, event->data_len, event->data);
         break;
 
     case MQTT_EVENT_ERROR:

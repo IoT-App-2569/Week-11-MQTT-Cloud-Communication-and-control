@@ -16,12 +16,9 @@
 #include "mqtt_client.h"
 #include "cJSON.h"
 
-/* ========================================================
- * 0. การกำหนดค่าเครือข่ายและฮาร์ดแวร์ (Student: 67030110)
- * ======================================================== */
-#define WIFI_SSID           "AIS 4G Hi-Speed Home WiFi_769475"
-#define WIFI_PASS           "50769475"
-#define MQTT_BROKER_URI     "mqtt://172.20.10.4:1883" // ปรับเป็น IP คอมพิวเตอร์ของท่าน
+#define WIFI_SSID           "YOUR_WIFI_SSID"
+#define WIFI_PASS           "YOUR_WIFI_PASSWORD"
+#define MQTT_BROKER_URI     "mqtt://192.168.1.100:1883" 
 
 #if CONFIG_IDF_TARGET_ESP32C3
 #define LED_PIN             GPIO_NUM_8
@@ -39,9 +36,7 @@ static esp_mqtt_client_handle_t s_mqtt_client = NULL;
 static adc_oneshot_unit_handle_t s_adc_handle = NULL;
 static bool s_led_state = false;
 
-/* ========================================================
- * 1. ระบบเชื่อมต่อ Wi-Fi Station
- * ======================================================== */
+
 static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
@@ -91,9 +86,6 @@ static void wifi_init_sta(void)
     ESP_LOGI(TAG, "Wi-Fi Initialization finished.");
 }
 
-/* ========================================================
- * 2. การจัดการ MQTT Event Handler
- * ======================================================== */
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
 {
     esp_mqtt_event_handle_t event = (esp_mqtt_event_handle_t)event_data;
@@ -153,9 +145,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     }
 }
 
-/* ========================================================
- * 3. FreeRTOS Task: ส่ง Telemetry เป็นระยะ (Periodic Telemetry)
- * ======================================================== */
+
 static void telemetry_task(void *pvParameters)
 {
     while (1) {
@@ -188,9 +178,7 @@ static void telemetry_task(void *pvParameters)
     }
 }
 
-/* ========================================================
- * 4. ฟังก์ชันหลัก (app_main)
- * ======================================================== */
+
 void app_main(void)
 {
     // กำหนดค่า NVS Flash

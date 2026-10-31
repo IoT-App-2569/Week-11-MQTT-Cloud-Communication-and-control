@@ -10,7 +10,7 @@
 #include "esp_rmaker_standard_params.h"
 #include "esp_rmaker_standard_devices.h"
 #include "esp_rmaker_schedule.h"
-#include "app_wifi.h"
+#include "app_network.h"
 
 /* ========================================================
  * 0. กำหนดขาฮาร์ดแวร์ (Student: 67030110)
@@ -77,8 +77,8 @@ void app_main(void)
     }
     ESP_ERROR_CHECK(err);
 
-    // 1. เริ่มต้นระบบ Wi-Fi Provisioning (ผ่าน BLE)
-    app_wifi_init();
+    // 1. เริ่มต้นระบบ Network Provisioning
+    app_network_init();
 
     // 2. สร้าง Node ในระบบ ESP RainMaker
     esp_rmaker_config_t rainmaker_cfg = {
@@ -110,6 +110,6 @@ void app_main(void)
     // 8. เริ่มการทำงานของระบบ RainMaker Core
     esp_rmaker_start();
 
-    // 9. เริ่มต้นรับการตั้งค่า Wi-Fi และ Assisted Claiming ผ่าน BLE
-    app_wifi_start(POP_TYPE_RANDOM);
+    // 9. เริ่มต้นรับการตั้งค่า Network และ Assisted Claiming ผ่าน BLE
+    app_network_start(POP_TYPE_MAC);
 }
