@@ -60,7 +60,8 @@ allow_anonymous true
 log_type all
 ```
 
-![Mosquitto Broker Running](images/lab11_1_photo1.png)
+![Mosquitto Broker Running]<img width="805" height="390" alt="image" src="https://github.com/user-attachments/assets/ba30b753-9ade-4b0c-816d-784e7671f146" />
+
 *รูปที่ 2: หน้าต่าง Terminal แสดงการเริ่มต้นทำงานของ Mosquitto Broker บนพอร์ต 1883*
 
 ---
