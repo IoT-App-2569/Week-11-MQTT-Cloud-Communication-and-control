@@ -14,6 +14,7 @@
 5. สามารถทำกระบวนการ Provisioning และ Assisted Claiming ผ่านแอปพลิเคชันสมาร์ตโฟนด้วยบลูทูธ (BLE) ได้สำเร็จ
 6. สามารถทดสอบส่งคำสั่งควบคุมผ่านแอปพลิเคชันมือถือ และเครื่องมือบรรทัดคำสั่ง ESP RainMaker CLI ได้
 
+
 ---
 
 ## 2. อุปกรณ์และเครื่องมือที่ใช้
@@ -208,6 +209,11 @@ idf.py -p COMx flash monitor
 5. **กรอกรหัส Wi-Fi** เลือกชื่อ SSID เครือข่าย Wi-Fi 2.4 GHz ในบ้านและกรอกรหัสผ่าน
 6. **เสร็จสิ้นการผูกอุปกรณ์** บอร์ดจะเชื่อมต่อ Wi-Fi และผูกตัวเองเข้ากับบัญชีผู้ใช้ แอปจะแสดงการ์ด **"Living Room Light"** ขึ้นมาบนหน้าจอ
 
+<img width="1262" height="587" alt="image" src="https://github.com/user-attachments/assets/5e17b349-8841-4de7-8fd1-878a99ddaf91" />
+
+<img width="331" height="640" alt="image" src="https://github.com/user-attachments/assets/ef3ebb4b-a337-498d-b271-ccf644ae14c2" />
+
+
 ---
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
@@ -215,6 +221,9 @@ idf.py -p COMx flash monitor
 ### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
 * กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
 * ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
+
+<img width="337" height="647" alt="image" src="https://github.com/user-attachments/assets/46a4929a-eb30-48e9-8106-6811f0a33110" />
+
 
 ### 2. การควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
 * **ปิดสัญญาณ Wi-Fi บนสมาร์ตโฟน** แล้วเปิดใช้งานเฉพาะ **สัญญาณอินเทอร์เน็ตมือถือ (4G/5G)**
