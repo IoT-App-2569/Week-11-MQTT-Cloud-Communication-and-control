@@ -1,0 +1,3 @@
+dependencies:
+  espressif/esp-rainmaker: "^1.0.0"
+
