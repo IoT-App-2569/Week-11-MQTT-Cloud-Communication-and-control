@@ -396,13 +396,13 @@ iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":1786,"voltage_v":1.439,
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "ON" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED บนบอร์ดจะติดสว่างทันที และในรอบ Telemetry ถัดไป ค่า `"led_state"` จะเปลี่ยนเป็น `true`
-
+![alt text](image-2.png)
 * **คำสั่งปิดไฟ**
 ```powershell
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "OFF" -q 1
 ```
 *สังเกตผล*: หลอดไฟ LED จะดับลงทันที และค่า `"led_state"` ใน Telemetry จะเปลี่ยนกลับเป็น `false`
-
+![alt text](image-3.png)
 * **คำสั่งแบบ JSON Payload**
 ```powershell
 mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1}" -q 1
@@ -412,5 +412,8 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
+เพื่อให้ผู้ Subscribe ได้รับสถานะล่าสุดของอุปกรณ์ แม้จะ Subscribe หลังจาก ESP32 ส่งข้อความไปแล้ว โดย retain = 1 จะเก็บข้อความล่าสุดไว้ ส่วน LWT จะส่งสถานะ "offline" เมื่อ Broker ตรวจพบว่าการเชื่อมต่อของอุปกรณ์ขาดหายผิดปกติ
 2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
+คอมโพเนนต์ esp-mqtt จะพยายามเชื่อมต่อกับ MQTT Broker ใหม่โดยอัตโนมัติเมื่อการเชื่อมต่อหลุด เมื่อ Wi-Fi กลับมาและเชื่อมต่อได้อีกครั้ง โดยทั่วไปไม่จำเป็นต้องเรียกฟังก์ชันเชื่อมต่อ MQTT ด้วยตนเอง
 3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+free(json_str) ใช้คืนหน่วยความจำที่จัดสรรให้ข้อความ JSON จาก cJSON_PrintUnformatted() ส่วน cJSON_Delete(root) ใช้คืนหน่วยความจำของโครงสร้าง JSON หากไม่เรียกฟังก์ชันเหล่านี้จะเกิด Memory Leak ทำให้หน่วยความจำ ESP32 ลดลง และอาจทำให้ระบบทำงานผิดพลาดหรือรีสตาร์ตได้

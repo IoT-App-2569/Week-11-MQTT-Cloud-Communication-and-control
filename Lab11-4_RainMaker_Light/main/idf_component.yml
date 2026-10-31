@@ -1,0 +1,10 @@
+
+dependencies:
+  idf:
+    version: ">=5.0.0"
+
+  espressif/esp_rainmaker: "*"
+
+  espressif/rmaker_app_network:
+    version: "*"
+    override_path: "../../esp-rainmaker-examples/examples/common/rmaker_app_network"
