@@ -410,7 +410,20 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1
 
 ---
 
-## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
-1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
-2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
-3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+### 5. คำถามท้ายการทดลอง (Post-Lab Questions)
+
+1. **เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`**
+   * **คำตอบ:** 
+     * การตั้งค่า `retain = 1` สำหรับข้อความ `"online"` จะช่วยให้ MQTT Broker บันทึกสถานะล่าสุดนี้ไว้บน Server ตลอดเวลา เมื่อมี Subscriber รายใหม่ (เช่น Dashboard หรือ Mobile App) เพิ่งเปิดขึ้นมาและเข้ามา Subscribe หัวข้อนี้ จะได้รับข้อความ `"online"` ทันทีโดยไม่ต้องรอให้ ESP32 ส่งข้อมูลรอบใหม่
+     * การตั้งค่า **Last Will and Testament (LWT)** เป็น `"offline"` (ที่แฟล็ก `retain = 1` เช่นกัน) มีไว้รองรับกรณีที่ ESP32 **หลุดการเชื่อมต่อแบบไม่ปกติ (Abnormal Disconnect)** เช่น ไฟดับ สัญญาณ Wi-Fi หลุด หรือระบบ Crash โดยเมื่อตัว Broker ตรวจพบว่า Keep-alive timeout Broker จะทำการส่งข้อความ `"offline"` นี้แทน ESP32 ทันที ทำให้ระบบภายนอกรับรู้สถานะ Real-time ได้แม่นยำว่าโหนดออฟไลน์ไปแล้ว
+
+2. **หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่**
+   * **คำตอบ:** 
+     * คอมโพเนนต์ `esp-mqtt` มีระบบ **Automatic Reconnect** ในตัว เมื่อ Wi-Fi หลุด ตัวไลบรารีจะปล่อย Event `MQTT_EVENT_DISCONNECTED` และจะพยายามเชื่อมต่อไปยัง Broker ใหม่เป็นระยะตามรอบเวลา (Reconnect Timer) โดยอัตโนมัติ **จึงไม่จำเป็นต้องเรียกฟังก์ชันเชื่อมต่อ MQTT ใหม่ด้วยตนเองในโค้ด** 
+     * เพียงแค่ฝั่ง Wi-Fi Event Handler (`wifi_event_handler`) ทำการสั่ง `esp_wifi_connect()` เพื่อให้ Wi-Fi กลับมาดึง IP Address สำเร็จ `esp-mqtt` ก็จะกลับมาเชื่อมต่อกับ Broker และส่ง Event `MQTT_EVENT_CONNECTED` ให้อัตโนมัติทันที
+
+3. **ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32**
+   * **คำตอบ:** 
+     * ฟังก์ชัน `cJSON_CreateObject()` และฟังก์ชันแปลง String อย่าง `cJSON_PrintUnformatted()` ทำการจองพื้นที่หน่วยความจำใน **Heap (Dynamic Memory Allocation)**
+     * หากละเลยไม่เรียก `free(json_str)` และ `cJSON_Delete(root)` คืนพื้นที่ให้ระบบในทุกๆ รอบการทำงาน (ทุก 4 วินาที) จะทำให้เกิดปัญหา **Memory Leak (หน่วยความจำรั่วไหล)**
+     * **ผลเสีย:** เมื่อรันโปรแกรมไปเรื่อยๆ พื้นที่ Heap Memory ของ ESP32 จะลดลงจนหมด ส่งผลให้เกิด Error (เช่น `ESP_ERR_NO_MEM`) หรือทำให้ ESP32 เกิดอาการ Crash และ Reset ตัวเอง (Kernel Panic / Out of Memory) ในที่สุด
