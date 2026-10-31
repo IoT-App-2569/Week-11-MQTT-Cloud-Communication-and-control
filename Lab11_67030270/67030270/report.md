@@ -190,7 +190,7 @@ Sending PUBLISH to auto-E88F782B-2700-7055-FF34-0270EE550270 (d0, q0, r0, m0, 'h
 </div>
 
 <div align="center" style="margin-top: 15px;">
-  <img src="images/lab11_1_photo2.png" alt="Terminal Capture 2: Retained Messages & LWT Test" width="700"/>
+  <img width="694" height="332" alt="image" src="https://github.com/user-attachments/assets/cb524ae0-b494-4fc9-9521-21b3d99047a2" />
   <br/>
   <b>รูปที่ 5: หน้าต่าง Terminal บันทึกผลการทดสอบ Retained Message และการจำลองสัญญาณ LWT เมื่อตัดการเชื่อมต่อ (67030270)</b>
 </div>
