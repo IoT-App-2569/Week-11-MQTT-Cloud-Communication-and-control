@@ -13,3 +13,9 @@ dependencies.lock
 managed_components/
 *.old
 sdkconfig
+
+# Local MQTT runtime and private credentials
+mqtt_lab/*.log
+mqtt_lab/*-result.txt
+mqtt_lab/*-error.txt
+mqtt_lab/certs/
