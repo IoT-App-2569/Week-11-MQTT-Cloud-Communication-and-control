@@ -273,7 +273,7 @@ _รูปที่ 14: หน้าต่าง Serial Monitor แสดงผ�
 ---
 
 ### 5.5 ผลการทดสอบใบรับรองดิจิทัลและ mTLS Handshake จริง
-ผลการรันสคริปต์ `lab11_3_auto.sh` ด้วย OpenSSL และการตรวจสอบใบรับรองดิจิทัล 2048-bit RSA ของ **นางสาวธนภรณ์ พิสมัย (67030299)**:
+ผลการรันสคริปต์ `lab11_3_auto.sh` ด้วย OpenSSL และการตรวจสอบใบรับรองดิจิทัล 2048-bit RSA ของ **นางสาวธนพร พิศมัย (67030299)**:
 
 ```text
 ══════ Lab 11.3 — 67030299 Thanaporn Pitsamai ══════
@@ -344,7 +344,7 @@ $ mosquitto_sub -h 127.0.0.1 -p 8883 --cafile ca.crt -t "secure/test"
    ผลลัพธ์: ❌ ถูกตัดการเชื่อมต่อทันทีตามนโยบาย mTLS
 ```
 
-* **ผลการตรวจสอบความถูกต้องของใบรับรอง:**
+* **ผลการตรวจสอบความถูกต้องของใบรับรอง**
   - `openssl verify -CAfile ca.crt server.crt client.crt` -> **`server.crt: OK`**, **`client.crt: OK`**
   - **Certificate Authority:** `CN=IoT Root CA (67030299)`
   - **Server CN:** `CN=192.168.1.155`
@@ -352,7 +352,7 @@ $ mosquitto_sub -h 127.0.0.1 -p 8883 --cafile ca.crt -t "secure/test"
 
 ---
 
-## 6. ใบงานที่ 11.4: แพลตฟอร์มคลาวด์ ESP RainMaker & Smart Light
+## 6. ใบงานที่ 11.4 แพลตฟอร์มคลาวด์ ESP RainMaker & Smart Light
 
 ### 6.1 ผลการรันเฟิร์มแวร์และกระบวนการ Provisioning
 * แฟลชเฟิร์มแวร์ RainMaker ลงบน ESP32 และตั้งค่าระบบ Assisted Claiming
