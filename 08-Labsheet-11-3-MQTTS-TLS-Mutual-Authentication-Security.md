@@ -314,6 +314,9 @@ void app_main(void)
 ---
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
 
 1. แฟลชโปรแกรมลงบนบอร์ด ESP32
    ```powershell
@@ -331,5 +334,11 @@ void app_main(void)
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+- สาเหตุที่ต้องระบุค่า Common Name (CN) ให้ตรงกับ IP Address หรือ Hostname ของ Broker เพราะในกระบวนการ TLS Handshake ตัว ESP32 จะนำ IP Address ที่ใช้เชื่อมต่อไปตรวจสอบกับค่า CN หรือ SAN ในใบรับรองดิจิทัล (server.crt) เพื่อยืนยันว่ากำลังเชื่อมต่อกับ Broker ตัวจริง ไม่ใช่เครื่องปลอมแปลง หากระบุไม่ตรงกันจะเกิดข้อผิดพลาด Hostname Mismatch (Certificate Validation Failed) ทำให้ ESP32 ปฏิเสธการเชื่อมต่อทันทีเพื่อป้องกันการโจมตีแบบ Man-in-the-Middle (MitM)
+
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+- การยืนยันตัวตนแบบ mTLS แตกต่างจาก HTTPS ทั่วไป ตรงที่ HTTPS ทั่วไป (One-Way TLS) จะตรวจสอบใบรับรองเฉพาะฝั่ง Server ฝ่ายเดียว ส่วนฝั่ง Client ไม่ต้องมีใบรับรองดิจิทัลและใช้รหัสผ่านยืนยันตัวตนในระดับแอปพลิเคชันแทน แต่สำหรับ mTLS (Mutual Authentication) จะเป็นการยืนยันตัวตนแบบสองทาง โดยฝั่ง Client ต้องส่งใบรับรองดิจิทัล (client.crt) และพิสูจน์การถือครองกุญแจส่วนตัว (client.key) ให้ Broker ตรวจสอบก่อน หากไม่มีใบรับรองที่ออกโดย Root CA เดียวกัน Broker จะปฏิเสธการสร้างช่องทางสื่อสารเข้ารหัสตั้งแต่ระดับ Transport Layer ทันที
+
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+- หากถูกดึงไฟล์ไบนารี (.bin) ไปได้ จะสามารถกู้คืน client.key ได้ เนื่องจากไฟล์ถูกฝังเป็นข้อความ Plaintext ใน Flash Memory ทำให้ใช้โปรแกรม Reverse Engineering สกัดกุญแจออกมาได้ สำหรับในระบบ IoT เชิงพาณิชย์จะแก้ไขโดยใช้ฟีเจอร์และฮาร์ดแวร์ความปลอดภัย ได้แก่ ESP32 Flash Encryption (เข้ารหัส Flash Memory ด้วย AES-256), ESP32 Secure Boot (ตรวจลายเซ็นดิจิทัลของเฟิร์มแวร์ก่อนบูต) และ Digital Signature (DS) Peripheral (เก็บ Private Key ใน eFuse โดยถอดรหัสผ่านฮาร์ดแวร์โดยตรงโดยไม่เปิดเผยตัวกุญแจ)
+

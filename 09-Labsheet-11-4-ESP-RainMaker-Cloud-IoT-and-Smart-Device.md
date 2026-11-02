@@ -247,6 +247,18 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+- ช่วยให้อุปกรณ์ได้รับ X.509 Certificate สำหรับยืนยันตัวตนกับคลาวด์ได้อย่างรวดเร็ว โดยมีแอปพลิเคชันบนสมาร์ตโฟนทำหน้าที่ขอ Certificate จาก RainMaker Cloud แล้วส่งเข้าบันทึกใน NVS Flash ของ ESP32 ผ่านบลูทูธ (BLE) โดยอัตโนมัติ ทำให้ผู้พัฒนาไม่ต้องเขียน Certificate ลงบอร์ดเองทีละเครื่อง
+
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+- เหตุผลที่ฟังก์ชัน write_cb ต้องเรียก esp_rmaker_param_update_and_report()
+เพื่อทำ State Synchronization โดยฟังก์ชันนี้จะอัปเดตค่าพารามิเตอร์ในหน่วยความจำของ ESP32 และส่งสัญญาณ MQTT รายงานสถานะล่าสุดกลับไปยัง Cloud ทันที หากไม่เรียกใช้ สถานะบนหน้าจอแอปพลิเคชันมือถือจะไม่ตรงกับสถานะจริงของอุปกรณ์
+
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+- Development Effort: Plain MQTT ต้องเขียนโค้ด Wi-Fi, จัดการ MQTT Client และสร้าง App เองทั้งหมด (ความพยายามสูงมาก) ส่วน RainMaker มี API, ระบบ BLE Provisioning และ Mobile App สำเร็จรูปพร้อมใช้ (ความพยายามต่ำมาก)
+
+- Security: Plain MQTT ต้องตั้งค่า TLS และจัดการ Certificate เองทั้งหมด ส่วน RainMaker มีระบบ TLS Encryption และ Mutual Authentication ตามมาตรฐานมาให้ทันที
+
+- Scalability: Plain MQTT ต้องดูแลเซิร์ฟเวอร์ Mosquitto และทำ Load Balancing เอง ส่วน RainMaker รันบน Serverless AWS รองรับการขยายตัวระดับล้านอุปกรณ์ได้ทันที
+
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+- ใช้สถาปัตยกรรม Cloud-to-Cloud Integration โดย RainMaker มีการกำหนดโครงสร้างอุปกรณ์ (Schema) ไว้ตามมาตรฐานแล้ว เมื่อผู้ใช้ทำ Account Linking บนแอปสั่งงานด้วยเสียง คำสั่งเสียงจะถูกส่งไปยัง Google/Alexa Cloud แล้วส่งต่อมายัง RainMaker Cloud จากนั้น RainMaker Cloud จะแปลงเป็นคำสั่ง MQTT ส่งลงมายังบอร์ด ESP32 ผ่านฟังก์ชัน write_cb ตัวเดิมได้ทันที

@@ -412,5 +412,10 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
+- เพื่อทำระบบระบุสถานะอุปกรณ์ออนไลน์/ออฟไลน์ได้อย่างแม่นยำ การส่ง "online" แบบ retain = 1 ช่วยให้ Dashboard หรือ Client ที่มาทีหลังรู้สถานะบอร์ดได้ทันทีโดยไม่ต้องรอ ส่วน LWT "offline" มีไว้ให้ Broker ส่งแจ้งเตือนแทนอัตโนมัติเมื่อ ESP32 ไฟดับหรือเน็ตหลุด
+
 2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
+- คอมโพเนนต์ esp-mqtt มีระบบ Auto-Reconnect ในตัว เมื่อ Wi-Fi หลุดจะแจ้ง MQTT_EVENT_DISCONNECTED และพยายามเชื่อมต่อใหม่เอง และเมื่อ Wi-Fi กลับมาได้ IP อีกครั้ง ตัวไลบรารีจะสร้าง TCP Connection และ MQTT Connect ใหม่ให้อัตโนมัติ จึงไม่ต้องเขียนโค้ดสั่ง Reconnect เอง
+
 3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+- เพราะ cJSON_CreateObject() และ cJSON_PrintUnformatted() ใช้การจองหน่วยความจำแบบ Dynamic (malloc) บน Heap Memory การลืม free(json_str) และ cJSON_Delete(root) ในลูปที่ทำงานทุก 4 วินาที จะทำให้เกิด Memory Leak คืนพื้นที่ไม่ทัน จนหน่วยความจำหมด (Out of Memory) และทำให้ ESP32 ค้าง หรือ Restart ตัวเองในที่สุด
