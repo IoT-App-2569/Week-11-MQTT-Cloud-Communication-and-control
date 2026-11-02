@@ -166,20 +166,8 @@ esp_mqtt_client_config_t mqtt_cfg = {
 
 `esp-mqtt` ทำงานด้วยสถาปัตยกรรม **Event Loop (ESP Event System)** โดยจะแจ้งเหตุการณ์การเปลี่ยนแปลงสถานะของเครือข่ายเข้ามายังฟังก์ชัน Event Handler
 
-```mermaid
-stateDiagram-v2
-    [*] --> INIT: esp_mqtt_client_init()
-    INIT --> START: esp_mqtt_client_start()
-    START --> CONNECTING: สร้าง TCP Handshake
-    CONNECTING --> CONNECTED: MQTT_EVENT_CONNECTED
-    CONNECTED --> SUBSCRIBED: esp_mqtt_client_subscribe()
-    CONNECTED --> DATA_RECEIVED: MQTT_EVENT_DATA (มีข้อความเข้า)
-    CONNECTED --> PUBLISHED: MQTT_EVENT_PUBLISHED (ส่งสำเร็จ)
-    CONNECTED --> DISCONNECTED: MQTT_EVENT_DISCONNECTED (หลุดการเชื่อมต่อ)
-    DISCONNECTED --> CONNECTING: Auto Reconnect Timer
-    CONNECTED --> STOP: esp_mqtt_client_stop()
-    STOP --> [*]
-```
+<p align="center"><img src="Images/Fig_02-ESP-IDF-MQTT-Client-and-Broker-Setup_2026-10-27T10-12-11_academic.svg" alt="02-ESP-IDF-MQTT-Client-and-Broker-Setup" </p>
+<p align="center">  11.2.4 วงจรชีวิตและ State Machine ของ ESP-IDF MQTT Client</p>
 
 <p align="center"><b>รูปที่ 11.2.2</b>  วงจรชีวิตและ State Machine ของ ESP-IDF MQTT Client</p>
 

@@ -17,30 +17,8 @@
 
 ## 2. แผนผังเนื้อหาการเรียนรู้ประจำสัปดาห์ (Lesson Roadmap)
 
-```mermaid
-flowchart TD
-    W11["<b>สัปดาห์ที่ 11: MQTT Cloud Communication and Control</b><br/>(อ้างอิง ESP32-C3 Wireless Adventure - Chapter 9)"]
-
-    M1["<b>1. สถาปัตยกรรม Cloud Control & โปรโตคอล MQTT</b><br/>- WAN vs LAN Architecture<br/>- Publish/Subscribe Pattern<br/>- Topics, Wildcards & QoS 0/1/2<br/>- Packet Structure & LWT"]
-    M2["<b>2. การติดตั้ง Broker & พัฒนา ESP-IDF MQTT Client</b><br/>- Mosquitto Broker บน Windows/Linux<br/>- คอมโพเนนต์ esp-mqtt & Event Loop<br/>- JSON Telemetry & Actuator Control"]
-    M3["<b>3. ความปลอดภัยข้อมูล & โครงสร้าง TLS/mTLS</b><br/>- PKI, X.509 & OpenSSL Keys/Certs<br/>- Mosquitto MQTTS Broker (Port 8883)<br/>- ESP-IDF Embedded PEM Certificates<br/>- Mutual Authentication (mTLS)"]
-    M4["<b>4. แพลตฟอร์มคลาวด์ ESP RainMaker Ecosystem</b><br/>- Data Model: Node, Device, Param, Service<br/>- Assisted Claiming & AWS IoT Backend<br/>- RainMaker Phone App & RainMaker CLI<br/>- Alexa & Google Home Integration"]
-
-    W11 --> M1
-    W11 --> M2
-    W11 --> M3
-    W11 --> M4
-
-    L1["<b>ใบงานที่ 11.1</b><br/>Mosquitto Broker Setup & MQTT Fundamentals<br/>(CLI Pub/Sub, QoS, Retain, LWT)"]
-    L2["<b>ใบงานที่ 11.2</b><br/>ESP32-C3 MQTT Telemetry & Remote Actuator Control<br/>(esp-mqtt, JSON Payload, FreeRTOS Tasks)"]
-    L3["<b>ใบงานที่ 11.3</b><br/>MQTTS Security with TLS & Mutual Authentication<br/>(OpenSSL CA/Certs, Mosquitto 8883, ESP-IDF TLS)"]
-    L4["<b>ใบงานที่ 11.4</b><br/>ESP RainMaker Smart Device & Cloud Integration<br/>(RainMaker SDK, BLE Provisioning, Mobile App, OTA)"]
-
-    M1 --> L1
-    M2 --> L2
-    M3 --> L3
-    M4 --> L4
-```
+<p align="center"><img src="Images/Fig_Readme_2026-10-27T10-11-44_academic.svg" alt="Readme" width="800" ></p>
+<p align="center">  2. แผนผังเนื้อหาการเรียนรู้ประจำสัปดาห์ (Lesson Roadmap)</p>
 
 ---
 
@@ -121,11 +99,8 @@ flowchart TD
 
 บทเรียนในสัปดาห์ที่ 11 นี้เป็นหมุดหมายสำคัญที่เชื่อมโยงระบบสมองกลฝังตัวเข้าสู่โลกอินเทอร์เน็ตและคลาวด์ ซึ่งจะนำไปสู่การพัฒนาที่ครอบคลุมในอีก 2 สัปดาห์สุดท้ายของภาคการศึกษา
 
-```mermaid
-flowchart LR
-    W11["<b>สัปดาห์ที่ 11 (ปัจจุบัน)</b><br/>MQTT Cloud Communication<br/>& ESP RainMaker Platform"] --> W12["<b>สัปดาห์ที่ 12</b><br/>Cross-Platform Mobile IoT App<br/>(Flutter UI & MQTT Client)"]
-    W12 --> W13["<b>สัปดาห์ที่ 13 (Grand Finale)</b><br/>The Ultimate Converged Edge Gateway<br/>(Kestrel All-in-One Protocol Bridge)"]
-```
+<p align="center"><img src="Images/Fig_Readme_2026-10-27T10-15-41_academic.svg" alt="Readme" width="800" ></p>
+<p align="center">  7. แผนภาพความเชื่อมโยงสู่บทเรียนถัดไป (Weeks 12 &amp; 13)</p>
 
 * **[สัปดาห์ที่ 12: Cross-Platform Mobile IoT Application with Flutter](../Week-12-Flutter-Mobile-IoT-and-MQTT-Dashboard/Readme.md)**  
   นักศึกษาจะได้สร้างโมบายล์แอปพลิเคชันด้วย **Flutter** เพื่อทำหน้าที่เป็น Mobile Client สำหรับเชื่อมต่อตรงเข้ากับ MQTT Broker เพื่อแสดงผลแดชบอร์ดเกจวัดและควบคุมสวิตช์ไฟจากหน้าจอมือถือจริง

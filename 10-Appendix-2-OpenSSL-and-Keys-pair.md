@@ -79,24 +79,8 @@
 ### 2.3 การผสมผสานใน TLS  ระบบเข้ารหัสแบบไฮบริด 
 ในการใช้งานจริง การคำนวณของกุญแจอสมมาตร (RSA/ECC) ใช้เวลาและพลังงานซีพียูสูงกว่ากุญแจสมมาตรนับร้อยเท่า โปรโตคอล **TLS (Transport Layer Security)** จึงนำจุดเด่นของทั้งสองระบบมาทำงานร่วมกัน:
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Client as ESP32 (Client)
-    actor Server as Mosquitto Broker (Server)
-    
-    Note over Client,Server: ขั้นตอนที่ 1: ตรวจสอบตัวตน & แลกเปลี่ยนกุญแจ (Asymmetric Encryption)
-    Client->>Server: 1. Hello (เสนออัลกอริทึมที่รองรับ)
-    Server->>Client: 2. ส่ง Digital Certificate (แนบ Public Key ของ Server)
-    Client->>Client: ตรวจสอบความถูกต้องของใบรับรอง Server
-    Client->>Client: สร้างกุญแจสมมาตรชั่วคราว (Session Key) แล้วเข้ารหัสด้วย Public Key ของ Server
-    Client->>Server: 3. ส่ง Session Key ที่เข้ารหัสแล้วไปให้ Server
-    Server->>Server: ใช้ Private Key ของตนเองถอดรหัสเพื่อเอากล่อง Session Key ออกมา
-    
-    Note over Client,Server: ขั้นตอนที่ 2: รับส่งข้อมูลความเร็วสูง (Symmetric Encryption - AES)
-    Client->>Server: 4. ส่ง MQTT Telemetry (เข้ารหัสด้วย Session Key)
-    Server->>Client: 5. ส่งคำสั่งควบคุม (เข้ารหัสด้วย Session Key)
-```
+<p align="center"><img src="Images/Fig_10-Appendix-2-OpenSSL-and-Keys-pair_2026-10-27T10-13-52_academic.svg" alt="10-Appendix-2-OpenSSL-and-Keys-pair" ></p>
+<p align="center">  2.3 การผสมผสานใน TLS  ระบบเข้ารหัสแบบไฮบริด</p>
 <p align = "center">
 <b>ภาพที่ 2.4</b> การตรวจสอบตัวตน & แลกเปลี่ยนกุญแจ (Asymmetric Encryption)
 </p>
@@ -129,19 +113,8 @@ sequenceDiagram
 
 ### 3.3 องค์กรรับรองความถูกต้อง (Certificate Authority - CA) และสายสัมพันธ์แห่งความไว้ใจ (Chain of Trust)
 
-```mermaid
-graph TD
-    CA["<b>Root Certificate Authority (Root CA)</b><br/>องค์กรสูงสุดที่ทุกคนเชื่อถือ<br/>(ถือ ca.key และ ca.crt)"]
-    
-    ServerCert["<b>Server Certificate (server.crt)</b><br/>สำหรับ Mosquitto Broker<br/>(ลงนามโดย Root CA)"]
-    ClientCert["<b>Client Certificate (client.crt)</b><br/>สำหรับบอร์ด ESP32<br/>(ลงนามโดย Root CA)"]
-    
-    CA -->|เซ็นรับรอง| ServerCert
-    CA -->|เซ็นรับรอง| ClientCert
-    
-    ESP["<b>บอร์ด ESP32</b><br/>ถือ ca.crt ไว้ตรวจสอบ"] -.->|ตรวจลายเซ็น| ServerCert
-    Broker["<b>Mosquitto Broker</b><br/>ถือ ca.crt ไว้ตรวจสอบ"] -.->|ตรวจลายเซ็น| ClientCert
-```
+<p align="center"><img src="Images/Fig_10-Appendix-2-OpenSSL-and-Keys-pair_2026-10-27T10-14-10_academic.svg" alt="10-Appendix-2-OpenSSL-and-Keys-pair" width="800" ></p>
+<p align="center">  3.3 องค์กรรับรองความถูกต้อง (Certificate Authority - CA) และสายสัมพันธ์แห่งความไว้ใจ (Chain of Trust)</p>
 
 1. **Root CA (ผู้รับรองสูงสุด)**: เป็นเสมือน "กระทรวงมหาดไทย" ที่ทำหน้าที่เซ็นออกบัตรประชาชนให้ทุกคน ในห้องปฏิบัติการ เราจะสร้าง **Local Root CA** ขึ้นมาใช้งานเอง
 2. **Chain of Trust**: 

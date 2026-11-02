@@ -64,28 +64,10 @@ MIIDazCCAlOgAwIBAgIUW6w... (ข้อมูล Base64) ...8u2Fk=
 
 ในสภาพแวดล้อมการเรียนการสอนหรือระบบ IoT ปิด เราสามารถสร้าง **Local Private CA (Root CA ส่วนบุคคล)** ขึ้นมาใช้งานเองได้โดยใช้เครื่องมือ **OpenSSL** ตามแนวทางของหนังสือ ESP32-C3 Wireless Adventure
 
-```mermaid
-flowchart TD
-    subgraph S1["1. สร้างคู่กุญแจและใบรับรอง Root CA"]
-        K1["openssl genrsa -out ca.key 2048"] --> R1["openssl req -new -key ca.key -out ca.csr"]
-        R1 --> C1["openssl x509 -req -signkey ca.key -in ca.csr -out ca.crt"]
-    end
+<p align="center"><img src="Images/Fig_03-MQTT-Security-and-TLS-mTLS-Infrastructure_2026-10-27T10-12-31_academic.svg" alt="03-MQTT-Security-and-TLS-mTLS-Infrastructure" </p>
+<p align="center">  11.3.3 การสร้างใบรับรองในเครื่องด้วย OpenSSL (Generating Certificates Locally)</p>
 
-    subgraph S2["2. สร้างคู่กุญแจและใบรับรอง Server (Broker)"]
-        K2["openssl genrsa -out server.key 2048"] --> R2["openssl req -new -key server.key -out server.csr"]
-        R2 --> C2["openssl x509 -req -CA ca.crt -CAkey ca.key -in server.csr -out server.crt"]
-    end
 
-    subgraph S3["3. สร้างคู่กุญแจและใบรับรอง Client (ESP32)"]
-        K3["openssl genrsa -out client.key 2048"] --> R3["openssl req -new -key client.key -out client.csr"]
-        R3 --> C3["openssl x509 -req -CA ca.crt -CAkey ca.key -in client.csr -out client.crt"]
-    end
-
-    C1 -.-> C2
-    C1 -.-> C3
-```
-
-<p align="center"><b>รูปที่ 11.3.2</b> การสร้างใบรับรองในเครื่องด้วย OpenSSL</p>
 ---
 
 ### ขั้นตอนที่ 1 สร้าง Private Key สำหรับ CA, Server และ Client (2048-bit RSA)
