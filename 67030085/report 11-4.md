@@ -1,4 +1,4 @@
-﻿# ใบงานการทดลองที่ 11.4
+# ใบงานการทดลองที่ 11.4
 ### การสร้างอุปกรณ์ Smart Light สู่ระบบคลาวด์ด้วย ESP RainMaker SDK, BLE Provisioning และการควบคุมผ่านสมาร์ตโฟน
 
 ---
@@ -8,34 +8,31 @@
 ### 1. ภาพหน้าจอ Serial Monitor ขณะสร้าง QR Code และเริ่ม BLE Provisioning
 * บอร์ด ESP32 เริ่มต้นทำงาน ทำการอ่านค่า NVS และสร้าง QR Code (ASCII Art) พร้อม URL ทาง Serial Monitor เพื่อรอรับการจับคู่ผ่านสัญญาณ Bluetooth Low Energy (BLE Advertising)
 
-*<img width="1256" height="557" alt="11-4-1" src="https://github.com/user-attachments/assets/3ee497e5-e974-41dc-a402-1afa27cc3eb5" />
+<img width="1256" height="557" alt="11-4-1" src="https://github.com/user-attachments/assets/3ee497e5-e974-41dc-a402-1afa27cc3eb5" />
 
 ---
 
-### 2. ภาพหน้าจอการทำ Assisted Claiming และเชื่อมต่อ Wi-Fi บนแอป ESP RainMaker
-* หน้าจอโทรศัพท์มือถือขณะสแกน QR Code, ระบบถามยืนยันการรับ Certificate ผ่าน Assisted Claiming, การเลือกเครือข่าย Wi-Fi 2.4 GHz และหน้า Dashboard ที่ปรากฏการ์ดอุปกรณ์ **"Living Room Light"**
+### 2. ภาพหน้าจอการทำ Assisted Claiming และเชื่อมต่อ Wi-Fi บนแอป ESP RainMaker (สมาร์ตโฟน Samsung Galaxy - One UI)
+* หน้าจอโทรศัพท์มือถือ Samsung Galaxy (ความละเอียด 1080x2400) ขณะสแกน QR Code, ระบบถามยืนยันการรับ Certificate ผ่าน Assisted Claiming, การเลือกเครือข่าย Wi-Fi 2.4 GHz และหน้า Dashboard ที่ปรากฏการ์ดอุปกรณ์ **"Living Room Light"**
 
-<img width="1080" height="2400" alt="Screenshot_20261016_222923" src="https://github.com/user-attachments/assets/2983c8ee-213b-4986-9d1d-750a41f31803" />
-<img width="1080" height="2400" alt="Screenshot_20261016_222416" src="https://github.com/user-attachments/assets/0481cf34-fc7c-4904-ad76-e455d805c90d" />
+<img width="1080" height="2400" alt="Samsung_Galaxy_Claiming_1" src="https://github.com/user-attachments/assets/2983c8ee-213b-4986-9d1d-750a41f31803" />
+<img width="1080" height="2400" alt="Samsung_Galaxy_Claiming_2" src="https://github.com/user-attachments/assets/0481cf34-fc7c-4904-ad76-e455d805c90d" />
 
 ---
 
 ### 3. ภาพการทดสอบควบคุมหลอดไฟ LED บนบอร์ด และปรับความสว่าง (Power & Brightness)
-* ภาพหลอดไฟ LED (GPIO 2) สว่างขึ้นเมื่อกดสวิตช์ Power ON ในแอปมือถือ และภาพ Serial Monitor ที่แสดง Callback Log การปรับค่า `Power` และ `Brightness`
+* ภาพหลอดไฟ LED (GPIO 2) สว่างขึ้นเมื่อกดสวิตช์ Power ON ในแอปมือถือ Samsung Galaxy และภาพ Serial Monitor ที่แสดง Callback Log การปรับค่า `Power` และ `Brightness`
 
-
-<img width="1080" height="2400" alt="Screenshot_20261016_222947" src="https://github.com/user-attachments/assets/35f00283-498b-41ea-90f1-b6bf38656147" />
-<img width="3072" height="4096" alt="IMG_20261016_222953" src="https://github.com/user-attachments/assets/dfa06ba3-3d53-4cef-846b-bee43a83e8fd" />
-
+<img width="1080" height="2400" alt="Samsung_Galaxy_Control_Power_Brightness" src="https://github.com/user-attachments/assets/35f00283-498b-41ea-90f1-b6bf38656147" />
+<img width="3072" height="4096" alt="IMG_ESP32_LED_State" src="https://github.com/user-attachments/assets/dfa06ba3-3d53-4cef-846b-bee43a83e8fd" />
 
 ---
 
-### 4. ภาพหน้าจอการทดสอบควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test)
-* หน้าจอโทรศัพท์มือถือที่ **ปิด Wi-Fi แล้วเปิดเฉพาะสัญญาณ 4G/5G** และสั่งเปิด-ปิดหลอดไฟได้สำเร็จแบบ Real-time แสดงถึงการทำงานของ Cloud Backend ผ่าน AWS IoT Core
+### 4. ภาพหน้าจอการทดสอบควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test บนสมาร์ตโฟน Samsung Galaxy)
+* หน้าจอโทรศัพท์มือถือ Samsung Galaxy ที่ **ปิด Wi-Fi แล้วเปิดเฉพาะสัญญาณอินเทอร์เน็ตเซลลูลาร์ 4G/5G** และสั่งเปิด-ปิดหลอดไฟได้สำเร็จแบบ Real-time แสดงถึงการทำงานของ Cloud Backend ผ่าน AWS IoT Core
 
-<img width="1080" height="2400" alt="Screenshot_20261016_222947" src="https://github.com/user-attachments/assets/f67fd996-1a4a-4d7a-9825-085701ebcf6a" />
-<img width="1080" height="2400" alt="Screenshot_20261016_223019" src="https://github.com/user-attachments/assets/1c0969fb-6262-49db-898c-e57e6027ef0b" />
-
+<img width="1080" height="2400" alt="Samsung_Galaxy_Remote_4G_5G_1" src="https://github.com/user-attachments/assets/f67fd996-1a4a-4d7a-9825-085701ebcf6a" />
+<img width="1080" height="2400" alt="Samsung_Galaxy_Remote_4G_5G_2" src="https://github.com/user-attachments/assets/1c0969fb-6262-49db-898c-e57e6027ef0b" />
 
 ---
 
@@ -75,8 +72,8 @@
 
 | มิติการเปรียบเทียบ | Plain MQTT บน Mosquitto เอง (แล็บ 11.2) | ESP RainMaker SDK (แล็บ 11.4) |
 | :--- | :--- | :--- |
-| **1. ความพยายามในการพัฒนา (Development Effort)** | **สูงมาก (High Effort):**<br>• ผู้พัฒนาต้องออกแบบโครงสร้าง MQTT Topic และโครงสร้าง JSON Payload เองทั้งหมด<br>• ต้องเขียนโค้ดจัดการการเชื่อมต่อ Wi-Fi และฮาร์ดโค้ดรหัสผ่าน Wi-Fi ลงในบอร์ด<br>• ต้องเขียนแอปพลิเคชันมือถือ แดชบอร์ด และระบบบริหารจัดการผู้ใช้ (User Auth) ขึ้นมาใหม่ทั้งหมดเอง | **ต่ำมาก (Low Effort / Out-of-the-box):**<br>• มีโครงสร้างข้อมูลมาตรฐาน (Node, Device, Param) และ Dynamic UI มาให้พร้อมใช้<br>• มีระบบ BLE Wi-Fi Provisioning สแกน QR Code จากแอปพลิเคชันมือถือมาตรฐานได้ทันทีโดยไม่ต้องเขียนแอปเอง<br>• มีระบบตั้งเวลา (Scheduler) และซิงก์เวลา SNTP ระดับระบบพร้อมใช้งาน |
-| **2. ด้านความปลอดภัย (Security)** | **มีความเสี่ยงสูงหากตั้งค่าไม่รัดกุม (Low to Medium):**<br>• ในแล็บ 11.2 ข้อมูลส่งแบบ Plaintext (พอร์ต 1883) ไม่มี TLS ข้อมูลถูกดักจับได้<br>• แม้เปิด TLS (แล็บ 11.3) ก็ต้องบริหารจัดการแจกจ่าย Client Key ด้วยตนเอง หากคีย์หลุดจะเกิดความเสียหายทั้งระบบ | **ความปลอดภัยระดับมาตรฐานอุตสาหกรรม (Enterprise Grade):**<br>• บังคับใช้ MQTTS ผ่าน TLS 1.2/1.3 ทุกเส้นทางบน AWS IoT Core<br>• มีระบบ Assisted Claiming และ Factory Claiming เพื่อจัดการกุญแจและใบรับรอง X.509 อย่างปลอดภัย<br>• มีระบบยืนยันตัวตนผู้ใช้ระดับสากลผ่าน AWS Cognito และระบบสิทธิ์ผูกบัญชี (User-Node Association) |
+| **1. ความพยายามในการพัฒนา (Development Effort)** | **สูงมาก (High Effort):**<br>• ผู้พัฒนาต้องออกแบบโครงสร้าง MQTT Topic และโครงสร้าง JSON Payload เองทั้งหมด<br>• ต้องเขียนโค้ดจัดการการเชื่อมต่อ Wi-Fi และฮาร์ดโค้ดรหัสผ่าน Wi-Fi ลงในบอร์ด<br>• ต้องเขียนแอปพลิเคชันมือถือ แดชบอร์ด และระบบบริหารจัดการผู้ใช้ (User Auth) ขึ้นมาใหม่ทั้งหมดเอง | **ต่ำมาก (Low Effort / Out-of-the-box):**<br>• มีโครงสร้างข้อมูลมาตรฐาน (Node, Device, Param) และ Dynamic UI มาให้พร้อมใช้<br>• มีระบบ BLE Wi-Fi Provisioning สแกน QR Code จากแอปพลิเคชันมือถือมาตรฐานได้ทันทีโดยไม่ต้องเขียนแอปเอง<br>• มีระบบตั้งเวลา (Scheduler), ฉากการทำงาน (Scenes) และซิงก์เวลา SNTP ระดับระบบพร้อมใช้งาน |
+| **2. ด้านความปลอดภัย (Security)** | **มีความเสี่ยงสูงหากตั้งค่าไม่รัดกุม (Low to Medium):**<br>• ในแล็บ 11.2 ข้อมูลส่งแบบ Plaintext (พอร์ต 1883) ไม่มี TLS ข้อมูลถูกดักจับและดักส่งคำสั่งได้<br>• แม้เปิด TLS (แล็บ 11.3) ก็ต้องบริหารจัดการแจกจ่าย Client Key ด้วยตนเอง หากคีย์หลุดจะเกิดความเสียหายทั้งระบบ | **ความปลอดภัยระดับมาตรฐานอุตสาหกรรม (Enterprise Grade):**<br>• บังคับใช้ MQTTS ผ่าน TLS 1.2/1.3 ทุกเส้นทางบน AWS IoT Core<br>• มีระบบ Assisted Claiming และ Factory Claiming เพื่อจัดการกุญแจและใบรับรอง X.509 อย่างปลอดภัย<br>• มีระบบยืนยันตัวตนผู้ใช้ระดับสากลผ่าน AWS Cognito และระบบสิทธิ์ผูกบัญชี (User-Node Association) |
 | **3. การขยายระบบ (Scalability)** | **มีข้อจำกัดและต้องการการดูแลสูง (Limited Scalability):**<br>• เซิร์ฟเวอร์ Mosquitto ตัวเดียว (Single-broker) รองรับอุปกรณ์พร้อมกันได้จำกัดตามสเปกของเครื่องคอมพิวเตอร์/เซิร์ฟเวอร์<br>• เสี่ยงต่อปัญหา Single Point of Failure (หากเซิร์ฟเวอร์ล่ม ทั้งระบบใช้งานไม่ได้)<br>• ต้องตั้งค่า Port Forwarding หรือ Dynamic DNS เพื่อให้เข้าถึงจากภายนอกบ้านได้ | **ไร้ขีดจำกัดแบบ Serverless (Massive Scalability):**<br>• แบ็กเอนด์ทำงานบนโครงสร้าง Serverless ของ AWS (AWS IoT Core, Lambda, DynamoDB)<br>• ขยายตัวรองรับอุปกรณ์และผู้ใช้งานนับล้านตัวได้โดยอัตโนมัติ (Elastic Auto-scaling)<br>• มี High Availability (HA) ระดับ 99.99% กระจายอยู่ทั่วโลก เข้าถึงจากเครือข่าย 4G/5G ได้จากทุกที่โดยไม่ต้องตั้งค่าเราเตอร์ |
 
 ---
@@ -97,4 +94,3 @@
        3. RainMaker Cloud ส่งข้อความผ่าน MQTT ไปยังบอร์ด ESP32 ผ่านการเชื่อมต่อที่มีอยู่เดิม
        4. บอร์ด ESP32 ได้รับค่าในฟังก์ชัน `write_cb` และสั่งเปิดไฟ LED ตามปกติ
   4. **สรุป:** เฟิร์มแวร์บนตัวบอร์ด ESP32 จึงทำหน้าที่เพียงแค่ตอบสนองต่อคำสั่งพารามิเตอร์มาตรฐานใน `write_cb` เท่านั้น โดยการรู้จำเสียงพูด การตีความภาษาธรรมชาติ (NLP) และการแปลงโปรโตคอลทั้งหมด ถูกจัดการบนระบบคลาวด์แบบเบ็ดเสร็จ
-
