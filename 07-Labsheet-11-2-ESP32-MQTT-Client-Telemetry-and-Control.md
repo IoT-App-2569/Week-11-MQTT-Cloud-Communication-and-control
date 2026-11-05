@@ -360,6 +360,26 @@ python -m esptool -p <COMxx> --chip esp32 -b 460800 --before default_reset --aft
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
+
+| เวลา | Topic | Payload ตัวอย่าง | ผลที่คาดหวัง |
+| :--- | :--- | :--- | :--- |
+| 00:00 | `iot/node01/status` | `online` (retain, QoS 1) | แสดงสถานะออนไลน์ |
+| 00:04 | `iot/node01/telemetry` | `{"node_id":"esp32-node01","adc_raw":2048,"voltage_v":1.65,"led_state":false,"uptime_ms":4000}` | Subscriber ได้ JSON telemetry |
+| 00:08 | `iot/node01/cmd/led` | `ON` | GPIO LED เปิด และมี state acknowledgement |
+| 00:09 | `iot/node01/state/led` | `{"led_state": true}` | สถานะยืนยันตรงกับคำสั่ง |
+
+ตัวอย่าง ตัวอย่าง Transcript:
+
+```text
+MQTT_EVENT_CONNECTED: Connected to Broker!
+iot/node01/status online
+iot/node01/telemetry {"node_id":"esp32-node01","adc_raw":2048,"voltage_v":1.65,"led_state":false,"uptime_ms":4000}
+MQTT_EVENT_DATA: topic=iot/node01/cmd/led data=ON
+iot/node01/state/led {"led_state": true}
+```
+
+**สรุป:** ตัวอย่างแสดงวงจร telemetry จากอุปกรณ์และคำสั่งควบคุมย้อนกลับผ่าน Broker โดยควรตรวจสอบสถานะ LED ที่ GPIO ควบคู่กับข้อความ acknowledgement
+
 > [!IMPORTANT] **ข้อสังเกตและแนวทางแก้ปัญหาสำคัญ (Troubleshooting Guide)**
 > 1. **ปัญหา Broker ทำงานซ้ำซ้อน (Split-Brain Broker บน Windows)**:
 >    * หากเครื่องคอมพิวเตอร์มีการติดตั้ง Mosquitto เป็น Windows Service ตัว Service ดังกล่าวจะแอบรันอยู่เบื้องหลังและผูกกับ IP `127.0.0.1` ตลอดเวลา
@@ -410,7 +430,31 @@ mosquitto_pub -h 192.168.1.111 -p 1883 -t "iot/node01/cmd/led" -m "{\"state\": 1
 
 ---
 
+### ภาพตัวอย่าง Terminal / Log
+
+> ภาพแสดงตัวอย่างรูปแบบ Terminal log; เมื่อลงมือทดลองให้ตรวจสอบและบันทึก output จากเครื่องของตนเอง
+
+![Terminal log ใบงาน 11.2 กรณี 1](Images/TerminalLogs/l11_2_01.svg)
+
+![Terminal log ใบงาน 11.2 กรณี 2](Images/TerminalLogs/l11_2_02.svg)
+
+![Terminal log ใบงาน 11.2 กรณี 3](Images/TerminalLogs/l11_2_03.svg)
+
+![Terminal log ใบงาน 11.2 กรณี 4](Images/TerminalLogs/l11_2_04.svg)
+
+![Terminal log ใบงาน 11.2 กรณี 5](Images/TerminalLogs/l11_2_05.svg)
+
+---
+
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดเราจึงต้องส่งข้อความสถานะ `iot/node01/status = "online"` ด้วยแฟล็ก `retain = 1` ควบคู่กับการตั้งค่า Last Will and Testament (LWT) ว่า `"offline"`
+   **คำตอบ:** สถานะ `online` แบบ retained ทำให้ Subscriber ที่เพิ่งเริ่มเห็นสถานะล่าสุดทันที ส่วน LWT `offline` แบบ retained จะถูก Broker เผยแพร่เมื่ออุปกรณ์หลุดผิดปกติและแทนที่สถานะเดิม จึงช่วยให้ Dashboard เห็นสถานะล่าสุดทั้งตอนเชื่อมต่อและตอนหลุด.
 2. หากเครือข่าย Wi-Fi หลุดชั่วคราว คอมโพเนนต์ `esp-mqtt` มีพฤติกรรมการจัดการอย่างไร และเมื่อสัญญาณกลับมา โค้ดจำเป็นต้องเรียกฟังก์ชันเชื่อมต่อใหม่ด้วยตนเองหรือไม่
+   **คำตอบ:** โดยค่าเริ่มต้น ESP-MQTT เปิด automatic reconnect; เมื่อ Wi-Fi กลับมาและ network transport ใช้งานได้ Client จะพยายามเชื่อมต่อ Broker ใหม่เอง โค้ดนี้จึงไม่ต้องเรียกเชื่อมต่อ MQTT ใหม่ด้วยตนเอง หากปิด auto reconnect ต้องจัดการเชื่อมต่อใหม่ตาม API และเวอร์ชัน ESP-IDF ที่ใช้.
 3. ในฟังก์ชัน `telemetry_task` เพราะเหตุใดหลังจากเรียก `cJSON_PrintUnformatted(root)` แล้วเราจึงจำเป็นต้องเรียกฟังก์ชัน `free(json_str)` และ `cJSON_Delete(root)` เสมอ? หากละเลยจะมีผลเสียอย่างไรต่อหน่วยความจำของ ESP32
+   **คำตอบ:** `cJSON_PrintUnformatted()` จัดสรร buffer ใหม่สำหรับ JSON string จึงต้อง `free(json_str)` หลัง Publish เสร็จ ส่วน `cJSON_Delete(root)` คืนหน่วยความจำของ object และลูกทั้งหมด หากไม่คืนหน่วยความจำ การทำงานซ้ำของ task จะสะสม heap leak จนอาจจัดสรรหน่วยความจำไม่สำเร็จหรือระบบรีเซตได้.
+
+
+
+
+

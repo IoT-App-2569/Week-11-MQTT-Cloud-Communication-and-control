@@ -138,7 +138,7 @@ Opening ipv4 listen socket on port 1883.
 mosquitto version 2.0.18 running
 ```
 
-#### 5. หยุดการทำงานของ Mosquitto Broker
+## 5. หยุดการทำงานของ Mosquitto Broker
 ใน **เทอร์มินัลที่ 1 (Mosquitto Broker)**  ให้กด Ctrl+C เพื่อหยุดการทำงานของ Mosquitto Broker
 ในหน้าต่างแสดงผลของ Mosquitto Broker จะปรากฏ Log แสดงการปิดการเชื่อมต่อและหยุดการทำงานของ Broker
 ```text
@@ -288,6 +288,27 @@ mosquitto version 2.1.2 terminating
 
 ## 4. การบันทึกและวิเคราะห์ผลการทดลอง
 
+> [!NOTE] **ตัวอย่างผลลัพธ์**
+
+| หัวข้อ | ข้อมูลตัวอย่างที่สังเกตได้ | วิเคราะห์ผล |
+| :--- | :--- | :--- |
+| Wildcard `+` | `home/bedroom/light ON`, `home/kitchen/light OFF` | รับได้หนึ่งระดับแทนที่ `+`; หัวข้อที่มีระดับย่อยเพิ่มจะไม่ตรง |
+| Wildcard `#` | `home/bedroom/light`, `home/bedroom/fan/speed` | รับได้ศูนย์ระดับขึ้นไป เมื่อ `#` อยู่ท้าย filter |
+| QoS 0 / 1 / 2 | PUBLISH; PUBLISH/PUBACK; PUBLISH/PUBREC/PUBREL/PUBCOMP | จำนวน handshake เพิ่มตามระดับการรับประกัน |
+| Retain | Subscriber ใหม่ได้รับ `sensor/state NORMAL` ทันทีหลัง subscribe | Broker ส่งค่าล่าสุดที่เก็บไว้ให้ผู้ติดตามใหม่ |
+| LWT | `node/esp32/status LOST_CONNECTION_OFFLINE` | Broker เผยแพร่ Will เมื่อพบการหลุดโดยไม่มี DISCONNECT ปกติ |
+
+ตัวอย่างบันทึกจาก Subscriber:
+
+```text
+home/bedroom/light ON
+home/kitchen/light OFF
+sensor/state NORMAL (retained)
+node/esp32/status LOST_CONNECTION_OFFLINE
+```
+
+**สรุป:** Wildcard ช่วยติดตามหลาย Topic ด้วย filter เดียว ส่วน Retain เหมาะกับสถานะล่าสุด และ LWT แจ้งเหตุขาดการเชื่อมต่อผิดปกติ
+
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
@@ -295,8 +316,41 @@ mosquitto version 2.1.2 terminating
 
 ---
 
+### Terminal / Log
+
+
+
+![Terminal log ใบงาน 11.1 กรณี 1](Images/TerminalLogs/l11_1_01.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 2](Images/TerminalLogs/l11_1_02.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 3](Images/TerminalLogs/l11_1_03.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 4](Images/TerminalLogs/l11_1_04.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 5](Images/TerminalLogs/l11_1_05.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 6](Images/TerminalLogs/l11_1_06.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 7](Images/TerminalLogs/l11_1_07.svg)
+
+![Terminal log ใบงาน 11.1 กรณี 8](Images/TerminalLogs/l11_1_08.svg)
+
+---
+
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดสัญลักษณ์ `#` จึงต้องวางไว้ที่ตำแหน่งท้ายสุดของ Topic เสมอ? หากกำหนด Topic Filter เป็น `home/#/light` จะเกิดข้อผิดพลาดอย่างไร?
+   **คำตอบ:** `#` ใช้แทนระดับ Topic ตั้งแต่ศูนย์ระดับขึ้นไป จึงต้องเป็นระดับสุดท้ายของ Topic Filter ตามรูปแบบ MQTT; `home/#/light` ไม่ถูกต้องและ Broker จะปฏิเสธการ Subscribe เพราะมีระดับตามหลัง `#`.
 2. ในระบบงานติดตามยานพาหนะ (GPS Tracking) ที่ส่งพิกัดรถยนต์ทุกๆ 1 วินาที ท่านคิดว่าควรเลือกระดับ QoS ใดระหว่าง QoS 0, 1 หรือ 2 เพราะเหตุใด?
+   **คำตอบ:** โดยทั่วไปเลือก **QoS 0** สำหรับ telemetry ที่ส่งทุกวินาที เพราะข้อมูลใหม่มาเร็วและการพลาดจุดหนึ่งมักยอมรับได้ อีกทั้งใช้แบนด์วิดท์และพลังงานต่ำ หากข้อความบางรายการสำคัญ เช่น การแจ้งเตือนหรือข้อมูลสำหรับเรียกเก็บเงิน ให้ใช้ **QoS 1**; QoS 2 มี handshake และ overhead สูงกว่า.
 3. หาก Client ส่งแพ็กเก็ต `DISCONNECT` ไปยัง Broker อย่างถูกต้องก่อนปิดโปรแกรม ข้อความ Last Will and Testament (LWT) จะถูกเผยแพร่ออกไปหรือไม่ เพราะเหตุใด?
+   **คำตอบ:** **ไม่เผยแพร่** เพราะ Broker ได้รับ `DISCONNECT` ที่แสดงว่า Client ออกจากระบบอย่างปกติ LWT ใช้เมื่อการเชื่อมต่อขาดหายโดยไม่มีการจบ session อย่างถูกต้อง.
 4. Retained Message มีประโยชน์อย่างไรในการออกแบบระบบแดชบอร์ด Smart Home สำหรับผู้ใช้งานที่เพิ่งเปิดแอปพลิเคชันขึ้นมาเป็นครั้งแรก?
+   **คำตอบ:** Broker ส่งค่าล่าสุดที่เก็บไว้ให้ Dashboard ทันทีเมื่อ Subscribe จึงแสดงสถานะปัจจุบันได้โดยไม่ต้องรออุปกรณ์ Publish รอบใหม่ เช่น สถานะไฟหรืออุณหภูมิล่าสุด.
+
+
+
+
+
+
+

@@ -212,6 +212,25 @@ idf.py -p COMx flash monitor
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
+
+| ขั้นตอน | ข้อมูลตัวอย่าง | ผลที่คาดหวัง |
+| :--- | :--- | :--- |
+| เพิ่มอุปกรณ์ | Node: `node-01`, Device: `Living Room Light` | อุปกรณ์ปรากฏในบัญชีตัวอย่าง |
+| สั่งเปิด | `Power=true`, `Brightness=75` | Device state เปลี่ยนเป็นเปิดที่ความสว่าง 75% |
+| สั่งปิด | `Power=false` | Device state เปลี่ยนเป็นปิด |
+| Remote control | โทรศัพท์ใช้เครือข่ายมือถือ, บอร์ดอยู่ Wi-Fi | Cloud ส่ง state update ไปยัง node |
+
+ตัวอย่างตัวอย่างบันทึก:
+
+```text
+I (101540) esp_claim: Assisted Claiming successful; Node ID node-01
+I (101550) esp_rmaker: Device registered: Living Room Light
+I (2010) app_main: Power=true, Brightness=75
+I (2020) esp_rmaker_core: Parameters reported successfully
+```
+
+**สรุป:** ตัวอย่างแสดงการซิงก์ค่าพารามิเตอร์ระหว่างแอปกับอุปกรณ์ผ่าน Cloud; การยืนยันการทำงานจริงต้องใช้บอร์ด แอป และบัญชี RainMaker ที่เชื่อมต่อได้
+
 ### 1. การควบคุมเปิด-ปิดผ่าน Mobile App
 * กดสวิตช์ Power บนหน้าจอแอป สังเกตว่าหลอดไฟ LED บนบอร์ดเปิดและปิดทันทีตามการสั่งการ
 * ทดลองเลื่อนแถบสไลเดอร์ Brightness สังเกตข้อความ Log บน Serial Monitor ว่าได้รับค่าความสว่างใหม่กี่เปอร์เซ็นต์
@@ -245,8 +264,33 @@ rainmaker.py setparams --nodeid <YOUR_NODE_ID> '{"Living Room Light": {"Power": 
 
 ---
 
+### Terminal / Log
+
+
+
+![Terminal log ใบงาน 11.4 กรณี 1](Images/TerminalLogs/l11_4_01.svg)
+
+![Terminal log ใบงาน 11.4 กรณี 2](Images/TerminalLogs/l11_4_02.svg)
+
+![Terminal log ใบงาน 11.4 กรณี 3](Images/TerminalLogs/l11_4_03.svg)
+
+![Terminal log ใบงาน 11.4 กรณี 4](Images/TerminalLogs/l11_4_04.svg)
+
+![Terminal log ใบงาน 11.4 กรณี 5](Images/TerminalLogs/l11_4_05.svg)
+
+---
+
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. ในสถาปัตยกรรม ESP RainMaker กระบวนการ **Assisted Claiming** ช่วยแก้ปัญหาเรื่องการติดตั้งใบรับรองความปลอดภัย (Security Certificates) บนอุปกรณ์ในขั้นตอนพัฒนาต้นแบบได้อย่างไร?
+   **คำตอบ:** แอปสื่อสารกับอุปกรณ์ผ่าน BLE เพื่อเริ่ม Claim กับ RainMaker Cloud และติดตั้งอัตลักษณ์/ใบรับรองของอุปกรณ์ จึงไม่ต้องสร้างและแฟลช certificate ประจำเครื่องด้วยตนเองในขั้นต้น ช่วยลดขั้นตอนสำหรับต้นแบบ แต่ระบบผลิตจริงยังต้องจัดการการ Claim และปกป้องอัตลักษณ์ให้เหมาะสม.
 2. เพราะเหตุใดฟังก์ชัน `write_cb` จึงต้องเรียกคำสั่ง `esp_rmaker_param_update_and_report()` ทุกครั้งที่มีการเปลี่ยนแปลงค่าพารามิเตอร์?
+   **คำตอบ:** ฟังก์ชันนี้อัปเดตค่าพารามิเตอร์ใน SDK และรายงานค่านั้นขึ้น RainMaker Cloud เพื่อให้แอปและ Cloud state ตรงกับค่าปัจจุบันของอุปกรณ์ หากไม่เรียกเมื่ออุปกรณ์เปลี่ยนค่าเอง Cloud อาจยังแสดงค่าเก่า.
 3. เปรียบเทียบความแตกต่างระหว่างการพัฒนาอุปกรณ์ IoT ด้วย **Plain MQTT บน Mosquitto เอง (ในแล็บ 11.2)** กับการใช้ **ESP RainMaker SDK (ในแล็บ 11.4)** ในแง่ของความพยายามในการพัฒนา (Development Effort), ความปลอดภัย (Security), และการขยายระบบ (Scalability)
+   **คำตอบ:** **Plain MQTT/Mosquitto** ยืดหยุ่นและควบคุมได้มาก แต่ผู้พัฒนาต้องกำหนด Topic, payload, authentication, TLS, ACL และการจัดเก็บสถานะเอง. **RainMaker** มี SDK, data model, provisioning, claiming, cloud state และแอปพร้อมใช้ จึงลดงานประกอบระบบแต่ผูกกับ API/แพลตฟอร์ม. ด้านความปลอดภัย MQTT ต้องตั้ง TLS และสิทธิ์เอง; RainMaker มี workflow สำหรับ provisioning และ identity แต่ firmware ก็ยังต้องปกป้องกุญแจ. ด้านการขยายระบบ MQTT ต้องดูแล broker/cluster เอง ส่วน RainMaker จัด backend ให้แต่ขึ้นกับบริการและข้อจำกัดแพลตฟอร์ม.
 4. อธิบายขั้นตอนที่ทำให้ ESP RainMaker สามารถเชื่อมโยงการทำงานร่วมกับระบบสั่งงานด้วยเสียงของ **Google Home** หรือ **Amazon Alexa** ได้โดยไม่ต้องเขียนโค้ดเพิ่มเติมบนตัวบอร์ด ESP32
+   **คำตอบ:** ผู้พัฒนากำหนดชนิดอุปกรณ์และพารามิเตอร์ให้ตรงกับความสามารถที่ต้องการ แล้วเปิด integration ของ RainMaker กับ Google Home หรือ Alexa; ผู้ใช้เชื่อมบัญชีและอนุญาตสิทธิ์ในแอปผู้ช่วยเสียง เมื่อมีคำสั่งเสียง บริการผู้ช่วยส่งคำสั่งผ่าน Cloud integration ไปยังพารามิเตอร์ของอุปกรณ์ใน RainMaker และ SDK เรียก callback ของ firmware ตามปกติ จึงไม่ต้องเพิ่มโค้ดเฉพาะ Google/Alexa บนบอร์ด แต่ยังต้องตั้งค่า integration ตามข้อกำหนดของบริการนั้น.
+
+
+
+
+

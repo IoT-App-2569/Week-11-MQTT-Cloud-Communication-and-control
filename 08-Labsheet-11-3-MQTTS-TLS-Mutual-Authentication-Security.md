@@ -315,6 +315,23 @@ void app_main(void)
 
 ## 4. การทดสอบและการตรวจสอบผลลัพธ์ (Testing & Verification)
 
+```text
+Client -> Broker: TLS ClientHello
+Broker: server certificate verified by client CA
+Client -> Broker: client certificate
+Broker: client certificate verified
+MQTT: CONNECT accepted (return code 0)
+MQTT: PUBLISH secure/test "hello-mtls" (QoS 1)
+```
+
+| กรณีทดสอบ | ผลที่คาดหวัง | ความหมาย |
+| :--- | :--- | :--- |
+| CA และ Client Certificate ถูกต้อง | เชื่อมต่อสำเร็จ และรับข้อความ `hello-mtls` | ตรวจสอบตัวตนทั้ง Broker และ Client ผ่าน |
+| ไม่ส่ง Client Certificate | TLS handshake ถูกปฏิเสธ | Broker บังคับใช้ mTLS |
+| ใช้ CA ที่ไม่ตรง | Client ปฏิเสธใบรับรอง Broker | ป้องกันการเชื่อมต่อไปยัง Broker ที่ไม่เชื่อถือ |
+
+**สรุป:** mTLS เพิ่มการยืนยันตัวตนสองทาง; ในการทดลองจริงควรบันทึก log จากทั้ง Client และ Broker และห้ามเผยแพร่ Private Key
+
 1. แฟลชโปรแกรมลงบนบอร์ด ESP32
    ```powershell
    idf.py -p COMx flash monitor
@@ -329,7 +346,25 @@ void app_main(void)
 
 ---
 
+### Terminal / Log
+
+
+
+![Terminal log ใบงาน 11.3 กรณี 1](Images/TerminalLogs/l11_3_01.svg)
+
+![Terminal log ใบงาน 11.3 กรณี 2](Images/TerminalLogs/l11_3_02.svg)
+
+---
+
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
 1. เพราะเหตุใดในคำสั่งสร้าง Server CSR ค่า **Common Name (CN)** จึงต้องระบุเป็น IP Address หรือ Hostname ของ Broker ให้ตรงกันพอดี? หากระบุเป็นชื่ออื่นจะเกิดข้อผิดพลาดใดขึ้น?
+   **คำตอบ:** Client ต้องตรวจว่าชื่อปลายทางตรงกับตัวตนใน Server Certificate หากใช้ IP ควรมี IP นั้นใน Subject Alternative Name (SAN); หากใช้ชื่อ DNS ก็ควรมี DNS SAN ที่ตรงกัน ชื่อไม่ตรงจะทำให้ TLS hostname verification ล้มเหลวและ Client ควรปฏิเสธการเชื่อมต่อ ระบบสมัยใหม่ใช้ SAN เป็นหลัก จึงไม่ควรพึ่ง CN อย่างเดียว.
 2. การยืนยันตัวตนแบบ **Mutual Authentication (mTLS)** แตกต่างจากการใช้ **HTTPS** ทั่วไปบนเว็บเบราว์เซอร์อย่างไรในประเด็นเรื่องใบรับรองฝั่ง Client?
+   **คำตอบ:** โดยทั่วไปเบราว์เซอร์ตรวจใบรับรอง Server แต่ไม่ได้ส่ง Client Certificate ส่วน mTLS กำหนดให้ Client ส่งใบรับรองของตนด้วยเพื่อให้ Server ตรวจตัวตน Client เช่นกัน ทั้ง HTTPS และ MQTTS ใช้ TLS และ HTTPS ก็สามารถตั้งค่าให้ตรวจ Client Certificate ได้.
 3. หากมีผู้ไม่หวังดีขโมยไฟล์เฟิร์มแวร์ไบนารี (`.bin`) ของบอร์ด ESP32 ไปได้ เขาจะสามารถกู้คืนไฟล์ `client.key` ได้หรือไม่ และในระบบ IoT เชิงพาณิชย์เรามีฮาร์ดแวร์ความปลอดภัยใด (เช่น ESP32 Secure Boot / Flash Encryption / Digital Signature Peripheral) มาช่วยแก้ไขปัญหานี้?
+   **คำตอบ:** หากฝัง `client.key` เป็นข้อมูลธรรมดาใน firmware image ผู้ที่ได้ไฟล์อาจค้นคืนกุญแจได้ จึงไม่ควรบรรจุ private key ที่ใช้ร่วมกันไว้ใน image. **Secure Boot** ตรวจลายเซ็น firmware แต่ไม่ได้ซ่อนข้อมูลใน image; **Flash Encryption** เข้ารหัสข้อมูลที่เก็บใน flash และช่วยต้านการอ่าน flash โดยตรง; ส่วน **Digital Signature peripheral** บนชิปที่รองรับใช้กุญแจที่ซอฟต์แวร์อ่านไม่ได้เพื่อทำลายเซ็น. แนวทางที่แข็งแรงคือสร้างหรือเก็บ private key แบบ hardware-backed หรือใน secure element และใช้ Flash Encryption ร่วมกับ Secure Boot ตามความเสี่ยงของระบบ.
+
+
+
+
+
