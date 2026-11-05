@@ -1,4 +1,4 @@
-﻿# ใบงานการทดลองที่ 11.1
+# ใบงานการทดลองที่ 11.1
 ### การติดตั้ง Mosquitto Broker และการทดสอบโปรโตคอล MQTT ด้วย CLI (Pub/Sub, QoS, Retain, LWT)
 
 ### กิจกรรมที่ 11-1.2  การทดสอบ Publish / Subscribe พื้นฐาน และการใช้ Wildcards
