@@ -4,14 +4,15 @@
 ---
 1. **👉 จุดที่ต้องแคปรูป:** แคปหน้าจอเทอร์มินัลที่แสดงข้อความ JSON Telemetry ที่ค่า `adc_raw` และ `voltage_v` เปลี่ยนแปลงต่อเนื่อง 
 
-<img width="1141" height="411" alt="11-2-1" src="https://github.com/user-attachments/assets/9a496d66-2846-45bf-ab58-00b6c7ca8aa7" />
+<img width="1457" height="488" alt="image" src="https://github.com/user-attachments/assets/33a531bf-866c-4e5f-8fa0-f6e3436d5feb" />
+
 
 
 ---
 
 2. **👉 จุดที่ต้องแคปรูป:** แคปหน้าจอที่เห็นหน้าต่าง Publisher (คำสั่งส่ง ON/OFF) วางคู่กับหน้าต่าง Subscriber หรือ Serial Monitor ที่แสดงผลการตอบรับสถานะ LED (`LED State set to -> ON/OFF` หรือ `"led_state": true/false`) มาบันทึกเป็นชื่อไฟล์ `image-4.png`
 
-<img width="497" height="247" alt="11-2-2" src="https://github.com/user-attachments/assets/ec669c2f-6561-4ce6-aaad-792632eb94cf" />
+<img width="718" height="477" alt="image" src="https://github.com/user-attachments/assets/4183aa14-25b6-4dc4-a8af-8bc5be3e1cd5" />
 
 
 ---
