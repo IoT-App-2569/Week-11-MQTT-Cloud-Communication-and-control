@@ -241,7 +241,8 @@ PS C:\mqtt_lab> & "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -p
 ```
 
 3. ภาพการทดสอบ Retained Message เมื่อเปิด Subscriber ขึ้นมาใหม่
-![alt text](image-1.png)
+<img width="1641" height="532" alt="image" src="https://github.com/user-attachments/assets/11739207-ab9b-4f56-93b4-30036dc166c9" />
+
 ---
 
 ## 5. คำถามท้ายการทดลอง (Post-Lab Questions)
