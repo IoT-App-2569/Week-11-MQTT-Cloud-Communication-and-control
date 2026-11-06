@@ -8,31 +8,38 @@
 ### 1. ภาพหน้าจอ Serial Monitor ขณะสร้าง QR Code และเริ่ม BLE Provisioning
 * บอร์ด ESP32 เริ่มต้นทำงาน ทำการอ่านค่า NVS และสร้าง QR Code (ASCII Art) พร้อม URL ทาง Serial Monitor เพื่อรอรับการจับคู่ผ่านสัญญาณ Bluetooth Low Energy (BLE Advertising)
 
-<img width="1256" height="557" alt="11-4-1" src="https://github.com/user-attachments/assets/3ee497e5-e974-41dc-a402-1afa27cc3eb5" />
+<img width="1141" height="532" alt="image" src="https://github.com/user-attachments/assets/7589bf63-f720-4a7d-abf6-4a261f3c43e1" />
+
 
 ---
 
 ### 2. ภาพหน้าจอการทำ Assisted Claiming และเชื่อมต่อ Wi-Fi บนแอป ESP RainMaker (สมาร์ตโฟน Samsung Galaxy - One UI)
 * หน้าจอโทรศัพท์มือถือ Samsung Galaxy (ความละเอียด 1080x2400) ขณะสแกน QR Code, ระบบถามยืนยันการรับ Certificate ผ่าน Assisted Claiming, การเลือกเครือข่าย Wi-Fi 2.4 GHz และหน้า Dashboard ที่ปรากฏการ์ดอุปกรณ์ **"Living Room Light"**
 
-<img width="1080" height="2400" alt="Samsung_Galaxy_Claiming_1" src="https://github.com/user-attachments/assets/2983c8ee-213b-4986-9d1d-750a41f31803" />
-<img width="1080" height="2400" alt="Samsung_Galaxy_Claiming_2" src="https://github.com/user-attachments/assets/0481cf34-fc7c-4904-ad76-e455d805c90d" />
+<img width="894" height="1829" alt="286183_0" src="https://github.com/user-attachments/assets/26d01466-b54c-4184-9d23-718c5ca0dc0a" />
+
+<img width="894" height="1829" alt="286184_0" src="https://github.com/user-attachments/assets/ec0474be-cb4f-4446-9d7c-7c37ccaa3fd4" />
+
 
 ---
 
 ### 3. ภาพการทดสอบควบคุมหลอดไฟ LED บนบอร์ด และปรับความสว่าง (Power & Brightness)
 * ภาพหลอดไฟ LED (GPIO 2) สว่างขึ้นเมื่อกดสวิตช์ Power ON ในแอปมือถือ Samsung Galaxy และภาพ Serial Monitor ที่แสดง Callback Log การปรับค่า `Power` และ `Brightness`
 
-<img width="1080" height="2400" alt="Samsung_Galaxy_Control_Power_Brightness" src="https://github.com/user-attachments/assets/35f00283-498b-41ea-90f1-b6bf38656147" />
-<img width="3072" height="4096" alt="IMG_ESP32_LED_State" src="https://github.com/user-attachments/assets/dfa06ba3-3d53-4cef-846b-bee43a83e8fd" />
+<img width="894" height="1829" alt="286185_0" src="https://github.com/user-attachments/assets/bfbeb71e-34a5-4cc2-bdfe-86613119ec9a" />
+
+
+<img width="1352" height="516" alt="image" src="https://github.com/user-attachments/assets/d74035c2-6896-43a9-a904-546084b5a541" />
+
 
 ---
 
 ### 4. ภาพหน้าจอการทดสอบควบคุมระยะไกลข้ามอินเทอร์เน็ต (Remote 4G/5G Test บนสมาร์ตโฟน Samsung Galaxy)
 * หน้าจอโทรศัพท์มือถือ Samsung Galaxy ที่ **ปิด Wi-Fi แล้วเปิดเฉพาะสัญญาณอินเทอร์เน็ตเซลลูลาร์ 4G/5G** และสั่งเปิด-ปิดหลอดไฟได้สำเร็จแบบ Real-time แสดงถึงการทำงานของ Cloud Backend ผ่าน AWS IoT Core
 
-<img width="1080" height="2400" alt="Samsung_Galaxy_Remote_4G_5G_1" src="https://github.com/user-attachments/assets/f67fd996-1a4a-4d7a-9825-085701ebcf6a" />
-<img width="1080" height="2400" alt="Samsung_Galaxy_Remote_4G_5G_2" src="https://github.com/user-attachments/assets/1c0969fb-6262-49db-898c-e57e6027ef0b" />
+<img width="869" height="1883" alt="286186_0" src="https://github.com/user-attachments/assets/689a9c6c-3574-41fb-b754-15cf0aa3f463" />
+
+<img width="869" height="1883" alt="286187_0" src="https://github.com/user-attachments/assets/96ea6a5c-4807-4e52-a6c6-85adacfb7072" />
 
 ---
 
