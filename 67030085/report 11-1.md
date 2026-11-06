@@ -188,7 +188,8 @@ PS C:\mqtt_lab> & "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -p
 
 ให้นักศึกษาบันทึกภาพหน้าจอ (Screenshots) และตอบคำถามต่อไปนี้ลงในรายงาน
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
-![alt text](image.png)
+<img width="1637" height="530" alt="image" src="https://github.com/user-attachments/assets/9e8cdfb5-8a91-4e0c-927b-c1f72d59146a" />
+
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
 
 | ระดับ QoS | ระดับการรับประกัน (Delivery Guarantee) | ลำดับแพ็กเก็ตที่ปรากฏใน Broker Log | ทิศทางการรับส่งแพ็กเก็ต (Flow) | การยืนยันผล (Handshake) | เหมาะสำหรับงาน (Use Cases) |
