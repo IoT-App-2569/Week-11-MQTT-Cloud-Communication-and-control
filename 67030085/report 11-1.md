@@ -190,6 +190,7 @@ PS C:\mqtt_lab> & "C:\Program Files\mosquitto\mosquitto_pub.exe" -h 127.0.0.1 -p
 1. ภาพหน้าจอการทำงานของ Mosquitto Broker Verbose Log ขณะที่มีการเชื่อมต่อและ Subscribe ข้อความ
 ![alt text](image.png)
 2. ตารางเปรียบเทียบลำดับแพ็กเก็ตที่เกิดขึ้นระหว่าง QoS 0, QoS 1 และ QoS 2 ที่สังเกตได้จาก Broker Log
+
 | ระดับ QoS | ระดับการรับประกัน (Delivery Guarantee) | ลำดับแพ็กเก็ตที่ปรากฏใน Broker Log | ทิศทางการรับส่งแพ็กเก็ต (Flow) | การยืนยันผล (Handshake) | เหมาะสำหรับงาน (Use Cases) |
 | :---: | :--- | :--- | :--- | :---: | :--- |
 | **QoS 0** | **At most once**<br>(ส่งอย่างมากที่สุด 1 ครั้ง อาจสูญหายได้) | 1. `Received PUBLISH ... (q0)`<br>2. `Sending PUBLISH ... (q0)` | Publisher → Broker → Subscriber | **ไม่มี**<br>(ไม่มีการตอบกลับใดๆ) | ข้อมูลเซนเซอร์ที่ส่งถี่ๆ เช่น อุณหภูมิ, ความชื้น |
