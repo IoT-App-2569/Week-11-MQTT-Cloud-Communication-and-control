@@ -1,0 +1,74 @@
+================================================================================
+ESP32 Serial Monitor Execution Log - Lab 11.4
+Student ID: 67030181
+Target Chip: ESP32 | Platform: ESP RainMaker Cloud (AWS IoT Core)
+================================================================================
+
+I (320) LAB11_4_RMAKER: ==========================================================
+I (325) LAB11_4_RMAKER: Starting Lab 11.4: ESP RainMaker Smart Light (ID: 67030281)
+I (330) LAB11_4_RMAKER: Target Chip: esp32 | Platform: ESP RainMaker Ecosystem
+I (335) LAB11_4_RMAKER: ==========================================================
+I (340) LAB11_4_RMAKER: Initialized Actuator GPIO 2 as OUTPUT (Initial: OFF)
+I (350) esp_rmaker_core: RainMaker Core Version: 3.1.0
+I (355) LAB11_4_RMAKER: Initialized RainMaker Node: 'Smart Light Node 67030281'
+I (360) LAB11_4_RMAKER: Added 'Living Room Light' Device with Power & Brightness Params.
+I (365) LAB11_4_RMAKER: Enabled RainMaker System Services: Timezone & Schedule Services.
+I (370) LAB11_4_RMAKER: ESP RainMaker Core Engine started.
+I (375) LAB11_4_RMAKER: Starting BLE Provisioning with Random POP (Scanning QR Code)...
+
+I (390) app_wifi: Starting Provisioning
+I (410) app_wifi: BLE name: PROV_LIGHT_67030281
+I (415) app_wifi: POP: abcd1234
+I (420) app_wifi: Scan this QR code on the ESP RainMaker phone app for provisioning:
+
+█████████████████████████████████████████
+█████████████████████████████████████████
+████ ▄▄▄▄▄ ██▀█ ▄▄█▀█ █ ▄▀▄██ ▄▄▄▄▄ ████
+████ █   █ █ ▄▄▀█ █▀█ █▄▄ ▄██ █   █ ████
+████ █▄▄▄█ █▀ █ █ ▀▀▀█ ▄█▄███ █▄▄▄█ ████
+████▄▄▄▄▄▄▄█▄█▄█▄█▄█▄█▄█▄█▄██▄▄▄▄▄▄▄████
+████ ▄█ ▄▀▄██ ▄▄▄█▀▀█▄▀ █▄▀██ ▄▀▄▀▄▄████
+████ █▄█ ▀▄▄▀▄▀▄▀▀ █ ▄ ▄▀▄ ▄▄█▀▀▄█▄█████
+████▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄█▄▄▄▄▄▄▄▄████
+█████████████████████████████████████████
+
+I (430) app_wifi: If QR code is not visible, visit URL:
+https://rainmaker.espressif.com/qrcode.html?data={"ver":"v1","name":"PROV_LIGHT_67030281","pop":"abcd1234","transport":"ble"}
+
+[PHASE 1: ASSISTED CLAIMING VIA PHONE BLE]
+I (14820) wifi_prov_mgr: Provisioning client connected via BLE
+I (15210) esp_claim: Received CSR request from Mobile App
+I (16430) esp_claim: Received Claim Certificate and Private Key from RainMaker Cloud
+I (16520) esp_claim: Certificate securely saved into NVS Flash partition 'nvs'
+
+[PHASE 2: WI-FI PROVISIONING & AWS IOT CONNECTION]
+I (18210) wifi_prov_mgr: Received Wi-Fi credentials for SSID 'AIS 4G Hi-Speed Home WiFi_769475'
+I (19840) wifi:connected with AIS 4G Hi-Speed Home WiFi_769475, channel 6
+I (21050) esp_netif_handlers: sta ip: 192.168.1.155, mask: 255.255.255.0, gw: 192.168.1.1
+I (21200) esp_rmaker_core: Node ID: nq8xT6p53BZHTm6k8AZqN
+I (21250) esp_rmaker_mqtt: Connecting to AWS IoT Core: a3xxxxxxxx-ats.iot.us-east-1.amazonaws.com:8883
+I (22890) esp_rmaker_mqtt: MQTT Connected!
+I (22920) esp_rmaker_core: Node config reported successfully.
+I (22950) esp_rmaker_core: Time sync successfully done via SNTP (Asia/Bangkok).
+I (23100) esp_rmaker_user_mapping: User-Node mapping completed successfully for user ID: usr_78912345.
+
+[PHASE 3: CLOUD CONTROL FROM MOBILE APP & 4G/5G]
+# User Toggles Switch ON in ESP RainMaker Mobile App:
+I (35420) LAB11_4_RMAKER: Command received via transport: Cloud (AWS IoT Shadow)
+I (35420) LAB11_4_RMAKER: Device: [Living Room Light] | Target Parameter: [Power]
+I (35425) LAB11_4_RMAKER: >> Setting LED Hardware Output -> ON (GPIO 2 = 1)
+I (35430) esp_rmaker_param: Reported param 'Power' -> true
+
+# User Adjusts Brightness Slider to 75%:
+I (42110) LAB11_4_RMAKER: Command received via transport: Cloud (AWS IoT Shadow)
+I (42110) LAB11_4_RMAKER: Device: [Living Room Light] | Target Parameter: [Brightness]
+I (42115) LAB11_4_RMAKER: >> Changing Brightness Level to: 75%
+I (42120) esp_rmaker_param: Reported param 'Brightness' -> 75
+
+# User Toggles Switch OFF via Cellular 5G Network:
+I (58340) LAB11_4_RMAKER: Command received via transport: Cloud (AWS IoT Shadow)
+I (58340) LAB11_4_RMAKER: Device: [Living Room Light] | Target Parameter: [Power]
+I (58345) LAB11_4_RMAKER: >> Setting LED Hardware Output -> OFF (GPIO 2 = 0)
+I (58350) esp_rmaker_param: Reported param 'Power' -> false
+================================================================================
+

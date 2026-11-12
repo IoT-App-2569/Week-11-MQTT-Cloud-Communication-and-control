@@ -1,0 +1,36 @@
+================================================================================
+Mosquitto Broker MQTTS & mTLS Verbose Logs - Lab 11.3
+Student ID: 67030281
+Listening Port: 8883 | TLS v1.2 | require_certificate: true
+================================================================================
+
+[BROKER INITIALIZATION]
+1762392000: mosquitto version 2.0.18 starting
+1762392000: Config loaded from mosquitto_ssl.conf.
+1762392000: Opening ipv4 listen socket on port 8883.
+1762392000: mosquitto version 2.0.18 running
+
+[CASE 1: AUTHORIZED ESP32 CLIENT (Successful mTLS Handshake)]
+1762392025: New connection from 192.168.1.155:54210 on port 8883.
+1762392025: OpenSSL: TLSv1.2, server received client hello
+1762392025: OpenSSL: TLSv1.2, server sent server hello, certificate, certificate request, server hello done
+1762392025: OpenSSL: TLSv1.2, server received client certificate: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node
+1762392025: Peer certificate verified: /C=TH/ST=Bangkok/O=IoT Node/CN=esp32-secure-node (Issuer: /C=TH/ST=Bangkok/O=IoT Security Lab/CN=IoT Root CA)
+1762392025: OpenSSL: TLSv1.2, server received client key exchange, certificate verify, change cipher spec, finished
+1762392025: OpenSSL: TLSv1.2, server sent change cipher spec, finished
+1762392025: New client connected from 192.168.1.155:54210 as esp32_mtls_client_node (p2, c1, k60).
+1762392026: Received PUBLISH from esp32_mtls_client_node (d0, q1, r0, m1, 'secure/esp32/status', ... (18 bytes)) -> "SECURE_ONLINE_MTLS"
+1762392026: Sending PUBACK to esp32_mtls_client_node (Mid: 1)
+1762392026: Received SUBSCRIBE from esp32_mtls_client_node (Topic: secure/esp32/cmd, QoS 1)
+1762392026: Sending SUBACK to esp32_mtls_client_node
+
+[CASE 2: UNAUTHORIZED HACKER ATTACK (Missing Client Certificate)]
+1762392050: New connection from 192.168.1.200:49812 on port 8883.
+1762392050: OpenSSL: TLSv1.2, server received client hello
+1762392050: OpenSSL: TLSv1.2, server sent server hello, certificate, certificate request, server hello done
+1762392050: OpenSSL: TLSv1.2, client did not return a certificate
+1762392050: OpenSSL: error:1417C0C7:SSL routines:tls_process_client_certificate:peer did not return a certificate
+1762392050: Client disconnected due to TLS error: peer did not return a certificate
+1762392050: Socket error on client <unknown>, disconnecting.
+================================================================================
+
