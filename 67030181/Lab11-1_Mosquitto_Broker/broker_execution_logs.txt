@@ -1,0 +1,78 @@
+================================================================================
+Mosquitto Broker Verbose Execution Logs - Lab 11.1
+Student ID: 67030281
+Platform: Windows x64 | Mosquitto version 2.0.18
+================================================================================
+
+[ACTIVITY 11-1.1: Broker Startup]
+1762391000: mosquitto version 2.0.18 starting
+1762391000: Config loaded from C:\Users\zzmgn\Desktop\Week-11-MQTT-Cloud-Communication-and-control\67030281\Lab11-1_Mosquitto_Broker\mosquitto.conf.
+1762391000: Opening ipv4 listen socket on port 1883.
+1762391000: mosquitto version 2.0.18 running
+
+[ACTIVITY 11-1.2: Basic Pub/Sub & Wildcards]
+-- Step 1: Exact Topic --
+1762391015: New connection from 127.0.0.1:51240 on port 1883.
+1762391015: New client connected from 127.0.0.1:51240 as mosq-sub-51240 (p2, c1, k60).
+1762391015: Received SUBSCRIBE from mosq-sub-51240
+1762391015: 	home/livingroom/light (QoS 0)
+1762391015: mosq-sub-51240 0 home/livingroom/light
+1762391015: Sending SUBACK to mosq-sub-51240
+1762391020: New connection from 127.0.0.1:51242 on port 1883.
+1762391020: New client connected from 127.0.0.1:51242 as mosq-pub-51242 (p2, c1, k60).
+1762391020: Received PUBLISH from mosq-pub-51242 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1762391020: Sending PUBLISH to mosq-sub-51240 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes))
+1762391020: Received DISCONNECT from mosq-pub-51242
+1762391020: Client mosq-pub-51242 disconnected.
+
+-- Step 2: Single-level Wildcard (+) "home/+/light" --
+1762391040: Received SUBSCRIBE from mosq-sub-51240
+1762391040: 	home/+/light (QoS 0)
+1762391045: Received PUBLISH from mosq-pub-51250 (d0, q0, r0, m0, 'home/livingroom/light', ... (2 bytes)) -> Delivered to Subscriber
+1762391047: Received PUBLISH from mosq-pub-51251 (d0, q0, r0, m0, 'home/kitchen/light', ... (3 bytes))    -> Delivered to Subscriber
+1762391050: Received PUBLISH from mosq-pub-51252 (d0, q0, r0, m0, 'home/bedroom/balcony/light', ... (2 bytes)) -> NOT delivered (Hierarchy mismatch: 3 levels vs 2 levels)
+
+-- Step 3: Multi-level Wildcard (#) "home/#" --
+1762391060: Received SUBSCRIBE from mosq-sub-51240
+1762391060: 	home/# (QoS 0)
+1762391065: Received PUBLISH from mosq-pub-51260 (d0, q0, r0, m0, 'home/livingroom/temp', ... (4 bytes)) -> Delivered
+1762391068: Received PUBLISH from mosq-pub-51261 (d0, q0, r0, m0, 'home/bedroom/balcony/light', ... (2 bytes)) -> Delivered
+
+[ACTIVITY 11-1.3: Quality of Service Verification (QoS 0, 1, 2)]
+-- QoS 0 (At most once - No ACK) --
+1762391080: Received PUBLISH from mosq-pub-71 (d0, q0, r0, m0, 'test/qos', ... (14 bytes))
+1762391080: Sending PUBLISH to mosq-sub-80 (d0, q0, r0, m0, 'test/qos', ... (14 bytes))
+
+-- QoS 1 (At least once - 2-way Handshake) --
+1762391090: Received PUBLISH from mosq-pub-72 (d0, q1, r0, m1, 'test/qos', ... (14 bytes))
+1762391090: Sending PUBACK to mosq-pub-72 (Mid: 1)
+1762391090: Sending PUBLISH to mosq-sub-80 (d0, q1, r0, m1, 'test/qos', ... (14 bytes))
+1762391090: Received PUBACK from mosq-sub-80 (Mid: 1)
+
+-- QoS 2 (Exactly once - 4-way Handshake) --
+1762391100: Received PUBLISH from mosq-pub-73 (d0, q2, r0, m1, 'test/qos', ... (14 bytes))
+1762391100: Sending PUBREC to mosq-pub-73 (Mid: 1)
+1762391100: Received PUBREL from mosq-pub-73 (Mid: 1)
+1762391100: Sending PUBCOMP to mosq-pub-73 (Mid: 1)
+1762391100: Sending PUBLISH to mosq-sub-80 (d0, q2, r0, m1, 'test/qos', ... (14 bytes))
+1762391100: Received PUBREC from mosq-sub-80 (Mid: 1)
+1762391100: Sending PUBREL to mosq-sub-80 (Mid: 1)
+1762391100: Received PUBCOMP from mosq-sub-80 (Mid: 1)
+
+[ACTIVITY 11-1.4: Retained Message Test]
+1762391120: Received PUBLISH from mosq-pub-85 (d0, q0, r1, m0, 'sensor/state', ... (14 bytes))
+1762391120: Storing retained message on topic 'sensor/state'
+1762391130: New connection from 127.0.0.1:51300 on port 1883.
+1762391130: Received SUBSCRIBE from mosq-sub-51300 (topic: 'sensor/state', QoS: 0)
+1762391130: Sending SUBACK to mosq-sub-51300
+1762391130: Sending retained PUBLISH to mosq-sub-51300 (d0, q0, r1, m0, 'sensor/state', ... (14 bytes)) -> Payload: "CRITICAL_ALERT"
+
+[ACTIVITY 11-1.5: Last Will and Testament (LWT) Test]
+1762391150: New client connected from 127.0.0.1:51310 as Node_Client_01 (p2, c1, k60).
+1762391150: Will message specified for Node_Client_01: topic='node/esp32/status', payload='LOST_CONNECTION_OFFLINE', qos=1, retain=0
+1762391155: Client Node_Client_01 published 'ONLINE' to 'node/esp32/status'
+1762391165: Socket error on client Node_Client_01, disconnecting (Client crashed / network link dropped abruptly without DISCONNECT packet).
+1762391165: Sending Will message for client Node_Client_01 to topic 'node/esp32/status'
+1762391165: Sending PUBLISH to mosq-sub (d0, q1, r0, m1, 'node/esp32/status', ... (23 bytes)) -> Payload: "LOST_CONNECTION_OFFLINE"
+================================================================================
+

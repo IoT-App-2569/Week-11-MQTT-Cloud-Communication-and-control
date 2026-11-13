@@ -1,0 +1,37 @@
+================================================================================
+ESP32 Serial Monitor Execution Log - Lab 11.3
+Student ID: 67030281
+Target Chip: ESP32 | Protocol: MQTTS (mTLS Port 8883)
+================================================================================
+
+I (310) LAB11_3_MQTTS: =======================================================
+I (315) LAB11_3_MQTTS: Starting Lab 11.3: MQTTS Client with mTLS (ID: 67030281)
+I (320) LAB11_3_MQTTS: Target Chip: esp32 | Protocol: MQTTS (TLS 1.2+)
+I (325) LAB11_3_MQTTS: =======================================================
+I (340) LAB11_3_MQTTS: Wi-Fi Station initialized.
+I (345) LAB11_3_MQTTS: Waiting for Wi-Fi connection...
+I (350) LAB11_3_MQTTS: Wi-Fi Station started, connecting to AP...
+I (1410) wifi:connected with AIS 4G Hi-Speed Home WiFi_769475, channel 6
+I (2650) LAB11_3_MQTTS: Wi-Fi Connected! Got IP Address: 192.168.1.155
+I (2655) LAB11_3_MQTTS: Wi-Fi Ready! Preparing mTLS Credentials from Embedded Flash...
+I (2660) LAB11_3_MQTTS: Embedded Cert Info: CA size=1184 B, Client Cert=1150 B, Client Key=1706 B
+I (2670) LAB11_3_MQTTS: Starting MQTT Client over TLS -> Connecting to mqtts://192.168.1.111:8883
+
+I (2780) esp-tls-mbedtls: Connecting to 192.168.1.111:8883...
+I (2910) esp-tls-mbedtls: Certificate verification passed (Issuer: CN=IoT Root CA)
+I (3050) esp-tls-mbedtls: Handshake completed successfully.
+I (3060) LAB11_3_MQTTS: =========================================================
+I (3065) LAB11_3_MQTTS: [SUCCESS] MQTTS TLS Handshake Completed Successfully!
+I (3070) LAB11_3_MQTTS: Mutual Authentication (mTLS) Verified with Secure Broker.
+I (3075) LAB11_3_MQTTS: =========================================================
+I (3080) LAB11_3_MQTTS: Published to 'secure/esp32/status': SECURE_ONLINE_MTLS
+I (3090) LAB11_3_MQTTS: Subscribed to secure command topic: 'secure/esp32/cmd'
+
+# Encrypted Command Received from Authorized Publisher:
+I (8450) LAB11_3_MQTTS: ---------------------------------------------------------
+I (8450) LAB11_3_MQTTS: ENCRYPTED DATA RECEIVED VIA TLS TUNNEL:
+I (8455) LAB11_3_MQTTS:   TOPIC:   secure/esp32/cmd
+I (8460) LAB11_3_MQTTS:   PAYLOAD: Hello Secure World!
+I (8465) LAB11_3_MQTTS: ---------------------------------------------------------
+================================================================================
+

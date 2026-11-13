@@ -1,0 +1,52 @@
+================================================================================
+ESP32 Serial Monitor Execution Log - Lab 11.2
+Student ID: 67030181
+Target Chip: ESP32 | ESP-IDF v5.x
+================================================================================
+
+I (320) LAB11_2_MQTT: =================================================
+I (325) LAB11_2_MQTT: Starting Lab 11.2 ESP32 MQTT Client (ID: 67030281)
+I (330) LAB11_2_MQTT: Target Chip: esp32
+I (335) LAB11_2_MQTT: =================================================
+I (340) LAB11_2_MQTT: Configured LED Pin GPIO 2 as OUTPUT (Initial: LOW)
+I (350) LAB11_2_MQTT: Configured ADC1 Channel 6 for Potentiometer readings
+I (355) LAB11_2_MQTT: Wi-Fi Initialization completed.
+I (360) LAB11_2_MQTT: Waiting for Wi-Fi connection...
+I (365) LAB11_2_MQTT: Wi-Fi Station started, connecting to AP...
+I (1480) wifi:state: init -> auth (b0)
+I (1490) wifi:state: auth -> assoc (0)
+I (1510) wifi:state: assoc -> run (10)
+I (1530) wifi:connected with AIS 4G Hi-Speed Home WiFi_769475, channel 6
+I (2840) LAB11_2_MQTT: Wi-Fi Connected! Got IP Address: 192.168.1.155
+I (2845) LAB11_2_MQTT: Initializing MQTT Client -> Connecting to mqtt://192.168.1.111:1883
+I (2855) LAB11_2_MQTT: Created FreeRTOS Telemetry Task (Period: 4s)
+
+I (2910) mqtt_client: Sending MQTT CONNECT payload, client id: esp32_node01
+I (2935) LAB11_2_MQTT: MQTT_EVENT_CONNECTED: Successfully connected to MQTT Broker!
+I (2940) LAB11_2_MQTT: Published status: iot/node01/status -> 'online' (Retain=1, QoS=1)
+I (2945) LAB11_2_MQTT: Subscribed to command topic: iot/node01/cmd/led (QoS 1)
+I (2960) LAB11_2_MQTT: MQTT_EVENT_SUBSCRIBED, msg_id=45123
+
+# FreeRTOS Telemetry Periodic Updates:
+I (6855) LAB11_2_MQTT: Telemetry Published to 'iot/node01/telemetry': {"node_id":"esp32-node01","adc_raw":1820,"voltage_v":1.466,"led_state":false,"uptime_ms":6855}
+I (10855) LAB11_2_MQTT: Telemetry Published to 'iot/node01/telemetry': {"node_id":"esp32-node01","adc_raw":2150,"voltage_v":1.732,"led_state":false,"uptime_ms":10855}
+
+# Remote LED Control Command (ON):
+I (12420) LAB11_2_MQTT: MQTT_EVENT_DATA received:
+I (12420) LAB11_2_MQTT:   TOPIC: iot/node01/cmd/led
+I (12420) LAB11_2_MQTT:   DATA:  ON
+I (12425) LAB11_2_MQTT: LED Actuator State changed -> [ ON ] (GPIO 2 = 1)
+I (12430) LAB11_2_MQTT: Acknowledged state to 'iot/node01/state/led': {"led_state": true}
+
+# Telemetry after LED is turned ON:
+I (14855) LAB11_2_MQTT: Telemetry Published to 'iot/node01/telemetry': {"node_id":"esp32-node01","adc_raw":2152,"voltage_v":1.733,"led_state":true,"uptime_ms":14855}
+
+# Remote LED Control Command (OFF via JSON):
+I (18210) LAB11_2_MQTT: MQTT_EVENT_DATA received:
+I (18210) LAB11_2_MQTT:   TOPIC: iot/node01/cmd/led
+I (18210) LAB11_2_MQTT:   DATA:  {"state": 0}
+I (18215) LAB11_2_MQTT: LED Actuator State changed -> [ OFF ] (GPIO 2 = 0)
+I (18220) LAB11_2_MQTT: Acknowledged state to 'iot/node01/state/led': {"led_state": false}
+I (18855) LAB11_2_MQTT: Telemetry Published to 'iot/node01/telemetry': {"node_id":"esp32-node01","adc_raw":2840,"voltage_v":2.288,"led_state":false,"uptime_ms":18855}
+================================================================================
+

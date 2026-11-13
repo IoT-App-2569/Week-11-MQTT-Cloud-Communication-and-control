@@ -1,0 +1,7 @@
+## IDF Component Manager Manifest File
+dependencies:
+  idf:
+    version: '>=4.4.0'
+  espressif/cjson: '*'
+  espressif/mqtt: '*'
+
